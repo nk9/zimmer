@@ -1,5 +1,7 @@
 import Phaser from 'phaser'
 
+var brick;
+
 function preload() {
 	// this.load.setBaseURL('http://labs.phaser.io')
 	this.load.image('hallway', 'assets/pics/hallway.jpg')
@@ -17,10 +19,13 @@ function create() {
     helloButton.setInteractive();
     helloButton.on('pointerover', () => { console.log('pointerover'); });
 
-    var brick = this.add.sprite(100,100, 'yellow-bricks', '2x4.png')
+    brick = this.add.sprite(100,100, 'yellow-bricks', '2x4.png')
+    brick.setOrigin(0.5);
     brick.setInteractive()
-    	.on('pointerover', () => { console.log('brick!'); });
+    	.on('pointerover', () => { console.log('brick!'); })
+    	.on('pointerup', pointer => { if (pointer.getDistance() < 1) { brick.angle += 90; } });
     this.input.setDraggable(brick);
+    this.input.dragDragThreshold = 1;
 
     this.input.on('drag', function (pointer, gameObject, dragX, dragY) {
 
@@ -33,6 +38,11 @@ function create() {
 	// under_bridge.setOrigin(0,0)
 }
 
+function update() {
+	// Has to be called in update in order for the change to register
+	brick.angle = brick.angle;
+}
+
 const config = {
 	type: Phaser.AUTO,
 	width: 1200,
@@ -40,6 +50,7 @@ const config = {
 	scene: {
 		preload: preload,
 		create: create,
+		update: update,
 	},
 }
 
