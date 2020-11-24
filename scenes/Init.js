@@ -11,9 +11,12 @@ class Init extends Scene {
 
     preload() {
         this.load.image('hallway', '../assets/pics/hallway.jpg')
+        this.load.image('church_door', '../assets/pics/church_door.jpg')
 
         // Lego Sprites
         this.load.atlas('yellow-bricks', '../assets/sprites/yellow-bricks-spritesheet.png', '../assets/sprites/yellow-bricks-spritesheet.json');
+        this.load.image('pouch_open', '../assets/pics/pouch_open.png')
+        this.load.image('pouch_closed', '../assets/pics/pouch_closed_small.png')
 
         /* this.load.audio('music-town', ['assets/music/town.mp3']); */
 
