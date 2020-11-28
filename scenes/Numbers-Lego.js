@@ -63,13 +63,21 @@ class Numbers_Lego extends BaseScene {
 		// 	bricks[i].angle = bricks[i].angle;
 		// }
 
-		// for (var i = rects.length - 1; i >= 0; i--) {
-		// 	let r = rects[i]
-		// 	let topLeft = r.getTopLeft()
-		// 	let size = Phaser.Geom.Rectangle.GetSize(r)
-		// 	let overlap = this.physics.overlapRect(topLeft.x, topLeft.y, size.x, size.y);
-		// 	console.log(overlap);
-		// }
+		for (var i = rects.length - 1; i >= 0; i--) {
+			let r = rects[i].getBounds();
+			var overlapCount = 0;
+			
+			for (var j = bricks.length - 1; j >= 0; j--) {
+				let brick = bricks[j];
+				let br = brick.getBounds();
+
+				var intersection = Phaser.Geom.Rectangle.Intersection(r, br);
+				if (Phaser.Geom.Rectangle.Equals(intersection, br)) {
+					console.log(`brick ${j} (${brick.legoTotal}) is inside rect ${i}`);
+				}
+				
+			}
+		}
 	}
 
 	createBricks() {
@@ -90,7 +98,10 @@ class Numbers_Lego extends BaseScene {
 	addBrick(w, h, x, y) {
 		let brick = this.add.sprite(x * LEGO_GRID, y * LEGO_GRID,
 									'yellow-bricks',
-									`${h}x${w}.png`)
+									`${h}x${w}.png`);
+		brick.legoTotal = w*h;
+		brick.legoW = w;
+		brick.legoH = h;
 		brick.setOrigin(0, 0);
 		brick.setInteractive()
 			.on('pointerup', pointer => {if (pointer.getDistance() < DRAG_THRESHOLD) { brick.angle += 90; }});
