@@ -9,6 +9,8 @@ var pouch_open;
 const LEGO_GRID = 29;
 const SMALL_POUCH_X = 1000;
 const SMALL_POUCH_Y = 700;
+const KEY_ZONE_X = 460;
+const KEY_ZONE_Y = 520;
 const POUCH_DEPTH = 10;
 const UNDER_POUCH_DEPTH = 8;
 const ABOVE_POUCH_DEPTH = 12;
@@ -25,28 +27,31 @@ class Numbers_Lego extends BaseScene {
 	create() {
         // super.create('a', 'b', true);
 
+		// Create these first so they are under the background picture
 	    this.createBricks();
+		this.createRectangles();
 
 		var church_door = this.add.image(0, 0, 'church_door')
 		church_door.setOrigin(0,0)
 
-		this.createRectangles();
-
-		// Inside brick bag background
-		// var graphics = this.add.graphics();
-		// graphics.fillStyle(0x000000, .5);
-		// graphics.fillRoundedRect(31 * LEGO_GRID,
-		// 						 1  * LEGO_GRID,
-		// 						 8  * LEGO_GRID,
-		// 						 20 * LEGO_GRID)
-
 	    pouch_closed = this.add.image(SMALL_POUCH_X, SMALL_POUCH_Y, 'pouch_closed');
-	    pouch_closed.scale = .4;
-	    pouch_closed.alpha = .5;
-	    pouch_closed.setInteractive()
+	    pouch_closed.scale = .2;
+	    pouch_closed.alpha = .2;
+	    pouch_closed.setInteractive({ useHandCursor: true })
 	    	.on('pointerover', () => { pouch_closed.alpha = 1; })
-	    	.on('pointerout', () => { pouch_closed.alpha = .5; })
-			.on('pointerup', pointer => { if (pointer.getDistance() < DRAG_THRESHOLD) { this.clickPouch() } });
+	    	.on('pointerout', () => { pouch_closed.alpha = .2; })
+			.on('pointerup', pointer => {
+				if (pointer.getDistance() < DRAG_THRESHOLD) {
+					this.clickPouch()
+				}
+			});
+
+		// let debug = this.add.rectangle(KEY_ZONE_X, KEY_ZONE_Y, 40, 40, 0xff0000)
+		let key_zone = this.add.zone(KEY_ZONE_X, KEY_ZONE_Y, 40, 40)
+			.setInteractive({useHandCursor: true})
+			.on('pointerup', pointer => {
+				this.clickKeyholes()
+			})
 
 	    this.input.dragDragThreshold = DRAG_THRESHOLD;
 
@@ -58,11 +63,6 @@ class Numbers_Lego extends BaseScene {
 	}
 
 	update() {
-		// Has to be called in update in order for the change to register
-		// for (var i = bricks.length - 1; i >= 0; i--) {
-		// 	bricks[i].angle = bricks[i].angle;
-		// }
-
 		for (var i = rects.length - 1; i >= 0; i--) {
 			let r = rects[i].getBounds();
 			var overlapCount = 0;
@@ -72,48 +72,76 @@ class Numbers_Lego extends BaseScene {
 				let br = brick.getBounds();
 
 				var intersection = Phaser.Geom.Rectangle.Intersection(r, br);
+
 				if (Phaser.Geom.Rectangle.Equals(intersection, br)) {
 					console.log(`brick ${j} (${brick.legoTotal}) is inside rect ${i}`);
 				}
-				
 			}
 		}
 	}
 
 	createBricks() {
-		console.log("createBricks");
-
 	    // Create bricks
 	    const offset = 15 * LEGO_GRID;
-	    this.addBrick(2, 1, 29, 3);
-	    this.addBrick(2, 1, 32, 3);
-	    this.addBrick(2, 1, 35, 3);
-	    this.addBrick(4, 2, 29, 5);
-	    this.addBrick(4, 2, 34, 5);
-	    this.addBrick(2, 2, 29, 8);
-	    this.addBrick(3, 2, 32, 8);
-	    this.addBrick(3, 2, 29, 18);
+	    this.addBrick(2, 1, 29, 6);
+	    this.addBrick(3, 1, 32, 6);
+	    this.addBrick(2, 1, 36, 6);
+	    this.addBrick(4, 2, 29, 8);
+	    this.addBrick(4, 2, 34, 8);
+	    this.addBrick(2, 2, 29, 11);
+	    this.addBrick(3, 2, 32, 11);
+	    this.addBrick(2, 2, 36, 11);
+	    this.addBrick(3, 1, 35, 14);
+	    this.addBrick(5, 1, 29, 14);
+	    this.addBrick(6, 1, 29, 16);
+	    this.addBrick(2, 1, 36, 16);
+	    this.addBrick(3, 1, 29, 18);
+	    this.addBrick(5, 1, 33, 18);
+	    this.addBrick(7, 1, 30, 20);
 	}
 
 	addBrick(w, h, x, y) {
-		let brick = this.add.sprite(x * LEGO_GRID, y * LEGO_GRID,
+		let wL = w * LEGO_GRID;
+		let hL = h * LEGO_GRID;
+
+		var container = this.add.container(x * LEGO_GRID, y * LEGO_GRID);
+		container.setSize(wL, hL);
+		container.legoTotal = w*h;
+		container.legoW = w;
+		container.legoH = h;
+		
+		let brick = this.add.sprite(0, 0,
 									'yellow-bricks',
 									`${h}x${w}.png`);
-		brick.legoTotal = w*h;
-		brick.legoW = w;
-		brick.legoH = h;
 		brick.setOrigin(0, 0);
-		brick.setInteractive()
-			.on('pointerup', pointer => {if (pointer.getDistance() < DRAG_THRESHOLD) { brick.angle += 90; }});
-		this.input.setDraggable(brick);
+		let brickCenter = brick.getCenter();
 
-		bricks.push(brick);
+		let text = this.add.text(brickCenter.x, brickCenter.y, `${w*h}`,
+			{fill: "#000", fontSize: "17pt", stoke: "#fff", strokeThickness: 5});
+		text.setOrigin(0.5, 0.5);
+
+		container.setInteractive({
+			hitArea:new Phaser.Geom.Rectangle(wL/2, hL/2, wL, hL),
+			hitAreaCallback: Phaser.Geom.Rectangle.Contains,
+			draggable: true
+		})
+			.on('pointerup', pointer => {
+				if (pointer.getDistance() < DRAG_THRESHOLD) {
+					container.angle += 90; text.angle -= 90;
+				}
+			});
+		this.input.setDraggable(container);
+
+		container.add(brick);
+		container.add(text);
+
+		bricks.push(container);
 	}
 
 	createRectangles() {
-		this.addRectangle(2, 5, 2, 2);
-		this.addRectangle(6, 2, 6, 2);
-		this.addRectangle(3, 4, 6, 5);
+		this.addRectangle(2, 5, 12, 7);
+		this.addRectangle(2, 5, 10, 15);
+		this.addRectangle(2, 5, 14, 15);
 	}
 
 	addRectangle(w, h, x, y) {
@@ -129,6 +157,7 @@ class Numbers_Lego extends BaseScene {
 		let text = this.add.text(rectCenter.x, rectCenter.y, `${total}`,
 			{fill: "#fff", fontSize: "20pt"});
 		text.setOrigin(0.5, 1);
+		rect.text = text;
 
 		rects.push(rect);
 	}
@@ -170,6 +199,10 @@ class Numbers_Lego extends BaseScene {
 				}
 	    	}]
 	    });
+	}
+
+	clickKeyholes() {
+		console.log("clicked!")
 	}
 }
 
