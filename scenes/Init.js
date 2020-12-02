@@ -18,6 +18,9 @@ class Init extends Scene {
         this.load.image('pouch_open', '../assets/pics/pouch_open.png')
         this.load.image('pouch_closed', '../assets/pics/pouch_closed_small.png')
 
+        // Particles
+        this.load.image('spark', '../assets/particles/blue.png');
+
         /* this.load.audio('music-town', ['assets/music/town.mp3']); */
 
         this.load.on('progress', this.onLoadProgress, this);

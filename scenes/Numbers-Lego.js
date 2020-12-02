@@ -4,6 +4,7 @@ import { NUMBERS_LEGO } from '../constants/scenes';
 
 var bricks = [];
 var rects = [];
+var emitters = [];
 var pouch_closed;
 var pouch_open;
 const LEGO_GRID = 29;
@@ -29,10 +30,11 @@ class Numbers_Lego extends BaseScene {
 
 		// Create these first so they are under the background picture
 	    this.createBricks();
-		this.createRectangles();
 
 		var church_door = this.add.image(0, 0, 'church_door')
 		church_door.setOrigin(0,0)
+
+		this.createRectangles();
 
 	    pouch_closed = this.add.image(SMALL_POUCH_X, SMALL_POUCH_Y, 'pouch_closed');
 	    pouch_closed.scale = .2;
@@ -65,17 +67,35 @@ class Numbers_Lego extends BaseScene {
 	update() {
 		for (var i = rects.length - 1; i >= 0; i--) {
 			let r = rects[i].getBounds();
-			var overlapCount = 0;
+			var containedBricks = [];
 			
 			for (var j = bricks.length - 1; j >= 0; j--) {
 				let brick = bricks[j];
 				let br = brick.getBounds();
 
-				var intersection = Phaser.Geom.Rectangle.Intersection(r, br);
+				let intersection = Phaser.Geom.Rectangle.Intersection(r, br);
 
 				if (Phaser.Geom.Rectangle.Equals(intersection, br)) {
-					console.log(`brick ${j} (${brick.legoTotal}) is inside rect ${i}`);
+					// console.log(`brick ${j} (${brick.legoTotal}) is inside rect ${i}`);
+					containedBricks.push(brick);
 				}
+			}
+
+			var emit = false;
+			if (containedBricks.length == 2) {
+				let brick1 = containedBricks[0],
+					brick2 = containedBricks[1];
+				let intersection = Phaser.Geom.Rectangle.Intersection(brick1.getBounds(),
+																	  brick2.getBounds());
+				if (intersection.isEmpty() && brick1.legoTotal + brick2.legoTotal == 10) {
+					emit = true;
+				}
+			}
+			
+			if (emit && !emitters[i].on) {
+				emitters[i].start();
+			} else if (!emit && emitters[i].on) {
+				emitters[i].stop();
 			}
 		}
 	}
@@ -160,6 +180,24 @@ class Numbers_Lego extends BaseScene {
 		rect.text = text;
 
 		rects.push(rect);
+
+		let rectEdge = new Phaser.Geom.Rectangle(0, 0, 400, 400);
+
+	    var emitter = this.add.particles('spark').createEmitter({
+	    	on: false,
+	        x: rect.x,
+	        y: rect.y,
+	        blendMode: 'SCREEN',
+	        scale: { start: 0.2, end: 0 },
+	        speed: { min: -100, max: 100 },
+	        quantity: 10,
+	        emitZone: {
+		    	source: rectEdge,
+		    	type: 'edge'
+		    }
+	    });
+
+	    emitters.push(emitter);
 	}
 
 	clickPouch() {
