@@ -204,8 +204,6 @@ class Numbers_Lego extends BaseScene {
 
 		rects.push(rect);
 
-		let rectEdge = new Phaser.Geom.Rectangle(0, 0, 400, 400);
-
 	    var emitter = this.add.particles('spark').createEmitter({
 	    	on: false,
 	        x: rect.x,
@@ -215,9 +213,10 @@ class Numbers_Lego extends BaseScene {
 	        speed: { min: -100, max: 100 },
 	        quantity: 10,
 	        emitZone: {
-		    	source: rectEdge,
-		    	type: 'edge'
-		    }
+		        source: new Phaser.Geom.Rectangle(0, 0, rect.width, rect.height),
+		        type: 'edge',
+		        quantity: 50
+	        }
 	    });
 
 	    emitters.push(emitter);
