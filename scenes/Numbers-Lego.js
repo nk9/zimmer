@@ -130,17 +130,14 @@ class Numbers_Lego extends BaseScene {
 	    this.addBrick(3, 1, 32, 6);
 	    this.addBrick(2, 1, 36, 6);
 	    this.addBrick(4, 2, 29, 8);
-	    this.addBrick(4, 2, 34, 8);
 	    this.addBrick(2, 2, 29, 11);
 	    this.addBrick(3, 2, 32, 11);
 	    this.addBrick(2, 2, 36, 11);
 	    this.addBrick(3, 1, 35, 14);
 	    this.addBrick(5, 1, 29, 14);
-	    this.addBrick(6, 1, 29, 16);
 	    this.addBrick(2, 1, 36, 16);
 	    this.addBrick(3, 1, 29, 18);
 	    this.addBrick(5, 1, 33, 18);
-	    this.addBrick(7, 1, 30, 20);
 	}
 
 	addBrick(w, h, x, y) {
