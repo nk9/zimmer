@@ -19,6 +19,7 @@ const KEY_ZONE_Y = 520;
 const POUCH_DEPTH = 10;
 const UNDER_POUCH_DEPTH = 8;
 const ABOVE_POUCH_DEPTH = 12;
+const ABOVE_POUCH_DRAGGING_DEPTH = 14;
 
 class Numbers_Lego extends BaseScene {
     constructor() {
@@ -182,6 +183,15 @@ class Numbers_Lego extends BaseScene {
 			hitAreaCallback: Phaser.Geom.Rectangle.Contains,
 			draggable: true
 		})
+			.on('pointerdown', pointer => {
+				for (var i = bricks.length - 1; i >= 0; i--) {
+					if (bricks[i] == container) {
+						bricks[i].setDepth(ABOVE_POUCH_DRAGGING_DEPTH);
+					} else {
+						bricks[i].setDepth(ABOVE_POUCH_DEPTH);
+					}
+				}
+			})
 			.on('pointerup', pointer => {
 				if (pointer.getDistance() < DRAG_THRESHOLD) {
 					container.angle += 90; text.angle -= 90;
