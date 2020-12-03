@@ -1,12 +1,17 @@
 import { Scene } from 'phaser';
 import { FADE_DURATION } from '../constants/config';
 
-console.log("BaseScene")
+export const SceneProgress = {
+	BEGIN:   1,
+	FAILED:  10,
+	SUCCESS: 20,
+}
 
 class BaseScene extends Scene {
     constructor(key) {
         super({ key });
         this.key = key;
+        this.progress = SceneProgress.BEGIN;
     }
 
     init() {

@@ -1,11 +1,13 @@
-import BaseScene from './base-scene';
+import BaseScene, { SceneProgress } from './base-scene';
 import { DRAG_THRESHOLD } from '../constants/config';
 import { NUMBERS_LEGO } from '../constants/scenes';
+import PieMeter from '../components/pie-meter';
 
 var bricks = [];
 var rects = [];
 var emitters = [];
 var pouch_open;
+var pie_meter;
 
 const LEGO_GRID = 29;
 const SMALL_POUCH_X = 1000;
@@ -88,6 +90,8 @@ class Numbers_Lego extends BaseScene {
 	}
 
 	update() {
+		var completedRects = [];
+
 		for (var i = rects.length - 1; i >= 0; i--) {
 			let r = rects[i].getBounds();
 			var containedBricks = [];
@@ -112,6 +116,7 @@ class Numbers_Lego extends BaseScene {
 																	  brick2.getBounds());
 				if (intersection.isEmpty() && brick1.legoTotal + brick2.legoTotal == 10) {
 					emit = true;
+					completedRects.push(rects[i]);
 				}
 			}
 			
@@ -119,6 +124,18 @@ class Numbers_Lego extends BaseScene {
 				emitters[i].start();
 			} else if (!emit && emitters[i].on) {
 				emitters[i].stop();
+			}
+		}
+
+		if (completedRects.length == 3) {
+			this.progress = SceneProgress.SUCCEEDED;
+		}
+
+		if (this.progress != SceneProgress.FAILED &&
+			this.progress != SceneProgress.SUCCEEDED) {
+			if (this.updatePieTimer()) {
+				this.progress = SceneProgress.FAILED;
+				console.log("failed");
 			}
 		}
 	}
@@ -250,14 +267,30 @@ class Numbers_Lego extends BaseScene {
 					sprite.setDepth(ABOVE_POUCH_DEPTH); // Move bricks on top of pouch
 				},
 				delay: function(target, targetKey, value, targetIndex, totalTargets, tween) {
-					return targetIndex * Phaser.Math.Between(0, 250);
+					return targetIndex * Phaser.Math.Between(0, 150);
 				}
 	    	}]
 	    });
+
+	    pie_meter = new PieMeter(this, 120, 120, 30, 0, 1);
+	    pie_meter.drawPie(270);
+
+	    this.timer = this.time.addEvent({ delay: 35*1000, repeat: 0 });
 	}
 
 	clickKeyholes() {
 		console.log("clicked!")
+	}
+
+	updatePieTimer() {
+		if (this.timer !== undefined) {
+			let progress_deg = this.timer.getProgress() * 360;
+			pie_meter.drawPie(progress_deg);
+
+			return (progress_deg == 360);
+		}
+
+		return false;
 	}
 }
 
