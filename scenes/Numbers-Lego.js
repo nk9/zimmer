@@ -5,11 +5,13 @@ import { NUMBERS_LEGO } from '../constants/scenes';
 var bricks = [];
 var rects = [];
 var emitters = [];
-var pouch_closed;
 var pouch_open;
+
 const LEGO_GRID = 29;
 const SMALL_POUCH_X = 1000;
 const SMALL_POUCH_Y = 700;
+const SMALL_POUCH_W = 40;
+const SMALL_POUCH_H = 64;
 const KEY_ZONE_X = 460;
 const KEY_ZONE_Y = 520;
 const POUCH_DEPTH = 10;
@@ -36,15 +38,36 @@ class Numbers_Lego extends BaseScene {
 
 		this.createRectangles();
 
-	    pouch_closed = this.add.image(SMALL_POUCH_X, SMALL_POUCH_Y, 'pouch_closed');
+	    let pouch_closed = this.add.image(SMALL_POUCH_X, SMALL_POUCH_Y, 'pouch_closed');
+	    let pouch_closed_outlined = this.add.image(SMALL_POUCH_X, SMALL_POUCH_Y, 'pouch_closed_outlined');
 	    pouch_closed.scale = .2;
-	    pouch_closed.alpha = .2;
-	    pouch_closed.setInteractive({ useHandCursor: true })
-	    	.on('pointerover', () => { pouch_closed.alpha = 1; })
-	    	.on('pointerout', () => { pouch_closed.alpha = .2; })
+	    pouch_closed_outlined.scale = .2;
+	    pouch_closed.setVisible(true);
+	    pouch_closed_outlined.setVisible(false);
+
+	    let pouch_closed_zone = this.add.zone(SMALL_POUCH_X, SMALL_POUCH_Y, SMALL_POUCH_W, SMALL_POUCH_H)
+	    	.setInteractive({useHandCursor: true})
+	    	.on('pointerover', () => {
+	    		console.log("pointerover");
+	    		if (pouch_closed.visible) {
+		    		pouch_closed.setVisible(false);
+		    		pouch_closed_outlined.setVisible(true);
+		    	}
+	    	})
+	    	.on('pointerout', () => {
+	    		console.log("pointerout");
+	    		if (!pouch_closed.visible) {
+		    		pouch_closed.setVisible(true);
+		    		pouch_closed_outlined.setVisible(false);
+		    	}
+	    	})
 			.on('pointerup', pointer => {
 				if (pointer.getDistance() < DRAG_THRESHOLD) {
+					pouch_closed.destroy();
+					pouch_closed_outlined.destroy();
+
 					this.clickPouch()
+					pouch_closed_zone.destroy();
 				}
 			});
 
@@ -201,8 +224,6 @@ class Numbers_Lego extends BaseScene {
 	}
 
 	clickPouch() {
-		pouch_closed.destroy();
-	    
 	    pouch_open = this.add.image(SMALL_POUCH_X, SMALL_POUCH_Y, 'pouch_open');
 	    pouch_open.scale=0.1;
 

@@ -17,6 +17,7 @@ class Init extends Scene {
         this.load.atlas('yellow-bricks', '../assets/sprites/yellow-bricks-spritesheet.png', '../assets/sprites/yellow-bricks-spritesheet.json');
         this.load.image('pouch_open', '../assets/pics/pouch_open.png')
         this.load.image('pouch_closed', '../assets/pics/pouch_closed_small.png')
+        this.load.image('pouch_closed_outlined', '../assets/pics/pouch_closed_small_outlined.png')
 
         // Particles
         this.load.image('spark', '../assets/particles/blue.png');
