@@ -3,6 +3,7 @@ build
 npm-debug.log
 .env
 .DS_Store
+*.swp
 
 # Parcel related files
 dist/
