@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "parcel index.html",
+    "start": "ls -l dist/; parcel index.html",
     "build": "parcel build index.html --public-url ./"
   },
   "keywords": [],
