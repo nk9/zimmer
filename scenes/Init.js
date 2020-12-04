@@ -1,5 +1,10 @@
 import { Scene } from 'phaser';
 import { INIT, NUMBERS_LEGO } from '../constants/scenes';
+import imagesJpg from '../assets/pics/*.jpg'
+import imagesPng from '../assets/pics/*.png'
+import particles from '../assets/particles/*.png'
+import spritesImg from '../assets/sprites/*.png'
+import spritesJson from '../assets/sprites/*.json'
 
 class Init extends Scene {
     constructor() {
@@ -10,17 +15,17 @@ class Init extends Scene {
     }
 
     preload() {
-        this.load.image('hallway', '../assets/pics/hallway.jpg')
-        this.load.image('church_door', '../assets/pics/church_door.jpg')
+        // this.load.image('hallway', imagesJpg.hallway)
+        this.load.image('church_door', imagesJpg.church_door)
 
         // Lego Sprites
-        this.load.atlas('yellow-bricks', '../assets/sprites/yellow-bricks-spritesheet.png', '../assets/sprites/yellow-bricks-spritesheet.json');
-        this.load.image('pouch_open', '../assets/pics/pouch_open.png')
-        this.load.image('pouch_closed', '../assets/pics/pouch_closed_small.png')
-        this.load.image('pouch_closed_outlined', '../assets/pics/pouch_closed_small_outlined.png')
+        this.load.atlas('yellow-bricks', spritesImg.yellow_bricks_spritesheet, spritesJson.yellow_bricks_spritesheet);
+        this.load.image('pouch_open', imagesPng.pouch_open)
+        this.load.image('pouch_closed', imagesPng.pouch_closed_small)
+        this.load.image('pouch_closed_outlined', imagesPng.pouch_closed_small_outlined)
 
         // Particles
-        this.load.image('spark', '../assets/particles/blue.png');
+        this.load.image('spark', particles.blue);
 
         /* this.load.audio('music-town', ['assets/music/town.mp3']); */
 
