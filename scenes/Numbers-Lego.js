@@ -3,18 +3,19 @@ import { DRAG_THRESHOLD, GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
 import { NUMBERS_LEGO } from '../constants/scenes';
 import PieMeter from '../components/pie-meter';
 
-var bricks = [];
-var rects = [];
-var emitters = [];
-var pouch_open;
-var pie_meter;
-
 const SMALL_POUCH_X = 800;
 const SMALL_POUCH_Y = 600;
 const SMALL_POUCH_W = 40;
 const SMALL_POUCH_H = 64;
-const KEY_ZONE_X = 460;
-const KEY_ZONE_Y = 520;
+const kKeyZone = {x: 550, y: 330, width: 60, height: 120};
+
+var bricks = [];
+var rects = [];
+var rects_background;
+var emitters = [];
+var pouch_open;
+var pie_meter;
+var key_zone;
 
 class Numbers_Lego extends BaseScene {
     constructor() {
@@ -72,12 +73,14 @@ class Numbers_Lego extends BaseScene {
 				}
 			});
 
-		// let debug = this.add.rectangle(KEY_ZONE_X, KEY_ZONE_Y, 40, 40, 0xff0000)
-		let key_zone = this.add.zone(KEY_ZONE_X, KEY_ZONE_Y, 40, 40)
+		// let debug = this.add.rectangle(kKeyZone.x, kKeyZone.y, kKeyZone.width, kKeyZone.height, 0xff0000)
+		// 			.setOrigin(0,0);
+		key_zone = this.make.zone(kKeyZone)
+			.setOrigin(0,0)
 			.setInteractive({useHandCursor: true})
 			.on('pointerup', pointer => {
-				this.clickKeyholes()
-			})
+				this.clickKeyZone()
+			});
 
 	    this.input.dragDragThreshold = DRAG_THRESHOLD;
 
@@ -204,6 +207,15 @@ class Numbers_Lego extends BaseScene {
 	}
 
 	createRectangles() {
+		rects_background = this.add.graphics();
+		rects_background.fillStyle(0x000000, .6);
+		rects_background.fillRoundedRect(17 * LEGO_GRID,
+										 3  * LEGO_GRID,
+										 8  * LEGO_GRID,
+										 17 * LEGO_GRID);
+		rects_background.setDepth(Layers.OVER_DOOR);
+		rects_background.setAlpha(0);
+
 		this.addRectangle(2, 5, 20, 5);
 		this.addRectangle(2, 5, 18, 13);
 		this.addRectangle(2, 5, 22, 13);
@@ -216,17 +228,22 @@ class Numbers_Lego extends BaseScene {
 			w*LEGO_GRID, h*LEGO_GRID,
 			LEGO_GRID, LEGO_GRID, 0xffffff);
 		rect.setOrigin(0,0);
+		rect.setDepth(Layers.OVER_DOOR);
+		rect.setAlpha(0);
 		let rectCenter = rect.getTopCenter();
 
 		let total = h * w;
 		let text = this.add.text(rectCenter.x, rectCenter.y, `${total}`,
 			{fill: "#fff", fontSize: "20pt"});
 		text.setOrigin(0.5, 1);
+		text.setDepth(Layers.OVER_DOOR);
+		text.setAlpha(0);
 		rect.text = text;
 
 		rects.push(rect);
 
-	    var emitter = this.add.particles('spark').createEmitter({
+	    let particle = this.add.particles('spark')
+	    let emitter = particle.createEmitter({
 	    	on: false,
 	        x: rect.x,
 	        y: rect.y,
@@ -240,6 +257,7 @@ class Numbers_Lego extends BaseScene {
 		        quantity: 50
 	        }
 	    });
+		particle.setDepth(Layers.OVER_DOOR);
 
 	    emitters.push(emitter);
 	}
@@ -271,22 +289,30 @@ class Numbers_Lego extends BaseScene {
 						targets[i].setDepth(Layers.UNDER_POUCH); // Move bricks on top of background, behind pouch
 					}
 				},
+				onComplete: function () {
+				    pie_meter = new PieMeter(this, 120, 120, 30, 0, 1);
+
+				    this.timer = this.time.addEvent({ delay: 32*1000, repeat: 0 });
+				},
+				onCompleteScope: this,
 				onYoyo: function (tween, sprite) {
 					sprite.setDepth(Layers.OVER_POUCH); // Move bricks on top of pouch
 				},
 				delay: function(target, targetKey, value, targetIndex, totalTargets, tween) {
 					return targetIndex * Phaser.Math.Between(0, 150);
-				}
+				},
 	    	}]
 	    });
-
-	    pie_meter = new PieMeter(this, 120, 120, 30, 0, 1);
-
-	    this.timer = this.time.addEvent({ delay: 35*1000, repeat: 0 });
 	}
 
-	clickKeyholes() {
-		console.log("clicked!")
+	clickKeyZone() {
+		key_zone.destroy();
+		this.tweens.add({
+			targets: rects.concat([rects_background]).concat(rects.map(o => o.text)),
+			ease: 'Sine.easeIn',
+			duration: 1000,
+			alpha: 1
+		});
 	}
 
 	updatePieTimer() {

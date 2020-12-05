@@ -10,6 +10,7 @@ export const SceneProgress = {
 export const Layers = {
     UNDERLAY: 1,
     BACKGROUND: 2,
+    OVER_DOOR: 8,
     POUCH: 10,
     UNDER_POUCH: 8,
     OVER_POUCH: 12,
