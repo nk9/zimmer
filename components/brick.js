@@ -25,6 +25,9 @@ class Brick extends Phaser.GameObjects.Container {
 			{fill: "#000", fontSize: "17pt", stoke: "#fff", strokeThickness: 5});
 		text.setOrigin(0.5, 0.5);
 
+		let border = scene.add.rectangle(0, 0, wL, hL);
+		border.setOrigin(0, 0);
+		border.setStrokeStyle(2, 0x000000, .3);
 
 		this.setInteractive({
 			hitArea:new Phaser.Geom.Rectangle(wL/2, hL/2, wL, hL),
@@ -40,6 +43,7 @@ class Brick extends Phaser.GameObjects.Container {
 
 		this.add(brick);
 		this.add(text);
+		this.add(border);
 
         scene.add.existing(this);
     }
