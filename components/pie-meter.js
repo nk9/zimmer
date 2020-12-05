@@ -22,24 +22,28 @@ class PieMeter extends Phaser.GameObjects.Graphics {
     }
 
     // requires a vaule between 0 and 360
-    drawPie(howMuch) {
+    drawPie(degrees) {
 
         this.clear();
-        this.fillStyle(0x892FD2, 1);
+        this.fillStyle(0xffffff, 1);
         let radius = this.myRadius;
 
         // Rotate to make 0 as 12 o'clock
         this.angle = -90;
 
-
-        if (this.direction == 0) {
-            this.slice(0, 0, radius, 0, Phaser.Math.DegToRad(howMuch), true);
-        } else {
-            this.slice(0, 0, radius, Phaser.Math.DegToRad(howMuch), 0, true);
+        // Don't re-draw after end
+        if (degrees != 360) {
+            if (this.direction == 0) {
+                this.slice(0, 0, radius, 0, Phaser.Math.DegToRad(degrees), true);
+            } else {
+                this.slice(0, 0, radius, Phaser.Math.DegToRad(degrees), 0, true);
+            }
         }
 
         this.fillPath();
 
+        this.lineStyle(4, 0xffffff, 1);
+        this.strokeCircle(0, 0, radius);
     }
 
 }

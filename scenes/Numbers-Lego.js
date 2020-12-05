@@ -281,7 +281,6 @@ class Numbers_Lego extends BaseScene {
 	    });
 
 	    pie_meter = new PieMeter(this, 120, 120, 30, 0, 1);
-	    pie_meter.drawPie(270);
 
 	    this.timer = this.time.addEvent({ delay: 35*1000, repeat: 0 });
 	}
