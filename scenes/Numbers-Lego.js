@@ -159,8 +159,8 @@ class Numbers_Lego extends BaseScene {
 	    this.addBrick(5, 1, 33, 18);
 	}
 
-	addBrick(w, h, x, y) {
-		let brick = new Brick(this, w, h, x, y);
+	addBrick(w, h, x, y, angle=0) {
+		let brick = new Brick(this, w, h, x, y, angle);
 		brick.setInteractive().on('pointerdown', pointer => {
 			for (var i = bricks.length - 1; i >= 0; i--) {
 				if (bricks[i] == brick) {

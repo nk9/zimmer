@@ -3,7 +3,9 @@ import { DRAG_THRESHOLD } from '../constants/config';
 export const LEGO_GRID = 29;
 
 class Brick extends Phaser.GameObjects.Container {
-    constructor(scene, w, h, x, y) {
+	text;
+
+    constructor(scene, w, h, x, y, angle = 0) {
     	super(scene, x * LEGO_GRID, y * LEGO_GRID);
 
 		let wL = w * LEGO_GRID;
@@ -21,9 +23,9 @@ class Brick extends Phaser.GameObjects.Container {
 		brick.setOrigin(0, 0);
 		let brickCenter = brick.getCenter();
 
-		let text = scene.add.text(brickCenter.x, brickCenter.y, `${w*h}`,
+		this.text = scene.add.text(brickCenter.x, brickCenter.y, `${w*h}`,
 			{fill: "#000", fontSize: "17pt", stoke: "#fff", strokeThickness: 5});
-		text.setOrigin(0.5, 0.5);
+		this.text.setOrigin(0.5, 0.5);
 
 		let border = scene.add.rectangle(0, 0, wL, hL);
 		border.setOrigin(0, 0);
@@ -36,14 +38,17 @@ class Brick extends Phaser.GameObjects.Container {
 		})
 		.on('pointerup', pointer => {
 			if (pointer.getDistance() < DRAG_THRESHOLD) {
-				this.angle += 90; text.angle -= 90;
+				this.angle += 90; this.text.angle -= 90;
 			}
 		});
 		scene.input.setDraggable(this);
 
 		this.add(brick);
-		this.add(text);
+		this.add(this.text);
 		this.add(border);
+
+		this.angle = angle;
+		this.text.angle = -angle;
 
         scene.add.existing(this);
     }
