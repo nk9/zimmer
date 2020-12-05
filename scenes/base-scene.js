@@ -7,6 +7,17 @@ export const SceneProgress = {
 	SUCCESS: 20,
 }
 
+export const Layers = {
+    UNDERLAY: 1,
+    BACKGROUND: 2,
+    POUCH: 10,
+    UNDER_POUCH: 8,
+    OVER_POUCH: 12,
+    DRAGGING: 100,
+}
+
+export const LEGO_GRID = 29;
+
 class BaseScene extends Scene {
     constructor(key) {
         super({ key });

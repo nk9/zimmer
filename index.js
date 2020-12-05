@@ -1,5 +1,5 @@
 import Phaser, { Game } from 'phaser';
-import { WIDTH, HEIGHT } from './constants/config';
+import { GAME_WIDTH, GAME_HEIGHT } from './constants/config';
 
 import Init from './scenes/Init';
 // import GrandHall from './scenes/GrandHall';
@@ -15,8 +15,8 @@ const config = {
 			debug: true
 		}
 	},
-	width: WIDTH,
-	height: HEIGHT,
+	width: GAME_WIDTH,
+	height: GAME_HEIGHT,
 	scene: [Init, Numbers_Lego]
 }
 

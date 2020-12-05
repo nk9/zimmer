@@ -1,5 +1,5 @@
-import BaseScene, { SceneProgress } from './base-scene';
-import { DRAG_THRESHOLD } from '../constants/config';
+import BaseScene, { SceneProgress, Layers, LEGO_GRID } from './base-scene';
+import { DRAG_THRESHOLD, GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
 import { NUMBERS_LEGO } from '../constants/scenes';
 import PieMeter from '../components/pie-meter';
 
@@ -9,17 +9,12 @@ var emitters = [];
 var pouch_open;
 var pie_meter;
 
-const LEGO_GRID = 29;
-const SMALL_POUCH_X = 1000;
-const SMALL_POUCH_Y = 700;
+const SMALL_POUCH_X = 800;
+const SMALL_POUCH_Y = 600;
 const SMALL_POUCH_W = 40;
 const SMALL_POUCH_H = 64;
 const KEY_ZONE_X = 460;
 const KEY_ZONE_Y = 520;
-const POUCH_DEPTH = 10;
-const UNDER_POUCH_DEPTH = 8;
-const ABOVE_POUCH_DEPTH = 12;
-const ABOVE_POUCH_DRAGGING_DEPTH = 14;
 
 class Numbers_Lego extends BaseScene {
     constructor() {
@@ -36,9 +31,12 @@ class Numbers_Lego extends BaseScene {
 		// Create these first so they are under the background picture
 	    this.createBricks();
 
-		var church_door = this.add.image(0, 0, 'church_door')
-		church_door.setOrigin(0,0)
+		var underlay = this.add.rectangle(0, 0, GAME_WIDTH, GAME_HEIGHT, 0x000000);
+		underlay.setOrigin(0,0);
 
+		// Shifted over slightly to line up with the lego grid rectangles
+		var tarnished_door = this.add.image(GAME_WIDTH/2+10, GAME_HEIGHT/2, 'tarnished_door');
+		tarnished_door.setOrigin(0.5,0.5)
 		this.createRectangles();
 
 	    let pouch_closed = this.add.image(SMALL_POUCH_X, SMALL_POUCH_Y, 'pouch_closed');
@@ -186,9 +184,9 @@ class Numbers_Lego extends BaseScene {
 			.on('pointerdown', pointer => {
 				for (var i = bricks.length - 1; i >= 0; i--) {
 					if (bricks[i] == container) {
-						bricks[i].setDepth(ABOVE_POUCH_DRAGGING_DEPTH);
+						bricks[i].setDepth(Layers.DRAGGING);
 					} else {
-						bricks[i].setDepth(ABOVE_POUCH_DEPTH);
+						bricks[i].setDepth(Layers.OVER_POUCH);
 					}
 				}
 			})
@@ -206,9 +204,9 @@ class Numbers_Lego extends BaseScene {
 	}
 
 	createRectangles() {
-		this.addRectangle(2, 5, 12, 7);
-		this.addRectangle(2, 5, 10, 15);
-		this.addRectangle(2, 5, 14, 15);
+		this.addRectangle(2, 5, 20, 5);
+		this.addRectangle(2, 5, 18, 13);
+		this.addRectangle(2, 5, 22, 13);
 	}
 
 	addRectangle(w, h, x, y) {
@@ -259,7 +257,7 @@ class Numbers_Lego extends BaseScene {
 				ease: 'Sine.easeOut',
 				duration: 1000,
 				onComplete: function (tween, sprite) {
-					pouch_open.setDepth(POUCH_DEPTH);
+					pouch_open.setDepth(Layers.POUCH);
 				}
 	    	}, {
 				targets: bricks.slice().reverse(),
@@ -270,11 +268,11 @@ class Numbers_Lego extends BaseScene {
 				duration: 350,
 				onStart: function (tween, targets) {
 					for (var i = targets.length - 1; i >= 0; i--) {
-						targets[i].setDepth(UNDER_POUCH_DEPTH); // Move bricks on top of background, behind pouch
+						targets[i].setDepth(Layers.UNDER_POUCH); // Move bricks on top of background, behind pouch
 					}
 				},
 				onYoyo: function (tween, sprite) {
-					sprite.setDepth(ABOVE_POUCH_DEPTH); // Move bricks on top of pouch
+					sprite.setDepth(Layers.OVER_POUCH); // Move bricks on top of pouch
 				},
 				delay: function(target, targetKey, value, targetIndex, totalTargets, tween) {
 					return targetIndex * Phaser.Math.Between(0, 150);
