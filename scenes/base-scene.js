@@ -17,8 +17,6 @@ export const Layers = {
     DRAGGING: 100,
 }
 
-export const LEGO_GRID = 29;
-
 class BaseScene extends Scene {
     constructor(key) {
         super({ key });

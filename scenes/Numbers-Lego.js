@@ -1,6 +1,8 @@
-import BaseScene, { SceneProgress, Layers, LEGO_GRID } from './base-scene';
+import BaseScene, { SceneProgress, Layers } from './base-scene';
 import { DRAG_THRESHOLD, GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
 import { NUMBERS_LEGO } from '../constants/scenes';
+
+import Brick, { LEGO_GRID } from '../components/brick';
 import PieMeter from '../components/pie-meter';
 
 const SMALL_POUCH_X = 800;
@@ -143,8 +145,6 @@ class Numbers_Lego extends BaseScene {
 	}
 
 	createBricks() {
-	    // Create bricks
-	    const offset = 15 * LEGO_GRID;
 	    this.addBrick(2, 1, 29, 6);
 	    this.addBrick(3, 1, 32, 6);
 	    this.addBrick(2, 1, 36, 6);
@@ -160,50 +160,18 @@ class Numbers_Lego extends BaseScene {
 	}
 
 	addBrick(w, h, x, y) {
-		let wL = w * LEGO_GRID;
-		let hL = h * LEGO_GRID;
-
-		var container = this.add.container(x * LEGO_GRID, y * LEGO_GRID);
-		container.setSize(wL, hL);
-		container.legoTotal = w*h;
-		container.legoW = w;
-		container.legoH = h;
-		
-		let brick = this.add.sprite(0, 0,
-									'yellow-bricks',
-									`${h}x${w}.png`);
-		brick.setOrigin(0, 0);
-		let brickCenter = brick.getCenter();
-
-		let text = this.add.text(brickCenter.x, brickCenter.y, `${w*h}`,
-			{fill: "#000", fontSize: "17pt", stoke: "#fff", strokeThickness: 5});
-		text.setOrigin(0.5, 0.5);
-
-		container.setInteractive({
-			hitArea:new Phaser.Geom.Rectangle(wL/2, hL/2, wL, hL),
-			hitAreaCallback: Phaser.Geom.Rectangle.Contains,
-			draggable: true
-		})
-			.on('pointerdown', pointer => {
-				for (var i = bricks.length - 1; i >= 0; i--) {
-					if (bricks[i] == container) {
-						bricks[i].setDepth(Layers.DRAGGING);
-					} else {
-						bricks[i].setDepth(Layers.OVER_POUCH);
-					}
+		let brick = new Brick(this, w, h, x, y);
+		brick.setInteractive().on('pointerdown', pointer => {
+			for (var i = bricks.length - 1; i >= 0; i--) {
+				if (bricks[i] == brick) {
+					bricks[i].setDepth(Layers.DRAGGING);
+				} else {
+					bricks[i].setDepth(Layers.OVER_POUCH);
 				}
-			})
-			.on('pointerup', pointer => {
-				if (pointer.getDistance() < DRAG_THRESHOLD) {
-					container.angle += 90; text.angle -= 90;
-				}
-			});
-		this.input.setDraggable(container);
+			}
+		});
 
-		container.add(brick);
-		container.add(text);
-
-		bricks.push(container);
+		bricks.push(brick);
 	}
 
 	createRectangles() {
