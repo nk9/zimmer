@@ -4,6 +4,7 @@ import { NUMBERS_LEGO } from '../constants/scenes';
 
 import Brick, { LEGO_GRID } from '../components/brick';
 import PieMeter from '../components/pie-meter';
+import Alert from '../components/alert';
 
 const SMALL_POUCH_X = 800;
 const SMALL_POUCH_Y = 600;
@@ -11,7 +12,8 @@ const SMALL_POUCH_W = 40;
 const SMALL_POUCH_H = 64;
 const kKeyZone = {x: 550, y: 330, width: 60, height: 120};
 
-var bricks = [];
+const FAIL_ALERT = 'FailAlert';
+
 var rects = [];
 var rects_background;
 var emitters = [];
@@ -20,6 +22,10 @@ var pie_meter;
 var key_zone;
 
 class Numbers_Lego extends BaseScene {
+	bricks = [];
+	timer;
+	run_time = 32; // 32 seconds
+
     constructor() {
         super(NUMBERS_LEGO);
     }
@@ -84,6 +90,10 @@ class Numbers_Lego extends BaseScene {
 				this.clickKeyZone()
 			});
 
+		// The pie meter and timer
+	    this.pie_meter = new PieMeter(this, 120, 120, 30, 0, 1);
+	    this.pie_meter.visible = false;
+
 	    this.input.dragDragThreshold = DRAG_THRESHOLD;
 
 	    // Allow dragging of the bricks, but snap to grid
@@ -91,6 +101,31 @@ class Numbers_Lego extends BaseScene {
 	        gameObject.x = Phaser.Math.Snap.To(dragX, LEGO_GRID);
 	        gameObject.y = Phaser.Math.Snap.To(dragY, LEGO_GRID);
 	    });
+
+		console.log("create alert");
+		this.scene.add(FAIL_ALERT, new Alert(FAIL_ALERT), false, {
+			title: "Whoops",
+			content: "You're gonna have to be faster than that!",
+			buttonText: "Try Again",
+			buttonAction: this.resetAfterFail,
+			context: this
+		});
+
+        // this.events.on('transitionstart', function(fromScene, duration){
+        // 	fromScene.scene.remove(FAIL_ALERT);
+        // });
+
+	}
+
+	resetAfterFail() {
+		this.scene.stop(FAIL_ALERT); // clear alert
+
+		this.pie_meter.visible = false;
+		this.timer = undefined;
+		this.brick_fall_tween.stop();
+
+		this.clickPouch(false);
+		this.progress = SceneProgress.BEGIN;
 	}
 
 	update() {
@@ -100,8 +135,8 @@ class Numbers_Lego extends BaseScene {
 			let r = rects[i].getBounds();
 			var containedBricks = [];
 			
-			for (var j = bricks.length - 1; j >= 0; j--) {
-				let brick = bricks[j];
+			for (var j = this.bricks.length - 1; j >= 0; j--) {
+				let brick = this.bricks[j];
 				let br = brick.getBounds();
 
 				let intersection = Phaser.Geom.Rectangle.Intersection(r, br);
@@ -139,7 +174,7 @@ class Numbers_Lego extends BaseScene {
 			this.progress != SceneProgress.SUCCEEDED) {
 			if (this.updatePieTimer()) {
 				this.progress = SceneProgress.FAILED;
-				console.log("failed");
+				this.fail();
 			}
 		}
 	}
@@ -162,16 +197,19 @@ class Numbers_Lego extends BaseScene {
 	addBrick(w, h, x, y, angle=0) {
 		let brick = new Brick(this, w, h, x, y, angle);
 		brick.setInteractive().on('pointerdown', pointer => {
-			for (var i = bricks.length - 1; i >= 0; i--) {
-				if (bricks[i] == brick) {
-					bricks[i].setDepth(Layers.DRAGGING);
+			for (var i = this.bricks.length - 1; i >= 0; i--) {
+				if (this.bricks[i] == brick) {
+					this.bricks[i].setDepth(Layers.DRAGGING);
 				} else {
-					bricks[i].setDepth(Layers.OVER_POUCH);
+					this.bricks[i].setDepth(Layers.OVER_POUCH);
 				}
 			}
 		});
 
-		bricks.push(brick);
+		// Make sure bricks don't respond to input until they enter the scene
+		brick.input.enabled = false;
+
+		this.bricks.push(brick);
 	}
 
 	createRectangles() {
@@ -230,12 +268,14 @@ class Numbers_Lego extends BaseScene {
 	    emitters.push(emitter);
 	}
 
-	clickPouch() {
-	    pouch_open = this.add.image(SMALL_POUCH_X, SMALL_POUCH_Y, 'pouch_open');
-	    pouch_open.scale=0.1;
+	clickPouch(should_open_pouch = true) {
+		var tweens = [];
 
-	    var timeline = this.tweens.timeline({
-	    	tweens: [{
+		if (should_open_pouch) {
+		    pouch_open = this.add.image(SMALL_POUCH_X, SMALL_POUCH_Y, 'pouch_open');
+		    pouch_open.scale=0.1;
+
+		    let pouch_open_tween = {
 				targets: pouch_open,
 				scale: .8,
 				x: 36 * LEGO_GRID,
@@ -245,32 +285,43 @@ class Numbers_Lego extends BaseScene {
 				onComplete: function (tween, sprite) {
 					pouch_open.setDepth(Layers.POUCH);
 				}
-	    	}, {
-				targets: bricks.slice().reverse(),
-				y: -5*LEGO_GRID,
-				yoyo: true,
-				repeat: 0,
-				ease: 'Sine.easeOut',
-				duration: 350,
-				onStart: function (tween, targets) {
-					for (var i = targets.length - 1; i >= 0; i--) {
-						targets[i].setDepth(Layers.UNDER_POUCH); // Move bricks on top of background, behind pouch
-					}
-				},
-				onComplete: function () {
-				    pie_meter = new PieMeter(this, 120, 120, 30, 0, 1);
+	    	};
+	    	tweens.push(pouch_open_tween);
+		}
 
-				    this.timer = this.time.addEvent({ delay: 32*1000, repeat: 0 });
-				},
-				onCompleteScope: this,
-				onYoyo: function (tween, sprite) {
-					sprite.setDepth(Layers.OVER_POUCH); // Move bricks on top of pouch
-				},
-				delay: function(target, targetKey, value, targetIndex, totalTargets, tween) {
-					return targetIndex * Phaser.Math.Between(0, 150);
-				},
-	    	}]
-	    });
+	    let intro_legos_tween = {
+			targets: this.bricks.slice().reverse(),
+			y: -5*LEGO_GRID,
+			yoyo: true,
+			repeat: 0,
+			ease: 'Sine.easeOut',
+			duration: 350,
+			onStart: function (tween, targets) {
+				for (var i = targets.length - 1; i >= 0; i--) {
+					targets[i].setDepth(Layers.UNDER_POUCH); // Move bricks on top of background, behind pouch
+					targets[i].resetPosition(); // Reset position if needed
+					targets[i].input.enabled = true;
+				}
+			},
+			onComplete: function () {
+				console.log("oncomplete");
+				this.pie_meter.visible = true;
+			    // this.timer = this.time.addEvent(this.timer);
+			    // this.timer.paused = false;
+			    this.timer = this.time.addEvent({ delay: this.run_time*1000, repeat: 0 });
+			    // this.timer.paused = true;
+			},
+			onCompleteScope: this,
+			onYoyo: function (tween, sprite) {
+				sprite.setDepth(Layers.OVER_POUCH); // Move bricks on top of pouch
+			},
+			delay: function(target, targetKey, value, targetIndex, totalTargets, tween) {
+				return targetIndex * Phaser.Math.Between(0, 150);
+			},
+    	};
+	    tweens.push(intro_legos_tween);
+
+	    var timeline = this.tweens.timeline({ tweens: tweens });
 	}
 
 	clickKeyZone() {
@@ -286,13 +337,31 @@ class Numbers_Lego extends BaseScene {
 	updatePieTimer() {
 		if (this.timer !== undefined) {
 			let progress_deg = this.timer.getProgress() * 360;
-			pie_meter.drawPie(progress_deg);
+			console.log(progress_deg);
+			this.pie_meter.drawPie(progress_deg);
 
 			return (progress_deg == 360);
 		}
 
 		return false;
 	}
+
+	fail() {
+		this.brick_fall_tween = this.tweens.add({
+			targets: this.bricks,
+			ease:'Power2',
+			duration: 2000,
+			y: "+="+GAME_HEIGHT,
+			delay: function(target, targetKey, value, targetIndex, totalTargets, tween) {
+				return targetIndex * Phaser.Math.Between(0, 150);
+			},
+		});
+
+		this.scene.run(FAIL_ALERT);
+
+		// When do I destroy it??
+	}
+
 }
 
 export default Numbers_Lego;

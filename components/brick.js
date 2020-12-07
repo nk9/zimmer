@@ -4,12 +4,17 @@ export const LEGO_GRID = 29;
 
 class Brick extends Phaser.GameObjects.Container {
 	text;
+	initialPosition = {};
 
     constructor(scene, w, h, x, y, angle = 0) {
-    	super(scene, x * LEGO_GRID, y * LEGO_GRID);
+    	let [xL, yL, wL, hL] = [x, y, w, h].map(n => n * LEGO_GRID);
+    	super(scene, xL, yL);
 
-		let wL = w * LEGO_GRID;
-		let hL = h * LEGO_GRID;
+		this.initialPosition = {
+			x: xL,
+			y: yL,
+			angle: angle
+		};
 
 		// var container = scene.add.container(x * LEGO_GRID, y * LEGO_GRID);
 		this.setSize(wL, hL);
@@ -51,6 +56,15 @@ class Brick extends Phaser.GameObjects.Container {
 		this.text.angle = -angle;
 
         scene.add.existing(this);
+    }
+
+    resetPosition() {
+    	let reset = this.initialPosition;
+
+    	this.x = reset.x;
+    	this.y = reset.y;
+    	this.angle = reset.angle;
+    	this.text.angle = -reset.angle;
     }
 }
 
