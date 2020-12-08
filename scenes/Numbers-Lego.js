@@ -3,6 +3,7 @@ import { DRAG_THRESHOLD, GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
 import { NUMBERS_LEGO } from '../constants/scenes';
 
 import Brick, { LEGO_GRID } from '../components/brick';
+import BrickStore, { BSBrick } from '../components/brick_store';
 import PieMeter from '../components/pie-meter';
 import Alert from '../components/alert';
 
@@ -22,10 +23,6 @@ var pie_meter;
 var key_zone;
 
 class Numbers_Lego extends BaseScene {
-	bricks = [];
-	timer;
-	run_time = 32; // 32 seconds
-
     constructor() {
         super(NUMBERS_LEGO);
     }
@@ -36,6 +33,9 @@ class Numbers_Lego extends BaseScene {
 
 	create() {
         // super.create('a', 'b', true);
+
+		this.timer;
+		this.run_time = 32; // 32 seconds
 
 		// Create these first so they are under the background picture
 	    this.createBricks();
@@ -135,8 +135,7 @@ class Numbers_Lego extends BaseScene {
 			let r = rects[i].getBounds();
 			var containedBricks = [];
 			
-			for (var j = this.bricks.length - 1; j >= 0; j--) {
-				let brick = this.bricks[j];
+			for (const brick of this.brick_store.bricks) {
 				let br = brick.getBounds();
 
 				let intersection = Phaser.Geom.Rectangle.Intersection(r, br);
@@ -180,36 +179,31 @@ class Numbers_Lego extends BaseScene {
 	}
 
 	createBricks() {
-	    this.addBrick(2, 1, 29, 6);
-	    this.addBrick(3, 1, 32, 6);
-	    this.addBrick(2, 1, 36, 6);
-	    this.addBrick(4, 2, 29, 8);
-	    this.addBrick(2, 2, 29, 11);
-	    this.addBrick(3, 2, 32, 11);
-	    this.addBrick(2, 2, 36, 11);
-	    this.addBrick(3, 1, 35, 14);
-	    this.addBrick(5, 1, 29, 14);
-	    this.addBrick(2, 1, 36, 16);
-	    this.addBrick(3, 1, 29, 18);
-	    this.addBrick(5, 1, 33, 18);
-	}
+		this.brick_store = new BrickStore(this, 29, 6);
 
-	addBrick(w, h, x, y, angle=0) {
-		let brick = new Brick(this, w, h, x, y, angle);
-		brick.setInteractive().on('pointerdown', pointer => {
-			for (var i = this.bricks.length - 1; i >= 0; i--) {
-				if (this.bricks[i] == brick) {
-					this.bricks[i].setDepth(Layers.DRAGGING);
-				} else {
-					this.bricks[i].setDepth(Layers.OVER_POUCH);
+		this.brick_store.addRow(BSBrick.B1x2, BSBrick.B1x3, BSBrick.B1x2);
+		this.brick_store.addRow(BSBrick.B2x4);
+		this.brick_store.addRow(BSBrick.B2x2, BSBrick.B2x3, BSBrick.B2x2);
+		this.brick_store.addRow(BSBrick.B1x3, BSBrick.B1x5);
+		this.brick_store.addRow(BSBrick.B1x2);
+		this.brick_store.addRow(BSBrick.B1x3, BSBrick.B1x5);
+
+		this.brick_store.shuffle();
+
+		for (var brick of this.brick_store.bricks) {
+			brick.setInteractive().on('pointerdown', pointer => {
+				for (var i = this.brick_store.bricks.length - 1; i >= 0; i--) {
+					if (this.brick_store.bricks[i] == brick) {
+						this.brick_store.bricks[i].setDepth(Layers.DRAGGING);
+					} else {
+						this.brick_store.bricks[i].setDepth(Layers.OVER_POUCH);
+					}
 				}
-			}
-		});
+			});
 
-		// Make sure bricks don't respond to input until they enter the scene
-		brick.input.enabled = false;
-
-		this.bricks.push(brick);
+			// Make sure bricks don't respond to input until they enter the scene
+			brick.input.enabled = false;
+		}
 	}
 
 	createRectangles() {
@@ -271,6 +265,8 @@ class Numbers_Lego extends BaseScene {
 	clickPouch(should_open_pouch = true) {
 		var tweens = [];
 
+		console.log(this.brick_store.bricks);
+
 		if (should_open_pouch) {
 		    pouch_open = this.add.image(SMALL_POUCH_X, SMALL_POUCH_Y, 'pouch_open');
 		    pouch_open.scale=0.1;
@@ -290,17 +286,17 @@ class Numbers_Lego extends BaseScene {
 		}
 
 	    let intro_legos_tween = {
-			targets: this.bricks.slice().reverse(),
+			targets: this.brick_store.bricks, //.slice().reverse(),
 			y: -5*LEGO_GRID,
 			yoyo: true,
 			repeat: 0,
 			ease: 'Sine.easeOut',
 			duration: 350,
 			onStart: function (tween, targets) {
-				for (var i = targets.length - 1; i >= 0; i--) {
-					targets[i].setDepth(Layers.UNDER_POUCH); // Move bricks on top of background, behind pouch
-					targets[i].resetPosition(); // Reset position if needed
-					targets[i].input.enabled = true;
+				for (const brick of targets) {
+					brick.setDepth(Layers.UNDER_POUCH); // Move bricks on top of background, behind pouch
+					brick.resetPosition(); // Reset position if needed
+					brick.input.enabled = true;
 				}
 			},
 			onComplete: function () {
@@ -337,7 +333,7 @@ class Numbers_Lego extends BaseScene {
 	updatePieTimer() {
 		if (this.timer !== undefined) {
 			let progress_deg = this.timer.getProgress() * 360;
-			console.log(progress_deg);
+			// console.log(progress_deg);
 			this.pie_meter.drawPie(progress_deg);
 
 			return (progress_deg == 360);
@@ -348,7 +344,7 @@ class Numbers_Lego extends BaseScene {
 
 	fail() {
 		this.brick_fall_tween = this.tweens.add({
-			targets: this.bricks,
+			targets: this.brick_store.bricks,
 			ease:'Power2',
 			duration: 2000,
 			y: "+="+GAME_HEIGHT,

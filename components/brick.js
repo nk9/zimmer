@@ -6,38 +6,33 @@ class Brick extends Phaser.GameObjects.Container {
 	text;
 	initialPosition = {};
 
-    constructor(scene, w, h, x, y, angle = 0) {
-    	let [xL, yL, wL, hL] = [x, y, w, h].map(n => n * LEGO_GRID);
-    	super(scene, xL, yL);
+    constructor(scene, wL, hL, xL, yL) {
+    	let [x, y, w, h] = [xL, yL, wL, hL].map(n => n * LEGO_GRID);
+    	super(scene, x, y);
 
-		this.initialPosition = {
-			x: xL,
-			y: yL,
-			angle: angle
-		};
+		this.setInitialPosition(x, y);
+		this.setSize(w, h);
 
-		// var container = scene.add.container(x * LEGO_GRID, y * LEGO_GRID);
-		this.setSize(wL, hL);
-		this.legoTotal = w*h;
-		this.legoW = w;
-		this.legoH = h;
+		this.legoTotal = wL*hL;
+		this.legoW = wL;
+		this.legoH = hL;
 		
 		let brick = scene.add.sprite(0, 0,
 									'yellow-bricks',
-									`${h}x${w}.png`);
+									`${hL}x${wL}.png`);
 		brick.setOrigin(0, 0);
 		let brickCenter = brick.getCenter();
 
-		this.text = scene.add.text(brickCenter.x, brickCenter.y, `${w*h}`,
+		this.text = scene.add.text(brickCenter.x, brickCenter.y, `${wL*hL}`,
 			{fill: "#000", fontSize: "17pt", stoke: "#fff", strokeThickness: 5});
 		this.text.setOrigin(0.5, 0.5);
 
-		let border = scene.add.rectangle(0, 0, wL, hL);
+		let border = scene.add.rectangle(0, 0, w, h);
 		border.setOrigin(0, 0);
 		border.setStrokeStyle(2, 0x000000, .3);
 
 		this.setInteractive({
-			hitArea:new Phaser.Geom.Rectangle(wL/2, hL/2, wL, hL),
+			hitArea:new Phaser.Geom.Rectangle(w/2, h/2, w, h),
 			hitAreaCallback: Phaser.Geom.Rectangle.Contains,
 			draggable: true
 		})
@@ -52,10 +47,17 @@ class Brick extends Phaser.GameObjects.Container {
 		this.add(this.text);
 		this.add(border);
 
-		this.angle = angle;
-		this.text.angle = -angle;
-
         scene.add.existing(this);
+    }
+
+    setInitialPosition(x, y) {
+		this.initialPosition = {
+			x: x,
+			y: y,
+		};
+
+		this.x = x;
+		this.y = y;
     }
 
     resetPosition() {
@@ -63,8 +65,9 @@ class Brick extends Phaser.GameObjects.Container {
 
     	this.x = reset.x;
     	this.y = reset.y;
-    	this.angle = reset.angle;
-    	this.text.angle = -reset.angle;
+
+    	this.angle = 0;
+    	this.text.angle = 0;
     }
 }
 
