@@ -15,13 +15,6 @@ const kKeyZone = {x: 550, y: 330, width: 60, height: 120};
 
 const FAIL_ALERT = 'FailAlert';
 
-var rects = [];
-var rects_background;
-var emitters = [];
-var pouch_open;
-var pie_meter;
-var key_zone;
-
 class Numbers_Lego extends BaseScene {
     constructor() {
         super(NUMBERS_LEGO);
@@ -34,8 +27,11 @@ class Numbers_Lego extends BaseScene {
 	create() {
         // super.create('a', 'b', true);
 
+		this.rects = [];
+		this.emitters = [];
 		this.timer;
-		this.run_time = 32; // 32 seconds
+		this.run_time = 30; // 30 seconds
+		this.pie_meter;
 
 		// Create these first so they are under the background picture
 	    this.createBricks();
@@ -83,16 +79,14 @@ class Numbers_Lego extends BaseScene {
 
 		// let debug = this.add.rectangle(kKeyZone.x, kKeyZone.y, kKeyZone.width, kKeyZone.height, 0xff0000)
 		// 			.setOrigin(0,0);
-		key_zone = this.make.zone(kKeyZone)
+		this.key_zone = this.make.zone(kKeyZone)
 			.setOrigin(0,0)
 			.setInteractive({useHandCursor: true})
 			.on('pointerup', pointer => {
 				this.clickKeyZone()
 			});
 
-		// The pie meter and timer
-	    this.pie_meter = new PieMeter(this, 120, 120, 30, 0, 1);
-	    this.pie_meter.visible = false;
+		this.createCountdownTimer()
 
 	    this.input.dragDragThreshold = DRAG_THRESHOLD;
 
@@ -121,6 +115,7 @@ class Numbers_Lego extends BaseScene {
 		this.scene.stop(FAIL_ALERT); // clear alert
 
 		this.pie_meter.visible = false;
+		this.pie_meter_text.visible = false;
 		this.timer = undefined;
 		this.brick_fall_tween.stop();
 
@@ -131,8 +126,8 @@ class Numbers_Lego extends BaseScene {
 	update() {
 		var completedRects = [];
 
-		for (var i = rects.length - 1; i >= 0; i--) {
-			let r = rects[i].getBounds();
+		for (var i = this.rects.length - 1; i >= 0; i--) {
+			let r = this.rects[i].getBounds();
 			var containedBricks = [];
 			
 			for (const brick of this.brick_store.bricks) {
@@ -154,14 +149,14 @@ class Numbers_Lego extends BaseScene {
 																	  brick2.getBounds());
 				if (intersection.isEmpty() && brick1.legoTotal + brick2.legoTotal == 10) {
 					emit = true;
-					completedRects.push(rects[i]);
+					completedRects.push(this.rects[i]);
 				}
 			}
 			
-			if (emit && !emitters[i].on) {
-				emitters[i].start();
-			} else if (!emit && emitters[i].on) {
-				emitters[i].stop();
+			if (emit && !this.emitters[i].on) {
+				this.emitters[i].start();
+			} else if (!emit && this.emitters[i].on) {
+				this.emitters[i].stop();
 			}
 		}
 
@@ -176,6 +171,15 @@ class Numbers_Lego extends BaseScene {
 				this.fail();
 			}
 		}
+	}
+
+	createCountdownTimer() {
+	    this.pie_meter = new PieMeter(this, 120, 120, 30, 0, 1);
+	    this.pie_meter.visible = false;
+	    this.pie_meter_text = this.add.text(120, 160, `0.00`,
+	    	{fill: "#fff", fontSize: `20pt`});
+	    this.pie_meter_text.visible = false;
+	    this.pie_meter_text.setOrigin(0.5, 0);
 	}
 
 	createBricks() {
@@ -207,14 +211,14 @@ class Numbers_Lego extends BaseScene {
 	}
 
 	createRectangles() {
-		rects_background = this.add.graphics();
-		rects_background.fillStyle(0x000000, .6);
-		rects_background.fillRoundedRect(17 * LEGO_GRID,
+		this.rects_background = this.add.graphics();
+		this.rects_background.fillStyle(0x000000, .6);
+		this.rects_background.fillRoundedRect(17 * LEGO_GRID,
 										 3  * LEGO_GRID,
 										 8  * LEGO_GRID,
 										 17 * LEGO_GRID);
-		rects_background.setDepth(Layers.OVER_DOOR);
-		rects_background.setAlpha(0);
+		this.rects_background.setDepth(Layers.OVER_DOOR);
+		this.rects_background.setAlpha(0);
 
 		this.addRectangle(2, 5, 20, 5);
 		this.addRectangle(2, 5, 18, 13);
@@ -240,7 +244,7 @@ class Numbers_Lego extends BaseScene {
 		text.setAlpha(0);
 		rect.text = text;
 
-		rects.push(rect);
+		this.rects.push(rect);
 
 	    let particle = this.add.particles('spark')
 	    let emitter = particle.createEmitter({
@@ -259,7 +263,7 @@ class Numbers_Lego extends BaseScene {
 	    });
 		particle.setDepth(Layers.OVER_DOOR);
 
-	    emitters.push(emitter);
+	    this.emitters.push(emitter);
 	}
 
 	clickPouch(should_open_pouch = true) {
@@ -268,18 +272,18 @@ class Numbers_Lego extends BaseScene {
 		console.log(this.brick_store.bricks);
 
 		if (should_open_pouch) {
-		    pouch_open = this.add.image(SMALL_POUCH_X, SMALL_POUCH_Y, 'pouch_open');
-		    pouch_open.scale=0.1;
+		    this.pouch_open = this.add.image(SMALL_POUCH_X, SMALL_POUCH_Y, 'pouch_open');
+		    this.pouch_open.scale=0.1;
 
 		    let pouch_open_tween = {
-				targets: pouch_open,
+				targets: [this.pouch_open],
 				scale: .8,
 				x: 36 * LEGO_GRID,
 				y: 13 * LEGO_GRID,
 				ease: 'Sine.easeOut',
 				duration: 1000,
-				onComplete: function (tween, sprite) {
-					pouch_open.setDepth(Layers.POUCH);
+				onComplete: function (tween, targets) {
+					targets[0].setDepth(Layers.POUCH);
 				}
 	    	};
 	    	tweens.push(pouch_open_tween);
@@ -302,6 +306,7 @@ class Numbers_Lego extends BaseScene {
 			onComplete: function () {
 				console.log("oncomplete");
 				this.pie_meter.visible = true;
+				this.pie_meter_text.visible = true;
 			    // this.timer = this.time.addEvent(this.timer);
 			    // this.timer.paused = false;
 			    this.timer = this.time.addEvent({ delay: this.run_time*1000, repeat: 0 });
@@ -321,9 +326,9 @@ class Numbers_Lego extends BaseScene {
 	}
 
 	clickKeyZone() {
-		key_zone.destroy();
+		this.key_zone.destroy();
 		this.tweens.add({
-			targets: rects.concat([rects_background]).concat(rects.map(o => o.text)),
+			targets: this.rects.concat([this.rects_background]).concat(this.rects.map(o => o.text)),
 			ease: 'Sine.easeIn',
 			duration: 1000,
 			alpha: 1
@@ -335,6 +340,10 @@ class Numbers_Lego extends BaseScene {
 			let progress_deg = this.timer.getProgress() * 360;
 			// console.log(progress_deg);
 			this.pie_meter.drawPie(progress_deg);
+
+			let num = this.run_time - (this.timer.getElapsed() / 1000);
+			let trimmed_num = num.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 });
+			this.pie_meter_text.setText(`${trimmed_num}`);
 
 			return (progress_deg == 360);
 		}
