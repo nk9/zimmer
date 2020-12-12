@@ -16,7 +16,12 @@ class Init extends Scene {
     }
 
     preload() {
-        this.load.image('tarnished_door', imagesJpg.tarnished_door)
+        // Doors
+        this.load.image('tarnished_door', imagesJpg.tarnished_door);
+        this.load.image('tarnished_door_open', imagesPng.tarnished_door_open);
+
+        // Swirls
+        this.load.image('aqua_swirl', imagesJpg.aqua_swirl);
 
         // Lego Sprites
         this.load.atlas('yellow-bricks', spritesImg.yellow_bricks_spritesheet, spritesJson.yellow_bricks_spritesheet);

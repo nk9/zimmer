@@ -36,12 +36,7 @@ class Numbers_Lego extends BaseScene {
 		// Create these first so they are under the background picture
 	    this.createBricks();
 
-		var underlay = this.add.rectangle(0, 0, GAME_WIDTH, GAME_HEIGHT, 0x000000);
-		underlay.setOrigin(0,0);
-
-		// Shifted over slightly to line up with the lego grid rectangles
-		var tarnished_door = this.add.image(GAME_WIDTH/2+10, GAME_HEIGHT/2, 'tarnished_door');
-		tarnished_door.setOrigin(0.5,0.5)
+		this.createBackground();
 		this.createRectangles();
 
 	    let pouch_closed = this.add.image(SMALL_POUCH_X, SMALL_POUCH_Y, 'pouch_closed');
@@ -173,6 +168,43 @@ class Numbers_Lego extends BaseScene {
 				this.fail();
 			}
 		}
+
+		this.swirl.rotation += 0.01;
+	}
+
+	createBackground() {
+		this.underlay = this.add.rectangle(0, 0, GAME_WIDTH, GAME_HEIGHT, 0x000000);
+		this.underlay.setOrigin(0,0);
+
+		let center_x = GAME_WIDTH/2,
+			center_y = GAME_HEIGHT/2;
+
+		let swirl_y = center_y - 10;
+		this.swirl = this.add.image(center_x, swirl_y, 'aqua_swirl');
+		this.swirl.scale += .1;
+		// this.swirl.visible = false;
+
+		// Shifted over slightly to line up with the lego grid rectangles
+		let bg_x = center_x+0;
+		this.background_open = this.add.image(bg_x, center_y, 'tarnished_door_open');
+		this.background_open.setOrigin(0.5, 0.5);
+
+		this.background_closed = this.add.image(bg_x, center_y, 'tarnished_door');
+		this.background_closed.setOrigin(0.5, 0.5);
+
+		let bg_bounds = this.background_closed.getBounds();
+		this.left_screen  = this.add.rectangle(0,
+											   0,
+											   bg_bounds.x,
+											   GAME_HEIGHT,
+											   0x000000);
+		this.right_screen = this.add.rectangle(bg_bounds.right,
+											   0,
+											   GAME_WIDTH-bg_bounds.right,
+											   GAME_HEIGHT,
+											   0x000000);
+		this.left_screen.setOrigin(0, 0);
+		this.right_screen.setOrigin(0, 0);
 	}
 
 	createCountdownTimer() {
@@ -377,6 +409,7 @@ class Numbers_Lego extends BaseScene {
 
 	doSceneTransition() {
 		this.emitters.map(e => e.stop());
+		this.swirl.visible = true;
 
 		let fadeObjects = [
 			...this.brick_store.bricks,
@@ -385,7 +418,8 @@ class Numbers_Lego extends BaseScene {
 			...this.rects.map(r => r.text),
 			this.rects_background,
 			this.pie_meter_text,
-			this.pie_meter
+			this.pie_meter,
+			this.background_closed
 		];
 
 	    var timeline = this.tweens.timeline({
