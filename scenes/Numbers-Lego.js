@@ -7,11 +7,6 @@ import BrickStore, { BSBrick } from '../components/brick_store';
 import PieMeter from '../components/pie-meter';
 import Alert from '../components/alert';
 
-const SMALL_POUCH_X = 800;
-const SMALL_POUCH_Y = 600;
-const SMALL_POUCH_W = 40;
-const SMALL_POUCH_H = 64;
-
 const FAIL_ALERT = 'FailAlert';
 
 class Numbers_Lego extends BaseScene {
@@ -40,34 +35,28 @@ class Numbers_Lego extends BaseScene {
 		this.createBackground();
 		this.createRectangles();
 
-	    let pouch_closed = this.add.image(SMALL_POUCH_X, SMALL_POUCH_Y, 'pouch_closed');
-	    let pouch_closed_outlined = this.add.image(SMALL_POUCH_X, SMALL_POUCH_Y, 'pouch_closed_outlined');
-	    pouch_closed.scale = .2;
-	    pouch_closed_outlined.scale = .2;
-	    pouch_closed.setVisible(true);
-	    pouch_closed_outlined.setVisible(false);
+		let [cta_closed, cta_closed_outlined, cta_closed_zone] = this.createCallToAction();
 
-	    let pouch_closed_zone = this.add.zone(SMALL_POUCH_X, SMALL_POUCH_Y, SMALL_POUCH_W, SMALL_POUCH_H)
-	    	.setInteractive({useHandCursor: true})
+	    cta_closed_zone.setInteractive({useHandCursor: true})
 	    	.on('pointerover', () => {
-	    		if (pouch_closed.visible) {
-		    		pouch_closed.setVisible(false);
-		    		pouch_closed_outlined.setVisible(true);
+	    		if (cta_closed.visible) {
+		    		cta_closed.setVisible(false);
+		    		cta_closed_outlined.setVisible(true);
 		    	}
 	    	})
 	    	.on('pointerout', () => {
-	    		if (!pouch_closed.visible) {
-		    		pouch_closed.setVisible(true);
-		    		pouch_closed_outlined.setVisible(false);
+	    		if (!cta_closed.visible) {
+		    		cta_closed.setVisible(true);
+		    		cta_closed_outlined.setVisible(false);
 		    	}
 	    	})
 			.on('pointerup', pointer => {
 				if (pointer.getDistance() < DRAG_THRESHOLD) {
-					pouch_closed.destroy();
-					pouch_closed_outlined.destroy();
+					cta_closed.destroy();
+					cta_closed_outlined.destroy();
 
-					this.clickPouch()
-					pouch_closed_zone.destroy();
+					this.clickCallToAction()
+					cta_closed_zone.destroy();
 				}
 			});
 
@@ -109,13 +98,17 @@ class Numbers_Lego extends BaseScene {
 		this.timer = undefined;
 		this.brick_fall_tween.stop();
 
-		this.clickPouch(false);
+		this.clickCallToAction(false);
 		this.progress = SceneProgress.BEGIN;
 	}
 
 	update() {
 		var completedRects = [];
 
+		// Swirl rotates visibly on success
+		this.swirl.rotation += 0.01;
+
+		// Before the scene is complete (one way or the other), do update work
 		if (this.progress != SceneProgress.FAILED &&
 			this.progress != SceneProgress.SUCCEEDED) {
 
@@ -163,8 +156,6 @@ class Numbers_Lego extends BaseScene {
 				this.fail();
 			}
 		}
-
-		this.swirl.rotation += 0.01;
 	}
 
 	createBackground() {
@@ -304,6 +295,28 @@ class Numbers_Lego extends BaseScene {
 	    this.emitters.push(emitter);
 	}
 
+	callToActionRect() {
+		return {x: 800, y: 600, width: 40, height: 64};
+	}
+
+	createCallToAction() {
+		let cta_rect = this.callToActionRect();
+	    let cta_closed = this.add.image(cta_rect.x, cta_rect.y, 'pouch_closed');
+	    let cta_closed_outlined = this.add.image(cta_rect.x, cta_rect.y, 'pouch_closed_outlined');
+	    let cta_closed_zone = this.add.zone(cta_rect.x, cta_rect.y, cta_rect.width, cta_rect.height)
+
+	    cta_closed.scale = .2;
+	    cta_closed_outlined.scale = .2;
+	    cta_closed.setVisible(true);
+	    cta_closed_outlined.setVisible(false);
+
+	    this.pouch_open = this.add.image(cta_closed_zone.x, cta_closed_zone.y, 'pouch_open');
+	    this.pouch_open.scale = 0.1;
+	    this.pouch_open.visible = false;
+
+	    return [cta_closed, cta_closed_outlined, cta_closed_zone];
+	}
+
 	createAlerts() {
 		this.scene.add(FAIL_ALERT, new Alert(FAIL_ALERT), false, {
 			title: "Whoops",
@@ -316,14 +329,11 @@ class Numbers_Lego extends BaseScene {
 		return [FAIL_ALERT];
 	}
 
-	clickPouch(should_open_pouch = true) {
+	clickCallToAction(should_animate_open = true) {
 		var tweens = [];
 
-		console.log(this.brick_store.bricks);
-
-		if (should_open_pouch) {
-		    this.pouch_open = this.add.image(SMALL_POUCH_X, SMALL_POUCH_Y, 'pouch_open');
-		    this.pouch_open.scale=0.1;
+		if (should_animate_open) {
+			this.pouch_open.visible = true;
 
 		    let pouch_open_tween = {
 				targets: [this.pouch_open],
@@ -340,7 +350,7 @@ class Numbers_Lego extends BaseScene {
 		}
 
 	    let intro_legos_tween = {
-			targets: this.brick_store.bricks, //.slice().reverse(),
+			targets: this.brick_store.bricks.slice().reverse(),
 			y: -5*LEGO_GRID,
 			yoyo: true,
 			repeat: 0,
@@ -354,7 +364,6 @@ class Numbers_Lego extends BaseScene {
 				}
 			},
 			onComplete: function () {
-				console.log("oncomplete");
 				this.pie_meter.visible = true;
 				this.pie_meter.text.visible = true;
 			    this.timer = this.time.addEvent({
