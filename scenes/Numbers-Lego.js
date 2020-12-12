@@ -1,6 +1,5 @@
 import BaseScene, { SceneProgress, Layers } from './base-scene';
 import { DRAG_THRESHOLD, GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
-import { NUMBERS_LEGO } from '../constants/scenes';
 
 import Brick, { LEGO_GRID } from '../components/brick';
 import BrickStore, { BSBrick } from '../components/brick_store';
@@ -10,15 +9,12 @@ import Alert from '../components/alert';
 const FAIL_ALERT = 'FailAlert';
 
 class Numbers_Lego extends BaseScene {
-    constructor() {
-        super(NUMBERS_LEGO);
-    }
-
-    init() {
-        super.init();
+    constructor(key) {
+        super(key);
     }
 
 	create() {
+    	console.log('create Numbers_Lego');
         // super.create('a', 'b', true);
 
         // OVERRIDE THESE
@@ -80,10 +76,10 @@ class Numbers_Lego extends BaseScene {
 	        gameObject.y = Phaser.Math.Snap.To(dragY, LEGO_GRID);
 	    });
 
-	    this.alert_keys = this.createAlerts();
+	    let alert_keys = this.createAlerts();
 
         this.events.on('transitionstart', function(fromScene, duration){
-        	for (const key of this.alert_keys) {
+        	for (const key of alert_keys) {
 	        	fromScene.scene.remove(key);
         	}
         });

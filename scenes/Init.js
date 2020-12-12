@@ -1,5 +1,5 @@
 import { Scene } from 'phaser';
-import { INIT, NUMBERS_LEGO } from '../constants/scenes';
+import { INIT, NUMBERS_LEGO_10 } from '../constants/scenes';
 import imagesJpg from '../assets/pics/*.jpg'
 import imagesPng from '../assets/pics/*.png'
 import audioMp3 from '../assets/audio/*.mp3'
@@ -90,7 +90,8 @@ class Init extends Scene {
     }
 
     onLoadComplete(loader) {
-        this.scene.start(NUMBERS_LEGO);
+        console.log("onLoadComplete");
+        this.scene.start(NUMBERS_LEGO_10);
         this.scene.shutdown();
     }
 

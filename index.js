@@ -5,7 +5,7 @@ import Init from './scenes/Init';
 // import GrandHall from './scenes/GrandHall';
 
 // Numbers
-import Numbers_Lego from './scenes/Numbers-Lego';
+import Numbers_Lego_10 from './scenes/Numbers-Lego-10';
 
 const config = {
 	type: Phaser.AUTO,
@@ -17,7 +17,7 @@ const config = {
 	},
 	width: GAME_WIDTH,
 	height: GAME_HEIGHT,
-	scene: [Init, Numbers_Lego]
+	scene: [Init, Numbers_Lego_10]
 }
 
 const game = new Phaser.Game(config)
