@@ -11,7 +11,6 @@ const SMALL_POUCH_X = 800;
 const SMALL_POUCH_Y = 600;
 const SMALL_POUCH_W = 40;
 const SMALL_POUCH_H = 64;
-const kKeyZone = {x: 550, y: 330, width: 60, height: 120};
 
 const FAIL_ALERT = 'FailAlert';
 
@@ -27,15 +26,17 @@ class Numbers_Lego extends BaseScene {
 	create() {
         // super.create('a', 'b', true);
 
+        // OVERRIDE THESE
+		this.run_time = 30; // scene timer length
+
+		// Variables
 		this.rects = [];
 		this.emitters = [];
 		this.timer;
-		this.run_time = 30; // 30 seconds
 		this.pie_meter;
 
-		// Create these first so they are under the background picture
-	    this.createBricks();
-
+	    this.brick_store = this.createBricks();
+	    this.setupBricks();
 		this.createBackground();
 		this.createRectangles();
 
@@ -49,14 +50,12 @@ class Numbers_Lego extends BaseScene {
 	    let pouch_closed_zone = this.add.zone(SMALL_POUCH_X, SMALL_POUCH_Y, SMALL_POUCH_W, SMALL_POUCH_H)
 	    	.setInteractive({useHandCursor: true})
 	    	.on('pointerover', () => {
-	    		console.log("pointerover");
 	    		if (pouch_closed.visible) {
 		    		pouch_closed.setVisible(false);
 		    		pouch_closed_outlined.setVisible(true);
 		    	}
 	    	})
 	    	.on('pointerout', () => {
-	    		console.log("pointerout");
 	    		if (!pouch_closed.visible) {
 		    		pouch_closed.setVisible(true);
 		    		pouch_closed_outlined.setVisible(false);
@@ -72,9 +71,10 @@ class Numbers_Lego extends BaseScene {
 				}
 			});
 
-		// let debug = this.add.rectangle(kKeyZone.x, kKeyZone.y, kKeyZone.width, kKeyZone.height, 0xff0000)
+		let keyZoneRect = this.keyZoneRect()
+		// let debug = this.add.rectangle(keyZoneRect.x, keyZoneRect.y, keyZoneRect.width, keyZoneRect.height, 0xff0000)
 		// 			.setOrigin(0,0);
-		this.key_zone = this.make.zone(kKeyZone)
+		this.key_zone = this.make.zone(keyZoneRect)
 			.setOrigin(0,0)
 			.setInteractive({useHandCursor: true})
 			.on('pointerup', pointer => {
@@ -91,18 +91,13 @@ class Numbers_Lego extends BaseScene {
 	        gameObject.y = Phaser.Math.Snap.To(dragY, LEGO_GRID);
 	    });
 
-		console.log("create alert");
-		this.scene.add(FAIL_ALERT, new Alert(FAIL_ALERT), false, {
-			title: "Whoops",
-			content: "You're gonna have to be faster than that!",
-			buttonText: "Try Again",
-			buttonAction: this.resetAfterFail,
-			context: this
-		});
+	    this.alert_keys = this.createAlerts();
 
-        // this.events.on('transitionstart', function(fromScene, duration){
-        // 	fromScene.scene.remove(FAIL_ALERT);
-        // });
+        this.events.on('transitionstart', function(fromScene, duration){
+        	for (const key of this.alert_keys) {
+	        	fromScene.scene.remove(key);
+        	}
+        });
 
 	}
 
@@ -110,7 +105,7 @@ class Numbers_Lego extends BaseScene {
 		this.scene.stop(FAIL_ALERT); // clear alert
 
 		this.pie_meter.visible = false;
-		this.pie_meter_text.visible = false;
+		this.pie_meter.text.visible = false;
 		this.timer = undefined;
 		this.brick_fall_tween.stop();
 
@@ -179,13 +174,12 @@ class Numbers_Lego extends BaseScene {
 		let center_x = GAME_WIDTH/2,
 			center_y = GAME_HEIGHT/2;
 
-		let swirl_y = center_y - 10;
-		this.swirl = this.add.image(center_x, swirl_y, 'aqua_swirl');
-		this.swirl.scale += .1;
-		// this.swirl.visible = false;
+		this.swirl = this.add.image(center_x, center_y, 'aqua_swirl');
+		this.swirl.scale += .1; // Aqua swirl isn't quite large enough to fill the space
+		this.swirl.visible = false;
 
 		// Shifted over slightly to line up with the lego grid rectangles
-		let bg_x = center_x+0;
+		let bg_x = center_x + 10;
 		this.background_open = this.add.image(bg_x, center_y, 'tarnished_door_open');
 		this.background_open.setOrigin(0.5, 0.5);
 
@@ -210,38 +204,48 @@ class Numbers_Lego extends BaseScene {
 	createCountdownTimer() {
 	    this.pie_meter = new PieMeter(this, 120, 120, 30, 0, 1);
 	    this.pie_meter.visible = false;
-	    this.pie_meter_text = this.add.text(120, 160, `0.00`,
+	    this.pie_meter.text = this.add.text(120, 160, `0.00`,
 	    	{fill: "#fff", fontSize: `20pt`});
-	    this.pie_meter_text.visible = false;
-	    this.pie_meter_text.setOrigin(0.5, 0);
+	    this.pie_meter.text.visible = false;
+	    this.pie_meter.text.setOrigin(0.5, 0);
 	}
 
 	createBricks() {
-		this.brick_store = new BrickStore(this, 29, 6);
+		let brick_store = new BrickStore(this, 29, 6);
 
-		this.brick_store.addRow(BSBrick.B1x2, BSBrick.B1x3, BSBrick.B1x2);
-		this.brick_store.addRow(BSBrick.B2x4);
-		this.brick_store.addRow(BSBrick.B2x2, BSBrick.B2x3, BSBrick.B2x2);
-		this.brick_store.addRow(BSBrick.B1x3, BSBrick.B1x5);
-		this.brick_store.addRow(BSBrick.B1x2);
-		this.brick_store.addRow(BSBrick.B1x3, BSBrick.B1x5);
+		brick_store.addRow(BSBrick.B1x2, BSBrick.B1x3, BSBrick.B1x2);
+		brick_store.addRow(BSBrick.B2x4);
+		brick_store.addRow(BSBrick.B2x2, BSBrick.B2x3, BSBrick.B2x2);
+		brick_store.addRow(BSBrick.B1x3, BSBrick.B1x5);
+		brick_store.addRow(BSBrick.B1x2);
+		brick_store.addRow(BSBrick.B1x3, BSBrick.B1x5);
 
+		return brick_store;
+	}
+
+	setupBricks() {
 		this.brick_store.shuffle();
 
 		for (var brick of this.brick_store.bricks) {
-			brick.setInteractive().on('pointerdown', pointer => {
-				for (var i = this.brick_store.bricks.length - 1; i >= 0; i--) {
-					if (this.brick_store.bricks[i] == brick) {
-						this.brick_store.bricks[i].setDepth(Layers.DRAGGING);
-					} else {
-						this.brick_store.bricks[i].setDepth(Layers.OVER_POUCH);
-					}
-				}
-			});
+			brick.setInteractive().on('pointerdown', this.dragBrick.bind(this, brick));
 
 			// Make sure bricks don't respond to input until they enter the scene
 			brick.input.enabled = false;
 		}
+	}
+
+	dragBrick(dragged_brick) {
+		for (const brick of this.brick_store.bricks) {
+			if (brick == dragged_brick) {
+				brick.setDepth(Layers.DRAGGING);
+			} else {
+				brick.setDepth(Layers.OVER_POUCH);
+			}
+		}
+	}
+
+	keyZoneRect() {
+		return {x: 550, y: 330, width: 60, height: 120};
 	}
 
 	createRectangles() {
@@ -300,6 +304,18 @@ class Numbers_Lego extends BaseScene {
 	    this.emitters.push(emitter);
 	}
 
+	createAlerts() {
+		this.scene.add(FAIL_ALERT, new Alert(FAIL_ALERT), false, {
+			title: "Whoops",
+			content: "You're gonna have to be faster than that!",
+			buttonText: "Try Again",
+			buttonAction: this.resetAfterFail,
+			context: this
+		});
+
+		return [FAIL_ALERT];
+	}
+
 	clickPouch(should_open_pouch = true) {
 		var tweens = [];
 
@@ -340,7 +356,7 @@ class Numbers_Lego extends BaseScene {
 			onComplete: function () {
 				console.log("oncomplete");
 				this.pie_meter.visible = true;
-				this.pie_meter_text.visible = true;
+				this.pie_meter.text.visible = true;
 			    this.timer = this.time.addEvent({
 			    	delay: this.run_time*1000,
 			    	repeat: 0
@@ -377,7 +393,7 @@ class Numbers_Lego extends BaseScene {
 
 			let num = this.run_time - (this.timer.getElapsed() / 1000);
 			let trimmed_num = num.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 });
-			this.pie_meter_text.setText(`${trimmed_num}`);
+			this.pie_meter.text.setText(`${trimmed_num}`);
 
 			return (progress_deg == 360);
 		}
@@ -417,7 +433,7 @@ class Numbers_Lego extends BaseScene {
 			...this.rects,
 			...this.rects.map(r => r.text),
 			this.rects_background,
-			this.pie_meter_text,
+			this.pie_meter.text,
 			this.pie_meter,
 			this.background_closed
 		];

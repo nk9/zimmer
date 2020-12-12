@@ -53,7 +53,6 @@ class BrickStore {
 
 		this.layoutBricks();
 		this.generateBricksArray();
-
 	}
 
 	layoutBricks() {
