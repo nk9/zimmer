@@ -42,42 +42,7 @@ class Init extends Scene {
         this.load.on('complete', this.onLoadComplete, this);
         this.createProgressBar();
     }
-
-//     create() {
-//         /*
-//             this.music = this.sound.add('music-town', { loop: true });
-//             this.music.play();
-//         */
-// 
-//         this.anims.create({
-//             key: LEFT,
-//             frames: this.anims.generateFrameNumbers(IMAGE_PLAYER, { start: 3, end: 5 }),
-//             frameRate: 13,
-//             repeat: -1
-//         });
-// 
-//         this.anims.create({
-//             key: RIGHT,
-//             frames: this.anims.generateFrameNumbers(IMAGE_PLAYER, { start: 6, end: 8 }),
-//             frameRate: 13,
-//             repeat: -1
-//         });
-// 
-//         this.anims.create({
-//             key: UP,
-//             frames: this.anims.generateFrameNumbers(IMAGE_PLAYER, { start: 9, end: 11 }),
-//             frameRate: 13,
-//             repeat: -1
-//         });
-// 
-//         this.anims.create({
-//             key: DOWN,
-//             frames: this.anims.generateFrameNumbers(IMAGE_PLAYER, { start: 0, end: 2 }),
-//             frameRate: 13,
-//             repeat: -1
-//         });
-//     }
-
+    
     createProgressBar() {
         let Rectangle = Phaser.Geom.Rectangle;
         let main = Rectangle.Clone(this.cameras.main);

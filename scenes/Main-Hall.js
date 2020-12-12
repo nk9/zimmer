@@ -1,5 +1,7 @@
 import BaseScene, { SceneProgress, Layers } from './base-scene';
-import { MAIN_HALL, NUMBERS_LEGO_10, NUMBERS_LEGO_9 } from '../constants/scenes';
+import { MAIN_HALL,
+		 NUMBERS_LEGO_10, NUMBERS_LEGO_9,
+		 ANIMALS_OCEAN } from '../constants/scenes';
 
 
 class Main_Hall extends BaseScene {
@@ -11,6 +13,9 @@ class Main_Hall extends BaseScene {
 		super.create();
 
 		this.addButton(100, 100, 'Lego 10', NUMBERS_LEGO_10);
+		this.addButton(100, 120, 'Lego 9', NUMBERS_LEGO_9);
+
+		this.addButton(250, 100, 'Animals Ocean', ANIMALS_OCEAN);
 	}
 
 	addButton(x, y, title, key) {
@@ -22,10 +27,6 @@ class Main_Hall extends BaseScene {
 	startScene(key) {
 		this.scene.start(key);
 		this.scene.shutdown();
-	}
-
-	startNextScene() {
-		console.log("Main_Hall: startNextScene");
 	}
 }
 
