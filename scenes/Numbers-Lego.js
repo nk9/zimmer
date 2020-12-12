@@ -4,17 +4,10 @@ import { DRAG_THRESHOLD, GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
 import Brick, { LEGO_GRID } from '../components/brick';
 import BrickStore, { BSBrick } from '../components/brick_store';
 import PieMeter from '../components/pie-meter';
-import Alert from '../components/alert';
 
-const FAIL_ALERT = 'FailAlert';
-
+// Abstract class!
 class Numbers_Lego extends BaseScene {
-    constructor(key) {
-        super(key);
-    }
-
 	create() {
-    	console.log('create Numbers_Lego');
         // super.create('a', 'b', true);
 
         // OVERRIDE THESE
@@ -32,6 +25,10 @@ class Numbers_Lego extends BaseScene {
 		this.createRectangles();
 
 		let [cta_closed, cta_closed_outlined, cta_closed_zone] = this.createCallToAction();
+
+	    this.pouch_open = this.add.image(cta_closed_zone.x, cta_closed_zone.y, 'pouch_open');
+	    this.pouch_open.scale = 0.1;
+	    this.pouch_open.visible = false;
 
 	    cta_closed_zone.setInteractive({useHandCursor: true})
 	    	.on('pointerover', () => {
@@ -56,38 +53,23 @@ class Numbers_Lego extends BaseScene {
 				}
 			});
 
-		let keyZoneRect = this.keyZoneRect()
-		// let debug = this.add.rectangle(keyZoneRect.x, keyZoneRect.y, keyZoneRect.width, keyZoneRect.height, 0xff0000)
-		// 			.setOrigin(0,0);
-		this.key_zone = this.make.zone(keyZoneRect)
-			.setOrigin(0,0)
-			.setInteractive({useHandCursor: true})
-			.on('pointerup', pointer => {
-				this.clickKeyZone()
-			});
+		this.createKeyZone();
+		this.createCountdownTimer();
 
-		this.createCountdownTimer()
-
-	    this.input.dragDragThreshold = DRAG_THRESHOLD;
-
-	    // Allow dragging of the bricks, but snap to grid
-	    this.input.on('drag', function (pointer, gameObject, dragX, dragY) {
-	        gameObject.x = Phaser.Math.Snap.To(dragX, LEGO_GRID);
-	        gameObject.y = Phaser.Math.Snap.To(dragY, LEGO_GRID);
-	    });
-
-	    let alert_keys = this.createAlerts();
+	    this.alert_keys = this.createAlerts();
 
         this.events.on('transitionstart', function(fromScene, duration){
-        	for (const key of alert_keys) {
+        	for (const key of this.alert_keys) {
 	        	fromScene.scene.remove(key);
         	}
         });
-
 	}
 
 	resetAfterFail() {
-		this.scene.stop(FAIL_ALERT); // clear alert
+		// Clear any alerts
+    	for (const key of this.alert_keys) {
+        	this.scene.stop(key);
+    	}
 
 		this.pie_meter.visible = false;
 		this.pie_meter.text.visible = false;
@@ -197,19 +179,6 @@ class Numbers_Lego extends BaseScene {
 	    this.pie_meter.text.setOrigin(0.5, 0);
 	}
 
-	createBricks() {
-		let brick_store = new BrickStore(this, 29, 6);
-
-		brick_store.addRow(BSBrick.B1x2, BSBrick.B1x3, BSBrick.B1x2);
-		brick_store.addRow(BSBrick.B2x4);
-		brick_store.addRow(BSBrick.B2x2, BSBrick.B2x3, BSBrick.B2x2);
-		brick_store.addRow(BSBrick.B1x3, BSBrick.B1x5);
-		brick_store.addRow(BSBrick.B1x2);
-		brick_store.addRow(BSBrick.B1x3, BSBrick.B1x5);
-
-		return brick_store;
-	}
-
 	setupBricks() {
 		this.brick_store.shuffle();
 
@@ -219,6 +188,14 @@ class Numbers_Lego extends BaseScene {
 			// Make sure bricks don't respond to input until they enter the scene
 			brick.input.enabled = false;
 		}
+
+	    // this.input.dragDistanceThreshold = DRAG_THRESHOLD;
+
+	    // Allow dragging of the bricks, but snap to grid
+	    this.input.on('drag', function (pointer, gameObject, dragX, dragY) {
+	        gameObject.x = Phaser.Math.Snap.To(dragX, LEGO_GRID);
+	        gameObject.y = Phaser.Math.Snap.To(dragY, LEGO_GRID);
+	    });
 	}
 
 	dragBrick(dragged_brick) {
@@ -231,23 +208,10 @@ class Numbers_Lego extends BaseScene {
 		}
 	}
 
-	keyZoneRect() {
-		return {x: 550, y: 330, width: 60, height: 120};
-	}
-
-	createRectangles() {
-		this.rects_background = this.add.graphics();
-		this.rects_background.fillStyle(0x000000, .6);
-		this.rects_background.fillRoundedRect(17 * LEGO_GRID,
-										 3  * LEGO_GRID,
-										 8  * LEGO_GRID,
-										 17 * LEGO_GRID);
-		this.rects_background.setDepth(Layers.OVER_DOOR);
-		this.rects_background.setAlpha(0);
-
-		this.addRectangle(2, 5, 20, 5);
-		this.addRectangle(2, 5, 18, 13);
-		this.addRectangle(2, 5, 22, 13);
+	disableBrickDragging() {
+		for (const brick of this.brick_store.bricks) {
+			brick.input.enabled = false;
+		}
 	}
 
 	addRectangle(w, h, x, y) {
@@ -291,51 +255,18 @@ class Numbers_Lego extends BaseScene {
 	    this.emitters.push(emitter);
 	}
 
-	callToActionRect() {
-		return {x: 800, y: 600, width: 40, height: 64};
-	}
-
-	createCallToAction() {
-		let cta_rect = this.callToActionRect();
-	    let cta_closed = this.add.image(cta_rect.x, cta_rect.y, 'pouch_closed');
-	    let cta_closed_outlined = this.add.image(cta_rect.x, cta_rect.y, 'pouch_closed_outlined');
-	    let cta_closed_zone = this.add.zone(cta_rect.x, cta_rect.y, cta_rect.width, cta_rect.height)
-
-	    cta_closed.scale = .2;
-	    cta_closed_outlined.scale = .2;
-	    cta_closed.setVisible(true);
-	    cta_closed_outlined.setVisible(false);
-
-	    this.pouch_open = this.add.image(cta_closed_zone.x, cta_closed_zone.y, 'pouch_open');
-	    this.pouch_open.scale = 0.1;
-	    this.pouch_open.visible = false;
-
-	    return [cta_closed, cta_closed_outlined, cta_closed_zone];
-	}
-
-	createAlerts() {
-		this.scene.add(FAIL_ALERT, new Alert(FAIL_ALERT), false, {
-			title: "Whoops",
-			content: "You're gonna have to be faster than that!",
-			buttonText: "Try Again",
-			buttonAction: this.resetAfterFail,
-			context: this
-		});
-
-		return [FAIL_ALERT];
-	}
-
 	clickCallToAction(should_animate_open = true) {
 		var tweens = [];
 
 		if (should_animate_open) {
 			this.pouch_open.visible = true;
+			let pouch_position = this.pouch_position();
 
 		    let pouch_open_tween = {
 				targets: [this.pouch_open],
 				scale: .8,
-				x: 36 * LEGO_GRID,
-				y: 13 * LEGO_GRID,
+				x: pouch_position,
+				y: pouch_position,
 				ease: 'Sine.easeOut',
 				duration: 1000,
 				onComplete: function (tween, targets) {
@@ -347,7 +278,7 @@ class Numbers_Lego extends BaseScene {
 
 	    let intro_legos_tween = {
 			targets: this.brick_store.bricks.slice().reverse(),
-			y: -5*LEGO_GRID,
+			y: -5*LEGO_GRID, // Just above the top of the screen
 			yoyo: true,
 			repeat: 0,
 			ease: 'Sine.easeOut',
@@ -378,6 +309,19 @@ class Numbers_Lego extends BaseScene {
 	    tweens.push(intro_legos_tween);
 
 	    var timeline = this.tweens.timeline({ tweens: tweens });
+	}
+
+	createKeyZone() {
+		let keyZoneRect = this.keyZoneRect();
+
+		// let debug = this.add.rectangle(keyZoneRect.x, keyZoneRect.y, keyZoneRect.width, keyZoneRect.height, 0xff0000)
+		// 			.setOrigin(0,0);
+		this.key_zone = this.make.zone(keyZoneRect)
+			.setOrigin(0,0)
+			.setInteractive({useHandCursor: true})
+			.on('pointerup', pointer => {
+				this.clickKeyZone()
+			});
 	}
 
 	clickKeyZone() {
@@ -416,19 +360,16 @@ class Numbers_Lego extends BaseScene {
 				return targetIndex * Phaser.Math.Between(0, 150);
 			},
 		});
-
-		this.scene.run(FAIL_ALERT);
-
-		// When do I destroy it??
 	}
 
 	succeed() {
+		this.disableBrickDragging();
 		this.sound.play('door_opens_heavy');
 
-		this.time.delayedCall(750, this.doSceneTransition, [], this);
+		this.time.delayedCall(750, this.doSuccessTransition, [], this);
 	}
 
-	doSceneTransition() {
+	doSuccessTransition() {
 		this.emitters.map(e => e.stop());
 		this.swirl.visible = true;
 
