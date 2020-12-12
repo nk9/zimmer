@@ -34,7 +34,7 @@ class BaseScene extends Scene {
         // this.input.keyboard.removeAllListeners();
     }
 
-	create(tilemap, tileset, withTSAnimation) {
+	create() {
 	}
 
     update() {
