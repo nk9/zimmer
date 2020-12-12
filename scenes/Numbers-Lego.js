@@ -10,8 +10,10 @@ class Numbers_Lego extends BaseScene {
 	create() {
         // super.create('a', 'b', true);
 
+        console.log("Numbers_Lego.create()");
+
         // OVERRIDE THESE
-		this.run_time = 30; // scene timer length
+		this.run_time = 1; // scene timer length
 
 		// Variables
 		this.rects = [];
@@ -136,40 +138,6 @@ class Numbers_Lego extends BaseScene {
 		}
 	}
 
-	createBackground() {
-		this.underlay = this.add.rectangle(0, 0, GAME_WIDTH, GAME_HEIGHT, 0x000000);
-		this.underlay.setOrigin(0,0);
-
-		let center_x = GAME_WIDTH/2,
-			center_y = GAME_HEIGHT/2;
-
-		this.swirl = this.add.image(center_x, center_y, 'aqua_swirl');
-		this.swirl.scale += .1; // Aqua swirl isn't quite large enough to fill the space
-		this.swirl.visible = false;
-
-		// Shifted over slightly to line up with the lego grid rectangles
-		let bg_x = center_x + 10;
-		this.background_open = this.add.image(bg_x, center_y, 'tarnished_door_open');
-		this.background_open.setOrigin(0.5, 0.5);
-
-		this.background_closed = this.add.image(bg_x, center_y, 'tarnished_door');
-		this.background_closed.setOrigin(0.5, 0.5);
-
-		let bg_bounds = this.background_closed.getBounds();
-		this.left_screen  = this.add.rectangle(0,
-											   0,
-											   bg_bounds.x,
-											   GAME_HEIGHT,
-											   0x000000);
-		this.right_screen = this.add.rectangle(bg_bounds.right,
-											   0,
-											   GAME_WIDTH-bg_bounds.right,
-											   GAME_HEIGHT,
-											   0x000000);
-		this.left_screen.setOrigin(0, 0);
-		this.right_screen.setOrigin(0, 0);
-	}
-
 	createCountdownTimer() {
 	    this.pie_meter = new PieMeter(this, 120, 120, 30, 0, 1);
 	    this.pie_meter.visible = false;
@@ -177,6 +145,33 @@ class Numbers_Lego extends BaseScene {
 	    	{fill: "#fff", fontSize: `20pt`});
 	    this.pie_meter.text.visible = false;
 	    this.pie_meter.text.setOrigin(0.5, 0);
+	}
+
+	createBackground() {
+		this.underlay = this.add.rectangle(0, 0, GAME_WIDTH, GAME_HEIGHT, 0x000000);
+		this.underlay.setOrigin(0,0);
+
+		this.createBackgroundImages();
+		this.swirl.visible = false;
+
+		let bg_bounds = this.background_closed.getBounds();
+		let underlay_bounds = this.underlay.getBounds();
+
+		// Add screens if needed
+		if (!Phaser.Geom.Rectangle.Equals(bg_bounds, underlay_bounds)) {
+			let left_screen  = this.add.rectangle(0,
+												   0,
+												   bg_bounds.x,
+												   GAME_HEIGHT,
+												   0x000000);
+			let right_screen = this.add.rectangle(bg_bounds.right,
+												   0,
+												   GAME_WIDTH-bg_bounds.right,
+												   GAME_HEIGHT,
+												   0x000000);
+			left_screen.setOrigin(0, 0);
+			right_screen.setOrigin(0, 0);
+		}
 	}
 
 	setupBricks() {
@@ -260,13 +255,13 @@ class Numbers_Lego extends BaseScene {
 
 		if (should_animate_open) {
 			this.pouch_open.visible = true;
-			let pouch_position = this.pouch_position();
+			let pouch_position = this.pouchOpenPosition();
 
 		    let pouch_open_tween = {
 				targets: [this.pouch_open],
 				scale: .8,
-				x: pouch_position,
-				y: pouch_position,
+				x: pouch_position.x,
+				y: pouch_position.y,
 				ease: 'Sine.easeOut',
 				duration: 1000,
 				onComplete: function (tween, targets) {
@@ -388,11 +383,12 @@ class Numbers_Lego extends BaseScene {
 	    	tweens: [{
 	    		targets: fadeObjects,
 	    		duration: 2000,
-	    		alpha: 0
+	    		alpha: 0,
 	    	}]
 	    });
-	}
 
+	    this.time.delayedCall(5000, this.startNextScene, [], this);
+	}
 }
 
 export default Numbers_Lego;

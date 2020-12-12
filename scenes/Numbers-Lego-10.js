@@ -1,16 +1,40 @@
 import BaseScene, { SceneProgress, Layers } from './base-scene';
 
 import Numbers_Lego from './Numbers-Lego'
-import { NUMBERS_LEGO_10 } from '../constants/scenes';
 import Brick, { LEGO_GRID } from '../components/brick';
 import BrickStore, { BSBrick } from '../components/brick_store';
 import Alert from '../components/alert';
+
+import { NUMBERS_LEGO_10, NUMBERS_LEGO_9 } from '../constants/scenes';
+import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
 
 const FAIL_ALERT = 'FailAlert';
 
 class Numbers_Lego_10 extends Numbers_Lego {
 	constructor() {
         super(NUMBERS_LEGO_10);
+	}
+
+	create() {
+		super.create();
+
+		this.run_time = 30; // scene timer length
+	}
+
+	createBackgroundImages() {
+		let center_x = GAME_WIDTH/2,
+			center_y = GAME_HEIGHT/2;
+
+		this.swirl = this.add.image(center_x, center_y, 'aqua_swirl');
+		this.swirl.scale += .1; // Aqua swirl isn't quite large enough to fill the space
+
+		// Shifted over slightly to line up with the lego grid rectangles
+		let bg_x = center_x + 10;
+		this.background_open = this.add.image(bg_x, center_y, 'tarnished_door_open');
+		this.background_open.setOrigin(0.5, 0.5);
+
+		this.background_closed = this.add.image(bg_x, center_y, 'tarnished_door');
+		this.background_closed.setOrigin(0.5, 0.5);
 	}
 
 	createBricks() {
@@ -85,7 +109,10 @@ class Numbers_Lego_10 extends Numbers_Lego {
 		this.scene.run(FAIL_ALERT);
 	}
 
-
+	startNextScene() {
+        this.scene.start(NUMBERS_LEGO_9);
+        this.scene.shutdown();
+	}
 
 }
 
