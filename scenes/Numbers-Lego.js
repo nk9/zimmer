@@ -126,46 +126,48 @@ class Numbers_Lego extends BaseScene {
 	update() {
 		var completedRects = [];
 
-		for (var i = this.rects.length - 1; i >= 0; i--) {
-			let r = this.rects[i].getBounds();
-			var containedBricks = [];
-			
-			for (const brick of this.brick_store.bricks) {
-				let br = brick.getBounds();
-
-				let intersection = Phaser.Geom.Rectangle.Intersection(r, br);
-
-				if (Phaser.Geom.Rectangle.Equals(intersection, br)) {
-					// console.log(`brick ${j} (${brick.legoTotal}) is inside rect ${i}`);
-					containedBricks.push(brick);
-				}
-			}
-
-			var emit = false;
-			if (containedBricks.length == 2) {
-				let brick1 = containedBricks[0],
-					brick2 = containedBricks[1];
-				let intersection = Phaser.Geom.Rectangle.Intersection(brick1.getBounds(),
-																	  brick2.getBounds());
-				if (intersection.isEmpty() && brick1.legoTotal + brick2.legoTotal == 10) {
-					emit = true;
-					completedRects.push(this.rects[i]);
-				}
-			}
-			
-			if (emit && !this.emitters[i].on) {
-				this.emitters[i].start();
-			} else if (!emit && this.emitters[i].on) {
-				this.emitters[i].stop();
-			}
-		}
-
-		if (completedRects.length == 3) {
-			this.progress = SceneProgress.SUCCEEDED;
-		}
-
 		if (this.progress != SceneProgress.FAILED &&
 			this.progress != SceneProgress.SUCCEEDED) {
+
+			for (var i = this.rects.length - 1; i >= 0; i--) {
+				let r = this.rects[i].getBounds();
+				var containedBricks = [];
+				
+				for (const brick of this.brick_store.bricks) {
+					let br = brick.getBounds();
+
+					let intersection = Phaser.Geom.Rectangle.Intersection(r, br);
+
+					if (Phaser.Geom.Rectangle.Equals(intersection, br)) {
+						// console.log(`brick ${j} (${brick.legoTotal}) is inside rect ${i}`);
+						containedBricks.push(brick);
+					}
+				}
+
+				var emit = false;
+				if (containedBricks.length == 2) {
+					let brick1 = containedBricks[0],
+						brick2 = containedBricks[1];
+					let intersection = Phaser.Geom.Rectangle.Intersection(brick1.getBounds(),
+																		  brick2.getBounds());
+					if (intersection.isEmpty() && brick1.legoTotal + brick2.legoTotal == 10) {
+						emit = true;
+						completedRects.push(this.rects[i]);
+					}
+				}
+				
+				if (emit && !this.emitters[i].on) {
+					this.emitters[i].start();
+				} else if (!emit && this.emitters[i].on) {
+					this.emitters[i].stop();
+				}
+			}
+
+			if (completedRects.length == 3) {
+				this.progress = SceneProgress.SUCCEEDED;
+				this.succeed();
+			}
+
 			if (this.updatePieTimer()) {
 				this.progress = SceneProgress.FAILED;
 				this.fail();
@@ -307,10 +309,10 @@ class Numbers_Lego extends BaseScene {
 				console.log("oncomplete");
 				this.pie_meter.visible = true;
 				this.pie_meter_text.visible = true;
-			    // this.timer = this.time.addEvent(this.timer);
-			    // this.timer.paused = false;
-			    this.timer = this.time.addEvent({ delay: this.run_time*1000, repeat: 0 });
-			    // this.timer.paused = true;
+			    this.timer = this.time.addEvent({
+			    	delay: this.run_time*1000,
+			    	repeat: 0
+			    });
 			},
 			onCompleteScope: this,
 			onYoyo: function (tween, sprite) {
@@ -365,6 +367,34 @@ class Numbers_Lego extends BaseScene {
 		this.scene.run(FAIL_ALERT);
 
 		// When do I destroy it??
+	}
+
+	succeed() {
+		this.sound.play('door_opens_heavy');
+
+		this.time.delayedCall(750, this.doSceneTransition, [], this);
+	}
+
+	doSceneTransition() {
+		this.emitters.map(e => e.stop());
+
+		let fadeObjects = [
+			...this.brick_store.bricks,
+			this.pouch_open,
+			...this.rects,
+			...this.rects.map(r => r.text),
+			this.rects_background,
+			this.pie_meter_text,
+			this.pie_meter
+		];
+
+	    var timeline = this.tweens.timeline({
+	    	tweens: [{
+	    		targets: fadeObjects,
+	    		duration: 2000,
+	    		alpha: 0
+	    	}]
+	    });
 	}
 
 }

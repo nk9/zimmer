@@ -2,6 +2,7 @@ import { Scene } from 'phaser';
 import { INIT, NUMBERS_LEGO } from '../constants/scenes';
 import imagesJpg from '../assets/pics/*.jpg'
 import imagesPng from '../assets/pics/*.png'
+import audioMp3 from '../assets/audio/*.mp3'
 import particles from '../assets/particles/*.png'
 import spritesImg from '../assets/sprites/*.png'
 import spritesJson from '../assets/sprites/*.json'
@@ -25,6 +26,9 @@ class Init extends Scene {
 
         // Particles
         this.load.image('spark', particles.blue);
+
+        // Audio
+        this.load.audio('door_opens_heavy', audioMp3.door_opens_heavy);
 
         /* this.load.audio('music-town', ['assets/music/town.mp3']); */
 
