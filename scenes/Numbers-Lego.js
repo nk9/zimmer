@@ -53,14 +53,6 @@ class Numbers_Lego extends BaseScene {
 
 		this.createKeyZone();
 		this.createCountdownTimer();
-
-	    this.alert_keys = this.createAlerts();
-
-        this.events.on('transitionstart', function(fromScene, duration){
-        	for (const key of this.alert_keys) {
-	        	fromScene.scene.remove(key);
-        	}
-        });
 	}
 
 	resetAfterFail() {
