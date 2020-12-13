@@ -166,7 +166,7 @@ class Numbers_Lego extends BaseScene {
 		this.brick_store.shuffle();
 
 		for (var brick of this.brick_store.bricks) {
-			brick.setInteractive().on('pointerdown', this.dragBrick.bind(this, brick));
+			brick.on('pointerdown', this.dragBrick.bind(this, brick));
 
 			// Make sure bricks don't respond to input until they enter the scene
 			brick.input.enabled = false;

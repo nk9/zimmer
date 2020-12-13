@@ -2,6 +2,7 @@ import BaseScene, { SceneProgress, Layers } from './base-scene';
 import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
 
 import animalPicPng from '../assets/pics/animals/*.png'
+import audioMp3 from '../assets/audio/*.mp3'
 
 export const SelectionMode = {
 	NONE:    "none", 
@@ -15,11 +16,15 @@ class Animals_Base extends BaseScene {
 
 		this.selectionMode = SelectionMode.NONE;
 	}
+
 	preload() {
 		this.load.image('screen', animalPicPng.screen);
 		this.load.image('scanner', animalPicPng.scanning_chamber);
 		this.load.image('raygun', animalPicPng.raygun_small);
 		this.load.image('grabber', animalPicPng.grabber_small);
+
+		this.load.audio('xray', audioMp3.twinkle);
+		this.load.audio('grab', audioMp3.scan);
 	}
 
 	create() {
@@ -42,13 +47,19 @@ class Animals_Base extends BaseScene {
 	setupAnimals() {
 		for (const animal of this.animals) {
 			animal.on('drop', this.dropAnimal);
+			animal.on('pointerdown', this.pointerDownAnimal.bind(this, animal));
+			// animal.on('pointerup', this.pointerUpAnimal.bind(this, animal));
 		}
+	}
 
-		this.input.on('gameobjectup', (pointer, animal, event) => {
-			if (this.selectionMode == SelectionMode.RAYGUN) {
-				this.clickedXrayAnimal(animal);
-			}
-		});
+	pointerDownAnimal(animal) {
+		if (this.selectionMode == SelectionMode.RAYGUN) {
+			this.sound.play('xray');
+
+			this.clickedXrayAnimal(animal);
+		} else if (this.selectionMode == SelectionMode.GRABBER) {
+			this.sound.play('grab');
+		}
 	}
 
 	createTools() {
