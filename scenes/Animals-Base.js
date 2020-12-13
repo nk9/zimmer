@@ -4,6 +4,8 @@ class Animals_Base extends BaseScene {
 	create() {
 		super.create();
 
+		this.animals = [];
+
 		this.createBackground();
 		this.createCallToAction();
 		this.createAlerts();

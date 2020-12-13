@@ -1,5 +1,5 @@
 class OutlineImage extends Phaser.GameObjects.Container {
-	constructor(scene, name, targetX, targetY, x=-500, y=-500) {
+	constructor(scene, name, targetX, targetY, x=-500, y=-500, scale=.5) {
 		super(scene, x, y);
 
 		this.name = name;
@@ -28,6 +28,7 @@ class OutlineImage extends Phaser.GameObjects.Container {
 
 		this.add(this.img);
 		this.add(this.img_outline);
+		this.scale = scale;
 
 		scene.add.existing(this);
 	}

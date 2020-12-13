@@ -62,7 +62,7 @@ class Animals_Ocean extends Animals_Base {
 	createCallToAction() {
 		this.sound.play('splash_bubble');
 
-		this.submarine = new OutlineImage(this, 'amphisub', 150, 150, 125, -136);
+		this.submarine = new OutlineImage(this, 'amphisub', 150, 150, 125, -136, 1);
 		this.submarine.setInteractive()
 			.on('pointerup', pointer => {
 				this.clickCallToAction();
@@ -99,17 +99,34 @@ class Animals_Ocean extends Animals_Base {
 	}
 
 	createAnimals() {
-		this.add.image(-300, GAME_HEIGHT/2, 'crab');
-		this.add.image(-300, GAME_HEIGHT/2, 'crab_outline');
+		this.animals.push(
+			new OutlineImage(this, 'crab', 500, 650, GAME_WIDTH/2, GAME_HEIGHT+200, .3),
+			new OutlineImage(this, 'eel', 1000, 100, GAME_WIDTH*.8, -250),
+		);
 	}
 
 	introAlertClicked() {
 		this.scene.stop(INTRO_ALERT);
 
 		if (!this.animalsEntered) {
+			var tweens = [];
+
 			// Animate in tools
 			// Animate in animals
+			for (const animal of this.animals) {
+				tweens.push({
+					targets: animal,
+					x: animal.targetX,
+					y: animal.targetY,
+					ease: 'Sine.easeOut',
+					duration: 2000,
+					offset: 0 // All at once
+				})
+			}
+
 			// Animate in X-ray screen
+
+	    	this.tweens.timeline({ tweens: tweens });
 
 			this.animalsEntered = true;
 		}
