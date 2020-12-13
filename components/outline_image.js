@@ -14,7 +14,7 @@ class OutlineImage extends Phaser.GameObjects.Container {
 		let [w, h] = [img_bounds.width, img_bounds.height];
 
 		this.setSize(w, h);
-		this.setInteractive({ useHandCursor: true })
+		this.setInteractive()
 			.on('pointerover', () => {
 				console.log("over");
 				this.img.visible = false;

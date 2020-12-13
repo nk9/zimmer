@@ -4,45 +4,61 @@ import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
 
 import Alert from '../components/alert';
 import OutlineImage from '../components/outline_image';
+import XrayAnimal from '../components/xray_animal';
 
-import animalPicJpg from '../assets/pics/animals/ocean/*.jpg'
-import animalPicPng from '../assets/pics/animals/ocean/*.png'
+import oceanPicJpg from '../assets/pics/animals/ocean/*.jpg'
+import oceanPicPng from '../assets/pics/animals/ocean/*.png'
 import audioMp3 from '../assets/audio/*.mp3'
 
 import Animals_Base from './Animals-Base';
 
 let INTRO_ALERT = 'Intro_Alert';
 
+const SelectionMode = {
+	NONE:    "none", 
+	RAYGUN:  "raygun",
+	GRABBER: "grabber"
+}
+
 class Animals_Ocean extends Animals_Base {
+	constructor() {
+        super(ANIMALS_OCEAN);
+	}
+
 	preload() {
+		super.preload();
+
 		// Images
-		this.load.image('underwater_door_closed', animalPicJpg.underwater_door_closed);
-		this.load.image('underwater_door_open', animalPicPng.underwater_door_open);
+		this.load.image('underwater_door_closed', oceanPicJpg.underwater_door_closed);
+		this.load.image('underwater_door_open', oceanPicPng.underwater_door_open);
         this.loadOutlineImage('amphisub');
 
         // Animals
-        this.loadOutlineImage('crab');
-        this.loadOutlineImage('eel');
+        let aStr = ['crab', 'eel'];
+        aStr.map(a => this.loadXrayOutlineImage(a));
 
         // Audio
         this.load.audio('splash_bubble', audioMp3.splash_bubble);
 	}
 
 	loadOutlineImage(name) {
-		this.load.image(name, animalPicPng[name]);
-		this.load.image(name+"_outline", animalPicPng[name+"_outline"]);
+		this.load.image(name, oceanPicPng[name]);
+		this.load.image(name+"_outline", oceanPicPng[name+"_outline"]);
 	}
-	
-	constructor() {
-        super(ANIMALS_OCEAN);
+
+	loadXrayOutlineImage(name) {
+		this.loadOutlineImage(name)
+		this.load.image("xray_"+name, oceanPicJpg["xray_"+name]);
 	}
 
 	create() {
 		super.create();
 
 		this.animalsEntered = false;
+		this.selectionMode = SelectionMode.NONE;
 
-		// this.input.setDefaultCursor('url(assets/pics/raygun.png), pointer');
+		// let cursor = oceanPicPng.raygun_small
+		// this.input.setDefaultCursor(`url(${oceanPicPng.raygun_small}), pointer`);
 	}
 
 	createBackground() {
@@ -63,7 +79,7 @@ class Animals_Ocean extends Animals_Base {
 		this.sound.play('splash_bubble');
 
 		this.submarine = new OutlineImage(this, 'amphisub', 150, 150, 125, -136, 1);
-		this.submarine.setInteractive()
+		this.submarine.setInteractive() // { useHandCursor: true }
 			.on('pointerup', pointer => {
 				this.clickCallToAction();
 			});
@@ -100,9 +116,13 @@ class Animals_Ocean extends Animals_Base {
 
 	createAnimals() {
 		this.animals.push(
-			new OutlineImage(this, 'crab', 500, 650, GAME_WIDTH/2, GAME_HEIGHT+200, .3),
-			new OutlineImage(this, 'eel', 1000, 100, GAME_WIDTH*.8, -250),
+			new XrayAnimal(this, 'crab', 500, 600, GAME_WIDTH/2, GAME_HEIGHT+200, .3),
+			new XrayAnimal(this, 'eel', 1000, 100, GAME_WIDTH*.8, -250),
 		);
+	}
+
+	clickedXrayAnimal(animal) {
+		console.log(animal);
 	}
 
 	introAlertClicked() {
@@ -111,7 +131,6 @@ class Animals_Ocean extends Animals_Base {
 		if (!this.animalsEntered) {
 			var tweens = [];
 
-			// Animate in tools
 			// Animate in animals
 			for (const animal of this.animals) {
 				tweens.push({
@@ -124,9 +143,10 @@ class Animals_Ocean extends Animals_Base {
 				})
 			}
 
-			// Animate in X-ray screen
-
 	    	this.tweens.timeline({ tweens: tweens });
+
+			// Animate in tools
+			this.revealTools();
 
 			this.animalsEntered = true;
 		}
