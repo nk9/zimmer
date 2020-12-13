@@ -10,20 +10,18 @@ import oceanPicJpg from '../assets/pics/animals/ocean/*.jpg'
 import oceanPicPng from '../assets/pics/animals/ocean/*.png'
 import audioMp3 from '../assets/audio/*.mp3'
 
-import Animals_Base from './Animals-Base';
+import Animals_Base, { SelectionMode } from './Animals-Base';
 
 let INTRO1_ALERT = 'Intro1_Alert';
 let INTRO2_ALERT = 'Intro2_Alert';
 
-const SelectionMode = {
-	NONE:    "none", 
-	RAYGUN:  "raygun",
-	GRABBER: "grabber"
-}
-
 class Animals_Ocean extends Animals_Base {
 	constructor() {
         super(ANIMALS_OCEAN);
+
+        // initialize variables
+		this.scanLimit = 6;
+		this.animalsEntered = false;
 	}
 
 	preload() {
@@ -54,12 +52,6 @@ class Animals_Ocean extends Animals_Base {
 
 	create() {
 		super.create();
-
-		this.animalsEntered = false;
-		this.selectionMode = SelectionMode.NONE;
-
-		// let cursor = oceanPicPng.raygun_small
-		// this.input.setDefaultCursor(`url(${oceanPicPng.raygun_small}), pointer`);
 	}
 
 	createBackground() {
@@ -80,10 +72,11 @@ class Animals_Ocean extends Animals_Base {
 		this.sound.play('splash_bubble');
 
 		this.submarine = new OutlineImage(this, 'amphisub', 150, 150, 125, -136, 1);
-		this.submarine.setInteractive() // { useHandCursor: true }
+		this.submarine
 			.on('pointerup', pointer => {
 				this.clickCallToAction();
 			});
+		this.submarine.input.cursor = 'pointer';
 
 		var tweens = [];
 
@@ -112,14 +105,14 @@ class Animals_Ocean extends Animals_Base {
 	createAlerts() {
 		this.scene.add(INTRO1_ALERT, new Alert(INTRO1_ALERT), false, {
 			title: "Hi Sea Explorer!",
-			content: "Koki and I are looking for invertebrates. Those are animals with no skeletons. Can you drag all of those over to our scanner?",
+			content: "Koki and I are looking for invertebrates. Those are animals with no skeletons. Can you help us find them?",
 			buttonText: "Sure!",
 			buttonAction: this.intro1AlertClicked,
 			context: this
 		});
 		this.scene.add(INTRO2_ALERT, new Alert(INTRO2_ALERT), false, {
 			title: "Thank You!",
-			content: "Use the X-ray gun to have a look at the animals first. Then drag all the invertebrates over to the scanner.",
+			content: `Use the X-ray gun to have a look at the animals first. Then drag all the invertebrates over to the scanner. But be careful! The scanner only has charge for ${this.scanLimit} scans.`,
 			buttonText: "Got it",
 			buttonAction: this.intro2AlertClicked,
 			context: this

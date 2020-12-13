@@ -3,7 +3,18 @@ import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
 
 import animalPicPng from '../assets/pics/animals/*.png'
 
+export const SelectionMode = {
+	NONE:    "none", 
+	RAYGUN:  "raygun",
+	GRABBER: "grabber"
+}
+
 class Animals_Base extends BaseScene {
+	constructor(key) {
+		super(key);
+
+		this.selectionMode = SelectionMode.NONE;
+	}
 	preload() {
 		this.load.image('screen', animalPicPng.screen);
 		this.load.image('scanner', animalPicPng.scanning_chamber);
@@ -19,7 +30,6 @@ class Animals_Base extends BaseScene {
 		this.createBackground();
 		this.createTools();
 		this.createCallToAction();
-		this.createAlerts();
 		this.createAnimals();
 		this.setupAnimals();
 	}
@@ -31,8 +41,14 @@ class Animals_Base extends BaseScene {
 	setupAnimals() {
 		for (const animal of this.animals) {
 			animal.setInteractive()
-				.on('drop', this.dropAnimal)
+				.on('drop', this.dropAnimal);
 		}
+
+		this.input.on('gameobjectup', (pointer, animal, event) => {
+			if (this.selectionMode == SelectionMode.RAYGUN) {
+				this.clickedXrayAnimal(animal);
+			}
+		});
 	}
 
 	createTools() {
@@ -65,6 +81,13 @@ class Animals_Base extends BaseScene {
 		this.toolbar.add(rectangle);
 		this.toolbar.add(raygun);
 		this.toolbar.add(grabber);
+
+		this.input.on('drag', (pointer, gameObject, dragX, dragY) => {
+			if (this.selectionMode == SelectionMode.GRABBER) {
+				gameObject.x = dragX;
+				gameObject.y = dragY;
+			}
+		});
 	}
 
 	revealTools() {
@@ -86,12 +109,16 @@ class Animals_Base extends BaseScene {
 	}
 
 	chooseGrabber() {
-		// let cursor = animalPicPng.raygun_small;
+		this.selectionMode = SelectionMode.GRABBER;
 		this.input.setDefaultCursor(`url(${animalPicPng.grabber_small}), pointer`);
+		this.clickedXrayAnimal(null);
+		this.setAnimalsDraggable(true);
 	}
 
 	chooseRaygun() {
+		this.selectionMode = SelectionMode.RAYGUN;
 		this.input.setDefaultCursor(`url(${animalPicPng.raygun_small}), pointer`);
+		this.setAnimalsDraggable(false);
 	}
 
 	dropAnimal(pointer, target) {
@@ -101,6 +128,12 @@ class Animals_Base extends BaseScene {
 	clickedXrayAnimal(animal) {
 		for (const a of this.animals) {
 			a.xrayImg.visible = (animal == a);
+		}
+	}
+
+	setAnimalsDraggable(canDrag) {
+		for (const a of this.animals) {
+			this.input.setDraggable(a, canDrag);
 		}
 	}
 }

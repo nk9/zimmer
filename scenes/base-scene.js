@@ -8,12 +8,15 @@ export const SceneProgress = {
 }
 
 export const Layers = {
+    // Numbers
     UNDERLAY: 1,
     BACKGROUND: 2,
     OVER_DOOR: 8,
     UNDER_POUCH: 9,
     POUCH: 10,
     OVER_POUCH: 12,
+
+    // All
     DRAGGING: 100,
 }
 
@@ -35,6 +38,13 @@ class BaseScene extends Scene {
     }
 
 	create() {
+        this.alert_keys = this.createAlerts();
+
+        this.events.on('transitionstart', function(fromScene, duration){
+            for (const key of this.alert_keys) {
+                fromScene.scene.remove(key);
+            }
+        });
 	}
 
     update() {

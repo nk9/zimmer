@@ -18,6 +18,10 @@ class Main_Hall extends BaseScene {
 		this.addButton(250, 100, 'Animals Ocean', ANIMALS_OCEAN);
 	}
 
+	createAlerts() {
+		return []
+	}
+
 	addButton(x, y, title, key) {
 		this.add.text(x, y, title)
 			.setInteractive({useHandCursor: true})
