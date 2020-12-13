@@ -2,17 +2,33 @@ import Phaser from 'phaser';
 
 export default class Alert extends Phaser.Scene {
 	create() {
-		console.log("create alert");
 		let data = this.scene.settings.data;
 
 		const screenCenterX = this.cameras.main.worldView.x + this.cameras.main.width / 2;
 		const screenCenterY = this.cameras.main.worldView.y + this.cameras.main.height / 2;
 		const width = 500;
-		const height = 200;
+		const height = 0;
 
-		let bg = this.add.rectangle(screenCenterX, screenCenterY, width, height, 0x000000, .9);
+		let contentStyle = {
+			fontSize: '24px',
+			fontFamily: 'sans-serif',
+			align: "left",
+			wordWrap: { width: width-30, usetAdvancedWrap: true } // width minus 2*inset
+		};
+		let content = this.add.text(0, 0, data.content, contentStyle);
+		let contentBounds = content.getBounds();
+
+		let bgHeight = 15  // inset
+					 + 40  // title
+					 + 20  // gap
+					 + contentBounds.height
+					 + 20  // gap
+					 + 36  // buttons
+					 + 15; // inset
+		let bg = this.add.rectangle(screenCenterX, screenCenterY, width, bgHeight, 0x000000, .9);
 		bg.setStrokeStyle(3, 0xffffff)
 		bg.setOrigin(0.5, 0.5);
+		bg.setDepth(-1);
 
 		let inset = Phaser.Geom.Rectangle.Inflate(bg.getBounds(), -15, -15);
 
@@ -20,7 +36,8 @@ export default class Alert extends Phaser.Scene {
 		title.setOrigin(0.5, 0);
 
 		let titleBottomLeft = title.getBottomLeft();
-		let content = this.add.text(inset.x, titleBottomLeft.y+20, data.content, {fontSize: '24px', fontFamily: 'sans-serif'});
+		content.x = inset.x;
+		content.y = titleBottomLeft.y+20;
 
 		this.buttonRect = this.add.rectangle(inset.right, inset.bottom, 140, 36, 0x000000, .5);
 		this.buttonRect.setStrokeStyle(2, 0xffffff);

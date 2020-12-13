@@ -31,6 +31,8 @@ class Animals_Ocean extends Animals_Base {
 	create() {
 		super.create();
 
+		this.animalsEntered = false;
+
 		// this.input.setDefaultCursor('url(assets/pics/raygun.png), pointer');
 	}
 
@@ -56,13 +58,12 @@ class Animals_Ocean extends Animals_Base {
 		this.submarine_outline = this.add.image(0, -271, 'amphisub_outline'); // Height of the image
 		this.submarine_outline.setOrigin(0, 0);
 		this.submarine_outline.visible = false;
-		console.log(this.submarine.getBounds());
 
 		this.submarine_zone = this.add.zone(0, 0, 250, 271);
 		this.submarine_zone.setOrigin(0,0);
 		this.submarine_zone.setInteractive({ useHandCursor: true })
 			.on('pointerup', pointer => {
-				console.log("clickeddddd");
+				this.clickCallToAction();
 			})
 			.on('pointerover', pointer => {
 				this.submarine.visible = false;
@@ -86,10 +87,14 @@ class Animals_Ocean extends Animals_Base {
 	    var timeline = this.tweens.timeline({ tweens: tweens });
 	}
 
+	clickCallToAction() {
+		this.scene.run(INTRO_ALERT);
+	}
+
 	createAlerts() {
 		this.scene.add(INTRO_ALERT, new Alert(INTRO_ALERT), false, {
-			title: "Hi there…",
-			content: "Koki and I are looking for invertebrates. (That's an animal with no skeleton.) Can you drag all of those over to our submarine? You can use our X-ray gun to check.",
+			title: "Hi Sea Explorer!",
+			content: "Koki and I are looking for invertebrates. Those are animals with no skeletons. Can you drag all of those over to our submarine? You can use our X-ray gun to check.",
 			buttonText: "Sure!",
 			buttonAction: this.introAlertClicked,
 			context: this
@@ -103,9 +108,15 @@ class Animals_Ocean extends Animals_Base {
 	}
 
 	introAlertClicked() {
-		// Cursor becomes X-ray gun
-		// Animate in animals
-		// Animate in X-ray screen
+		this.scene.stop(INTRO_ALERT);
+		
+		if (!this.animalsEntered) {
+			// Animate in tools
+			// Animate in animals
+			// Animate in X-ray screen
+
+			this.animalsEntered = true;
+		}
 	}
 }
 
