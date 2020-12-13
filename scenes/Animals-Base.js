@@ -26,6 +26,7 @@ class Animals_Base extends BaseScene {
 		super.create();
 
 		this.animals = [];
+		this.collected_animals = [];
 
 		this.createBackground();
 		this.createTools();
@@ -40,8 +41,7 @@ class Animals_Base extends BaseScene {
 
 	setupAnimals() {
 		for (const animal of this.animals) {
-			animal.setInteractive()
-				.on('drop', this.dropAnimal);
+			animal.on('drop', this.dropAnimal);
 		}
 
 		this.input.on('gameobjectup', (pointer, animal, event) => {
@@ -122,7 +122,9 @@ class Animals_Base extends BaseScene {
 	}
 
 	dropAnimal(pointer, target) {
-		console.log(target);
+		this.visible = false;
+		this.scene.collected_animals.push(this);
+		console.log(this);
 	}
 
 	clickedXrayAnimal(animal) {
