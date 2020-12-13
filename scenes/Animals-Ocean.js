@@ -12,7 +12,8 @@ import audioMp3 from '../assets/audio/*.mp3'
 
 import Animals_Base from './Animals-Base';
 
-let INTRO_ALERT = 'Intro_Alert';
+let INTRO1_ALERT = 'Intro1_Alert';
+let INTRO2_ALERT = 'Intro2_Alert';
 
 const SelectionMode = {
 	NONE:    "none", 
@@ -48,7 +49,7 @@ class Animals_Ocean extends Animals_Base {
 
 	loadXrayOutlineImage(name) {
 		this.loadOutlineImage(name)
-		this.load.image("xray_"+name, oceanPicJpg["xray_"+name]);
+		this.load.image(name+"_xray", oceanPicJpg[name+"_xray"]);
 	}
 
 	create() {
@@ -93,25 +94,38 @@ class Animals_Ocean extends Animals_Base {
 			ease: 'Sine.easeOut',
 			duration: 2500,
 			delay: 500
+		}, {
+			targets: this.scanner,
+			x: 40,
+			ease: 'Sine.easeOut',
+			duration: 1500,
+			offset: 1500
 		});
 
 	    var timeline = this.tweens.timeline({ tweens: tweens });
 	}
 
 	clickCallToAction() {
-		this.scene.run(INTRO_ALERT);
+		this.scene.run(INTRO1_ALERT);
 	}
 
 	createAlerts() {
-		this.scene.add(INTRO_ALERT, new Alert(INTRO_ALERT), false, {
+		this.scene.add(INTRO1_ALERT, new Alert(INTRO1_ALERT), false, {
 			title: "Hi Sea Explorer!",
-			content: "Koki and I are looking for invertebrates. Those are animals with no skeletons. Can you drag all of those over to our submarine? You can use our X-ray gun to check.",
+			content: "Koki and I are looking for invertebrates. Those are animals with no skeletons. Can you drag all of those over to our scanner?",
 			buttonText: "Sure!",
-			buttonAction: this.introAlertClicked,
+			buttonAction: this.intro1AlertClicked,
+			context: this
+		});
+		this.scene.add(INTRO2_ALERT, new Alert(INTRO2_ALERT), false, {
+			title: "Thank You!",
+			content: "Use the X-ray gun to have a look at the animals first. Then drag all the invertebrates over to the scanner.",
+			buttonText: "Got it",
+			buttonAction: this.intro2AlertClicked,
 			context: this
 		});
 
-		return [INTRO_ALERT];
+		return [INTRO1_ALERT, INTRO2_ALERT];
 	}
 
 	createAnimals() {
@@ -121,12 +135,13 @@ class Animals_Ocean extends Animals_Base {
 		);
 	}
 
-	clickedXrayAnimal(animal) {
-		console.log(animal);
+	intro1AlertClicked() {
+		this.scene.stop(INTRO1_ALERT);
+		this.scene.run(INTRO2_ALERT);
 	}
 
-	introAlertClicked() {
-		this.scene.stop(INTRO_ALERT);
+	intro2AlertClicked() {
+		this.scene.stop(INTRO2_ALERT);
 
 		if (!this.animalsEntered) {
 			var tweens = [];
