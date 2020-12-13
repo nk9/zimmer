@@ -42,6 +42,10 @@ class Init extends Scene {
         this.load.on('complete', this.onLoadComplete, this);
         this.createProgressBar();
     }
+
+    create() {
+
+    }
     
     createProgressBar() {
         let Rectangle = Phaser.Geom.Rectangle;
