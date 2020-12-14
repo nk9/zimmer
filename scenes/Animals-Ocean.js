@@ -87,12 +87,6 @@ class Animals_Ocean extends Animals_Base {
 			ease: 'Sine.easeOut',
 			duration: 2500,
 			delay: 500
-		}, {
-			targets: this.scanner,
-			x: 40,
-			ease: 'Sine.easeOut',
-			duration: 1500,
-			offset: 1500
 		});
 
 	    var timeline = this.tweens.timeline({ tweens: tweens });
@@ -123,8 +117,12 @@ class Animals_Ocean extends Animals_Base {
 
 	createAnimals() {
 		this.animals.push(
+			new XrayAnimal(this, 'crab', 100, 600, GAME_WIDTH/2, GAME_HEIGHT+200, .3),
+			new XrayAnimal(this, 'crab', 300, 600, GAME_WIDTH/2, GAME_HEIGHT+200, .3),
 			new XrayAnimal(this, 'crab', 500, 600, GAME_WIDTH/2, GAME_HEIGHT+200, .3),
 			new XrayAnimal(this, 'eel', 1000, 100, GAME_WIDTH*.8, -250),
+			new XrayAnimal(this, 'eel', 700, 100, GAME_WIDTH*.8, -250),
+			new XrayAnimal(this, 'eel', 500, 100, GAME_WIDTH*.8, -250),
 		);
 	}
 

@@ -1,6 +1,8 @@
 import BaseScene, { SceneProgress, Layers } from './base-scene';
 import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
 
+import ScanChargeBar from '../components/scan_charge_bar';
+
 import animalPicPng from '../assets/pics/animals/*.png'
 import audioMp3 from '../assets/audio/*.mp3'
 
@@ -14,6 +16,7 @@ class Animals_Base extends BaseScene {
 	constructor(key) {
 		super(key);
 
+		this.scanLimit = 1; // Subclasses need to override this
 		this.selectionMode = SelectionMode.NONE;
 	}
 
@@ -23,15 +26,16 @@ class Animals_Base extends BaseScene {
 		this.load.image('raygun', animalPicPng.raygun_small);
 		this.load.image('grabber', animalPicPng.grabber_small);
 
-		this.load.audio('xray', audioMp3.twinkle);
-		this.load.audio('grab', audioMp3.scan);
+		this.load.audio('xray', audioMp3.laser);
+		this.load.audio('grab', audioMp3.squish);
+		this.load.audio('scan', audioMp3.scan);
 	}
 
 	create() {
 		super.create();
 
 		this.animals = [];
-		this.collected_animals = [];
+		this.scanned_animals = [];
 
 		this.createBackground();
 		this.createTools();
@@ -41,14 +45,15 @@ class Animals_Base extends BaseScene {
 	}
 
 	update() {
-
+		let collectedCount = this.scanned_animals.length;
+		let percentRemaining = (this.scanLimit - collectedCount) / this.scanLimit;
+		this.scanChargeBar.drawBar(percentRemaining);
 	}
 
 	setupAnimals() {
 		for (const animal of this.animals) {
-			animal.on('drop', this.dropAnimal);
+			animal.on('drop', this.scanAnimal);
 			animal.on('pointerdown', this.pointerDownAnimal.bind(this, animal));
-			// animal.on('pointerup', this.pointerUpAnimal.bind(this, animal));
 		}
 	}
 
@@ -70,6 +75,10 @@ class Animals_Base extends BaseScene {
 		this.scanner = this.add.image(-90, 230, 'scanner');
 		this.scanner.setOrigin(0, 0);
 		this.scanner.setInteractive({dropZone: true});
+
+		this.scan = this.sound.add('scan');
+
+		this.scanChargeBar = new ScanChargeBar(this, -70, 450, 70, 15);
 
 		this.toolbar = this.add.container(GAME_WIDTH/2, -100);
 		this.toolbar.setSize(300, 100);
@@ -114,6 +123,18 @@ class Animals_Base extends BaseScene {
 			ease: 'Sine',
 			duration: 1200,
 			offset: 0
+		},{
+			targets: this.scanChargeBar,
+			x: 50,
+			ease: 'Sine',
+			duration: 1200,
+			offset: 0
+		},{
+			targets: this.scanner,
+			x: 40,
+			ease: 'Sine.easeOut',
+			duration: 1200,
+			offset: 0
 		}]});
 
 		this.chooseRaygun(); // Raygun by default
@@ -132,10 +153,11 @@ class Animals_Base extends BaseScene {
 		this.setAnimalsDraggable(false);
 	}
 
-	dropAnimal(pointer, target) {
+	scanAnimal(pointer, target) {
+		this.scene.scan.play();
+
 		this.visible = false;
-		this.scene.collected_animals.push(this);
-		console.log(this);
+		this.scene.scanned_animals.push(this);
 	}
 
 	clickedXrayAnimal(animal) {
