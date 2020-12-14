@@ -19,8 +19,13 @@ const config = {
 			debug: true
 		}
 	},
-	width: GAME_WIDTH,
-	height: GAME_HEIGHT,
+	// width: GAME_WIDTH,
+	// height: GAME_HEIGHT,
+	scale: {
+		mode: Phaser.Scale.FIT,
+		width: GAME_WIDTH,
+		height: GAME_HEIGHT
+	},
 	scene: [Init, Main_Hall,
 
 			// Numbers
