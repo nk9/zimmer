@@ -1,5 +1,5 @@
 import { SceneProgress, Layers } from './base-scene';
-import { ANIMALS_OCEAN } from '../constants/scenes';
+import { MAIN_HALL, ANIMALS_OCEAN } from '../constants/scenes';
 import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
 
 import Alert from '../components/alert';
@@ -14,6 +14,7 @@ import Animals_Base, { SelectionMode } from './Animals-Base';
 
 let INTRO1_ALERT = 'Intro1_Alert';
 let INTRO2_ALERT = 'Intro2_Alert';
+let SUCCESS_ALERT = 'Success_Alert';
 
 class Animals_Ocean extends Animals_Base {
 	constructor() {
@@ -56,11 +57,10 @@ class Animals_Ocean extends Animals_Base {
 	}
 
 	createBackground() {
-// 		let center_x = GAME_WIDTH/2,
-// 			center_y = GAME_HEIGHT/2;
-// 
-// 		this.swirl = this.add.image(center_x, center_y, 'aqua_swirl');
-// 		this.swirl.scale += .1; // Aqua swirl isn't quite large enough to fill the space
+		let center_x = GAME_WIDTH/2,
+			center_y = GAME_HEIGHT/2;
+
+		this.swirl = this.add.image(center_x, center_y, 'aqua_swirl');
 
 		this.background_open = this.add.image(0, 0, 'underwater_door_open');
 		this.background_open.setOrigin(0, 0);
@@ -94,7 +94,7 @@ class Animals_Ocean extends Animals_Base {
 	}
 
 	clickCallToAction() {
-		this.scene.run(INTRO1_ALERT);
+		this.runAlert(INTRO1_ALERT);
 	}
 
 	createAlerts() {
@@ -121,19 +121,19 @@ class Animals_Ocean extends Animals_Base {
 			new XrayAnimal(this, 'crab', true, 100, 600, GAME_WIDTH/2, GAME_HEIGHT+200, .3),
 			new XrayAnimal(this, 'lobster', true, 300, 600, GAME_WIDTH/2, GAME_HEIGHT+200, .3),
 			new XrayAnimal(this, 'octopus', true, 500, 600, GAME_WIDTH/2, GAME_HEIGHT+200, 1),
-			new XrayAnimal(this, 'eel', false, 1000, 100, GAME_WIDTH*.8, -250),
+			new XrayAnimal(this, 'eel', false, 1100, 120, GAME_WIDTH*.8, -250),
 			new XrayAnimal(this, 'eel', false, 700, 100, GAME_WIDTH*.8, -250),
 			new XrayAnimal(this, 'eel', false, 500, 100, GAME_WIDTH*.8, -250),
 		);
 	}
 
 	intro1AlertClicked() {
-		this.scene.stop(INTRO1_ALERT);
-		this.scene.run(INTRO2_ALERT);
+		this.stopAlert(INTRO1_ALERT);
+		this.runAlert(INTRO2_ALERT);
 	}
 
 	intro2AlertClicked() {
-		this.scene.stop(INTRO2_ALERT);
+		this.stopAlert(INTRO2_ALERT);
 
 		if (!this.animals_have_entered) {
 			var tweens = [];
@@ -157,6 +157,29 @@ class Animals_Ocean extends Animals_Base {
 
 			this.animals_have_entered = true;
 		}
+	}
+
+	willBeginSuccessTransition() {
+		// This alert needs to happen at runtime because success_animals
+		// isn't populated until after createAlerts() is already run.
+		this.scene.add(SUCCESS_ALERT, new Alert(SUCCESS_ALERT), true, {
+			title: "Great work!",
+			content: `You found all ${this.success_animals.length} of the invertebrates. We found a door while you were looking. We will open it for you now. We hope it is the right one!`,
+			buttonText: "Thank you",
+			buttonAction: this.successAlertClicked,
+			context: this
+		});
+	}
+
+	successAlertClicked() {
+		this.scene.stop(SUCCESS_ALERT);
+		this.scene.remove(SUCCESS_ALERT);
+		this.beginSuccessTransition();
+	}
+
+	startNextScene() {
+        this.scene.start(MAIN_HALL);
+        this.scene.shutdown();
 	}
 }
 

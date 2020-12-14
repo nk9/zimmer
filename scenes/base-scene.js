@@ -63,6 +63,17 @@ class BaseScene extends Scene {
         this.player.socket.disconnect();
         this.scene.start(this.nextSceneKey, this.prevSceneKey);
     }
+
+    // Disable the main scene's input while the alert scene is showing
+    runAlert(scene_key) {
+        this.input.enabled = false;
+        this.scene.run(scene_key);
+    }
+
+    stopAlert(scene_key) {
+        this.scene.stop(scene_key);
+        this.input.enabled = true;
+    }
 }
 
 export default BaseScene;

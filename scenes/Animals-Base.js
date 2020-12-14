@@ -42,6 +42,8 @@ class Animals_Base extends BaseScene {
 		this.scanned_animals = [];
 
 		this.createBackground();
+		this.swirl.visible = false;
+
 		this.createTools();
 		this.createCallToAction();
 		this.createAnimals();
@@ -49,6 +51,8 @@ class Animals_Base extends BaseScene {
 	}
 
 	update() {
+		// Swirl rotates visibly on success
+		this.swirl.rotation += 0.01;
 	}
 
 	setupAnimals() {
@@ -183,6 +187,8 @@ class Animals_Base extends BaseScene {
 			animal.visible = true;
 			console.log("success!");
 			this.disperseAnimals();
+
+			this.succeed();
 		} else {
 			this.resetAnimals([animal]);
 		}
@@ -257,6 +263,41 @@ class Animals_Base extends BaseScene {
 		}
 
 		this.tweens.timeline({ tweens: tweens });
+	}
+
+	succeed() {
+		this.input.enabled = false;
+		this.input.setDefaultCursor(`default`);
+		this.willBeginSuccessTransition();
+	}
+
+	// Overridden by subclasses to interrupt the success transition
+	willBeginSuccessTransition() {
+		this.beginSuccessTransition();
+	}
+
+	beginSuccessTransition() {
+		this.sound.play('door_opens_heavy');
+
+		this.time.delayedCall(750, this.doSuccessTransition, [], this);
+	}
+
+	doSuccessTransition() {
+		this.swirl.visible = true;
+
+		let fadeObjects = [
+			this.background_closed
+		];
+
+	    var timeline = this.tweens.timeline({
+	    	tweens: [{
+	    		targets: fadeObjects,
+	    		duration: 2000,
+	    		alpha: 0,
+	    	}]
+	    });
+
+	    this.time.delayedCall(5000, this.startNextScene, [], this);
 	}
 }
 
