@@ -34,7 +34,7 @@ class Animals_Ocean extends Animals_Base {
         this.loadOutlineImage('amphisub');
 
         // Animals
-        let aStr = ['crab', 'eel'];
+        let aStr = ['crab', 'eel', 'octopus', 'lobster'];
         aStr.map(a => this.loadXrayOutlineImage(a));
 
         // Audio
@@ -118,12 +118,12 @@ class Animals_Ocean extends Animals_Base {
 
 	createAnimals() {
 		this.animals.push(
-			new XrayAnimal(this, 'crab', 100, 600, GAME_WIDTH/2, GAME_HEIGHT+200, .3),
-			new XrayAnimal(this, 'crab', 300, 600, GAME_WIDTH/2, GAME_HEIGHT+200, .3),
-			new XrayAnimal(this, 'crab', 500, 600, GAME_WIDTH/2, GAME_HEIGHT+200, .3),
-			new XrayAnimal(this, 'eel', 1000, 100, GAME_WIDTH*.8, -250),
-			new XrayAnimal(this, 'eel', 700, 100, GAME_WIDTH*.8, -250),
-			new XrayAnimal(this, 'eel', 500, 100, GAME_WIDTH*.8, -250),
+			new XrayAnimal(this, 'crab', true, 100, 600, GAME_WIDTH/2, GAME_HEIGHT+200, .3),
+			new XrayAnimal(this, 'lobster', true, 300, 600, GAME_WIDTH/2, GAME_HEIGHT+200, .3),
+			new XrayAnimal(this, 'octopus', true, 500, 600, GAME_WIDTH/2, GAME_HEIGHT+200, 1),
+			new XrayAnimal(this, 'eel', false, 1000, 100, GAME_WIDTH*.8, -250),
+			new XrayAnimal(this, 'eel', false, 700, 100, GAME_WIDTH*.8, -250),
+			new XrayAnimal(this, 'eel', false, 500, 100, GAME_WIDTH*.8, -250),
 		);
 	}
 

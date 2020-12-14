@@ -16,9 +16,10 @@ class Animals_Base extends BaseScene {
 	constructor(key) {
 		super(key);
 
+		this.success_animals = [];
+
 		// Subclasses need to set these
-		this.scanLimit;
-		this.targetAnimals;
+		this.scan_limit;
 		this.selectionMode = SelectionMode.NONE;
 	}
 
@@ -53,6 +54,10 @@ class Animals_Base extends BaseScene {
 		for (const animal of this.animals) {
 			animal.on('drop', this.scanAnimal);
 			animal.on('pointerdown', this.pointerDownAnimal.bind(this, animal));
+
+			if (animal.success) {
+				this.success_animals.push(animal);
+			}
 		}
 	}
 
@@ -161,11 +166,27 @@ class Animals_Base extends BaseScene {
 		this.visible = false;
 		scene.scanned_animals.push(this);
 		scene.updateScanChargeBar();
+
+		if (scene.allSuccessAnimalsScanned()) {
+			console.log("success!");
+		}
+	}
+
+	allSuccessAnimalsScanned() {
+		var success_count = 0;
+
+		for (const sAnimal of this.success_animals) {
+			if (this.scanned_animals.some(a => a.name === sAnimal.name)) {
+				success_count++;
+			}
+		}
+
+		return (this.success_animals.length == success_count);
 	}
 
 	updateScanChargeBar() {
-		let collectedCount = this.scanned_animals.length;
-		let percentRemaining = (this.scanLimit - collectedCount) / this.scanLimit;
+		let collected_count = this.scanned_animals.length;
+		let percentRemaining = (this.scan_limit - collected_count) / this.scan_limit;
 		this.scan_charge_bar.drawBar(percentRemaining);
 	}
 
