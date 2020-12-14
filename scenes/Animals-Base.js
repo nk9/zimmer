@@ -61,13 +61,21 @@ class Animals_Base extends BaseScene {
 		}
 	}
 
-	pointerDownAnimal(animal) {
+	pointerDownAnimal(pointer_down_animal) {
 		if (this.selectionMode == SelectionMode.RAYGUN) {
 			this.sound.play('xray');
 
-			this.clickedXrayAnimal(animal);
+			this.clickedXrayAnimal(pointer_down_animal);
 		} else if (this.selectionMode == SelectionMode.GRABBER) {
 			this.sound.play('grab');
+		}
+
+		for (const a of this.animals) {
+			if (a == pointer_down_animal) {
+				a.setDepth(Layers.DRAGGING);
+			} else {
+				a.setDepth(Layers.OVER_POUCH);
+			}
 		}
 	}
 
