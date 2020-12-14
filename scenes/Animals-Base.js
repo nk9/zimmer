@@ -1,5 +1,6 @@
 import BaseScene, { SceneProgress, Layers } from './base-scene';
 import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
+import { nearestPointOnRect } from '../utilities/geom_utils';
 
 import ScanChargeBar from '../components/scan_charge_bar';
 
@@ -167,17 +168,25 @@ class Animals_Base extends BaseScene {
 	}
 
 	scanAnimal(pointer, target) {
+		console.log("scanned");
 		let scene = this.scene;
 		scene.scan.play();
-		scene.scan.once('complete', (music) => {scene.resetAnimals([this])});
+		scene.scan.once('complete', scene.didScanAnimal.bind(scene, this));
 
 		this.visible = false;
 		scene.scanned_animals.push(this);
 		scene.updateScanChargeBar();
+	}
 
-		if (scene.allSuccessAnimalsScanned()) {
+	didScanAnimal(animal) {
+		if (this.allSuccessAnimalsScanned()) {
+			animal.visible = true;
 			console.log("success!");
+			this.disperseAnimals();
+		} else {
+			this.resetAnimals([animal]);
 		}
+
 	}
 
 	allSuccessAnimalsScanned() {
@@ -222,6 +231,27 @@ class Animals_Base extends BaseScene {
 				y: a.targetY,
 				ease: 'Sine',
 				duration: 1200,
+				offset: 0
+			})
+		}
+
+		this.tweens.timeline({ tweens: tweens });
+	}
+
+	disperseAnimals() {
+		var tweens = [];
+
+		let inner = new Phaser.Geom.Rectangle(0, 0, GAME_WIDTH, GAME_HEIGHT);
+		Phaser.Geom.Rectangle.Inflate(inner, 150, 150);
+
+		for (const a of this.animals) {
+			let point = nearestPointOnRect(inner, a);
+			tweens.push({
+				targets: a,
+				x: point.x,
+				y: point.y,
+				ease: 'Cubic.easeOut',
+				duration: 750,
 				offset: 0
 			})
 		}
