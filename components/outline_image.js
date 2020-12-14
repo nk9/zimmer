@@ -16,12 +16,10 @@ class OutlineImage extends Phaser.GameObjects.Container {
 		this.setSize(w, h);
 		this.setInteractive()
 			.on('pointerover', () => {
-				console.log("over");
 				this.img.visible = false;
 				this.img_outline.visible = true;
 			})
 			.on('pointerout', () => {
-				console.log("out");
 				this.img.visible = true;
 				this.img_outline.visible = false;
 			});

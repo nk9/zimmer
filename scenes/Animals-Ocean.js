@@ -20,8 +20,9 @@ class Animals_Ocean extends Animals_Base {
         super(ANIMALS_OCEAN);
 
         // initialize variables
-		this.scanLimit = 6;
-		this.animalsEntered = false;
+		this.scanLimit = 5;
+		this.scanLimit = 5;
+		this.animals_have_entered = false;
 	}
 
 	preload() {
@@ -99,7 +100,7 @@ class Animals_Ocean extends Animals_Base {
 	createAlerts() {
 		this.scene.add(INTRO1_ALERT, new Alert(INTRO1_ALERT), false, {
 			title: "Hi Sea Explorer!",
-			content: "Koki and I are looking for invertebrates. Those are animals with no skeletons. Can you help us find them?",
+			content: "You are looking for a door? Koki and I are looking for invertebrates. Those are animals with no skeletons. Can you help us find them? While you are looking, we will check our map for your door.",
 			buttonText: "Sure!",
 			buttonAction: this.intro1AlertClicked,
 			context: this
@@ -134,7 +135,7 @@ class Animals_Ocean extends Animals_Base {
 	intro2AlertClicked() {
 		this.scene.stop(INTRO2_ALERT);
 
-		if (!this.animalsEntered) {
+		if (!this.animals_have_entered) {
 			var tweens = [];
 
 			// Animate in animals
@@ -154,7 +155,7 @@ class Animals_Ocean extends Animals_Base {
 			// Animate in tools
 			this.revealTools();
 
-			this.animalsEntered = true;
+			this.animals_have_entered = true;
 		}
 	}
 }

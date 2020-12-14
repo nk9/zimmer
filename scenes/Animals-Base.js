@@ -16,7 +16,9 @@ class Animals_Base extends BaseScene {
 	constructor(key) {
 		super(key);
 
-		this.scanLimit = 1; // Subclasses need to override this
+		// Subclasses need to set these
+		this.scanLimit;
+		this.targetAnimals;
 		this.selectionMode = SelectionMode.NONE;
 	}
 
@@ -45,9 +47,6 @@ class Animals_Base extends BaseScene {
 	}
 
 	update() {
-		let collectedCount = this.scanned_animals.length;
-		let percentRemaining = (this.scanLimit - collectedCount) / this.scanLimit;
-		this.scanChargeBar.drawBar(percentRemaining);
 	}
 
 	setupAnimals() {
@@ -78,7 +77,8 @@ class Animals_Base extends BaseScene {
 
 		this.scan = this.sound.add('scan');
 
-		this.scanChargeBar = new ScanChargeBar(this, -70, 450, 70, 15);
+		this.scan_charge_bar = new ScanChargeBar(this, -70, 450, 70, 15);
+		this.updateScanChargeBar();
 
 		this.toolbar = this.add.container(GAME_WIDTH/2, -100);
 		this.toolbar.setSize(300, 100);
@@ -124,7 +124,7 @@ class Animals_Base extends BaseScene {
 			duration: 1200,
 			offset: 0
 		},{
-			targets: this.scanChargeBar,
+			targets: this.scan_charge_bar,
 			x: 50,
 			ease: 'Sine',
 			duration: 1200,
@@ -154,10 +154,19 @@ class Animals_Base extends BaseScene {
 	}
 
 	scanAnimal(pointer, target) {
-		this.scene.scan.play();
+		let scene = this.scene;
+		scene.scan.play();
+		scene.scan.once('complete', (music) => {scene.resetAnimals([this])});
 
 		this.visible = false;
-		this.scene.scanned_animals.push(this);
+		scene.scanned_animals.push(this);
+		scene.updateScanChargeBar();
+	}
+
+	updateScanChargeBar() {
+		let collectedCount = this.scanned_animals.length;
+		let percentRemaining = (this.scanLimit - collectedCount) / this.scanLimit;
+		this.scan_charge_bar.drawBar(percentRemaining);
 	}
 
 	clickedXrayAnimal(animal) {
@@ -170,6 +179,25 @@ class Animals_Base extends BaseScene {
 		for (const a of this.animals) {
 			this.input.setDraggable(a, canDrag);
 		}
+	}
+
+	resetAnimals(animals) {
+		var tweens = [];
+		let animals_to_reset = (animals === null) ? this.scanned_animals : animals;
+
+		for (const a of animals_to_reset) {
+			a.visible = true;
+			tweens.push({
+				targets: a,
+				x: a.targetX,
+				y: a.targetY,
+				ease: 'Sine',
+				duration: 1200,
+				offset: 0
+			})
+		}
+
+		this.tweens.timeline({ tweens: tweens });
 	}
 }
 
