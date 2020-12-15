@@ -18,10 +18,6 @@ class Init extends Scene {
     }
 
     preload() {
-        // Doors
-        this.load.image('tarnished_door', imagesJpg.tarnished_door);
-        this.load.image('tarnished_door_open', imagesPng.tarnished_door_open);
-
         // Swirls
         this.load.image('aqua_swirl', swirlsJpg.aqua_swirl);
         this.load.image('blue_swirl', swirlsJpg.blue_swirl);
@@ -37,8 +33,6 @@ class Init extends Scene {
 
         // Audio
         this.load.audio('door_opens_heavy', audioMp3.door_opens_heavy);
-
-        /* this.load.audio('music-town', ['assets/music/town.mp3']); */
 
         this.load.on('progress', this.onLoadProgress, this);
         this.load.on('complete', this.onLoadComplete, this);

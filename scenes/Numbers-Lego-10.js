@@ -8,11 +8,21 @@ import Alert from '../components/alert';
 import { NUMBERS_LEGO_10, NUMBERS_LEGO_9 } from '../constants/scenes';
 import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
 
+import numbersPicJpg from '../assets/pics/numbers/lego_10/*.jpg'
+import numbersPicPng from '../assets/pics/numbers/lego_10/*.png'
+
 const FAIL_ALERT = 'FailAlert';
 
 class Numbers_Lego_10 extends Numbers_Lego {
 	constructor() {
         super(NUMBERS_LEGO_10);
+	}
+
+	preload() {
+		super.preload();
+
+		this.load.image('tarnished_door', numbersPicJpg.tarnished_door);
+		this.load.image('tarnished_door_open', numbersPicPng.tarnished_door_open);
 	}
 
 	create() {
