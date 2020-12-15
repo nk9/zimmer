@@ -21,8 +21,7 @@ class Animals_Ocean extends Animals_Base {
         super(ANIMALS_OCEAN);
 
         // initialize variables
-		this.scanLimit = 5;
-		this.scanLimit = 5;
+		this.scan_limit = 5;
 		this.animals_have_entered = false;
 	}
 
