@@ -7,6 +7,9 @@ import PieMeter from '../components/pie-meter';
 
 // Abstract class!
 class Numbers_Lego extends BaseScene {
+	preload() {
+	}
+
 	create() {
         // OVERRIDE THESE
 		this.run_time = 1; // scene timer length

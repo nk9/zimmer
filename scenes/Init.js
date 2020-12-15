@@ -1,12 +1,13 @@
 import { Scene } from 'phaser';
 import { INIT, MAIN_HALL } from '../constants/scenes';
 
-import imagesJpg from '../assets/pics/*.jpg'
-import imagesPng from '../assets/pics/*.png'
-import audioMp3 from '../assets/audio/*.mp3'
-import particles from '../assets/particles/*.png'
-import spritesImg from '../assets/sprites/*.png'
-import spritesJson from '../assets/sprites/*.json'
+import swirlsJpg from '../assets/pics/swirls/*.jpg';
+import imagesJpg from '../assets/pics/*.jpg';
+import imagesPng from '../assets/pics/*.png';
+import audioMp3 from '../assets/audio/*.mp3';
+import particles from '../assets/particles/*.png';
+import spritesImg from '../assets/sprites/*.png';
+import spritesJson from '../assets/sprites/*.json';
 
 class Init extends Scene {
     constructor() {
@@ -22,7 +23,8 @@ class Init extends Scene {
         this.load.image('tarnished_door_open', imagesPng.tarnished_door_open);
 
         // Swirls
-        this.load.image('aqua_swirl', imagesJpg.aqua_swirl);
+        this.load.image('aqua_swirl', swirlsJpg.aqua_swirl);
+        this.load.image('blue_swirl', swirlsJpg.blue_swirl);
 
         // Lego Sprites
         this.load.atlas('yellow-bricks', spritesImg.yellow_bricks_spritesheet, spritesJson.yellow_bricks_spritesheet);
