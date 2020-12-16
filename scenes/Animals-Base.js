@@ -26,7 +26,6 @@ class Animals_Base extends BaseScene {
 	}
 
 	preload() {
-		console.log("super preload");
 		this.load.image('screen', animalPicPng.screen);
 		this.load.image('scanner', animalPicPng.scanning_chamber);
 		this.load.image('raygun', animalPicPng.raygun_small);
@@ -93,7 +92,6 @@ class Animals_Base extends BaseScene {
 	}
 
 	createTools() {
-		// console.log("createTools");
 		this.screen = this.add.image(GAME_WIDTH, GAME_HEIGHT, 'screen');
 		this.screen.setOrigin(1, 0);
 

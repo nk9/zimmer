@@ -33,7 +33,6 @@ class Animals_Ocean extends Animals_Base {
         this.loadOutlineImage('amphisub');
 
         // Animals
-        console.log("Hello world");
 		let animals_data = this.cache.json.get('animals_data')[this.key];
 
 		for (const key in animals_data) {
