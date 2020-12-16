@@ -55,6 +55,63 @@
       "targetY": 500,
       "success": false,
       "fact": "What are these doing here? Hatchet fish are usually deep sea fish. They can have glowing dots on their stomachs."
+},
+  "Animals-Cave": {
+    "bat2": {
+      "scale": 0.5,
+      "targetX": 1100,
+      "targetY": 120,
+      "success": false,
+      "fact": "Can you imagine flying in the dark like this bat? They can’t use their eyes. They listen for their squeeks bouncing off the walls."
+    },
+    "centipede": {
+      "scale": 0.3,
+      "targetX": 100,
+      "targetY": 600,
+      "success": true,
+      "fact": "That is one big centipede. It must be the kind that catches and eats bats!"
+    },
+    "geko": {
+      "scale": 0.3,
+      "targetX": 300,
+      "targetY": 600,
+      "success": false,
+      "fact": "This gecko can climb up walls and even hang upside down! It helps them catch bugs to eat."
+    },
+    "snake": {
+      "scale": 1,
+      "targetX": 500,
+      "targetY": 600,
+      "success": false,
+      "fact": "This snake has something special on it’s nose. That is called jacobson’s organ. It helps the snake feel an animal’s body heat."
+    },
+    "spider1": {
+      "scale": 1,
+      "targetX": 500,
+      "targetY": 600,
+      "success": true,
+      "fact": "This spider likes to live in the dark. More animals get stuck in the web because they can’t see it."
+    },
+    "whip_scorpion": {
+      "scale": 1,
+      "targetX": 500,
+      "targetY": 600,
+      "success": true,
+      "fact": "A whip scorpion! Don’t worry, they aren’t venomous. But when they get scared they can spray stuff that smells like vinegar."
+    },
+    "mushroom": {
+      "scale": 1,
+      "targetX": 500,
+      "targetY": 600,
+      "success": false,
+      "fact": "This isn’t an animal! It's a mushroom!"
+    },
+    "mushroom2": {
+      "scale": 1,
+      "targetX": 500,
+      "targetY": 600,
+      "success": false,
+      "fact": "This isn’t an animal! It's a mushroom!"
     }
   }
 }

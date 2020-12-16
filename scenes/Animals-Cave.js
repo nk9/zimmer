@@ -5,8 +5,8 @@ import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
 import Alert from '../components/alert';
 import OutlineImage from '../components/outline_image';
 
-import oceanPicJpg from '../assets/pics/animals/ocean/*.jpg'
-import oceanPicPng from '../assets/pics/animals/ocean/*.png'
+import cavePicJpg from '../assets/pics/animals/cave/*.jpg'
+import cavePicPng from '../assets/pics/animals/cave/*.png'
 import audioMp3 from '../assets/audio/*.mp3'
 
 import Animals_Base, { SelectionMode } from './Animals-Base';
@@ -15,7 +15,7 @@ let INTRO1_ALERT = 'Intro1_Alert';
 let INTRO2_ALERT = 'Intro2_Alert';
 let SUCCESS_ALERT = 'Success_Alert';
 
-class Animals_Ocean extends Animals_Base {
+class Animals_Cave extends Animals_Base {
 	constructor() {
         super(ANIMALS_CAVE);
 
@@ -28,8 +28,8 @@ class Animals_Ocean extends Animals_Base {
 		super.preload();
 
 		// Images
-		this.load.image('underwater_door_closed', oceanPicJpg.underwater_door_closed);
-		this.load.image('underwater_door_open', oceanPicPng.underwater_door_open);
+		this.load.image('underwater_door_closed', cavePicJpg.cave_door_closed);
+		this.load.image('underwater_door_open', cavePicPng.cave_door_open);
         this.loadOutlineImage('amphisub');
 
         // Animals
@@ -45,13 +45,13 @@ class Animals_Ocean extends Animals_Base {
 	}
 
 	loadOutlineImage(name) {
-		this.load.image(name, oceanPicPng[name]);
-		this.load.image(name+"_outline", oceanPicPng[name+"_outline"]);
+		this.load.image(name, cavePicPng[name]);
+		this.load.image(name+"_outline", cavePicPng[name+"_outline"]);
 	}
 
 	loadXrayOutlineImage(name) {
 		this.loadOutlineImage(name)
-		this.load.image(name+"_xray", oceanPicJpg[name+"_xray"]);
+		this.load.image(name+"_xray", cavePicJpg[name+"_xray"]);
 	}
 
 	create() {
@@ -62,9 +62,9 @@ class Animals_Ocean extends Animals_Base {
 		let center_x = GAME_WIDTH/2,
 			center_y = GAME_HEIGHT/2;
 
-		this.swirl = this.add.image(center_x, center_y, 'aqua_swirl');
+		this.swirl = this.add.image(center_x, center_y, 'navy_swirl');
 
-		this.background_open = this.add.image(0, 0, 'underwater_door_open');
+		this.background_open = this.add.image(0, 0, 'cave_door_open');
 		this.background_open.setOrigin(0, 0);
 
 		this.background_closed = this.add.image(0, 0, 'underwater_door_closed');
@@ -174,4 +174,4 @@ class Animals_Ocean extends Animals_Base {
 	}
 }
 
-export default Animals_Ocean;
+export default Animals_Cave;
