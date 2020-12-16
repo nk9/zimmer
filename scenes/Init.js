@@ -1,5 +1,5 @@
 import { Scene } from 'phaser';
-import { INIT, MAIN_HALL } from '../constants/scenes';
+import { INIT, MAIN_HALL, ANIMALS_OCEAN } from '../constants/scenes';
 
 import imagesJpg from '../assets/pics/*.jpg'
 import imagesPng from '../assets/pics/*.png'
@@ -7,6 +7,7 @@ import audioMp3 from '../assets/audio/*.mp3'
 import particles from '../assets/particles/*.png'
 import spritesImg from '../assets/sprites/*.png'
 import spritesJson from '../assets/sprites/*.json'
+import dataJson from '../assets/data/*.json'
 
 class Init extends Scene {
     constructor() {
@@ -35,6 +36,10 @@ class Init extends Scene {
 
         // Audio
         this.load.audio('door_opens_heavy', audioMp3.door_opens_heavy);
+
+        // Animals JSON
+        this.load.json('animals_data', dataJson.animals);
+
 
         /* this.load.audio('music-town', ['assets/music/town.mp3']); */
 

@@ -1,8 +1,9 @@
-import BaseScene, { SceneProgress, Layers } from './base-scene';
-import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
-import { nearestPointOnRect } from '../utilities/geom_utils';
+import BaseScene, { SceneProgress, Layers } from './base-scene'
+import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config'
+import { nearestPointOnRect } from '../utilities/geom_utils'
 
-import ScanChargeBar from '../components/scan_charge_bar';
+import XrayAnimal from '../components/xray_animal';
+import ScanChargeBar from '../components/scan_charge_bar'
 
 import animalPicPng from '../assets/pics/animals/*.png'
 import audioMp3 from '../assets/audio/*.mp3'
@@ -25,6 +26,7 @@ class Animals_Base extends BaseScene {
 	}
 
 	preload() {
+		console.log("super preload");
 		this.load.image('screen', animalPicPng.screen);
 		this.load.image('scanner', animalPicPng.scanning_chamber);
 		this.load.image('raygun', animalPicPng.raygun_small);
@@ -47,7 +49,6 @@ class Animals_Base extends BaseScene {
 		this.createTools();
 		this.createCallToAction();
 		this.createAnimals();
-		this.setupAnimals();
 	}
 
 	update() {
@@ -55,14 +56,21 @@ class Animals_Base extends BaseScene {
 		this.swirl.rotation += 0.01;
 	}
 
-	setupAnimals() {
-		for (const animal of this.animals) {
+	createAnimals() {
+		let animals_data = this.cache.json.get('animals_data')[this.key];
+
+		for (const key in animals_data) {
+			const ad = animals_data[key];
+
+			let animal = new XrayAnimal(this, key, ad.success, ad.targetX, ad.targetY, ad.scale);
 			animal.on('drop', this.scanAnimal);
 			animal.on('pointerdown', this.pointerDownAnimal.bind(this, animal));
 
-			if (animal.success) {
+			if (ad.success) {
 				this.success_animals.push(animal);
 			}
+
+			this.animals.push(animal);
 		}
 	}
 

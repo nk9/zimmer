@@ -4,7 +4,6 @@ import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
 
 import Alert from '../components/alert';
 import OutlineImage from '../components/outline_image';
-import XrayAnimal from '../components/xray_animal';
 
 import oceanPicJpg from '../assets/pics/animals/ocean/*.jpg'
 import oceanPicPng from '../assets/pics/animals/ocean/*.png'
@@ -34,8 +33,12 @@ class Animals_Ocean extends Animals_Base {
         this.loadOutlineImage('amphisub');
 
         // Animals
-        let aStr = ['crab', 'eel', 'octopus', 'lobster'];
-        aStr.map(a => this.loadXrayOutlineImage(a));
+        console.log("Hello world");
+		let animals_data = this.cache.json.get('animals_data')[this.key];
+
+		for (const key in animals_data) {
+	        this.loadXrayOutlineImage(key);
+	    }
 
         // Audio
         this.load.audio('splash_bubble', audioMp3.splash_bubble);
@@ -113,17 +116,6 @@ class Animals_Ocean extends Animals_Base {
 		});
 
 		return [INTRO1_ALERT, INTRO2_ALERT];
-	}
-
-	createAnimals() {
-		this.animals.push(
-			new XrayAnimal(this, 'crab', true, 100, 600, GAME_WIDTH/2, GAME_HEIGHT+200, .3),
-			new XrayAnimal(this, 'lobster', true, 300, 600, GAME_WIDTH/2, GAME_HEIGHT+200, .3),
-			new XrayAnimal(this, 'octopus', true, 500, 600, GAME_WIDTH/2, GAME_HEIGHT+200, 1),
-			new XrayAnimal(this, 'eel', false, 1100, 120, GAME_WIDTH*.8, -250),
-			new XrayAnimal(this, 'eel', false, 700, 100, GAME_WIDTH*.8, -250),
-			new XrayAnimal(this, 'eel', false, 500, 100, GAME_WIDTH*.8, -250),
-		);
 	}
 
 	intro1AlertClicked() {

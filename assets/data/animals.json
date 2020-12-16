@@ -1,0 +1,32 @@
+{
+  "Animals-Ocean": {
+    "eel": {
+    "scale": 0.5,
+    "targetX": 1100,
+    "targetY": 120,
+    "success": false,
+    "fact": "This is the longest animal in the scene. There are zero longer ones."
+  },
+  "crab": {
+    "scale": 0.3,
+    "targetX": 100,
+    "targetY": 600,
+    "success": true,
+    "fact": "This is the crabbiest animal in the scene. There are zero crabbier ones."
+  },
+  "lobster": {
+    "scale": 0.3,
+    "targetX": 300,
+    "targetY": 600,
+    "success": true,
+    "fact": "This is the spiniest animal in the scene. There are zero spinier ones."
+  },
+  "octopus": {
+    "scale": 1,
+    "targetX": 500,
+    "targetY": 600,
+    "success": true,
+    "fact": "This is the flightyist animal in the scene. There are zero flightier ones."
+  }
+}
+}
