@@ -36,6 +36,15 @@ class Animals_Base extends BaseScene {
 		this.load.audio('scan', audioMp3.scan);
 
 		this.animals_data = this.cache.json.get('animals_data')[this.key];
+
+		// Count success animals, needed for alerts
+		this.success_count = 0;
+		for (const key in this.animals_data) {
+			const ad = this.animals_data[key];
+			if (ad.success) {
+				this.success_count++;
+			}
+		}
 	}
 
 	create() {
@@ -58,7 +67,6 @@ class Animals_Base extends BaseScene {
 	}
 
 	createAnimals() {
-		console.log("Hello world");
 		for (const key in this.animals_data) {
 			const ad = this.animals_data[key];
 
@@ -208,6 +216,8 @@ class Animals_Base extends BaseScene {
 			this.disperseAnimals();
 
 			this.succeed();
+		} else if (this.scanned_animals.length == this.scan_limit) {
+			this.fail();
 		} else {
 			this.resetAnimals([animal]);
 		}
@@ -246,6 +256,12 @@ class Animals_Base extends BaseScene {
 	setAnimalsDraggable(canDrag) {
 		for (const a of this.animals) {
 			this.input.setDraggable(a, canDrag);
+		}
+	}
+
+	setAnimalsInput(handleInput) {
+		for (const a of this.animals) {
+			this.input.enabled = handleInput;
 		}
 	}
 
@@ -322,6 +338,49 @@ class Animals_Base extends BaseScene {
 	    });
 
 	    this.time.delayedCall(5000, this.startNextScene, [], this);
+	}
+
+	beginFailureTransition() {
+		this.setAnimalsInput(false);
+		this.factText.visible = false;
+		this.disperseAnimals();
+
+		var reset_cta_tween = this.resetCallToActionTween();
+
+		let tweens = [
+			reset_cta_tween,
+			{
+				targets: this.scan_charge_bar,
+				x: -90,
+				ease: 'Sine',
+				duration: 1500,
+				onYoyo: (tween, sprite) => { this.updateScanChargeBar(); },
+				yoyo: true,
+				hold: 2000,
+				offset: 0
+			},{
+				targets: this.scanner,
+				x: -100,
+				ease: 'Sine',
+				duration: 1500,
+				yoyo: true,
+				hold: 2000,
+				offset: 0
+			}];
+
+	    var timeline = this.tweens.timeline({
+	    	tweens: tweens,
+	    	onComplete: this.finishFailureTransition,
+	    	onCompleteScope: this
+	    });
+
+		this.scanned_animals = [];
+
+	}
+
+	finishFailureTransition() {
+		this.resetAnimals(this.animals);
+		this.setAnimalsInput(true);
 	}
 }
 

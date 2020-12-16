@@ -13,6 +13,7 @@ import Animals_Base, { SelectionMode } from './Animals-Base';
 
 let INTRO1_ALERT = 'Intro1_Alert';
 let INTRO2_ALERT = 'Intro2_Alert';
+let FAIL_ALERT   = 'Fail_Alert';
 let SUCCESS_ALERT = 'Success_Alert';
 
 class Animals_Ocean extends Animals_Base {
@@ -96,6 +97,20 @@ class Animals_Ocean extends Animals_Base {
 		this.runAlert(INTRO1_ALERT);
 	}
 
+	resetCallToActionTween() {
+		let submarine_reset_tween = {
+			targets: this.submarine,
+			y: -300,
+			ease: 'Sine',
+			duration: 1500,
+			yoyo: true,
+			hold: 2000,
+			offset: 0
+		}
+
+		return submarine_reset_tween
+	}
+
 	createAlerts() {
 		this.scene.add(INTRO1_ALERT, new Alert(INTRO1_ALERT), false, {
 			title: "Hi Sea Explorer!",
@@ -106,9 +121,16 @@ class Animals_Ocean extends Animals_Base {
 		});
 		this.scene.add(INTRO2_ALERT, new Alert(INTRO2_ALERT), false, {
 			title: "Thank You!",
-			content: `Use the X-ray gun to have a look at the animals first. Then drag all the invertebrates over to the scanner. But be careful! The scanner only has charge for ${this.scanLimit} scans.`,
+			content: `Use the X-ray gun to have a look at the animals first. Then drag all the invertebrates over to the scanner. But be careful! The scanner only has charge for ${this.scan_limit} scans.`,
 			buttonText: "Got it",
 			buttonAction: this.intro2AlertClicked,
+			context: this
+		});
+		this.scene.add(FAIL_ALERT, new Alert(FAIL_ALERT), false, {
+			title: "Time to recharge",
+			content: `We think there are ${this.success_count} invertebrates out there, but we are out of juice. We will be right back!`,
+			buttonText: "OK :(",
+			buttonAction: this.failAlertClicked,
 			context: this
 		});
 
@@ -148,7 +170,7 @@ class Animals_Ocean extends Animals_Base {
 	}
 
 	willBeginSuccessTransition() {
-		// This alert needs to happen at runtime because success_animals
+		// This alert needs to be created at runtime because success_animals
 		// isn't populated until after createAlerts() is already run.
 		this.scene.add(SUCCESS_ALERT, new Alert(SUCCESS_ALERT), true, {
 			title: "Great work!",
@@ -168,6 +190,15 @@ class Animals_Ocean extends Animals_Base {
 	startNextScene() {
         this.scene.start(MAIN_HALL);
         this.scene.shutdown();
+	}
+
+	fail() {
+		this.runAlert(FAIL_ALERT);
+	}
+
+	failAlertClicked() {
+		this.stopAlert(FAIL_ALERT);
+		this.beginFailureTransition();
 	}
 }
 
