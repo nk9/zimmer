@@ -46,23 +46,24 @@ class Numbers_Lego_9 extends Numbers_Lego {
 
 		this.background_closed = this.add.image(bg_x, center_y, 'bookcase');
 		this.background_closed.setOrigin(0.5, 0.5);	
+
 	}
 
 	createBricks() {
 		let brick_store = new BrickStore(this, 29, 6);
 
 		brick_store.addRow(BSBrick.B1x2, BSBrick.B1x4, BSBrick.B1x4);
-		// brick_store.addRow(BSBrick.B1x6);
-		// brick_store.addRow(BSBrick.B1x3, BSBrick.B1x1, BSBrick.B1x6);
-		// brick_store.addRow(BSBrick.B1x4, BSBrick.B1x5);
-		// brick_store.addRow(BSBrick.B1x8);
-		// brick_store.addRow(BSBrick.B1x7, BSBrick.B1x2);
+		brick_store.addRow(BSBrick.B1x6);
+		brick_store.addRow(BSBrick.B1x3, BSBrick.B1x1, BSBrick.B1x6);
+		brick_store.addRow(BSBrick.B1x4, BSBrick.B1x5);
+		brick_store.addRow(BSBrick.B1x8);
+		brick_store.addRow(BSBrick.B1x7, BSBrick.B1x2);
 
 		return brick_store;
 	}
 
 	keyZoneRect() {
-		return {x: 550, y: 330, width: 60, height: 120};
+		return {x: 550, y: 330, width: 110, height: 110};
 	}
 
 	pouchOpenPosition() {
@@ -72,30 +73,53 @@ class Numbers_Lego_9 extends Numbers_Lego {
 	createRectangles() {
 		this.rects_background = this.add.graphics();
 		this.rects_background.fillStyle(0x000000, .6);
-		this.rects_background.fillRoundedRect(17 * LEGO_GRID,
+		this.rects_background.fillRoundedRect(13 * LEGO_GRID,
 										 3  * LEGO_GRID,
-										 8  * LEGO_GRID,
-										 17 * LEGO_GRID);
+										 11  * LEGO_GRID,
+										 14 * LEGO_GRID);
 		this.rects_background.setDepth(Layers.OVER_DOOR);
 		this.rects_background.setAlpha(0);
 
-		this.addRectangle(9, 1, 20, 5);
-		this.addRectangle(9, 1, 20, 8);
-		this.addRectangle(9, 1, 20, 11);
-		this.addRectangle(9, 1, 20, 14);
+		this.addRectangle(9, 1, 14, 5);
+		this.addRectangle(9, 1, 14, 8);
+		this.addRectangle(9, 1, 14, 11);
+		this.addRectangle(9, 1, 14, 14);
 	}
 
 	callToActionRect() {
+		return {x: 800, y: 600, width: 40, height: 64}
 	}
 
 	createCallToAction() {
-		return [null, null, null]; // Fill this in from lego 10
+		let cta_rect = this.callToActionRect();
+	    let cta_closed = this.add.image(cta_rect.x, cta_rect.y, 'pouch_closed');
+	    let cta_closed_outlined = this.add.image(cta_rect.x, cta_rect.y, 'pouch_closed_outlined');
+	    let cta_closed_zone = this.add.zone(cta_rect.x, cta_rect.y, cta_rect.width, cta_rect.height)
+
+	    cta_closed.scale = .2;
+	    cta_closed_outlined.scale = .2;
+	    cta_closed.setVisible(true);
+	    cta_closed_outlined.setVisible(false);
+
+	    return [cta_closed, cta_closed_outlined, cta_closed_zone];
 	}
 
 	createAlerts() {
+		this.scene.add(FAIL_ALERT, new Alert(FAIL_ALERT), false, {
+			title: "Whoops",
+			content: "I need to find the right pieces faster next time!",
+			buttonText: "Try Again",
+			buttonAction: this.resetAfterFail,
+			context: this
+		});
+
+		return [FAIL_ALERT];
 	}
 
 	fail() {
+		super.fail();
+
+		this.scene.run(FAIL_ALERT);
 	}
 
 	startNextScene() {
