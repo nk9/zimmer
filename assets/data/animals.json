@@ -49,16 +49,17 @@
       "success": false,
       "fact": "Oh wow! This seahorse is a male. It has a pouch for carrying the eggs."
     },
-    "hatchet_fish": {
-      "scale": 0.25,
-      "targetX": 450,
-      "targetY": 500,
+     "hatchet_fish": {
+      "scale": 0.2,
+      "targetX": 500,
+      "targetY": 600,
       "success": false,
-      "fact": "What are these doing here? Hatchet fish are usually deep sea fish. They can have glowing dots on their stomachs."
-},
+      "fact": "What’s this doing here? Hatchet fish are usually deep sea fish. They can have glowing dots on their stomachs."
+    }
+  },
   "Animals-Cave": {
     "bat2": {
-      "scale": 0.5,
+      "scale": 0.8,
       "targetX": 1100,
       "targetY": 120,
       "success": false,
@@ -66,50 +67,50 @@
     },
     "centipede": {
       "scale": 0.3,
-      "targetX": 100,
+      "targetX": 150,
       "targetY": 600,
       "success": true,
       "fact": "That is one big centipede. It must be the kind that catches and eats bats!"
     },
-    "geko": {
-      "scale": 0.3,
-      "targetX": 300,
-      "targetY": 600,
+    "gecko": {
+      "scale": 0.7,
+      "targetX": 330,
+      "targetY": 200,
       "success": false,
       "fact": "This gecko can climb up walls and even hang upside down! It helps them catch bugs to eat."
     },
     "snake": {
       "scale": 1,
       "targetX": 500,
-      "targetY": 600,
+      "targetY": 580,
       "success": false,
       "fact": "This snake has something special on it’s nose. That is called jacobson’s organ. It helps the snake feel an animal’s body heat."
     },
     "spider1": {
       "scale": 1,
-      "targetX": 500,
-      "targetY": 600,
+      "targetX": 870,
+      "targetY": 420,
       "success": true,
       "fact": "This spider likes to live in the dark. More animals get stuck in the web because they can’t see it."
     },
     "whip_scorpion": {
-      "scale": 1,
-      "targetX": 500,
-      "targetY": 600,
+      "scale": 0.5,
+      "targetX": 570,
+      "targetY": 400,
       "success": true,
       "fact": "A whip scorpion! Don’t worry, they aren’t venomous. But when they get scared they can spray stuff that smells like vinegar."
     },
     "mushroom": {
       "scale": 1,
-      "targetX": 500,
+      "targetX": 100,
       "targetY": 600,
       "success": false,
       "fact": "This isn’t an animal! It's a mushroom!"
     },
     "mushroom2": {
       "scale": 1,
-      "targetX": 500,
-      "targetY": 600,
+      "targetX": 700,
+      "targetY": 650,
       "success": false,
       "fact": "This isn’t an animal! It's a mushroom!"
     }
