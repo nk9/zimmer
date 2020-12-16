@@ -34,6 +34,8 @@ class Animals_Base extends BaseScene {
 		this.load.audio('xray', audioMp3.laser);
 		this.load.audio('grab', audioMp3.squish);
 		this.load.audio('scan', audioMp3.scan);
+
+		this.animals_data = this.cache.json.get('animals_data')[this.key];
 	}
 
 	create() {
@@ -56,10 +58,9 @@ class Animals_Base extends BaseScene {
 	}
 
 	createAnimals() {
-		let animals_data = this.cache.json.get('animals_data')[this.key];
-
-		for (const key in animals_data) {
-			const ad = animals_data[key];
+		console.log("Hello world");
+		for (const key in this.animals_data) {
+			const ad = this.animals_data[key];
 
 			let animal = new XrayAnimal(this, key, ad.success, ad.targetX, ad.targetY, ad.scale);
 			animal.on('drop', this.scanAnimal);
@@ -94,6 +95,17 @@ class Animals_Base extends BaseScene {
 	createTools() {
 		this.screen = this.add.image(GAME_WIDTH, GAME_HEIGHT, 'screen');
 		this.screen.setOrigin(1, 0);
+
+		let screenBounds = this.screen.getBounds();
+		let insetBounds = Phaser.Geom.Rectangle.Inflate(screenBounds, -55, -80);
+		let factStyle = {
+			fontSize: '18px',
+			fontFamily: 'sans-serif',
+			align: "left",
+			wordWrap: { width: insetBounds.width, usetAdvancedWrap: true }};
+
+		this.factText = this.add.text(screenBounds.x, screenBounds.y, '', factStyle);
+		this.factText.visible = false;
 
 		this.scanner = this.add.image(-90, 230, 'scanner');
 		this.scanner.setOrigin(0, 0);
@@ -142,7 +154,7 @@ class Animals_Base extends BaseScene {
 			ease: 'Sine',
 			duration: 1200
 		},{
-			targets: this.screen,
+			targets: [this.screen, this.factText],
 			y: '-=305',
 			ease: 'Sine',
 			duration: 1200,
@@ -175,11 +187,13 @@ class Animals_Base extends BaseScene {
 		this.selectionMode = SelectionMode.RAYGUN;
 		this.input.setDefaultCursor(`url(${animalPicPng.raygun_small}), pointer`);
 		this.setAnimalsDraggable(false);
+		this.factText.visible = false;
 	}
 
 	scanAnimal(pointer, target) {
-		console.log("scanned");
 		let scene = this.scene;
+
+		scene.setFact(this);
 		scene.scan.play();
 		scene.scan.once('complete', scene.didScanAnimal.bind(scene, this));
 
@@ -191,7 +205,6 @@ class Animals_Base extends BaseScene {
 	didScanAnimal(animal) {
 		if (this.allSuccessAnimalsScanned()) {
 			animal.visible = true;
-			console.log("success!");
 			this.disperseAnimals();
 
 			this.succeed();
@@ -217,6 +230,11 @@ class Animals_Base extends BaseScene {
 		let collected_count = this.scanned_animals.length;
 		let percentRemaining = (this.scan_limit - collected_count) / this.scan_limit;
 		this.scan_charge_bar.drawBar(percentRemaining);
+	}
+
+	setFact(animal) {
+		this.factText.text = this.animals_data[animal.name].fact;
+		this.factText.visible = true;
 	}
 
 	clickedXrayAnimal(animal) {

@@ -33,9 +33,7 @@ class Animals_Ocean extends Animals_Base {
         this.loadOutlineImage('amphisub');
 
         // Animals
-		let animals_data = this.cache.json.get('animals_data')[this.key];
-
-		for (const key in animals_data) {
+		for (const key in this.animals_data) {
 	        this.loadXrayOutlineImage(key);
 	    }
 
