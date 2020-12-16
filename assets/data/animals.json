@@ -109,10 +109,89 @@
     },
     "mushroom2": {
       "scale": 1,
-      "targetX": 700,
-      "targetY": 650,
+      "targetX": 500,
+      "targetY": 620,
       "success": false,
       "fact": "This isn’t an animal! It's a mushroom!"
+    }
+  },
+  "Animals-Forest": {
+    "bat": {
+      "scale": 0.5,
+      "targetX": 1100,
+      "targetY": 120,
+      "success": true,
+      "fact": "Bats have such good hearing they can hear a moth flapping its wings. I hope we are too loud for this one!"
+    },
+    "owl": {
+      "scale": 0.3,
+      "targetX": 100,
+      "targetY": 600,
+      "success": true,
+      "fact": "Wow and owl! Their feathers are super soft so they don’t make any noise when they fly."
+    },
+    "beetle": {
+      "scale": 0.3,
+      "targetX": 300,
+      "targetY": 600,
+      "success": false,
+      "fact": "This rhinoceros beetle looks scary. Don’t worry though. The horn is just for knocking other beetles off of branches. "
+    },
+    "chameleon": {
+      "scale": 1,
+      "targetX": 500,
+      "targetY": 600,
+      "success": true,
+      "fact": "What is this chameleon doing here? They should live in warm rainforests!"
+    },
+    "hedgehog": {
+      "scale": 1,
+      "targetX": 500,
+      "targetY": 600,
+      "success": true,
+      "fact": "Good thing you were careful with this one! A hedgehog’s prickles are special stiff hairs."
+    },
+    "snail": {
+      "scale": 1,
+      "targetX": 500,
+      "targetY": 600,
+      "success": false,
+      "fact": "Aww! A snail! The slime they make is sometimes used to help with burns."
+    },
+    "wolf_spider": {
+      "scale": 1,
+      "targetX": 500,
+      "targetY": 600,
+      "success": false,
+      "fact": "This kind of spider doesn't use much web. It chases its prey like a wolf. Thats why it is called a wolf spider!"
+    },
+    "woodlouse": {
+      "scale": 1,
+      "targetX": 500,
+      "targetY": 600,
+      "success": false,
+      "fact": "This one is a woodlouse. They are super important in a forest. They eat wood and help turn it back into soil!"
+    },
+    "ant": {
+      "scale": 1,
+      "targetX": 500,
+      "targetY": 600,
+      "success": false,
+      "fact": "Ants live in big colonies with lots of other ants. There are probably more around here."
+    },
+    "ant2": {
+      "scale": 1,
+      "targetX": 500,
+      "targetY": 600,
+      "success": false,
+      "fact": "Ants live in big colonies with lots of other ants. There are probably more around here."
+    },
+    "ant3": {
+      "scale": 1,
+      "targetX": 500,
+      "targetY": 600,
+      "success": false,
+      "fact": "Ants live in big colonies with lots of other ants. There are probably more around here."
     }
   }
 }
