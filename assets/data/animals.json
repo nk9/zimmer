@@ -1,32 +1,60 @@
 {
   "Animals-Ocean": {
     "eel": {
-    "scale": 0.5,
-    "targetX": 1100,
-    "targetY": 120,
-    "success": false,
-    "fact": "This is the longest animal in the scene. There are zero longer ones."
-  },
-  "crab": {
-    "scale": 0.3,
-    "targetX": 100,
-    "targetY": 600,
-    "success": true,
-    "fact": "This is the crabbiest animal in the scene. There are zero crabbier ones."
-  },
-  "lobster": {
-    "scale": 0.3,
-    "targetX": 300,
-    "targetY": 600,
-    "success": true,
-    "fact": "This is the spiniest animal in the scene. There are zero spinier ones."
-  },
-  "octopus": {
-    "scale": 1,
-    "targetX": 500,
-    "targetY": 600,
-    "success": true,
-    "fact": "This is the flightyist animal in the scene. There are zero flightier ones."
+      "scale": 0.5,
+      "targetX": 950,
+      "targetY": 300,
+      "success": false,
+      "fact": "Eels have a second set of jaws. You can see them on the x-ray."
+    },
+    "crab": {
+      "scale": 0.3,
+      "targetX": 700,
+      "targetY": 600,
+      "success": true,
+      "fact": "This crab looks like it is ready to moult. Soon it will pop out of the shell and grow a bigger one!"
+    },
+    "lobster": {
+      "scale": 0.3,
+      "targetX": 300,
+      "targetY": 600,
+      "success": true,
+      "fact": "Lobsters are left or right handed just like people! Which claw looks stronger?"
+    },
+    "octopus": {
+      "scale": 0.6,
+      "targetX": 700,
+      "targetY": 450,
+      "success": true,
+      "fact": "Wow! An octopus! They are good at escaping because they can squeeze through very small holes."
+    },
+    "butterflyfish": {
+      "scale": 0.3,
+      "targetX": 200,
+      "targetY": 400,
+      "success": false,
+      "fact": "This type of butterfly fish likes to live alone. When it finds a partner they stick together forever."
+    },
+    "turtle": {
+      "scale": 0.7,
+      "targetX": 700,
+      "targetY": 200,
+      "success": false,
+      "fact": "Turtle shells are part of their skeleton. That makes It hard to x-ray them!"
+    },
+    "seahorse": {
+      "scale": 0.2,
+      "targetX": 500,
+      "targetY": 200,
+      "success": false,
+      "fact": "Oh wow! This seahorse is a male. It has a pouch for carrying the eggs."
+    },
+    "hatchet_fish": {
+      "scale": 0.25,
+      "targetX": 450,
+      "targetY": 500,
+      "success": false,
+      "fact": "What are these doing here? Hatchet fish are usually deep sea fish. They can have glowing dots on their stomachs."
+    }
   }
-}
 }

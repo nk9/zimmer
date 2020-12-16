@@ -155,7 +155,7 @@ class Animals_Ocean extends Animals_Base {
 		// isn't populated until after createAlerts() is already run.
 		this.scene.add(SUCCESS_ALERT, new Alert(SUCCESS_ALERT), true, {
 			title: "Great work!",
-			content: `You found all ${this.success_animals.length} of the invertebrates. We found a door while you were looking. We will open it for you now. We hope it is the right one!`,
+			content: `You found all ${this.success_animals.length} of the invertebrates. We found the door you were looking for. Thanks for your help!`,
 			buttonText: "Thank you",
 			buttonAction: this.successAlertClicked,
 			context: this
