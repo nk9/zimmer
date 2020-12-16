@@ -337,6 +337,8 @@ class Numbers_Lego extends BaseScene {
 	}
 
 	fail() {
+		this.emitters.map(e => e.stop());
+		
 		this.brick_fall_tween = this.tweens.add({
 			targets: this.brick_store.bricks,
 			ease:'Power2',
