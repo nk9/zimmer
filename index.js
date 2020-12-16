@@ -10,6 +10,7 @@ import Numbers_Lego_9 from './scenes/Numbers-Lego-9';
 
 // Animals
 import Animals_Ocean from './scenes/Animals-Ocean';
+import Animals_Cave from './scenes/Animals-Cave';
 
 const config = {
 	type: Phaser.AUTO,
@@ -34,6 +35,7 @@ const config = {
 
 			// Animals
 			Animals_Ocean,
+			Animals_Cave,
 
 			// Plants
 
