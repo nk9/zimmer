@@ -1,13 +1,14 @@
 import { Scene } from 'phaser';
 import { INIT, MAIN_HALL, ANIMALS_OCEAN } from '../constants/scenes';
 
-import imagesJpg from '../assets/pics/*.jpg'
-import imagesPng from '../assets/pics/*.png'
-import audioMp3 from '../assets/audio/*.mp3'
-import particles from '../assets/particles/*.png'
-import spritesImg from '../assets/sprites/*.png'
-import spritesJson from '../assets/sprites/*.json'
-import dataJson from '../assets/data/*.json'
+import swirlsJpg from '../assets/pics/swirls/*.jpg';
+import imagesJpg from '../assets/pics/*.jpg';
+import imagesPng from '../assets/pics/*.png';
+import audioMp3 from '../assets/audio/*.mp3';
+import particles from '../assets/particles/*.png';
+import spritesImg from '../assets/sprites/*.png';
+import spritesJson from '../assets/sprites/*.json';
+import dataJson from '../assets/data/*.json';
 
 class Init extends Scene {
     constructor() {
@@ -18,12 +19,9 @@ class Init extends Scene {
     }
 
     preload() {
-        // Doors
-        this.load.image('tarnished_door', imagesJpg.tarnished_door);
-        this.load.image('tarnished_door_open', imagesPng.tarnished_door_open);
-
         // Swirls
-        this.load.image('aqua_swirl', imagesJpg.aqua_swirl);
+        this.load.image('aqua_swirl', swirlsJpg.aqua_swirl);
+        this.load.image('blue_swirl', swirlsJpg.blue_swirl);
 
         // Lego Sprites
         this.load.atlas('yellow-bricks', spritesImg.yellow_bricks_spritesheet, spritesJson.yellow_bricks_spritesheet);
@@ -39,9 +37,6 @@ class Init extends Scene {
 
         // Animals JSON
         this.load.json('animals_data', dataJson.animals);
-
-
-        /* this.load.audio('music-town', ['assets/music/town.mp3']); */
 
         this.load.on('progress', this.onLoadProgress, this);
         this.load.on('complete', this.onLoadComplete, this);
