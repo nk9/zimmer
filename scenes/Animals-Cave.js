@@ -28,8 +28,8 @@ class Animals_Cave extends Animals_Base {
 		super.preload();
 
 		// Images
-		this.load.image('underwater_door_closed', cavePicJpg.cave_door_closed);
-		this.load.image('underwater_door_open', cavePicPng.cave_door_open);
+		this.load.image('cave_door_closed', cavePicJpg.cave_door_closed);
+		this.load.image('cave_door_open', cavePicPng.cave_door_open);
         this.loadOutlineImage('amphisub');
 
         // Animals
@@ -62,12 +62,12 @@ class Animals_Cave extends Animals_Base {
 		let center_x = GAME_WIDTH/2,
 			center_y = GAME_HEIGHT/2;
 
-		this.swirl = this.add.image(center_x, center_y, 'navy_swirl');
+		this.swirl = this.add.image(690, 300, 'navy_swirl');
 
 		this.background_open = this.add.image(0, 0, 'cave_door_open');
 		this.background_open.setOrigin(0, 0);
 
-		this.background_closed = this.add.image(0, 0, 'underwater_door_closed');
+		this.background_closed = this.add.image(0, 0, 'cave_door_closed');
 		this.background_closed.setOrigin(0, 0);
 	}
 
