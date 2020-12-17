@@ -1,7 +1,8 @@
 import BaseScene, { SceneProgress, Layers } from './base-scene';
 import { MAIN_HALL,
 		 NUMBERS_LEGO_10, NUMBERS_LEGO_9,
-		 ANIMALS_OCEAN, ANIMALS_CAVE } from '../constants/scenes';
+		 ANIMALS_OCEAN, ANIMALS_CAVE,
+		 PLANTS_LEAVES, } from '../constants/scenes';
 
 
 class Main_Hall extends BaseScene {
@@ -17,6 +18,8 @@ class Main_Hall extends BaseScene {
 
 		this.addButton(250, 100, 'Animals Ocean', ANIMALS_OCEAN);
 		this.addButton(250, 120, 'Animals Cave', ANIMALS_CAVE);
+
+		this.addButton(450, 100, 'Plants Leaves', PLANTS_LEAVES);
 	}
 
 	createAlerts() {

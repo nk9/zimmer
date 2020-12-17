@@ -9,3 +9,6 @@ export const NUMBERS_LEGO_9 = 'Numbers-Lego-9';
 // Animals
 export const ANIMALS_OCEAN = 'Animals-Ocean';
 export const ANIMALS_CAVE = 'Animals-Cave';
+
+// Plants
+export const PLANTS_LEAVES = 'Plants-Leaves';

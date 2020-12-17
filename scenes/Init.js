@@ -35,8 +35,9 @@ class Init extends Scene {
         // Audio
         this.load.audio('door_opens_heavy', audioMp3.door_opens_heavy);
 
-        // Animals JSON
+        // JSON data
         this.load.json('animals_data', dataJson.animals);
+        this.load.json('plants_data', dataJson.plants);
 
         this.load.on('progress', this.onLoadProgress, this);
         this.load.on('complete', this.onLoadComplete, this);
