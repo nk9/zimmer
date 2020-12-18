@@ -3,7 +3,6 @@ import { MAIN_HALL, PLANTS_LEAVES } from '../constants/scenes';
 import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
 
 import Alert from '../components/alert';
-import OutlineImage from '../components/outline_image';
 
 import plantPicJpg from '../assets/pics/plants/leaves/*.jpg'
 import plantPicPng from '../assets/pics/plants/leaves/*.png'
@@ -38,6 +37,12 @@ class Plants_Leaves extends Plants_Base {
 	        this.loadOutlineImage(key);
 	    }
 
+	    // Triquetra
+	    this.load.image('leaf_lock', plantPicPng.leaf_lock);
+	    this.load.image('leaf_lock_bottom_left', plantPicPng.leaf_lock_bottom_left);
+	    this.load.image('leaf_lock_bottom_right', plantPicPng.leaf_lock_bottom_right);
+	    this.load.image('leaf_lock_top', plantPicPng.leaf_lock_top);
+
         // Audio
         this.load.audio('splash_bubble', audioMp3.splash_bubble);
 	}
@@ -65,7 +70,7 @@ class Plants_Leaves extends Plants_Base {
 	}
 
 	createCallToAction() {
-		// this.sound.play('splash_bubble');
+		// this.sound.play('yoink');
 
 		this.link = this.add.sprite(0, GAME_HEIGHT+256, 'link', 'wave');
 		this.link.setOrigin(0, 1);
@@ -138,7 +143,14 @@ class Plants_Leaves extends Plants_Base {
 		return [INTRO1_ALERT, INTRO2_ALERT];
 	}
 
+	createTools() {
+		super.createTools();
+
+		// Create the triangle
+	}
+
 	intro1AlertClicked() {
+		this.link.clearTint();
 		this.stopAlert(INTRO1_ALERT);
 		this.runAlert(INTRO2_ALERT);
 	}
@@ -149,14 +161,13 @@ class Plants_Leaves extends Plants_Base {
 		if (!this.plants_have_entered) {
 			var tweens = [];
 
-			// Animate in animals
-			for (const animal of this.animals) {
+			// Animate in plants
+			for (const animal of this.plants) {
 				tweens.push({
 					targets: animal,
-					x: animal.targetX,
-					y: animal.targetY,
+					alpha: 1,
 					ease: 'Sine.easeOut',
-					duration: 2000,
+					duration: 1500,
 					offset: 0 // All at once
 				})
 			}

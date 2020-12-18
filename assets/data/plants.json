@@ -1,35 +1,35 @@
 {
   "Plants-Leaves": {
     "bedstraw": {
-      "leafType": "thin"
+      "leaf_type": "thin"
     },
     "chickweed": {
-      "leafType": "heart",
+      "leaf_type": "heart",
       "x": 520,
       "y": 570
     },
     "crabgrass": {
-      "leafType": "thin"
+      "leaf_type": "thin"
     },
     "dandelion": {
-      "leafType": "toothed"
+      "leaf_type": "toothed"
     },
     "dock": {
-      "leafType": "heart"
+      "leaf_type": "heart"
     },
     "fleabane": {
-      "leafType": "rounded",
+      "leaf_type": "rounded",
       "x": 1000,
       "y": 400
     },
     "garlic_mustard": {
-      "leafType": "heart"
+      "leaf_type": "heart"
     },
     "pennywort": {
-      "leafType": "pointed"
+      "leaf_type": "pointed"
     },
     "plantain": {
-      "leafType": "round"
+      "leaf_type": "round"
     }
   }
 }

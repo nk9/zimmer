@@ -12,6 +12,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "lodash": "^4.17.20",
+    "lodash.get": "^4.4.2",
     "phaser": "^3.24.1"
   },
   "devDependencies": {
