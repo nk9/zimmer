@@ -21,6 +21,8 @@ class Init extends Scene {
         // Swirls
         this.load.image('aqua_swirl', swirlsJpg.aqua_swirl);
         this.load.image('blue_swirl', swirlsJpg.blue_swirl);
+        this.load.image('green_swirl', swirlsJpg.green_swirl);
+        this.load.image('navy_swirl', swirlsJpg.navy_swirl);
 
         // Sprites
         this.load.atlas('yellow-bricks', spritesImg.yellow_bricks_spritesheet, spritesJson.yellow_bricks_spritesheet);

@@ -23,7 +23,7 @@ class Plants_Leaves extends Plants_Base {
 
         // initialize variables
 		this.scan_limit = 5;
-		this.animals_have_entered = false;
+		this.plants_have_entered = false;
 	}
 
 	preload() {
@@ -37,9 +37,6 @@ class Plants_Leaves extends Plants_Base {
 		for (const key in this.plants_data) {
 	        this.loadOutlineImage(key);
 	    }
-
-	    // Link
-	    this.load.image('link_wave', linkPicPng.link_wave);
 
         // Audio
         this.load.audio('splash_bubble', audioMp3.splash_bubble);
@@ -58,7 +55,7 @@ class Plants_Leaves extends Plants_Base {
 		let center_x = GAME_WIDTH/2,
 			center_y = GAME_HEIGHT/2;
 
-		this.swirl = this.add.image(center_x, center_y, 'blue_swirl');
+		this.swirl = this.add.image(360, 300, 'aqua_swirl');
 
 		this.background_open = this.add.image(0, 0, 'hobbit_open');
 		this.background_open.setOrigin(0, 0);
@@ -72,8 +69,11 @@ class Plants_Leaves extends Plants_Base {
 
 		this.link = this.add.sprite(0, GAME_HEIGHT+256, 'link', 'wave');
 		this.link.setOrigin(0, 1);
+		this.link.setTint(0xaaaaaa);
 
 		this.link.setInteractive({useHandCursor: true})
+			.on('pointerover', () => {this.link.clearTint()})
+			.on('pointerout', () => {this.link.setTint(0xaaaaaa)})
 			.on('pointerup', pointer => {
 				this.clickCallToAction();
 			});
@@ -90,48 +90,50 @@ class Plants_Leaves extends Plants_Base {
 		});
 
 	    var timeline = this.tweens.timeline({ tweens: tweens });
+
+
 	}
 
 	clickCallToAction() {
 		this.runAlert(INTRO1_ALERT);
 	}
 
-	resetCallToActionTween() {
-		let submarine_reset_tween = {
-			targets: this.submarine,
-			y: -300,
-			ease: 'Sine',
-			duration: 1500,
-			yoyo: true,
-			hold: 2000,
-			offset: 0
-		}
-
-		return submarine_reset_tween
-	}
+// 	resetCallToActionTween() {
+// 		let submarine_reset_tween = {
+// 			targets: this.submarine,
+// 			y: -300,
+// 			ease: 'Sine',
+// 			duration: 1500,
+// 			yoyo: true,
+// 			hold: 2000,
+// 			offset: 0
+// 		}
+// 
+// 		return submarine_reset_tween
+// 	}
 
 	createAlerts() {
 		this.scene.add(INTRO1_ALERT, new Alert(INTRO1_ALERT), false, {
-			title: "Welcome to Hobbiton!",
-			content: "You are looking for a door? Koki and I are looking for invertebrates. Those are animals with no skeletons. Can you help us find them? While you are looking, we will check our map for your door.",
-			buttonText: "Sure!",
+			title: "Welcome to Hyrule!",
+			content: "I lost the key to my door! Do you think you could help me get it back?",
+			buttonText: "You bet",
 			buttonAction: this.intro1AlertClicked,
 			context: this
 		});
 		this.scene.add(INTRO2_ALERT, new Alert(INTRO2_ALERT), false, {
-			title: "Thank You!",
-			content: `Use the X-ray gun to have a look at the animals first. Then drag all the invertebrates over to the scanner. But be careful! The scanner only has charge for ${this.scan_limit} scans.`,
-			buttonText: "Got it",
+			title: "Thanks!",
+			content: `Some of these plants have the right leaves to make a new key.`,
+			buttonText: "Roger",
 			buttonAction: this.intro2AlertClicked,
 			context: this
 		});
-		this.scene.add(FAIL_ALERT, new Alert(FAIL_ALERT), false, {
-			title: "Time to recharge",
-			content: `We think there are ${this.success_count} invertebrates out there, but we are out of juice. We will be right back!`,
-			buttonText: "OK :(",
-			buttonAction: this.failAlertClicked,
-			context: this
-		});
+		// this.scene.add(FAIL_ALERT, new Alert(FAIL_ALERT), false, {
+		// 	title: "Time to recharge",
+		// 	content: `We think there are ${this.success_count} invertebrates out there, but we are out of juice. We will be right back!`,
+		// 	buttonText: "OK :(",
+		// 	buttonAction: this.failAlertClicked,
+		// 	context: this
+		// });
 
 		return [INTRO1_ALERT, INTRO2_ALERT];
 	}
@@ -144,7 +146,7 @@ class Plants_Leaves extends Plants_Base {
 	intro2AlertClicked() {
 		this.stopAlert(INTRO2_ALERT);
 
-		if (!this.animals_have_entered) {
+		if (!this.plants_have_entered) {
 			var tweens = [];
 
 			// Animate in animals
@@ -164,7 +166,7 @@ class Plants_Leaves extends Plants_Base {
 			// Animate in tools
 			this.revealTools();
 
-			this.animals_have_entered = true;
+			this.plants_have_entered = true;
 		}
 	}
 

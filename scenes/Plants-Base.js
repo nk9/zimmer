@@ -2,7 +2,8 @@ import BaseScene, { SceneProgress, Layers } from './base-scene'
 import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config'
 import { nearestPointOnRect } from '../utilities/geom_utils'
 
-import XrayAnimal from '../components/xray_animal'
+// import XrayAnimal from '../components/xray_animal'
+import OutlineImage from '../components/outline_image'
 import ScanChargeBar from '../components/scan_charge_bar'
 
 
@@ -69,6 +70,14 @@ class Plants_Base extends BaseScene {
 	createPlants() {
 		for (const key in this.plants_data) {
 			const pd = this.plants_data[key];
+
+			if ('x' in pd && 'y' in pd) {
+				let plant = new OutlineImage(this, key, true, pd.x, pd.y)
+				plant.x = pd.x;
+				plant.y = pd.y;
+
+				this.plants.push(plant);
+			}
 
 // 			let plant = new XrayAnimal(this, key, pd.success, pd.targetX, pd.targetY, pd.scale);
 // 			plant.on('drop', this.scanAnimal);
