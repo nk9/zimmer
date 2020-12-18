@@ -44,7 +44,7 @@ class Plants_Leaves extends Plants_Base {
 	    this.load.image('leaf_lock_top', plantPicPng.leaf_lock_top);
 
         // Audio
-        this.load.audio('splash_bubble', audioMp3.splash_bubble);
+        this.load.audio('woosh', audioMp3.woosh);
 	}
 
 	loadOutlineImage(name) {
@@ -70,7 +70,7 @@ class Plants_Leaves extends Plants_Base {
 	}
 
 	createCallToAction() {
-		// this.sound.play('yoink');
+		this.sound.play('woosh');
 
 		this.link = this.add.sprite(0, GAME_HEIGHT+256, 'link', 'wave');
 		this.link.setOrigin(0, 1);

@@ -2,9 +2,7 @@ import BaseScene, { SceneProgress, Layers } from './base-scene'
 import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config'
 import { nearestPointOnRect } from '../utilities/geom_utils'
 
-// import XrayAnimal from '../components/xray_animal'
 import OutlinePlant from '../components/outline_plant'
-import ScanChargeBar from '../components/scan_charge_bar'
 
 
 import plantsPicPng from '../assets/pics/plants/*.png'
@@ -75,12 +73,12 @@ class Plants_Base extends BaseScene {
 				let plant = new OutlinePlant(this, key, pd)
 				plant.alpha = 0;
 
+				plant.on('drop', this.scanAnimal);
+				plant.on('pointerdown', this.pointerDownPlant.bind(this, plant));
+
 				this.plants.push(plant);
 			}
 
-// 			let plant = new XrayAnimal(this, key, pd.success, pd.targetX, pd.targetY, pd.scale);
-// 			plant.on('drop', this.scanAnimal);
-// 			plant.on('pointerdown', this.pointerDownAnimal.bind(this, plant));
 // 
 // 			if (pd.success) {
 // 				this.success_plants.push(plant);
@@ -90,22 +88,22 @@ class Plants_Base extends BaseScene {
 		}
 	}
 
-	pointerDownAnimal(pointer_down_animal) {
+	pointerDownPlant(pointer_down_plant) {
 		if (this.selectionMode == SelectionMode.MAGNIFY) {
 			this.sound.play('hmm');
 
-			this.clickedXrayAnimal(pointer_down_animal);
+			this.clickedPlant(pointer_down_plant);
 		} else if (this.selectionMode == SelectionMode.PICK) {
 			this.sound.play('pick');
 		}
 
-		for (const a of this.plants) {
-			if (a == pointer_down_animal) {
-				a.setDepth(Layers.DRAGGING);
-			} else {
-				a.setDepth(Layers.OVER_POUCH);
-			}
-		}
+		// for (const a of this.plants) {
+		// 	if (a == pointer_down_plant) {
+		// 		a.setDepth(Layers.DRAGGING);
+		// 	} else {
+		// 		a.setDepth(Layers.OVER_POUCH);
+		// 	}
+		// }
 	}
 
 	createTools() {
@@ -123,14 +121,7 @@ class Plants_Base extends BaseScene {
 		this.factText = this.add.text(screenBounds.x, screenBounds.y, '', factStyle);
 		this.factText.visible = false;
 
-		this.scanner = this.add.image(-90, 230, 'scanner');
-		this.scanner.setOrigin(0, 0);
-		this.scanner.setInteractive({dropZone: true});
-
 		this.twinkle = this.sound.add('twinkle');
-
-		this.scan_charge_bar = new ScanChargeBar(this, -70, 450, 70, 15);
-		this.updateScanChargeBar();
 
 		this.toolbar = this.add.container(GAME_WIDTH/2, -100);
 		this.toolbar.setSize(300, 100);
@@ -170,24 +161,12 @@ class Plants_Base extends BaseScene {
 			y: 0,
 			ease: 'Sine',
 			duration: 1200
-		},{
-			targets: [this.screen, this.factText],
-			y: '-=305',
-			ease: 'Sine',
-			duration: 1200,
-			offset: 0
-		},{
-			targets: this.scan_charge_bar,
-			x: 50,
-			ease: 'Sine',
-			duration: 1200,
-			offset: 0
-		},{
-			targets: this.scanner,
-			x: 40,
-			ease: 'Sine.easeOut',
-			duration: 1200,
-			offset: 0
+		// },{
+		// 	targets: [this.screen, this.factText],
+		// 	y: '-=305',
+		// 	ease: 'Sine',
+		// 	duration: 1200,
+		// 	offset: 0
 		}]});
 
 		this.chooseMagnifyingGlass(); // Glass by default
@@ -196,15 +175,15 @@ class Plants_Base extends BaseScene {
 	chooseFingers() {
 		this.selectionMode = SelectionMode.PICK;
 		this.input.setDefaultCursor(`url(${plantsPicPng.fingers}), pointer`);
-		this.clickedXrayAnimal(null);
-		this.setAnimalsDraggable(true);
+		// this.clickedPlant(null);
+		// this.setAnimalsDraggable(true);
 	}
 
 	chooseMagnifyingGlass() {
 		this.selectionMode = SelectionMode.MAGNIFY;
 		this.input.setDefaultCursor(`url(${plantsPicPng.magnifying_glass}), pointer`);
-		this.setAnimalsDraggable(false);
-		this.factText.visible = false;
+		// this.setAnimalsDraggable(false);
+		// this.factText.visible = false;
 	}
 
 	scanAnimal(pointer, target) {
@@ -254,10 +233,11 @@ class Plants_Base extends BaseScene {
 		this.factText.visible = true;
 	}
 
-	clickedXrayAnimal(animal) {
-		for (const a of this.plants) {
-			a.xrayImg.visible = (animal == a);
-		}
+	clickedPlant(plant) {
+		console.log(`clicked ${plant.name}`);
+		// for (const a of this.plants) {
+		// 	a.xrayImg.visible = (animal == a);
+		// }
 	}
 
 	setAnimalsDraggable(canDrag) {
