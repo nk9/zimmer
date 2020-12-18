@@ -60,7 +60,7 @@ class Animals_Forest extends Animals_Base {
 		let center_x = GAME_WIDTH/2,
 			center_y = GAME_HEIGHT/2;
 
-		this.swirl = this.add.image(center_x, center_y, 'aqua_swirl');
+		this.swirl = this.add.image(635, center_y, 'aqua_swirl');
 
 		this.background_open = this.add.image(0, 0, 'forest_door_open');
 		this.background_open.setOrigin(0, 0);
@@ -113,8 +113,8 @@ class Animals_Forest extends Animals_Base {
 
 	createAlerts() {
 		this.scene.add(INTRO1_ALERT, new Alert(INTRO1_ALERT), false, {
-			title: "Hi Sea Explorer!",
-			content: "You are looking for a door? Koki and I are looking for invertebrates. Those are animals with no skeletons. Can you help us find them? While you are looking, we will check our map for your door.",
+			title: "Oh hi again!",
+			content: "You are looking for a door? Martin and I are looking for vertebrates. Those are animals with skeletons. Can you help us find them? While you are looking, we will check our map for your door.",
 			buttonText: "Sure!",
 			buttonAction: this.intro1AlertClicked,
 			context: this
