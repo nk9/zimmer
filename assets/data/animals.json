@@ -173,23 +173,23 @@
       "fact": "This one is a woodlouse. They are super important in a forest. They eat wood and help turn it back into soil!"
     },
     "ant": {
-      "scale": 1,
-      "targetX": 500,
-      "targetY": 600,
+      "scale": 0.5,
+      "targetX": 100,
+      "targetY": 630,
       "success": false,
       "fact": "Ants live in big colonies with lots of other ants. There are probably more around here."
     },
     "ant2": {
-      "scale": 1,
-      "targetX": 500,
-      "targetY": 600,
+      "scale": 0.5,
+      "targetX": 250,
+      "targetY": 400,
       "success": false,
       "fact": "Ants live in big colonies with lots of other ants. There are probably more around here."
     },
     "ant3": {
-      "scale": 1,
-      "targetX": 500,
-      "targetY": 600,
+      "scale": 0.4,
+      "targetX": 900,
+      "targetY": 350,
       "success": false,
       "fact": "Ants live in big colonies with lots of other ants. There are probably more around here."
     }

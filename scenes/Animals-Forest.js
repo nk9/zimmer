@@ -5,8 +5,8 @@ import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
 import Alert from '../components/alert';
 import OutlineImage from '../components/outline_image';
 
-import oceanPicJpg from '../assets/pics/animals/ocean/*.jpg'
-import oceanPicPng from '../assets/pics/animals/ocean/*.png'
+import forestPicJpg from '../assets/pics/animals/forest/*.jpg'
+import forestPicPng from '../assets/pics/animals/forest/*.png'
 import audioMp3 from '../assets/audio/*.mp3'
 
 import Animals_Base, { SelectionMode } from './Animals-Base';
@@ -29,8 +29,8 @@ class Animals_Forest extends Animals_Base {
 		super.preload();
 
 		// Images
-		this.load.image('underwater_door_closed', oceanPicJpg.underwater_door_closed);
-		this.load.image('underwater_door_open', oceanPicPng.underwater_door_open);
+		this.load.image('forest_door_closed', forestPicJpg.forest_door_closed);
+		this.load.image('forest_door_open', forestPicPng.forest_door_open);
         this.loadOutlineImage('amphisub');
 
         // Animals
@@ -43,13 +43,13 @@ class Animals_Forest extends Animals_Base {
 	}
 
 	loadOutlineImage(name) {
-		this.load.image(name, oceanPicPng[name]);
-		this.load.image(name+"_outline", oceanPicPng[name+"_outline"]);
+		this.load.image(name, forestPicPng[name]);
+		this.load.image(name+"_outline", forestPicPng[name+"_outline"]);
 	}
 
 	loadXrayOutlineImage(name) {
 		this.loadOutlineImage(name)
-		this.load.image(name+"_xray", oceanPicJpg[name+"_xray"]);
+		this.load.image(name+"_xray", forestPicJpg[name+"_xray"]);
 	}
 
 	create() {
@@ -62,10 +62,10 @@ class Animals_Forest extends Animals_Base {
 
 		this.swirl = this.add.image(center_x, center_y, 'aqua_swirl');
 
-		this.background_open = this.add.image(0, 0, 'underwater_door_open');
+		this.background_open = this.add.image(0, 0, 'forest_door_open');
 		this.background_open.setOrigin(0, 0);
 
-		this.background_closed = this.add.image(0, 0, 'underwater_door_closed');
+		this.background_closed = this.add.image(0, 0, 'forest_door_closed');
 		this.background_closed.setOrigin(0, 0);
 	}
 
