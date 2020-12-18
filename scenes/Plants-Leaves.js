@@ -5,8 +5,9 @@ import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
 import Alert from '../components/alert';
 import OutlineImage from '../components/outline_image';
 
-import oceanPicJpg from '../assets/pics/animals/ocean/*.jpg'
-import oceanPicPng from '../assets/pics/animals/ocean/*.png'
+import plantPicJpg from '../assets/pics/plants/leaves/*.jpg'
+import plantPicPng from '../assets/pics/plants/leaves/*.png'
+import linkPicPng  from '../assets/pics/sprites/*.png'
 import audioMp3 from '../assets/audio/*.mp3'
 
 import Plants_Base, { SelectionMode } from './Plants-Base';
@@ -28,28 +29,25 @@ class Plants_Leaves extends Plants_Base {
 	preload() {
 		super.preload();
 
-		// Images
-		this.load.image('underwater_door_closed', oceanPicJpg.underwater_door_closed);
-		this.load.image('underwater_door_open', oceanPicPng.underwater_door_open);
-        this.loadOutlineImage('amphisub');
-
-        // Animals
-		for (const key in this.animals_data) {
-	        this.loadXrayOutlineImage(key);
+		// Doors
+		this.load.image('hobbit_closed', plantPicJpg.hobbit_closed);
+		this.load.image('hobbit_open', plantPicPng.hobbit_open);
+        
+        // Plants
+		for (const key in this.plants_data) {
+	        this.loadOutlineImage(key);
 	    }
+
+	    // Link
+	    this.load.image('link_wave', linkPicPng.link_wave);
 
         // Audio
         this.load.audio('splash_bubble', audioMp3.splash_bubble);
 	}
 
 	loadOutlineImage(name) {
-		this.load.image(name, oceanPicPng[name]);
-		this.load.image(name+"_outline", oceanPicPng[name+"_outline"]);
-	}
-
-	loadXrayOutlineImage(name) {
-		this.loadOutlineImage(name)
-		this.load.image(name+"_xray", oceanPicJpg[name+"_xray"]);
+		this.load.image(name, plantPicPng[name]);
+		this.load.image(name+"_outline", plantPicPng[name+"_outline"]);
 	}
 
 	create() {
@@ -60,34 +58,35 @@ class Plants_Leaves extends Plants_Base {
 		let center_x = GAME_WIDTH/2,
 			center_y = GAME_HEIGHT/2;
 
-		this.swirl = this.add.image(center_x, center_y, 'aqua_swirl');
+		this.swirl = this.add.image(center_x, center_y, 'blue_swirl');
 
-		this.background_open = this.add.image(0, 0, 'underwater_door_open');
+		this.background_open = this.add.image(0, 0, 'hobbit_open');
 		this.background_open.setOrigin(0, 0);
 
-		this.background_closed = this.add.image(0, 0, 'underwater_door_closed');
+		this.background_closed = this.add.image(0, 0, 'hobbit_closed');
 		this.background_closed.setOrigin(0, 0);
 	}
 
 	createCallToAction() {
-		this.sound.play('splash_bubble');
+		// this.sound.play('splash_bubble');
 
-		this.submarine = new OutlineImage(this, 'amphisub', 150, 150, 125, -136, 1);
-		this.submarine
+		this.link = this.add.sprite(0, GAME_HEIGHT+256, 'link', 'wave');
+		this.link.setOrigin(0, 1);
+
+		this.link.setInteractive({useHandCursor: true})
 			.on('pointerup', pointer => {
 				this.clickCallToAction();
 			});
-		this.submarine.input.cursor = 'pointer';
+		this.link.input.cursor = 'pointer';
 
 		var tweens = [];
 
 		tweens.push({
-			targets: this.submarine,
-			x: this.submarine.targetX,
-			y: this.submarine.targetY,
-			ease: 'Sine.easeOut',
-			duration: 2500,
-			delay: 500
+			targets: this.link,
+			x: 0,
+			y: GAME_HEIGHT,
+			ease: 'Back',
+			duration: 300
 		});
 
 	    var timeline = this.tweens.timeline({ tweens: tweens });
@@ -113,7 +112,7 @@ class Plants_Leaves extends Plants_Base {
 
 	createAlerts() {
 		this.scene.add(INTRO1_ALERT, new Alert(INTRO1_ALERT), false, {
-			title: "Hi Sea Explorer!",
+			title: "Welcome to Hobbiton!",
 			content: "You are looking for a door? Koki and I are looking for invertebrates. Those are animals with no skeletons. Can you help us find them? While you are looking, we will check our map for your door.",
 			buttonText: "Sure!",
 			buttonAction: this.intro1AlertClicked,

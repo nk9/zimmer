@@ -5,9 +5,15 @@ import Brick, { LEGO_GRID } from '../components/brick';
 import BrickStore, { BSBrick } from '../components/brick_store';
 import PieMeter from '../components/pie-meter';
 
+import numbersPicPng from '../assets/pics/numbers/*.png';
+
+
 // Abstract class!
 class Numbers_Lego extends BaseScene {
 	preload() {
+        this.load.image('pouch_open', numbersPicPng.pouch_open)
+        this.load.image('pouch_closed', numbersPicPng.pouch_closed_small)
+        this.load.image('pouch_closed_outlined', numbersPicPng.pouch_closed_small_outlined)
 	}
 
 	create() {
@@ -338,7 +344,7 @@ class Numbers_Lego extends BaseScene {
 
 	fail() {
 		this.emitters.map(e => e.stop());
-		
+
 		this.brick_fall_tween = this.tweens.add({
 			targets: this.brick_store.bricks,
 			ease:'Power2',

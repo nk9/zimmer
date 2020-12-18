@@ -2,23 +2,24 @@ import BaseScene, { SceneProgress, Layers } from './base-scene'
 import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config'
 import { nearestPointOnRect } from '../utilities/geom_utils'
 
-import XrayAnimal from '../components/xray_animal';
+import XrayAnimal from '../components/xray_animal'
 import ScanChargeBar from '../components/scan_charge_bar'
 
-import animalPicPng from '../assets/pics/animals/*.png'
+
+import plantPicPng from '../assets/pics/plants/*.png'
 import audioMp3 from '../assets/audio/*.mp3'
 
 export const SelectionMode = {
 	NONE:    "none", 
-	RAYGUN:  "raygun",
-	GRABBER: "grabber"
+	MAGNIFY: "magnify",
+	PICK: 	 "pick"
 }
 
 class Plants_Base extends BaseScene {
 	constructor(key) {
 		super(key);
 
-		this.success_animals = [];
+		this.success_plants = [];
 
 		// Subclasses need to set these
 		this.scan_limit;
@@ -26,21 +27,20 @@ class Plants_Base extends BaseScene {
 	}
 
 	preload() {
-		this.load.image('screen', animalPicPng.screen);
-		this.load.image('scanner', animalPicPng.scanning_chamber);
-		this.load.image('raygun', animalPicPng.raygun_small);
-		this.load.image('grabber', animalPicPng.grabber_small);
+		this.load.image('leaf_lock', plantPicPng.leaf_lock)
+		this.load.image('magnifying_glass', plantPicPng.magnifying_glass);
+		this.load.image('fingers', plantPicPng.fingers);
 
-		this.load.audio('xray', audioMp3.laser);
-		this.load.audio('grab', audioMp3.squish);
-		this.load.audio('scan', audioMp3.scan);
+		this.load.audio('hmm', audioMp3.laser);	 // TODO
+		this.load.audio('pick', audioMp3.squish); // TODO
+		this.load.audio('twinkle', audioMp3.twinkle);
 
-		this.animals_data = this.cache.json.get('animals_data')[this.key];
+		this.plants_data = this.cache.json.get('plants_data')[this.key];
 
 		// Count success animals, needed for alerts
 		this.success_count = 0;
-		for (const key in this.animals_data) {
-			const ad = this.animals_data[key];
+		for (const key in this.plants_data) {
+			const ad = this.plants_data[key];
 			if (ad.success) {
 				this.success_count++;
 			}
@@ -50,7 +50,7 @@ class Plants_Base extends BaseScene {
 	create() {
 		super.create();
 
-		this.animals = [];
+		this.plants = [];
 		this.scanned_animals = [];
 
 		this.createBackground();
@@ -58,7 +58,7 @@ class Plants_Base extends BaseScene {
 
 		this.createTools();
 		this.createCallToAction();
-		this.createAnimals();
+		this.createPlants();
 	}
 
 	update() {
@@ -66,32 +66,32 @@ class Plants_Base extends BaseScene {
 		this.swirl.rotation += 0.01;
 	}
 
-	createAnimals() {
-		for (const key in this.animals_data) {
-			const ad = this.animals_data[key];
+	createPlants() {
+		for (const key in this.plants_data) {
+			const pd = this.plants_data[key];
 
-			let animal = new XrayAnimal(this, key, ad.success, ad.targetX, ad.targetY, ad.scale);
-			animal.on('drop', this.scanAnimal);
-			animal.on('pointerdown', this.pointerDownAnimal.bind(this, animal));
-
-			if (ad.success) {
-				this.success_animals.push(animal);
-			}
-
-			this.animals.push(animal);
+// 			let plant = new XrayAnimal(this, key, pd.success, pd.targetX, pd.targetY, pd.scale);
+// 			plant.on('drop', this.scanAnimal);
+// 			plant.on('pointerdown', this.pointerDownAnimal.bind(this, plant));
+// 
+// 			if (pd.success) {
+// 				this.success_plants.push(plant);
+// 			}
+// 
+// 			this.plants.push(plant);
 		}
 	}
 
 	pointerDownAnimal(pointer_down_animal) {
-		if (this.selectionMode == SelectionMode.RAYGUN) {
-			this.sound.play('xray');
+		if (this.selectionMode == SelectionMode.MAGNIFY) {
+			this.sound.play('hmm');
 
 			this.clickedXrayAnimal(pointer_down_animal);
-		} else if (this.selectionMode == SelectionMode.GRABBER) {
-			this.sound.play('grab');
+		} else if (this.selectionMode == SelectionMode.PICK) {
+			this.sound.play('pick');
 		}
 
-		for (const a of this.animals) {
+		for (const a of this.plants) {
 			if (a == pointer_down_animal) {
 				a.setDepth(Layers.DRAGGING);
 			} else {
@@ -119,7 +119,7 @@ class Plants_Base extends BaseScene {
 		this.scanner.setOrigin(0, 0);
 		this.scanner.setInteractive({dropZone: true});
 
-		this.scan = this.sound.add('scan');
+		this.twinkle = this.sound.add('twinkle');
 
 		this.scan_charge_bar = new ScanChargeBar(this, -70, 450, 70, 15);
 		this.updateScanChargeBar();
@@ -130,24 +130,25 @@ class Plants_Base extends BaseScene {
 		let rectangle = this.add.rectangle(0, 0, 300, 100, 0x000000);
 		rectangle.setOrigin(0.5, 0);
 		rectangle.setStrokeStyle(2, 0xFFD700, 1);
-		let raygun = this.add.image(-20, 10, 'raygun');
-		raygun.setOrigin(1, 0);
-		raygun.scale = .8;
-		raygun.setInteractive({useHandCursor: true})
-			.on('pointerup', () => this.chooseRaygun());
+		let magnifying_glass = this.add.image(-20, 10, 'magnifying_glass');
+		magnifying_glass.setOrigin(1, 0);
+		magnifying_glass.scale = .8;
+		magnifying_glass.setInteractive({useHandCursor: true})
+			.on('pointerup', () => this.chooseMagnifyingGlass());
 
-		let grabber = this.add.image(20, 10, 'grabber');
-		grabber.setOrigin(0, 0);
-		grabber.scale = .8;
-		grabber.setInteractive({useHandCursor: true})
-			.on('pointerup', () => this.chooseGrabber());
+		let fingers = this.add.image(20, 10, 'fingers');
+		fingers.setOrigin(0, 0);
+		fingers.scale = .8;
+		fingers.setInteractive({useHandCursor: true})
+			.on('pointerup', () => this.chooseFingers());
 
 		this.toolbar.add(rectangle);
-		this.toolbar.add(raygun);
-		this.toolbar.add(grabber);
+		this.toolbar.add(magnifying_glass);
+		this.toolbar.add(fingers);
 
 		this.input.on('drag', (pointer, gameObject, dragX, dragY) => {
-			if (this.selectionMode == SelectionMode.GRABBER) {
+			if (this.selectionMode == SelectionMode.PICK) {
+				// NOT QUITE
 				gameObject.x = dragX;
 				gameObject.y = dragY;
 			}
@@ -181,19 +182,19 @@ class Plants_Base extends BaseScene {
 			offset: 0
 		}]});
 
-		this.chooseRaygun(); // Raygun by default
+		this.chooseMagnifyingGlass(); // Glass by default
 	}
 
-	chooseGrabber() {
-		this.selectionMode = SelectionMode.GRABBER;
-		this.input.setDefaultCursor(`url(${animalPicPng.grabber_small}), pointer`);
+	chooseFingers() {
+		this.selectionMode = SelectionMode.PICK;
+		this.input.setDefaultCursor(`url(${plantsPicPng.fingers}), pointer`);
 		this.clickedXrayAnimal(null);
 		this.setAnimalsDraggable(true);
 	}
 
-	chooseRaygun() {
-		this.selectionMode = SelectionMode.RAYGUN;
-		this.input.setDefaultCursor(`url(${animalPicPng.raygun_small}), pointer`);
+	chooseMagnifyingGlass() {
+		this.selectionMode = SelectionMode.MAGNIFY;
+		this.input.setDefaultCursor(`url(${plantsPicPng.magnifying_glass}), pointer`);
 		this.setAnimalsDraggable(false);
 		this.factText.visible = false;
 	}
@@ -218,8 +219,6 @@ class Plants_Base extends BaseScene {
 			this.succeed();
 		} else if (this.scanned_animals.length == this.scan_limit) {
 			this.fail();
-		} else {
-			this.resetAnimals([animal]);
 		}
 
 	}
@@ -227,13 +226,13 @@ class Plants_Base extends BaseScene {
 	allSuccessAnimalsScanned() {
 		var success_count = 0;
 
-		for (const sAnimal of this.success_animals) {
+		for (const sAnimal of this.success_plants) {
 			if (this.scanned_animals.some(a => a.name === sAnimal.name)) {
 				success_count++;
 			}
 		}
 
-		return (this.success_animals.length == success_count);
+		return (this.success_plants.length == success_count);
 	}
 
 	updateScanChargeBar() {
@@ -243,67 +242,67 @@ class Plants_Base extends BaseScene {
 	}
 
 	setFact(animal) {
-		this.factText.text = this.animals_data[animal.name].fact;
+		this.factText.text = this.plants_data[animal.name].fact;
 		this.factText.visible = true;
 	}
 
 	clickedXrayAnimal(animal) {
-		for (const a of this.animals) {
+		for (const a of this.plants) {
 			a.xrayImg.visible = (animal == a);
 		}
 	}
 
 	setAnimalsDraggable(canDrag) {
-		for (const a of this.animals) {
+		for (const a of this.plants) {
 			this.input.setDraggable(a, canDrag);
 		}
 	}
 
-	setAnimalsInput(handleInput) {
-		for (const a of this.animals) {
+	setPlantsInput(handleInput) {
+		for (const a of this.plants) {
 			this.input.enabled = handleInput;
 		}
 	}
 
-	resetAnimals(animals) {
-		var tweens = [];
-		let animals_to_reset = (animals === null) ? this.scanned_animals : animals;
-
-		for (const a of animals_to_reset) {
-			a.visible = true;
-			tweens.push({
-				targets: a,
-				x: a.targetX,
-				y: a.targetY,
-				ease: 'Sine',
-				duration: 1200,
-				offset: 0
-			})
-		}
-
-		this.tweens.timeline({ tweens: tweens });
-	}
-
-	disperseAnimals() {
-		var tweens = [];
-
-		let inner = new Phaser.Geom.Rectangle(0, 0, GAME_WIDTH, GAME_HEIGHT);
-		Phaser.Geom.Rectangle.Inflate(inner, 150, 150);
-
-		for (const a of this.animals) {
-			let point = nearestPointOnRect(inner, a);
-			tweens.push({
-				targets: a,
-				x: point.x,
-				y: point.y,
-				ease: 'Cubic.easeOut',
-				duration: 750,
-				offset: 0
-			})
-		}
-
-		this.tweens.timeline({ tweens: tweens });
-	}
+// 	resetAnimals(animals) {
+// 		var tweens = [];
+// 		let animals_to_reset = (animals === null) ? this.scanned_animals : animals;
+// 
+// 		for (const a of animals_to_reset) {
+// 			a.visible = true;
+// 			tweens.push({
+// 				targets: a,
+// 				x: a.targetX,
+// 				y: a.targetY,
+// 				ease: 'Sine',
+// 				duration: 1200,
+// 				offset: 0
+// 			})
+// 		}
+// 
+// 		this.tweens.timeline({ tweens: tweens });
+// 	}
+// 
+// 	disperseAnimals() {
+// 		var tweens = [];
+// 
+// 		let inner = new Phaser.Geom.Rectangle(0, 0, GAME_WIDTH, GAME_HEIGHT);
+// 		Phaser.Geom.Rectangle.Inflate(inner, 150, 150);
+// 
+// 		for (const a of this.plants) {
+// 			let point = nearestPointOnRect(inner, a);
+// 			tweens.push({
+// 				targets: a,
+// 				x: point.x,
+// 				y: point.y,
+// 				ease: 'Cubic.easeOut',
+// 				duration: 750,
+// 				offset: 0
+// 			})
+// 		}
+// 
+// 		this.tweens.timeline({ tweens: tweens });
+// 	}
 
 	succeed() {
 		this.input.enabled = false;
@@ -341,7 +340,7 @@ class Plants_Base extends BaseScene {
 	}
 
 	beginFailureTransition() {
-		this.setAnimalsInput(false);
+		this.setPlantsInput(false);
 		this.factText.visible = false;
 		this.disperseAnimals();
 
@@ -379,8 +378,7 @@ class Plants_Base extends BaseScene {
 	}
 
 	finishFailureTransition() {
-		this.resetAnimals(this.animals);
-		this.setAnimalsInput(true);
+		this.setPlantsInput(true);
 	}
 }
 

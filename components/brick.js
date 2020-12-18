@@ -19,7 +19,7 @@ class Brick extends Phaser.GameObjects.Container {
 		
 		let brick = scene.add.sprite(0, 0,
 									'yellow-bricks',
-									`${hL}x${wL}.png`);
+									`${hL}x${wL}`);
 		brick.setOrigin(0, 0);
 		let brickCenter = brick.getCenter();
 

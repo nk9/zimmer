@@ -3,7 +3,6 @@ import { INIT, MAIN_HALL, ANIMALS_OCEAN } from '../constants/scenes';
 
 import swirlsJpg from '../assets/pics/swirls/*.jpg';
 import imagesJpg from '../assets/pics/*.jpg';
-import imagesPng from '../assets/pics/*.png';
 import audioMp3 from '../assets/audio/*.mp3';
 import particles from '../assets/particles/*.png';
 import spritesImg from '../assets/sprites/*.png';
@@ -23,11 +22,9 @@ class Init extends Scene {
         this.load.image('aqua_swirl', swirlsJpg.aqua_swirl);
         this.load.image('blue_swirl', swirlsJpg.blue_swirl);
 
-        // Lego Sprites
+        // Sprites
         this.load.atlas('yellow-bricks', spritesImg.yellow_bricks_spritesheet, spritesJson.yellow_bricks_spritesheet);
-        this.load.image('pouch_open', imagesPng.pouch_open)
-        this.load.image('pouch_closed', imagesPng.pouch_closed_small)
-        this.load.image('pouch_closed_outlined', imagesPng.pouch_closed_small_outlined)
+        this.load.atlas('link', spritesImg.link_spritesheet, spritesJson.link_spritesheet);
 
         // Particles
         this.load.image('spark', particles.blue);
