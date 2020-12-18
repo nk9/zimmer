@@ -3,11 +3,11 @@ import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config'
 import { nearestPointOnRect } from '../utilities/geom_utils'
 
 // import XrayAnimal from '../components/xray_animal'
-import OutlineImage from '../components/outline_image'
+import OutlinePlant from '../components/outline_plant'
 import ScanChargeBar from '../components/scan_charge_bar'
 
 
-import plantPicPng from '../assets/pics/plants/*.png'
+import plantsPicPng from '../assets/pics/plants/*.png'
 import audioMp3 from '../assets/audio/*.mp3'
 
 export const SelectionMode = {
@@ -28,9 +28,9 @@ class Plants_Base extends BaseScene {
 	}
 
 	preload() {
-		this.load.image('leaf_lock', plantPicPng.leaf_lock)
-		this.load.image('magnifying_glass', plantPicPng.magnifying_glass);
-		this.load.image('fingers', plantPicPng.fingers);
+		this.load.image('leaf_lock', plantsPicPng.leaf_lock)
+		this.load.image('magnifying_glass', plantsPicPng.magnifying_glass);
+		this.load.image('fingers', plantsPicPng.fingers);
 
 		this.load.audio('hmm', audioMp3.laser);	 // TODO
 		this.load.audio('pick', audioMp3.squish); // TODO
@@ -72,9 +72,8 @@ class Plants_Base extends BaseScene {
 			const pd = this.plants_data[key];
 
 			if ('x' in pd && 'y' in pd) {
-				let plant = new OutlineImage(this, key, true, pd.x, pd.y)
-				plant.x = pd.x;
-				plant.y = pd.y;
+				let plant = new OutlinePlant(this, key, pd)
+				plant.alpha = 0;
 
 				this.plants.push(plant);
 			}
