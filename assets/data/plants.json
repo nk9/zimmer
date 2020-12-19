@@ -1,52 +1,58 @@
 {
   "Plants-Leaves": {
     "bedstraw": {
-      "leaf_type": "thin",
-      "scale": 0.3,
+      "leaf_type": "blunt",
+      "scale": 0.5,
       "x": 320,
-      "y": 570
+      "y": 650
     },
     "chickweed": {
-      "leaf_type": "heart",
+      "leaf_type": "tear",
       "scale": 0.3,
       "x": 160,
-      "y": 330
+      "y": 360
     },
     "dandelion": {
       "leaf_type": "toothed",
       "scale": 0.3,
       "x": 920,
-      "y": 580    
+      "y": 650    
     },
     "dock": {
       "leaf_type": "heart",
       "scale": 0.3,
       "x": 650,
-      "y": 500
+      "y": 530
     },
       "fleabane": {
-      "leaf_type": "rounded",
+      "leaf_type": "tear",
       "scale": 0.3,
-      "x": 950,
-      "y": 360
+      "x": 920,
+      "y": 410
     },
     "garlic_mustard": {
-      "leaf_type": "heart",
-      "scale": 0.3,
-      "x": 660,
-      "y": 350
+      "leaf_type": "tear",
+      "scale": 0.4,
+      "x": 630,
+      "y": 370
     },
     "pennywort": {
-      "leaf_type": "pointed",
-      "scale": 0.3,
+      "leaf_type": "round",
+      "scale": 0.4,
       "x": 450,
-      "y": 550
+      "y": 500
     },
     "plantain": {
-      "leaf_type": "round",
-      "scale": 0.3,
+      "leaf_type": "oval",
+      "scale": 0.2,
       "x": 1100,
       "y": 600
+    },
+    "thistle": {
+      "leaf_type": "spikey",
+      "scale": 0.4,
+      "x": 70,
+      "y": 330
     }
   }
 }
