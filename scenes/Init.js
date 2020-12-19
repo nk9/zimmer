@@ -6,6 +6,7 @@ import imagesJpg from '../assets/pics/*.jpg';
 import audioMp3 from '../assets/audio/*.mp3';
 import particles from '../assets/particles/*.png';
 import spritesImg from '../assets/sprites/*.png';
+import spritesMp3 from '../assets/sprites/*.mp3';
 import spritesJson from '../assets/sprites/*.json';
 import dataJson from '../assets/data/*.json';
 
@@ -27,6 +28,7 @@ class Init extends Scene {
         // Sprites
         this.load.atlas('yellow-bricks', spritesImg.yellow_bricks_spritesheet, spritesJson.yellow_bricks_spritesheet);
         this.load.atlas('link', spritesImg.link_spritesheet, spritesJson.link_spritesheet);
+        this.load.audioSprite('hmm', spritesJson.hmm_spritesheet, spritesMp3.hmm);
 
         // Particles
         this.load.image('spark', particles.blue);

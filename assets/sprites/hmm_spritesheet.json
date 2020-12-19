@@ -1,0 +1,63 @@
+{
+  "resources": [
+    "hmm.mp3"
+  ],
+  "spritemap": {
+    "0": {
+      "id": "0",
+      "start": 0.195,
+      "end": 1.405,
+      "length": 1.210,
+      "loop": false
+    },
+    "1": {
+      "id": "1",
+      "start": 1.920,
+      "end": 2.515,
+      "length": 0.595,
+      "loop": false
+    },
+    "2": {
+      "id": "2",
+      "start": 2.944,
+      "end": 3.948,
+      "length": 1.004,
+      "loop": false
+    },
+    "3": {
+      "id": "3",
+      "start": 4.485,
+      "end": 5.150,
+      "length": 0.665,
+      "loop": false
+    },
+    "4": {
+      "id": "4",
+      "start": 5.655,
+      "end": 6.974,
+      "length": 1.319,
+      "loop": false
+    },
+    "5": {
+      "id": "5",
+      "start": 7.480,
+      "end": 8.130,
+      "length": 0.650,
+      "loop": false
+    },
+    "6": {
+      "id": "6",
+      "start": 8.685,
+      "end": 9.315,
+      "length": 0.630,
+      "loop": false
+    },
+    "7": {
+      "id": "7",
+      "start": 9.775,
+      "end": 10.380,
+      "length": 0.605,
+      "loop": false
+    }
+  }
+}

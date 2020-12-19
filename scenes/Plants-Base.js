@@ -8,6 +8,9 @@ import OutlinePlant from '../components/outline_plant'
 import plantsPicPng from '../assets/pics/plants/*.png'
 import audioMp3 from '../assets/audio/*.mp3'
 
+const hmm_count = 7;
+var random = require('lodash.random');
+
 export const SelectionMode = {
 	NONE:    "none", 
 	MAGNIFY: "magnify",
@@ -29,7 +32,6 @@ class Plants_Base extends BaseScene {
 		this.load.image('magnifying_glass', plantsPicPng.magnifying_glass);
 		this.load.image('fingers', plantsPicPng.fingers);
 
-		this.load.audio('hmm', audioMp3.laser);	 // TODO
 		this.load.audio('pick', audioMp3.pick);
 		this.load.audio('twinkle', audioMp3.twinkle);
 
@@ -89,7 +91,9 @@ class Plants_Base extends BaseScene {
 
 	pointerDownPlant(pointer_down_plant) {
 		if (this.selectionMode == SelectionMode.MAGNIFY) {
-			this.sound.play('hmm');
+			let hmm_num = random(0, hmm_count);
+
+			this.sound.playAudioSprite('hmm', `${hmm_num}`);
 
 			this.clickedPlant(pointer_down_plant);
 		} else if (this.selectionMode == SelectionMode.PICK) {
@@ -154,7 +158,6 @@ class Plants_Base extends BaseScene {
 	}
 
 	revealTools() {
-		// console.log("revealTools");
 		this.tweens.timeline({ tweens: [{
 			targets: this.toolbar,
 			y: 1,
@@ -194,7 +197,6 @@ class Plants_Base extends BaseScene {
 
 		this.visible = false;
 		scene.scanned_animals.push(this);
-		scene.updateScanChargeBar();
 	}
 
 	didScanAnimal(animal) {
@@ -219,12 +221,6 @@ class Plants_Base extends BaseScene {
 		}
 
 		return (this.success_plants.length == success_count);
-	}
-
-	updateScanChargeBar() {
-		let collected_count = this.scanned_animals.length;
-		let percentRemaining = (this.scan_limit - collected_count) / this.scan_limit;
-		this.scan_charge_bar.drawBar(percentRemaining);
 	}
 
 	setFact(animal) {
