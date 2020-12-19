@@ -72,10 +72,12 @@ class Plants_Base extends BaseScene {
 			const pd = this.plants_data[key];
 
 			if ('x' in pd && 'y' in pd) {
-				let plant = new OutlinePlant(this, key, pd)
+				let plant = this.createPlant(key, pd);
 				plant.alpha = 0;
 
-				plant.on('pointerdown', this.pointerDownPlant.bind(this, plant));
+				plant.on('pointerdown', this.pointerDownPlant.bind(this, plant))
+					.on('dragstart', this.dragStartPlant.bind(this, plant))
+					.on('dragend', this.dragEndPlant.bind(this, plant));
 				
 				this.plants.push(plant);
 			}
@@ -103,6 +105,18 @@ class Plants_Base extends BaseScene {
 		}
 	}
 
+	dragStartPlant(plant) {
+		let drag_image = plant.drag_image;
+		drag_image.x = plant.x;
+		drag_image.y = plant.y;
+		drag_image.visible = true;
+	}
+
+	dragEndPlant(plant) {
+		let drag_image = plant.drag_image;
+		drag_image.visible = false;
+	}
+
 	createTools() {
 		this.twinkle = this.sound.add('twinkle');
 
@@ -110,11 +124,10 @@ class Plants_Base extends BaseScene {
 
 		this.scene.add(LIGHTBOX_ALERT, new LightboxAlert(LIGHTBOX_ALERT), false);
 
-		this.input.on('drag', (pointer, gameObject, dragX, dragY) => {
+		this.input.on('drag', (pointer, plant, dragX, dragY) => {
 				if (this.selectionMode == SelectionMode.PICK) {
-					// NOT QUITE
-					gameObject.x = dragX;
-					gameObject.y = dragY;
+					plant.drag_image.x = dragX;
+					plant.drag_image.y = dragY;
 				}
 			})
 			.on('pointerup', () => {
@@ -163,13 +176,13 @@ class Plants_Base extends BaseScene {
 		this.selectionMode = SelectionMode.PICK;
 		this.input.setDefaultCursor(`url(${plantsPicPng.fingers}), pointer`);
 		// this.clickedPlant(null);
-		// this.setAnimalsDraggable(true);
+		this.setPlantsDraggable(true);
 	}
 
 	chooseMagnifyingGlass() {
 		this.selectionMode = SelectionMode.MAGNIFY;
 		this.input.setDefaultCursor(`url(${plantsPicPng.magnifying_glass}), pointer`);
-		// this.setAnimalsDraggable(false);
+		this.setPlantsDraggable(false);
 		// this.factText.visible = false;
 	}
 
@@ -225,7 +238,7 @@ class Plants_Base extends BaseScene {
 		this.input.setDefaultCursor(`url(${plantsPicPng.magnifying_glass}), pointer`);
 	}
 
-	setAnimalsDraggable(canDrag) {
+	setPlantsDraggable(canDrag) {
 		for (const a of this.plants) {
 			this.input.setDraggable(a, canDrag);
 		}

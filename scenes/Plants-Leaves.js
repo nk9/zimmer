@@ -3,9 +3,11 @@ import { MAIN_HALL, PLANTS_LEAVES } from '../constants/scenes';
 import { GAME_WIDTH, GAME_HEIGHT, DRAG_THRESHOLD } from '../constants/config';
 
 import Alert from '../components/alert';
+import OutlinePlantLeaf from '../components/outline_plant_leaf';
 
 import plantPicJpg from '../assets/pics/plants/leaves/*.jpg'
 import plantPicPng from '../assets/pics/plants/leaves/*.png'
+import dragPicPng  from '../assets/pics/plants/leaves/drag_images/*.png'
 import linkPicPng  from '../assets/pics/sprites/*.png'
 import audioMp3 from '../assets/audio/*.mp3'
 
@@ -39,6 +41,12 @@ class Plants_Leaves extends Plants_Base {
         // Plants
 		for (const key in this.plants_data) {
 	        this.loadOutlineImage(key);
+
+	        // Get the leaf if needed
+	        const pd = this.plants_data[key];
+			if (!this.textures.exists(pd.leaf_type)) {
+				this.load.image(pd.leaf_type, dragPicPng[pd.leaf_type]);
+			}
 	    }
 
 	    // Triquetra
@@ -59,6 +67,10 @@ class Plants_Leaves extends Plants_Base {
 
 	create() {
 		super.create();
+	}
+
+	createPlant(key, pd) {
+		return new OutlinePlantLeaf(this, key, pd);
 	}
 
 	createBackground() {
@@ -143,7 +155,7 @@ class Plants_Leaves extends Plants_Base {
 
 	clickHarpLock() {
 		this.sound.play('twinkle');
-		
+
 		this.harp_lock_container.visible = false;
 		this.leaf_lock_container.visible = true;
 
@@ -156,20 +168,6 @@ class Plants_Leaves extends Plants_Base {
 			duration: 1000
 		});
 	}
-
-// 	resetCallToActionTween() {
-// 		let submarine_reset_tween = {
-// 			targets: this.submarine,
-// 			y: -300,
-// 			ease: 'Sine',
-// 			duration: 1500,
-// 			yoyo: true,
-// 			hold: 2000,
-// 			offset: 0
-// 		}
-// 
-// 		return submarine_reset_tween
-// 	}
 
 	createAlerts() {
 		this.scene.add(INTRO1_ALERT, new Alert(INTRO1_ALERT), false, {

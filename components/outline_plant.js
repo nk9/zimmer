@@ -10,7 +10,6 @@ class OutlinePlant extends OutlineImage {
 		
 		super(scene, name, x, y, x, y);
 
-		this.leaf_type = info.leaf_type;
 		this.scale = scale;
 	}
 }

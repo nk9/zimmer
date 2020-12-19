@@ -58,77 +58,77 @@
   "Plants-Flowers": {
     "allium": {
       "leaf_type": "toothed",
-      "flower_type": "yellow",
+      "color": "yellow",
       "scale": 0.4,
       "x": 370,
       "y": 580
     },
     "bluebell": {
       "leaf_type": "lobed",
-      "flower_type": "pink",
+      "color": "pink",
       "scale": 0.3,
       "x": 1000,
       "y": 600
     },
     "clover": {
       "leaf_type": "fine",
-      "flower_type": "white",
+      "color": "white",
       "scale": 0.3,
       "x": 720,
       "y": 660
     },
     "cosmos": {
       "leaf_type": "thin",
-      "flower_type": "purple",
+      "color": "purple",
       "scale": 0.4,
       "x": 850,
       "y": 530
     },
     "echinacia": {
       "leaf_type": "oval",
-      "flower_type": "yellow",
+      "color": "yellow",
       "scale": 0.4,
       "x": 1150,
       "y": 410
     },
     "marigold": {
       "leaf_type": "thin",
-      "flower_type": "blue",
+      "color": "blue",
       "scale": 0.4,
       "x": 300,
       "y": 650
     },
     "michaelmas": {
       "leaf_type": "toothed",
-      "flower_type": "white",
+      "color": "white",
       "scale": 0.3,
       "x": 450,
       "y": 550
     },
     "purple": {
       "leaf_type": "spikey",
-      "flower_type": "red",
+      "color": "red",
       "scale": 0.4,
       "x": 1100,
       "y": 650
     },
     "rudbekia": {
       "leaf_type": "oval",
-      "flower_type": "red",
+      "color": "red",
       "scale": 0.4,
       "x": 70,
       "y": 370
     },
     "sneezewort": {
       "leaf_type": "oval",
-      "flower_type": "red",
+      "color": "red",
       "scale": 0.5,
       "x": 540,
       "y": 570
     },
     "solomon": {
       "leaf_type": "oval",
-      "flower_type": "red",
+      "color": "red",
       "scale": 0.4,
       "x": 300,
       "y": 410
