@@ -24,7 +24,6 @@ class Plants_Base extends BaseScene {
 		this.success_plants = [];
 
 		// Subclasses need to set these
-		this.scan_limit;
 		this.selectionMode = SelectionMode.NONE;
 	}
 
@@ -74,9 +73,9 @@ class Plants_Base extends BaseScene {
 				let plant = new OutlinePlant(this, key, pd)
 				plant.alpha = 0;
 
-				plant.on('drop', this.scanAnimal);
-				plant.on('pointerdown', this.pointerDownPlant.bind(this, plant));
-
+				plant.on('drop', this.scanAnimal)
+					.on('pointerdown', this.pointerDownPlant.bind(this, plant));
+				
 				this.plants.push(plant);
 			}
 
@@ -89,23 +88,30 @@ class Plants_Base extends BaseScene {
 		}
 	}
 
-	pointerDownPlant(pointer_down_plant) {
+	pointerDownPlant(plant) {
 		if (this.selectionMode == SelectionMode.MAGNIFY) {
 			let hmm_num = random(0, hmm_count);
 
 			this.sound.playAudioSprite('hmm', `${hmm_num}`);
 
-			this.clickedPlant(pointer_down_plant);
+			this.clickedPlant(plant);
 		} else if (this.selectionMode == SelectionMode.PICK) {
 			this.sound.play('pick');
+			this.input.setDefaultCursor(`url(${plantsPicPng.fingers_pinch}), pointer`);
 		}
 
 		// for (const a of this.plants) {
-		// 	if (a == pointer_down_plant) {
+		// 	if (a == plant) {
 		// 		a.setDepth(Layers.DRAGGING);
 		// 	} else {
 		// 		a.setDepth(Layers.OVER_POUCH);
 		// 	}
+		// }
+	}
+
+	pointerUpPlant(plant) {
+		// if (this.selectionMode == SelectionMode.PICK) {
+		// 	this.input.setDefaultCursor(`url(${plantsPicPng.fingers}), pointer`);
 		// }
 	}
 
@@ -149,12 +155,17 @@ class Plants_Base extends BaseScene {
 		this.toolbar.add(fingers);
 
 		this.input.on('drag', (pointer, gameObject, dragX, dragY) => {
-			if (this.selectionMode == SelectionMode.PICK) {
-				// NOT QUITE
-				gameObject.x = dragX;
-				gameObject.y = dragY;
-			}
-		});
+				if (this.selectionMode == SelectionMode.PICK) {
+					// NOT QUITE
+					gameObject.x = dragX;
+					gameObject.y = dragY;
+				}
+			})
+			.on('pointerup', () => {
+				if (this.selectionMode == SelectionMode.PICK) {
+					this.input.setDefaultCursor(`url(${plantsPicPng.fingers}), pointer`);
+				}
+			});
 	}
 
 	revealTools() {
