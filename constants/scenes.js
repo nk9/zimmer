@@ -13,3 +13,4 @@ export const ANIMALS_FOREST = 'Animals-Forest';
 
 // Plants
 export const PLANTS_LEAVES = 'Plants-Leaves';
+export const PLANTS_FLOWERS = 'Plants-Flowers';

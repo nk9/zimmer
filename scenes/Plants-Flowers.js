@@ -1,11 +1,11 @@
 import { SceneProgress, Layers } from './base-scene';
-import { MAIN_HALL, PLANTS_LEAVES } from '../constants/scenes';
+import { MAIN_HALL, PLANTS_FLOWERS } from '../constants/scenes';
 import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
 
 import Alert from '../components/alert';
 
-import plantPicJpg from '../assets/pics/plants/leaves/*.jpg'
-import plantPicPng from '../assets/pics/plants/leaves/*.png'
+import plantPicJpg from '../assets/pics/plants/flowers/*.jpg'
+import plantPicPng from '../assets/pics/plants/flowers/*.png'
 import linkPicPng  from '../assets/pics/sprites/*.png'
 import audioMp3 from '../assets/audio/*.mp3'
 
@@ -16,9 +16,9 @@ let INTRO2_ALERT = 'Intro2_Alert';
 let FAIL_ALERT   = 'Fail_Alert';
 let SUCCESS_ALERT = 'Success_Alert';
 
-class Plants_Leaves extends Plants_Base {
+class Plants_Flowers extends Plants_Base {
 	constructor() {
-        super(PLANTS_LEAVES);
+        super(PLANTS_FLOWERS);
 
         // initialize variables
 		this.scan_limit = 5;
@@ -29,8 +29,8 @@ class Plants_Leaves extends Plants_Base {
 		super.preload();
 
 		// Doors
-		this.load.image('hobbit_closed', plantPicJpg.hobbit_closed);
-		this.load.image('hobbit_open', plantPicPng.hobbit_open);
+		this.load.image('flower_closed', plantPicJpg.flower_closed);
+		this.load.image('flower_open', plantPicPng.flower_open);
         
         // Plants
 		for (const key in this.plants_data) {
@@ -62,10 +62,10 @@ class Plants_Leaves extends Plants_Base {
 
 		this.swirl = this.add.image(360, 300, 'aqua_swirl');
 
-		this.background_open = this.add.image(0, 0, 'hobbit_open');
+		this.background_open = this.add.image(0, 0, 'flower_open');
 		this.background_open.setOrigin(0, 0);
 
-		this.background_closed = this.add.image(0, 0, 'hobbit_closed');
+		this.background_closed = this.add.image(0, 0, 'flower_closed');
 		this.background_closed.setOrigin(0, 0);
 	}
 
@@ -127,7 +127,7 @@ class Plants_Leaves extends Plants_Base {
 		});
 		this.scene.add(INTRO2_ALERT, new Alert(INTRO2_ALERT), false, {
 			title: "Thanks!",
-			content: `Some of these plants have the right leaves to make a new key.`,
+			content: `Some of these plants have the right flowers to make a new key.`,
 			buttonText: "Roger",
 			buttonAction: this.intro2AlertClicked,
 			context: this
@@ -214,4 +214,4 @@ class Plants_Leaves extends Plants_Base {
 	}
 }
 
-export default Plants_Leaves;
+export default Plants_Flowers;

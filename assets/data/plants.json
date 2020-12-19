@@ -16,7 +16,7 @@
       "leaf_type": "toothed",
       "scale": 0.3,
       "x": 920,
-      "y": 650    
+      "y": 650
     },
     "dock": {
       "leaf_type": "heart",
@@ -24,7 +24,7 @@
       "x": 650,
       "y": 530
     },
-      "fleabane": {
+    "fleabane": {
       "leaf_type": "tear",
       "scale": 0.3,
       "x": 920,
@@ -51,6 +51,71 @@
     "thistle": {
       "leaf_type": "spikey",
       "scale": 0.4,
+      "x": 70,
+      "y": 330
+    }
+  },
+  "Plants-Flowers": {
+    "agrimony": {
+      "leaf_type": "toothed",
+      "flower_type": "yellow",
+      "scale": 1,
+      "x": 320,
+      "y": 650
+    },
+    "aquilegia": {
+      "leaf_type": "lobed",
+      "flower_type": "pink",
+      "scale": 1,
+      "x": 160,
+      "y": 360
+    },
+    "chamomile": {
+      "leaf_type": "fine",
+      "flower_type": "white",
+      "scale": 1,
+      "x": 920,
+      "y": 650
+    },
+    "cornflower": {
+      "leaf_type": "thin",
+      "flower_type": "purple",
+      "scale": 1,
+      "x": 650,
+      "y": 530
+    },
+    "cowslip": {
+      "leaf_type": "oval",
+      "flower_type": "yellow",
+      "scale": 1,
+      "x": 920,
+      "y": 410
+    },
+    "flax": {
+      "leaf_type": "thin",
+      "flower_type": "blue",
+      "scale": 1,
+      "x": 630,
+      "y": 370
+    },
+    "hawkweed": {
+      "leaf_type": "toothed",
+      "flower_type": "white",
+      "scale": 1,
+      "x": 450,
+      "y": 500
+    },
+    "knapweed": {
+      "leaf_type": "spikey",
+      "flower_type": "red",
+      "scale": 1,
+      "x": 1100,
+      "y": 600
+    },
+    "pea": {
+      "leaf_type": "oval",
+      "flower_type": "red",
+      "scale": 1,
       "x": 70,
       "y": 330
     }

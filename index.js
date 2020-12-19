@@ -16,6 +16,8 @@ import Animals_Forest from './scenes/Animals-Forest';
 
 // Plants
 import Plants_Leaves from './scenes/Plants-Leaves';
+import Plants_Flowers from './scenes/Plants-Flowers';
+
 
 const config = {
 	type: Phaser.AUTO,
@@ -45,6 +47,7 @@ const config = {
 
 			// Plants
 			Plants_Leaves,
+			Plants_Flowers,
 
 			//Time
 			]
