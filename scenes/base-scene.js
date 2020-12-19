@@ -76,12 +76,6 @@ class BaseScene extends Scene {
         console.log(`stopAlert: ${scene_key}`);
         this.scene.stop(scene_key);
         this.input.enabled = true;
-        this.time.delayedCall(10, this.restoreInput, [], this);
-    }
-
-    // Super hacky solution to ignore pointerdown event which triggered the alert dismissal. event.stopPropagation() isn't working for some reason.
-    restoreInput() {
-        this.input.enabled = true;
     }
 }
 

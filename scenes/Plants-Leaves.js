@@ -49,6 +49,7 @@ class Plants_Leaves extends Plants_Base {
 
         // Audio
         this.load.audio('woosh', audioMp3.woosh);
+        this.load.audio('twinkle', audioMp3.twinkle);
 	}
 
 	loadOutlineImage(name) {
@@ -141,6 +142,8 @@ class Plants_Leaves extends Plants_Base {
 	}
 
 	clickHarpLock() {
+		this.sound.play('twinkle');
+		
 		this.harp_lock_container.visible = false;
 		this.leaf_lock_container.visible = true;
 
