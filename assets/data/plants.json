@@ -56,68 +56,82 @@
     }
   },
   "Plants-Flowers": {
-    "agrimony": {
+    "allium": {
       "leaf_type": "toothed",
       "flower_type": "yellow",
-      "scale": 1,
-      "x": 320,
-      "y": 650
+      "scale": 0.4,
+      "x": 370,
+      "y": 580
     },
-    "aquilegia": {
+    "bluebell": {
       "leaf_type": "lobed",
       "flower_type": "pink",
-      "scale": 1,
-      "x": 160,
-      "y": 360
-    },
-    "chamomile": {
-      "leaf_type": "fine",
-      "flower_type": "white",
-      "scale": 1,
-      "x": 920,
-      "y": 650
-    },
-    "cornflower": {
-      "leaf_type": "thin",
-      "flower_type": "purple",
-      "scale": 1,
-      "x": 650,
-      "y": 530
-    },
-    "cowslip": {
-      "leaf_type": "oval",
-      "flower_type": "yellow",
-      "scale": 1,
-      "x": 920,
-      "y": 410
-    },
-    "flax": {
-      "leaf_type": "thin",
-      "flower_type": "blue",
-      "scale": 1,
-      "x": 630,
-      "y": 370
-    },
-    "hawkweed": {
-      "leaf_type": "toothed",
-      "flower_type": "white",
-      "scale": 1,
-      "x": 450,
-      "y": 500
-    },
-    "knapweed": {
-      "leaf_type": "spikey",
-      "flower_type": "red",
-      "scale": 1,
-      "x": 1100,
+      "scale": 0.3,
+      "x": 1000,
       "y": 600
     },
-    "pea": {
+    "clover": {
+      "leaf_type": "fine",
+      "flower_type": "white",
+      "scale": 0.3,
+      "x": 720,
+      "y": 660
+    },
+    "cosmos": {
+      "leaf_type": "thin",
+      "flower_type": "purple",
+      "scale": 0.4,
+      "x": 850,
+      "y": 530
+    },
+    "echinacia": {
+      "leaf_type": "oval",
+      "flower_type": "yellow",
+      "scale": 0.4,
+      "x": 1150,
+      "y": 410
+    },
+    "marigold": {
+      "leaf_type": "thin",
+      "flower_type": "blue",
+      "scale": 0.4,
+      "x": 300,
+      "y": 650
+    },
+    "michaelmas": {
+      "leaf_type": "toothed",
+      "flower_type": "white",
+      "scale": 0.3,
+      "x": 450,
+      "y": 550
+    },
+    "purple": {
+      "leaf_type": "spikey",
+      "flower_type": "red",
+      "scale": 0.4,
+      "x": 1100,
+      "y": 650
+    },
+    "rudbekia": {
       "leaf_type": "oval",
       "flower_type": "red",
-      "scale": 1,
+      "scale": 0.4,
       "x": 70,
-      "y": 330
+      "y": 370
+    },
+    "sneezewort": {
+      "leaf_type": "oval",
+      "flower_type": "red",
+      "scale": 0.5,
+      "x": 540,
+      "y": 570
+    },
+    "solomon": {
+      "leaf_type": "oval",
+      "flower_type": "red",
+      "scale": 0.4,
+      "x": 300,
+      "y": 410
     }
   }
 }
