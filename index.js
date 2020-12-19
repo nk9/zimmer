@@ -50,7 +50,14 @@ const config = {
 			Plants_Flowers,
 
 			//Time
-			]
+			],
+	// plugins: {
+	// 	global: [{
+	// 		key: 'SceneWatcher',
+	// 		plugin: require('./plugins/phaser-plugin-scene-watcher.cjs'),
+	// 		start: true }
+	// 	]
+	// },
 }
 
 const game = new Phaser.Game(config)

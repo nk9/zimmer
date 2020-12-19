@@ -3,7 +3,7 @@ import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config'
 import { nearestPointOnRect } from '../utilities/geom_utils'
 
 import OutlinePlant from '../components/outline_plant'
-
+import LightboxAlert from '../components/lightbox_alert'
 
 import plantsPicPng from '../assets/pics/plants/*.png'
 import audioMp3 from '../assets/audio/*.mp3'
@@ -16,6 +16,8 @@ export const SelectionMode = {
 	MAGNIFY: "magnify",
 	PICK: 	 "pick"
 }
+
+const LIGHTBOX_ALERT = 'Lightbox_Alert';
 
 class Plants_Base extends BaseScene {
 	constructor(key) {
@@ -73,8 +75,7 @@ class Plants_Base extends BaseScene {
 				let plant = new OutlinePlant(this, key, pd)
 				plant.alpha = 0;
 
-				plant.on('drop', this.scanAnimal)
-					.on('pointerdown', this.pointerDownPlant.bind(this, plant));
+				plant.on('pointerdown', this.pointerDownPlant.bind(this, plant));
 				
 				this.plants.push(plant);
 			}
@@ -95,43 +96,35 @@ class Plants_Base extends BaseScene {
 			this.sound.playAudioSprite('hmm', `${hmm_num}`);
 
 			this.clickedPlant(plant);
-		} else if (this.selectionMode == SelectionMode.PICK) {
+		}
+		else if (this.selectionMode == SelectionMode.PICK) {
 			this.sound.play('pick');
 			this.input.setDefaultCursor(`url(${plantsPicPng.fingers_pinch}), pointer`);
 		}
-
-		// for (const a of this.plants) {
-		// 	if (a == plant) {
-		// 		a.setDepth(Layers.DRAGGING);
-		// 	} else {
-		// 		a.setDepth(Layers.OVER_POUCH);
-		// 	}
-		// }
-	}
-
-	pointerUpPlant(plant) {
-		// if (this.selectionMode == SelectionMode.PICK) {
-		// 	this.input.setDefaultCursor(`url(${plantsPicPng.fingers}), pointer`);
-		// }
 	}
 
 	createTools() {
-		this.screen = this.add.image(GAME_WIDTH, GAME_HEIGHT, 'screen');
-		this.screen.setOrigin(1, 0);
-
-		let screenBounds = this.screen.getBounds();
-		let insetBounds = Phaser.Geom.Rectangle.Inflate(screenBounds, -55, -80);
-		let factStyle = {
-			fontSize: '18px',
-			fontFamily: 'sans-serif',
-			align: "left",
-			wordWrap: { width: insetBounds.width, usetAdvancedWrap: true }};
-
-		this.factText = this.add.text(screenBounds.x, screenBounds.y, '', factStyle);
-		this.factText.visible = false;
-
 		this.twinkle = this.sound.add('twinkle');
 
+		this.createToolbar();
+
+		this.scene.add(LIGHTBOX_ALERT, new LightboxAlert(LIGHTBOX_ALERT), false);
+
+		this.input.on('drag', (pointer, gameObject, dragX, dragY) => {
+				if (this.selectionMode == SelectionMode.PICK) {
+					// NOT QUITE
+					gameObject.x = dragX;
+					gameObject.y = dragY;
+				}
+			})
+			.on('pointerup', () => {
+				if (this.selectionMode == SelectionMode.PICK) {
+					this.input.setDefaultCursor(`url(${plantsPicPng.fingers}), pointer`);
+				}
+			});
+	}
+
+	createToolbar() {
 		this.toolbar = this.add.container(GAME_WIDTH/2, -101);
 		this.toolbar.setSize(300, 100);
 
@@ -153,19 +146,6 @@ class Plants_Base extends BaseScene {
 		this.toolbar.add(rectangle);
 		this.toolbar.add(magnifying_glass);
 		this.toolbar.add(fingers);
-
-		this.input.on('drag', (pointer, gameObject, dragX, dragY) => {
-				if (this.selectionMode == SelectionMode.PICK) {
-					// NOT QUITE
-					gameObject.x = dragX;
-					gameObject.y = dragY;
-				}
-			})
-			.on('pointerup', () => {
-				if (this.selectionMode == SelectionMode.PICK) {
-					this.input.setDefaultCursor(`url(${plantsPicPng.fingers}), pointer`);
-				}
-			});
 	}
 
 	revealTools() {
@@ -174,12 +154,6 @@ class Plants_Base extends BaseScene {
 			y: 1,
 			ease: 'Sine',
 			duration: 1200
-		// },{
-		// 	targets: [this.screen, this.factText],
-		// 	y: '-=305',
-		// 	ease: 'Sine',
-		// 	duration: 1200,
-		// 	offset: 0
 		}]});
 
 		this.chooseMagnifyingGlass(); // Glass by default
@@ -240,10 +214,15 @@ class Plants_Base extends BaseScene {
 	}
 
 	clickedPlant(plant) {
-		console.log(`clicked ${plant.name}`);
-		// for (const a of this.plants) {
-		// 	a.xrayImg.visible = (animal == a);
-		// }
+		this.runAlert(LIGHTBOX_ALERT, {
+			image: plant.img,
+			context: this
+		});
+	}
+
+	closeLightbox(key) {
+		this.stopAlert(key);
+		this.input.setDefaultCursor(`url(${plantsPicPng.magnifying_glass}), pointer`);
 	}
 
 	setAnimalsDraggable(canDrag) {
@@ -257,46 +236,6 @@ class Plants_Base extends BaseScene {
 			this.input.enabled = handleInput;
 		}
 	}
-
-// 	resetAnimals(animals) {
-// 		var tweens = [];
-// 		let animals_to_reset = (animals === null) ? this.scanned_animals : animals;
-// 
-// 		for (const a of animals_to_reset) {
-// 			a.visible = true;
-// 			tweens.push({
-// 				targets: a,
-// 				x: a.targetX,
-// 				y: a.targetY,
-// 				ease: 'Sine',
-// 				duration: 1200,
-// 				offset: 0
-// 			})
-// 		}
-// 
-// 		this.tweens.timeline({ tweens: tweens });
-// 	}
-// 
-// 	disperseAnimals() {
-// 		var tweens = [];
-// 
-// 		let inner = new Phaser.Geom.Rectangle(0, 0, GAME_WIDTH, GAME_HEIGHT);
-// 		Phaser.Geom.Rectangle.Inflate(inner, 150, 150);
-// 
-// 		for (const a of this.plants) {
-// 			let point = nearestPointOnRect(inner, a);
-// 			tweens.push({
-// 				targets: a,
-// 				x: point.x,
-// 				y: point.y,
-// 				ease: 'Cubic.easeOut',
-// 				duration: 750,
-// 				offset: 0
-// 			})
-// 		}
-// 
-// 		this.tweens.timeline({ tweens: tweens });
-// 	}
 
 	succeed() {
 		this.input.enabled = false;

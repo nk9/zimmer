@@ -7,6 +7,7 @@ class OutlineImage extends Phaser.GameObjects.Container {
 		this.targetY = targetY;
 
 		this.img = scene.add.image(0, 0, name);
+		this.img.name = name;
 		this.img_outline = scene.add.image(0, 0, name+'_outline');
 		this.img_outline.visible = false;
 

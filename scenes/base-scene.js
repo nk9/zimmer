@@ -65,13 +65,22 @@ class BaseScene extends Scene {
     }
 
     // Disable the main scene's input while the alert scene is showing
-    runAlert(scene_key) {
+    runAlert(scene_key, info=null) {
+        console.log(`runAlert: ${scene_key}`);
         this.input.enabled = false;
-        this.scene.run(scene_key);
+        // this.scene.pause(this.key);
+        this.scene.run(scene_key, info);
     }
 
     stopAlert(scene_key) {
+        console.log(`stopAlert: ${scene_key}`);
         this.scene.stop(scene_key);
+        this.input.enabled = true;
+        this.time.delayedCall(10, this.restoreInput, [], this);
+    }
+
+    // Super hacky solution to ignore pointerdown event which triggered the alert dismissal. event.stopPropagation() isn't working for some reason.
+    restoreInput() {
         this.input.enabled = true;
     }
 }
