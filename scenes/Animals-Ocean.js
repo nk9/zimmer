@@ -40,6 +40,7 @@ class Animals_Ocean extends Animals_Base {
 
         // Audio
         this.load.audio('splash_bubble', audioMp3.splash_bubble);
+        this.load.audio('underwater', audioMp3.underwater);
 	}
 
 	loadOutlineImage(name) {
@@ -67,6 +68,8 @@ class Animals_Ocean extends Animals_Base {
 
 		this.background_closed = this.add.image(0, 0, 'underwater_door_closed');
 		this.background_closed.setOrigin(0, 0);
+
+		this.background_sound = this.sound.add('underwater', {volume: .4, loop: true});
 	}
 
 	createCallToAction() {
@@ -184,10 +187,13 @@ class Animals_Ocean extends Animals_Base {
 	successAlertClicked() {
 		this.scene.stop(SUCCESS_ALERT);
 		this.scene.remove(SUCCESS_ALERT);
+
 		this.beginSuccessTransition();
 	}
 
 	startNextScene() {
+		this.willStartNextScene();
+		
         this.scene.start(MAIN_HALL);
         this.scene.shutdown();
 	}

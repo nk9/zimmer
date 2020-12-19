@@ -39,7 +39,7 @@ class Animals_Forest extends Animals_Base {
 	    }
 
         // Audio
-        this.load.audio('splash_bubble', audioMp3.splash_bubble);
+        this.load.audio('forest_night', audioMp3.forest_night);
 	}
 
 	loadOutlineImage(name) {
@@ -67,30 +67,30 @@ class Animals_Forest extends Animals_Base {
 
 		this.background_closed = this.add.image(0, 0, 'forest_door_closed');
 		this.background_closed.setOrigin(0, 0);
+
+		this.background_sound = this.sound.add('forest_night', {loop: true});
 	}
 
 	createCallToAction() {
-		this.sound.play('splash_bubble');
-
-		this.submarine = new OutlineImage(this, 'amphisub', 150, 150, 125, -136, 1);
-		this.submarine
-			.on('pointerup', pointer => {
-				this.clickCallToAction();
-			});
-		this.submarine.input.cursor = 'pointer';
-
-		var tweens = [];
-
-		tweens.push({
-			targets: this.submarine,
-			x: this.submarine.targetX,
-			y: this.submarine.targetY,
-			ease: 'Sine.easeOut',
-			duration: 2500,
-			delay: 500
-		});
-
-	    var timeline = this.tweens.timeline({ tweens: tweens });
+// 		this.submarine = new OutlineImage(this, 'amphisub', 150, 150, 125, -136, 1);
+// 		this.submarine
+// 			.on('pointerup', pointer => {
+// 				this.clickCallToAction();
+// 			});
+// 		this.submarine.input.cursor = 'pointer';
+// 
+// 		var tweens = [];
+// 
+// 		tweens.push({
+// 			targets: this.submarine,
+// 			x: this.submarine.targetX,
+// 			y: this.submarine.targetY,
+// 			ease: 'Sine.easeOut',
+// 			duration: 2500,
+// 			delay: 500
+// 		});
+// 
+// 	    var timeline = this.tweens.timeline({ tweens: tweens });
 	}
 
 	clickCallToAction() {
