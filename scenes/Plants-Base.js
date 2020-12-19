@@ -26,12 +26,11 @@ class Plants_Base extends BaseScene {
 	}
 
 	preload() {
-		this.load.image('leaf_lock', plantsPicPng.leaf_lock)
 		this.load.image('magnifying_glass', plantsPicPng.magnifying_glass);
 		this.load.image('fingers', plantsPicPng.fingers);
 
 		this.load.audio('hmm', audioMp3.laser);	 // TODO
-		this.load.audio('pick', audioMp3.squish); // TODO
+		this.load.audio('pick', audioMp3.pick);
 		this.load.audio('twinkle', audioMp3.twinkle);
 
 		this.plants_data = this.cache.json.get('plants_data')[this.key];
@@ -55,8 +54,8 @@ class Plants_Base extends BaseScene {
 		this.createBackground();
 		this.swirl.visible = false;
 
-		this.createTools();
 		this.createCallToAction();
+		this.createTools();
 		this.createPlants();
 	}
 

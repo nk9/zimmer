@@ -60,7 +60,6 @@ class Init extends Scene {
     }
 
     onLoadComplete(loader) {
-        console.log("onLoadComplete");
         this.scene.start(MAIN_HALL);
         this.scene.shutdown();
     }

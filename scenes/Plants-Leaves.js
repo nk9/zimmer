@@ -1,6 +1,6 @@
 import { SceneProgress, Layers } from './base-scene';
 import { MAIN_HALL, PLANTS_LEAVES } from '../constants/scenes';
-import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
+import { GAME_WIDTH, GAME_HEIGHT, DRAG_THRESHOLD } from '../constants/config';
 
 import Alert from '../components/alert';
 
@@ -31,6 +31,10 @@ class Plants_Leaves extends Plants_Base {
 		// Doors
 		this.load.image('hobbit_closed', plantPicJpg.hobbit_closed);
 		this.load.image('hobbit_open', plantPicPng.hobbit_open);
+
+		// Lock
+		this.load.image('harp_lock', plantPicPng.harp_lock);
+		this.load.image('harp_lock_outline', plantPicPng.harp_lock_outline);
         
         // Plants
 		for (const key in this.plants_data) {
@@ -77,11 +81,13 @@ class Plants_Leaves extends Plants_Base {
 		this.link.setTint(0xaaaaaa);
 
 		this.link.setInteractive({useHandCursor: true})
-			.on('pointerover', () => {this.link.clearTint()})
-			.on('pointerout', () => {this.link.setTint(0xaaaaaa)})
-			.on('pointerup', pointer => {
-				this.clickCallToAction();
-			});
+			.on('pointerover', () => { this.link.clearTint() })
+			.on('pointerout', () => {
+				if (this.link.input.enabled) {
+					this.link.setTint(0xaaaaaa);
+				}
+			})
+			.on('pointerup', pointer => { this.clickLink() });
 		this.link.input.cursor = 'pointer';
 
 		var tweens = [];
@@ -96,12 +102,56 @@ class Plants_Leaves extends Plants_Base {
 
 	    var timeline = this.tweens.timeline({ tweens: tweens });
 
-
+	    this.createHarpLock();
 	}
 
-	clickCallToAction() {
+	createHarpLock() {
+		this.harp_lock_container = this.add.container(360, 350);
+		this.harp_lock = this.add.image(0, 0, 'harp_lock');
+		this.harp_lock_outline = this.add.image(0, 0, 'harp_lock_outline');
+		this.harp_lock_container.add(this.harp_lock);
+		this.harp_lock_container.add(this.harp_lock_outline);
+
+		let bounds = this.harp_lock.getBounds();
+		this.harp_lock_container.setSize(bounds.width, bounds.height);
+
+		this.harp_lock_outline.visible = false;
+
+	    this.harp_lock_container.scale = .3;
+
+	    this.harp_lock_container.setInteractive({useHandCursor: true})
+	    	.on('pointerover', () => {
+	    		this.harp_lock_outline.visible = true;
+	    	})
+	    	.on('pointerout', () => {
+	    		this.harp_lock_outline.visible = false;
+	    	})
+			.on('pointerup', pointer => {
+				if (pointer.getDistance() < DRAG_THRESHOLD) {
+					this.harp_lock_container.visible = false;
+					this.clickHarpLock();
+				}
+			});
+	}
+
+	clickLink() {
+		this.link.input.enabled = false;
 		this.link.clearTint();
 		this.runAlert(INTRO1_ALERT);
+	}
+
+	clickHarpLock() {
+		this.harp_lock_container.visible = false;
+		this.leaf_lock_container.visible = true;
+
+		this.tweens.add({
+			targets: this.leaf_lock_container,
+			x: 1000,
+			y: 150,
+			alpha: 1,
+			scale: 1,
+			duration: 1000
+		});
 	}
 
 // 	resetCallToActionTween() {
@@ -148,11 +198,21 @@ class Plants_Leaves extends Plants_Base {
 		super.createTools();
 
 		// Create the triangle
-		const x = 1000, y = 150;
-		this.add.image(x, y, 'leaf_lock');
-		this.add.image(x, y, 'leaf_lock_bottom_left');
-		this.add.image(x, y, 'leaf_lock_bottom_right');
-		this.add.image(x, y, 'leaf_lock_top');
+		let bounds = this.harp_lock_container.getBounds();
+		this.leaf_lock_container = this.add.container(bounds.x, bounds.y);
+
+		let segments = ['leaf_lock', 'leaf_lock_top', 'leaf_lock_bottom_left', 'leaf_lock_bottom_right'];
+
+		for (const segment of segments) {
+			this[segment] = this.add.image(0, 0, segment);
+			this[segment].visible = false;
+			this.leaf_lock_container.add(this[segment]);
+		}
+
+		this.leaf_lock.visible = true;
+		this.leaf_lock_container.visible = false;
+		this.leaf_lock_container.alpha = 0;
+		this.leaf_lock_container.scale = .3;
 	}
 
 	intro1AlertClicked() {
