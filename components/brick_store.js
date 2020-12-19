@@ -1,5 +1,6 @@
 import Brick, { LEGO_GRID } from '../components/brick';
-import { shuffleArray } from '../utilities/array_utils';
+
+var shuffle = require('lodash.shuffle');
 
 export const BSBrick = {
 	B1x1:		{hL: 1, wL: 1},
@@ -46,10 +47,10 @@ class BrickStore {
 
 	shuffle() {
 		for (var row of this.brickRows) {
-			shuffleArray(row);
+			row = shuffle(row);
 		}
 
-		shuffleArray(this.brickRows);
+		this.brickRows = shuffle(this.brickRows);
 
 		this.layoutBricks();
 		this.generateBricksArray();

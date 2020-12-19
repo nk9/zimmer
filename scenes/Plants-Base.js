@@ -90,8 +90,8 @@ class Plants_Base extends BaseScene {
 
 	pointerDownPlant(plant) {
 		if (this.selectionMode == SelectionMode.MAGNIFY) {
+			// random hmm
 			let hmm_num = random(0, hmm_count);
-
 			this.sound.playAudioSprite('hmm', `${hmm_num}`);
 
 			this.clickedPlant(plant);
