@@ -70,7 +70,7 @@ class Plants_Leaves extends Plants_Base {
 	}
 
 	createCallToAction() {
-		this.sound.play('woosh');
+		this.sound.play('woosh', {volume: .3});
 
 		this.link = this.add.sprite(0, GAME_HEIGHT+256, 'link', 'wave');
 		this.link.setOrigin(0, 1);

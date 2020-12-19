@@ -170,7 +170,7 @@ class Animals_Base extends BaseScene {
 		// console.log("revealTools");
 		this.tweens.timeline({ tweens: [{
 			targets: this.toolbar,
-			y: 0,
+			y: 1,
 			ease: 'Sine',
 			duration: 1200
 		},{
