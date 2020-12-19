@@ -70,7 +70,7 @@ class Plants_Leaves extends Plants_Base {
 	}
 
 	createCallToAction() {
-		this.sound.play('woosh');
+		this.sound.play('woosh', {volume: .3});
 
 		this.link = this.add.sprite(0, GAME_HEIGHT+256, 'link', 'wave');
 		this.link.setOrigin(0, 1);
@@ -100,6 +100,7 @@ class Plants_Leaves extends Plants_Base {
 	}
 
 	clickCallToAction() {
+		this.link.clearTint();
 		this.runAlert(INTRO1_ALERT);
 	}
 
@@ -147,15 +148,21 @@ class Plants_Leaves extends Plants_Base {
 		super.createTools();
 
 		// Create the triangle
+		const x = 1000, y = 150;
+		this.add.image(x, y, 'leaf_lock');
+		this.add.image(x, y, 'leaf_lock_bottom_left');
+		this.add.image(x, y, 'leaf_lock_bottom_right');
+		this.add.image(x, y, 'leaf_lock_top');
 	}
 
 	intro1AlertClicked() {
-		this.link.clearTint();
+		this.link.setFrame('laugh');
 		this.stopAlert(INTRO1_ALERT);
 		this.runAlert(INTRO2_ALERT);
 	}
 
 	intro2AlertClicked() {
+		this.link.setFrame('happy');
 		this.stopAlert(INTRO2_ALERT);
 
 		if (!this.plants_have_entered) {

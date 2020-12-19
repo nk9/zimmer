@@ -123,7 +123,7 @@ class Plants_Base extends BaseScene {
 
 		this.twinkle = this.sound.add('twinkle');
 
-		this.toolbar = this.add.container(GAME_WIDTH/2, -100);
+		this.toolbar = this.add.container(GAME_WIDTH/2, -101);
 		this.toolbar.setSize(300, 100);
 
 		let rectangle = this.add.rectangle(0, 0, 300, 100, 0x000000);
@@ -158,7 +158,7 @@ class Plants_Base extends BaseScene {
 		// console.log("revealTools");
 		this.tweens.timeline({ tweens: [{
 			targets: this.toolbar,
-			y: 0,
+			y: 1,
 			ease: 'Sine',
 			duration: 1200
 		// },{

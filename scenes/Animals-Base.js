@@ -34,6 +34,7 @@ class Animals_Base extends BaseScene {
 		this.load.audio('xray', audioMp3.laser);
 		this.load.audio('grab', audioMp3.squish);
 		this.load.audio('scan', audioMp3.scan);
+		this.load.audio('portal', audioMp3.portal);
 
 		this.animals_data = this.cache.json.get('animals_data')[this.key];
 
@@ -55,10 +56,14 @@ class Animals_Base extends BaseScene {
 
 		this.createBackground();
 		this.swirl.visible = false;
+		this.background_sound.play();
 
 		this.createTools();
 		this.createCallToAction();
 		this.createAnimals();
+		this.createOverlay();
+
+		this.portal_sound = this.sound.add('portal');
 	}
 
 	update() {
@@ -80,6 +85,13 @@ class Animals_Base extends BaseScene {
 
 			this.animals.push(animal);
 		}
+	}
+
+	createOverlay() {
+		this.overlay = this.add.rectangle(0, 0, GAME_WIDTH, GAME_HEIGHT, 0x000000);
+		this.overlay.setOrigin(0, 0);
+		this.overlay.alpha = 0;
+		this.overlay.visible = false;
 	}
 
 	pointerDownAnimal(pointer_down_animal) {
@@ -124,7 +136,7 @@ class Animals_Base extends BaseScene {
 		this.scan_charge_bar = new ScanChargeBar(this, -70, 450, 70, 15);
 		this.updateScanChargeBar();
 
-		this.toolbar = this.add.container(GAME_WIDTH/2, -100);
+		this.toolbar = this.add.container(GAME_WIDTH/2, -101);
 		this.toolbar.setSize(300, 100);
 
 		let rectangle = this.add.rectangle(0, 0, 300, 100, 0x000000);
@@ -158,7 +170,7 @@ class Animals_Base extends BaseScene {
 		// console.log("revealTools");
 		this.tweens.timeline({ tweens: [{
 			targets: this.toolbar,
-			y: 0,
+			y: 1,
 			ease: 'Sine',
 			duration: 1200
 		},{
@@ -308,6 +320,14 @@ class Animals_Base extends BaseScene {
 	succeed() {
 		this.input.enabled = false;
 		this.input.setDefaultCursor(`default`);
+
+		// Fade out background sound
+		this.tweens.add({
+			targets: this.background_sound,
+			volume: 0,
+			duration: 2000
+		});
+
 		this.willBeginSuccessTransition();
 	}
 
@@ -317,27 +337,31 @@ class Animals_Base extends BaseScene {
 	}
 
 	beginSuccessTransition() {
+		this.background_sound.stop();
 		this.sound.play('door_opens_heavy');
 
 		this.time.delayedCall(750, this.doSuccessTransition, [], this);
 	}
 
 	doSuccessTransition() {
+		this.portal_sound.play();
 		this.swirl.visible = true;
-
-		let fadeObjects = [
-			this.background_closed
-		];
+		this.overlay.visible = true;
 
 	    var timeline = this.tweens.timeline({
 	    	tweens: [{
-	    		targets: fadeObjects,
+	    		targets: this.background_closed,
 	    		duration: 2000,
 	    		alpha: 0,
+	    	},{
+	    		targets: this.overlay,
+	    		duration: 2500,
+	    		alpha: 1,
+	    		offset: 7000
 	    	}]
 	    });
 
-	    this.time.delayedCall(5000, this.startNextScene, [], this);
+	    this.time.delayedCall(9500, this.startNextScene, [], this);
 	}
 
 	beginFailureTransition() {
@@ -381,6 +405,10 @@ class Animals_Base extends BaseScene {
 	finishFailureTransition() {
 		this.resetAnimals(this.animals);
 		this.setAnimalsInput(true);
+	}
+
+	willStartNextScene() {
+		this.portal_sound.stop();
 	}
 }
 

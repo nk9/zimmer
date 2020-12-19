@@ -33,7 +33,6 @@ class Animals_Cave extends Animals_Base {
         this.loadOutlineImage('amphisub');
 
         // Animals
-        console.log("Hello world");
 		let animals_data = this.cache.json.get('animals_data')[this.key];
 
 		for (const key in animals_data) {
@@ -41,7 +40,7 @@ class Animals_Cave extends Animals_Base {
 	    }
 
         // Audio
-        this.load.audio('splash_bubble', audioMp3.splash_bubble);
+        this.load.audio('cave', audioMp3.cave);
 	}
 
 	loadOutlineImage(name) {
@@ -69,30 +68,30 @@ class Animals_Cave extends Animals_Base {
 
 		this.background_closed = this.add.image(0, 0, 'cave_door_closed');
 		this.background_closed.setOrigin(0, 0);
+
+		this.background_sound = this.sound.add('cave', {volume: .4, loop: true});
 	}
 
 	createCallToAction() {
-		this.sound.play('splash_bubble');
-
-		this.submarine = new OutlineImage(this, 'amphisub', 150, 150, 125, -136, 1);
-		this.submarine
-			.on('pointerup', pointer => {
-				this.clickCallToAction();
-			});
-		this.submarine.input.cursor = 'pointer';
-
-		var tweens = [];
-
-		tweens.push({
-			targets: this.submarine,
-			x: this.submarine.targetX,
-			y: this.submarine.targetY,
-			ease: 'Sine.easeOut',
-			duration: 2500,
-			delay: 500
-		});
-
-	    var timeline = this.tweens.timeline({ tweens: tweens });
+// 		this.submarine = new OutlineImage(this, 'amphisub', 150, 150, 125, -136, 1);
+// 		this.submarine
+// 			.on('pointerup', pointer => {
+// 				this.clickCallToAction();
+// 			});
+// 		this.submarine.input.cursor = 'pointer';
+// 
+// 		var tweens = [];
+// 
+// 		tweens.push({
+// 			targets: this.submarine,
+// 			x: this.submarine.targetX,
+// 			y: this.submarine.targetY,
+// 			ease: 'Sine.easeOut',
+// 			duration: 2500,
+// 			delay: 500
+// 		});
+// 
+// 	    var timeline = this.tweens.timeline({ tweens: tweens });
 	}
 
 	clickCallToAction() {
