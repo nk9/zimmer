@@ -104,7 +104,7 @@ class Numbers_Lego extends BaseScene {
 					let intersection = Phaser.Geom.Rectangle.Intersection(r, br);
 
 					if (Phaser.Geom.Rectangle.Equals(intersection, br)) {
-						console.log(`brick (${brick.legoTotal}) is inside rect ${i}`);
+						// console.log(`brick (${brick.legoTotal}) is inside rect ${i}`);
 						containedBricks.push(brick);
 					}
 				}

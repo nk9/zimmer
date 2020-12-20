@@ -44,6 +44,7 @@ class Animals_Forest extends Animals_Base {
 
         // Audio
         this.load.audio('forest_night', audioMp3.forest_night);
+        this.load.audio('steps_forest', audioMp3.steps_forest);
 	}
 
 	loadOutlineImage(name) {
@@ -76,28 +77,36 @@ class Animals_Forest extends Animals_Base {
 	}
 
 	createCallToAction() {
-// 		this.submarine = new OutlineImage(this, 'amphisub', 150, 150, 125, -136, 1);
-// 		this.submarine
-// 			.on('pointerup', pointer => {
-// 				this.clickCallToAction();
-// 			});
-// 		this.submarine.input.cursor = 'pointer';
-// 
-// 		var tweens = [];
-// 
-// 		tweens.push({
-// 			targets: this.submarine,
-// 			x: this.submarine.targetX,
-// 			y: this.submarine.targetY,
-// 			ease: 'Sine.easeOut',
-// 			duration: 2500,
-// 			delay: 500
-// 		});
-// 
-// 	    var timeline = this.tweens.timeline({ tweens: tweens });
+		this.sound.play('steps_forest');
+
+		this.kratts = this.add.sprite(0-300, GAME_HEIGHT, 'kratts', 'normal');
+		this.kratts.setOrigin(1, 1);
+		this.kratts.setTint(0xaaaaaa);
+		// this.kratts.scale = .5;
+
+		this.kratts.setInteractive({useHandCursor: true})
+			.on('pointerover', () => { this.kratts.clearTint() })
+			.on('pointerout', () => {
+				if (this.kratts.input.enabled) {
+					this.kratts.setTint(0xaaaaaa);
+				}
+			})
+			.on('pointerup', pointer => { this.clickKratts() });
+
+		var tweens = [];
+
+		tweens.push({
+			targets: this.kratts,
+			x: this.kratts.width,
+			ease: 'Sine.easeOut',
+			duration: 2500,
+			delay: 4500
+		});
+
+	    var timeline = this.tweens.timeline({ tweens: tweens });
 	}
 
-	clickCallToAction() {
+	clickKratts() {
 		this.runAlert(INTRO1_ALERT);
 	}
 
@@ -125,7 +134,7 @@ class Animals_Forest extends Animals_Base {
 		});
 		this.scene.add(INTRO2_ALERT, new Alert(INTRO2_ALERT), false, {
 			title: "Thank You!",
-			content: `Use the X-ray gun to have a look at the animals first. Then drag all the invertebrates over to the scanner. But be careful! The scanner only has charge for ${this.scan_limit} scans.`,
+			content: `Use the X-ray gun to have a look at the animals first. Then drag all the vertebrates over to the scanner. But be careful! The scanner only has charge for ${this.scan_limit} scans.`,
 			buttonText: "Got it",
 			buttonAction: this.intro2AlertClicked,
 			context: this
@@ -139,7 +148,7 @@ class Animals_Forest extends Animals_Base {
 		});
 		this.scene.add(SUCCESS_ALERT, new Alert(SUCCESS_ALERT), false, {
 			title: "Great work!",
-			content: `You found all ${this.success_count} of the invertebrates. We found the door you were looking for. Thanks for your help!`,
+			content: `You found all ${this.success_count} of the vertebrates. We found the door you were looking for. Thanks for your help!`,
 			buttonText: "Thank you",
 			buttonAction: this.successAlertClicked,
 			context: this
@@ -171,6 +180,14 @@ class Animals_Forest extends Animals_Base {
 				})
 			}
 
+			tweens.push({
+				targets: this.kratts,
+				y: GAME_HEIGHT+350,
+				ease: 'Sine',
+				duration: 2000,
+				offset: 0
+			});
+
 	    	this.tweens.timeline({ tweens: tweens });
 
 			// Animate in tools
@@ -183,7 +200,14 @@ class Animals_Forest extends Animals_Base {
 	willBeginSuccessTransition() {
 		// This alert needs to be created at runtime because success_animals
 		// isn't populated until after createAlerts() is already run.
-		this.runAlert(SUCCESS_ALERT);
+		this.tweens.add({
+			targets: this.kratts,
+			y: GAME_HEIGHT,
+			ease: 'Sine',
+			duration: 2000,
+			onComplete: () => {this.runAlert(SUCCESS_ALERT);},
+			onCompleteScope: this
+		});
 	}
 
 	successAlertClicked() {

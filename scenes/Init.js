@@ -30,6 +30,7 @@ class Init extends Scene {
         // Sprites
         this.load.atlas('yellow-bricks', spritesImg.yellow_bricks_spritesheet, spritesJson.yellow_bricks_spritesheet);
         this.load.atlas('link', spritesImg.link_spritesheet, spritesJson.link_spritesheet);
+        this.load.atlas('kratts', spritesImg.kratts_spritesheet, spritesJson.kratts_spritesheet);
         this.load.audioSprite('hmm', spritesJson.hmm_spritesheet, spritesMp3.hmm);
 
         // Particles

@@ -103,7 +103,6 @@ class Plants_Flowers extends Plants_Base {
 				}
 			})
 			.on('pointerup', pointer => { this.clickLink() });
-		this.link.input.cursor = 'pointer';
 
 		var tweens = [];
 
