@@ -34,7 +34,7 @@ class Animals_Base extends BaseScene {
 		this.load.audio('xray', audioMp3.laser);
 		this.load.audio('grab', audioMp3.squish);
 		this.load.audio('scan', audioMp3.scan);
-		this.load.audio('portal', audioMp3.portal);
+		// this.load.audio('portal', audioMp3.portal);
 
 		this.animals_data = this.cache.json.get('animals_data')[this.key];
 

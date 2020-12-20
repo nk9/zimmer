@@ -35,6 +35,7 @@ class Init extends Scene {
 
         // Audio
         this.load.audio('door_opens_heavy', audioMp3.door_opens_heavy);
+        this.load.audio('portal', audioMp3.portal);
 
         // JSON data
         this.load.json('animals_data', dataJson.animals);

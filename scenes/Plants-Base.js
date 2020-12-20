@@ -37,15 +37,6 @@ class Plants_Base extends BaseScene {
 		this.load.audio('twinkle', audioMp3.twinkle);
 
 		this.plants_data = this.cache.json.get('plants_data')[this.key];
-
-		// Count success animals, needed for alerts
-		this.success_count = 0;
-		for (const key in this.plants_data) {
-			const ad = this.plants_data[key];
-			if (ad.success) {
-				this.success_count++;
-			}
-		}
 	}
 
 	create() {
@@ -60,6 +51,8 @@ class Plants_Base extends BaseScene {
 		this.createCallToAction();
 		this.createTools();
 		this.createPlants();
+
+		this.portal_sound = this.sound.add('portal');
 	}
 
 	update() {
@@ -85,13 +78,6 @@ class Plants_Base extends BaseScene {
 				
 				this.plants.push(plant);
 			}
-
-// 
-// 			if (pd.success) {
-// 				this.success_plants.push(plant);
-// 			}
-// 
-// 			this.plants.push(plant);
 		}
 	}
 
@@ -190,45 +176,10 @@ class Plants_Base extends BaseScene {
 		// this.factText.visible = false;
 	}
 
-	scanAnimal(pointer, target) {
-		let scene = this.scene;
-
-		scene.setFact(this);
-		scene.scan.play();
-		scene.scan.once('complete', scene.didScanAnimal.bind(scene, this));
-
-		this.visible = false;
-		scene.scanned_animals.push(this);
-	}
-
-	didScanAnimal(animal) {
-		if (this.allSuccessAnimalsScanned()) {
-			animal.visible = true;
-			this.disperseAnimals();
-
-			this.succeed();
-		} else if (this.scanned_animals.length == this.scan_limit) {
-			this.fail();
-		}
-
-	}
-
-	allSuccessAnimalsScanned() {
-		var success_count = 0;
-
-		for (const sAnimal of this.success_plants) {
-			if (this.scanned_animals.some(a => a.name === sAnimal.name)) {
-				success_count++;
-			}
-		}
-
-		return (this.success_plants.length == success_count);
-	}
-
-	setFact(animal) {
-		this.factText.text = this.plants_data[animal.name].fact;
-		this.factText.visible = true;
-	}
+	// setFact(animal) {
+	// 	this.factText.text = this.plants_data[animal.name].fact;
+	// 	this.factText.visible = true;
+	// }
 
 	clickedPlant(plant) {
 		this.runAlert(LIGHTBOX_ALERT, {
@@ -272,6 +223,7 @@ class Plants_Base extends BaseScene {
 	}
 
 	doSuccessTransition() {
+		this.portal_sound.play();
 		this.swirl.visible = true;
 
 		let fadeObjects = [
@@ -289,47 +241,51 @@ class Plants_Base extends BaseScene {
 	    this.time.delayedCall(5000, this.startNextScene, [], this);
 	}
 
-	beginFailureTransition() {
-		this.setPlantsInput(false);
-		this.factText.visible = false;
-		this.disperseAnimals();
-
-		var reset_cta_tween = this.resetCallToActionTween();
-
-		let tweens = [
-			reset_cta_tween,
-			{
-				targets: this.scan_charge_bar,
-				x: -90,
-				ease: 'Sine',
-				duration: 1500,
-				onYoyo: (tween, sprite) => { this.updateScanChargeBar(); },
-				yoyo: true,
-				hold: 2000,
-				offset: 0
-			},{
-				targets: this.scanner,
-				x: -100,
-				ease: 'Sine',
-				duration: 1500,
-				yoyo: true,
-				hold: 2000,
-				offset: 0
-			}];
-
-	    var timeline = this.tweens.timeline({
-	    	tweens: tweens,
-	    	onComplete: this.finishFailureTransition,
-	    	onCompleteScope: this
-	    });
-
-		this.scanned_animals = [];
-
+	willStartNextScene() {
+		this.portal_sound.stop();
 	}
-
-	finishFailureTransition() {
-		this.setPlantsInput(true);
-	}
+// 
+// 	beginFailureTransition() {
+// 		this.setPlantsInput(false);
+// 		this.factText.visible = false;
+// 		this.disperseAnimals();
+// 
+// 		var reset_cta_tween = this.resetCallToActionTween();
+// 
+// 		let tweens = [
+// 			reset_cta_tween,
+// 			{
+// 				targets: this.scan_charge_bar,
+// 				x: -90,
+// 				ease: 'Sine',
+// 				duration: 1500,
+// 				onYoyo: (tween, sprite) => { this.updateScanChargeBar(); },
+// 				yoyo: true,
+// 				hold: 2000,
+// 				offset: 0
+// 			},{
+// 				targets: this.scanner,
+// 				x: -100,
+// 				ease: 'Sine',
+// 				duration: 1500,
+// 				yoyo: true,
+// 				hold: 2000,
+// 				offset: 0
+// 			}];
+// 
+// 	    var timeline = this.tweens.timeline({
+// 	    	tweens: tweens,
+// 	    	onComplete: this.finishFailureTransition,
+// 	    	onCompleteScope: this
+// 	    });
+// 
+// 		this.scanned_animals = [];
+// 
+// 	}
+// 
+// 	finishFailureTransition() {
+// 		this.setPlantsInput(true);
+// 	}
 }
 
 export default Plants_Base;

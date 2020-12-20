@@ -23,8 +23,9 @@ class Plants_Leaves extends Plants_Base {
         super(PLANTS_LEAVES);
 
         // initialize variables
-		this.scan_limit = 5;
+		this.success_count = 3;
 		this.plants_have_entered = false;
+		this.success_drop_targets = [];
 	}
 
 	preload() {
@@ -77,7 +78,7 @@ class Plants_Leaves extends Plants_Base {
 		let center_x = GAME_WIDTH/2,
 			center_y = GAME_HEIGHT/2;
 
-		this.swirl = this.add.image(360, 300, 'aqua_swirl');
+		this.swirl = this.add.image(360, 300, 'blue_swirl');
 
 		this.background_open = this.add.image(0, 0, 'hobbit_open');
 		this.background_open.setOrigin(0, 0);
@@ -317,8 +318,8 @@ class Plants_Leaves extends Plants_Base {
 		// isn't populated until after createAlerts() is already run.
 		this.scene.add(SUCCESS_ALERT, new Alert(SUCCESS_ALERT), true, {
 			title: "Great work!",
-			content: `You found all ${this.success_animals.length} of the invertebrates. We found the door you were looking for. Thanks for your help!`,
-			buttonText: "Thank you",
+			content: `You found all of the right leaves. Thanks for your help! Now what do you think is behind this door?`,
+			buttonText: "I Dunno",
 			buttonAction: this.successAlertClicked,
 			context: this
 		});
@@ -330,6 +331,11 @@ class Plants_Leaves extends Plants_Base {
 			drop_target.particle.emitters.list[0].explode(50);
 
 			drop_target.input.enabled = false;
+			this.success_drop_targets.push(drop_target);
+
+			if (this.success_drop_targets.length == this.success_count) {
+				this.succeed();
+			}
 		} else {
 			console.log("too bad");
 		}
@@ -342,18 +348,20 @@ class Plants_Leaves extends Plants_Base {
 	}
 
 	startNextScene() {
+		this.willStartNextScene();
+
         this.scene.start(MAIN_HALL);
         this.scene.shutdown();
 	}
 
-	fail() {
-		this.runAlert(FAIL_ALERT);
-	}
-
-	failAlertClicked() {
-		this.stopAlert(FAIL_ALERT);
-		this.beginFailureTransition();
-	}
+// 	fail() {
+// 		this.runAlert(FAIL_ALERT);
+// 	}
+// 
+// 	failAlertClicked() {
+// 		this.stopAlert(FAIL_ALERT);
+// 		this.beginFailureTransition();
+// 	}
 }
 
 export default Plants_Leaves;
