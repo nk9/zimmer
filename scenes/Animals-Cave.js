@@ -157,8 +157,6 @@ class Animals_Cave extends Animals_Base {
 	}
 
 	willBeginSuccessTransition() {
-		// This alert needs to be created at runtime because success_animals
-		// isn't populated until after createAlerts() is already run.
 		this.runAlert(SUCCESS_ALERT);
 	}
 

@@ -198,8 +198,6 @@ class Animals_Forest extends Animals_Base {
 	}
 
 	willBeginSuccessTransition() {
-		// This alert needs to be created at runtime because success_animals
-		// isn't populated until after createAlerts() is already run.
 		this.tweens.add({
 			targets: this.kratts,
 			y: GAME_HEIGHT,
