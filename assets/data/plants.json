@@ -57,78 +57,212 @@
   },
   "Plants-Flowers": {
     "allium": {
-      "leaf_type": "toothed",
-      "color": "yellow",
+      "shape": "ball",
+      "color": "pink",
       "scale": 0.4,
       "x": 370,
       "y": 580
     },
     "bluebell": {
-      "leaf_type": "lobed",
-      "color": "pink",
+      "shape": "bell",
+      "color": "purple",
       "scale": 0.3,
       "x": 1000,
       "y": 600
     },
     "clover": {
-      "leaf_type": "fine",
+      "shape": "ball",
       "color": "white",
       "scale": 0.3,
       "x": 720,
       "y": 660
     },
     "cosmos": {
-      "leaf_type": "thin",
-      "color": "purple",
+      "shape": "blunt",
+      "color": "red",
       "scale": 0.4,
       "x": 850,
       "y": 530
     },
     "echinacia": {
-      "leaf_type": "oval",
-      "color": "yellow",
+      "shape": "long",
+      "color": "pink",
       "scale": 0.4,
       "x": 1150,
       "y": 410
     },
     "marigold": {
-      "leaf_type": "thin",
-      "color": "blue",
+      "shape": "blunt",
+      "color": "yellow",
       "scale": 0.4,
       "x": 300,
       "y": 650
     },
     "michaelmas": {
-      "leaf_type": "toothed",
-      "color": "white",
+      "shape": "long",
+      "color": "purple",
       "scale": 0.3,
       "x": 450,
       "y": 550
     },
     "purple": {
-      "leaf_type": "spikey",
-      "color": "red",
+      "shape": "tube",
+      "color": "purple",
       "scale": 0.4,
       "x": 1100,
       "y": 650
     },
     "rudbekia": {
-      "leaf_type": "oval",
-      "color": "red",
+      "shape": "pointed",
+      "color": "yellow",
       "scale": 0.4,
       "x": 70,
       "y": 370
     },
     "sneezewort": {
-      "leaf_type": "oval",
-      "color": "red",
+      "shape": "round",
+      "color": "white",
       "scale": 0.5,
       "x": 540,
       "y": 570
     },
     "solomon": {
-      "leaf_type": "oval",
+      "shape": "bell",
+      "color": "white",
+      "scale": 0.4,
+      "x": 300,
+      "y": 410
+    }
+  },
+  "Plants-Mushrooms": {
+    "agaric": {
+      "edible": false,
+      "scale": 0.4,
+      "x": 370,
+      "y": 580
+    },
+    "amethyst": {
+      "edible": false,
+      "color": "purple",
+      "scale": 0.3,
+      "x": 1000,
+      "y": 600
+    },
+    "amethyst2": {
+      "edible": false,
+      "color": "purple",
+      "scale": 0.3,
+      "x": 1000,
+      "y": 600
+    },
+    "chanterelle": {
+      "edible": true,
+      "color": "white",
+      "scale": 0.3,
+      "x": 720,
+      "y": 660
+    },
+    "coral": {
+      "edible": true,
       "color": "red",
+      "scale": 0.4,
+      "x": 850,
+      "y": 530
+    },
+    "deathcap": {
+      "edible": false,
+      "color": "pink",
+      "scale": 0.4,
+      "x": 1150,
+      "y": 410
+    },
+    "deathcap2": {
+      "edible": false,
+      "color": "pink",
+      "scale": 0.4,
+      "x": 1150,
+      "y": 410
+    },
+    "earthstar": {
+      "edible": false,
+      "color": "yellow",
+      "scale": 0.4,
+      "x": 300,
+      "y": 650
+    },
+    "earthstar2": {
+      "edible": false,
+      "color": "yellow",
+      "scale": 0.4,
+      "x": 300,
+      "y": 650
+    },
+    "horse": {
+      "edible": true,
+      "color": "purple",
+      "scale": 0.3,
+      "x": 450,
+      "y": 550
+    },
+    "horse2": {
+      "edible": true,
+      "color": "purple",
+      "scale": 0.3,
+      "x": 450,
+      "y": 550
+    },
+    "horse3": {
+      "edible": true,
+      "color": "purple",
+      "scale": 0.3,
+      "x": 450,
+      "y": 550
+    },
+    "morel": {
+      "edible": true,
+      "color": "purple",
+      "scale": 0.4,
+      "x": 1100,
+      "y": 650
+    },
+    "morel2": {
+      "edible": true,
+      "color": "purple",
+      "scale": 0.4,
+      "x": 1100,
+      "y": 650
+    },
+    "parrot1": {
+      "edible": false,
+      "color": "yellow",
+      "scale": 0.4,
+      "x": 70,
+      "y": 370
+    },
+    "parrot2": {
+      "edible": false,
+      "color": "yellow",
+      "scale": 0.4,
+      "x": 70,
+      "y": 370
+    },
+    "scaly": {
+      "edible": true,
+      "color": "white",
+      "scale": 0.5,
+      "x": 540,
+      "y": 570
+    },
+    "truffle": {
+      "Edible": true,
+      "color": "white",
+      "scale": 0.4,
+      "x": 300,
+      "y": 410
+    },
+    "virosa": {
+      "edible": false,
+      "color": "white",
       "scale": 0.4,
       "x": 300,
       "y": 410
