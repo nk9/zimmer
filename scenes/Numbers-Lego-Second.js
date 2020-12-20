@@ -26,8 +26,8 @@ export default class Numbers_Lego_Second extends Numbers_Lego {
 	preload() {
 		super.preload();
 
-		this.load.image('abbey_closed', numbersPicJpg.abbey_closed);
-		this.load.image('abbey_open', numbersPicPng.abbey_open);
+		this.load.image('wood_door_closed', numbersPicJpg.wood_door_closed);
+		this.load.image('wood_door_open', numbersPicPng.wood_door_open);
 	}
 
 	create() {
@@ -45,10 +45,10 @@ export default class Numbers_Lego_Second extends Numbers_Lego {
 		
 		// Shifted over slightly to line up with the lego grid rectangles
 		let bg_x = center_x + 10;
-		this.background_open = this.add.image(bg_x, center_y, 'abbey_open');
+		this.background_open = this.add.image(bg_x, center_y, 'wood_door_open');
 		this.background_open.setOrigin(0.5, 0.5);
 
-		this.background_closed = this.add.image(bg_x, center_y, 'abbey_closed');
+		this.background_closed = this.add.image(bg_x, center_y, 'wood_door_closed');
 		this.background_closed.setOrigin(0.5, 0.5);	
 
 	}
@@ -56,12 +56,9 @@ export default class Numbers_Lego_Second extends Numbers_Lego {
 	createBricks() {
 		let brick_store = new BrickStore(this, 29, 6);
 
-		brick_store.addRow(BSBrick.B1x2, BSBrick.B1x4, BSBrick.B1x4);
-		brick_store.addRow(BSBrick.B1x6);
-		brick_store.addRow(BSBrick.B1x3, BSBrick.B1x1, BSBrick.B1x6);
-		brick_store.addRow(BSBrick.B1x4, BSBrick.B1x5);
-		brick_store.addRow(BSBrick.B1x8);
-		brick_store.addRow(BSBrick.B1x7, BSBrick.B1x2);
+		brick_store.addRow(BSBrick.B1x2, BSBrick.B2x2);
+		brick_store.addRow(BSBrick.B2x4);
+
 
 		return brick_store;
 	}
@@ -84,10 +81,7 @@ export default class Numbers_Lego_Second extends Numbers_Lego {
 		this.rects_background.setDepth(Layers.OVER_DOOR);
 		this.rects_background.setAlpha(0);
 
-		this.addRectangle(9, 1, 14, 5);
-		this.addRectangle(9, 1, 14, 8);
-		this.addRectangle(9, 1, 14, 11);
-		this.addRectangle(9, 1, 14, 14);
+		this.addRectangle(2, 3, 14, 5);
 	}
 
 	callToActionRect() {
