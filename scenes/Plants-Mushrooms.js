@@ -1,13 +1,13 @@
 import { SceneProgress, Layers } from './base-scene';
-import { MAIN_HALL, PLANTS_FLOWERS } from '../constants/scenes';
+import { MAIN_HALL, PLANTS_MUSHROOMS } from '../constants/scenes';
 import { GAME_WIDTH, GAME_HEIGHT, DRAG_THRESHOLD } from '../constants/config';
 
 import Alert from '../components/alert';
-import OutlinePlantFlower from '../components/outline_plant_flower';
+import OutlinePlantLeaf from '../components/outline_plant_leaf';
 
-import plantPicJpg from '../assets/pics/plants/flowers/*.jpg'
-import plantPicPng from '../assets/pics/plants/flowers/*.png'
-import dragPicPng  from '../assets/pics/plants/flowers/drag_images/*.png'
+import plantPicJpg from '../assets/pics/plants/mushrooms/*.jpg'
+import plantPicPng from '../assets/pics/plants/mushrooms/*.png'
+import dragPicPng  from '../assets/pics/plants/mushrooms/drag_images/*.png'
 import linkPicPng  from '../assets/pics/sprites/*.png'
 import audioMp3 from '../assets/audio/*.mp3'
 
@@ -15,14 +15,12 @@ import Plants_Base, { SelectionMode } from './Plants-Base';
 
 let INTRO1_ALERT = 'Intro1_Alert';
 let INTRO2_ALERT = 'Intro2_Alert';
-let INTRO3_ALERT = 'Intro3_Alert';
-let INTRO4_ALERT = 'Intro4_Alert';
 let FAIL_ALERT   = 'Fail_Alert';
 let SUCCESS_ALERT = 'Success_Alert';
 
-class Plants_Flowers extends Plants_Base {
+class Plants_Mushrooms extends Plants_Base {
 	constructor() {
-        super(PLANTS_FLOWERS);
+        super(PLANTS_MUSHROOMS);
 
         // initialize variables
 		this.success_count = 3;
@@ -34,24 +32,29 @@ class Plants_Flowers extends Plants_Base {
 		super.preload();
 
 		// Doors
-		this.load.image('flower_closed', plantPicJpg.flower_closed);
-		this.load.image('flower_open', plantPicPng.flower_open);
+		this.load.image('kitchen', plantPicJpg.kitchen);
+		this.load.image('kitchen', plantPicPng.kitchen);
 
 		// Lock
-		this.load.image('peacock', plantPicPng.peacock);
-		this.load.image('peacock_outline', plantPicPng.peacock_outline);
+		this.load.image('harp_lock', plantPicPng.harp_lock);
+		this.load.image('harp_lock_outline', plantPicPng.harp_lock_outline);
         
         // Plants
 		for (const key in this.plants_data) {
 	        this.loadOutlineImage(key);
 
+	        // Get the leaf if needed
+	        const pd = this.plants_data[key];
+			if (!this.textures.exists(pd.leaf_type)) {
+				this.load.image(pd.leaf_type, dragPicPng[pd.leaf_type]);
+			}
 	    }
 
-	    // // Triquetra
-	    // this.load.image('leaf_lock', plantPicPng.leaf_lock);
-	    // this.load.image('leaf_lock_bottom_left', plantPicPng.leaf_lock_bottom_left);
-	    // this.load.image('leaf_lock_bottom_right', plantPicPng.leaf_lock_bottom_right);
-	    // this.load.image('leaf_lock_top', plantPicPng.leaf_lock_top);
+	    // Triquetra
+	    this.load.image('leaf_lock', plantPicPng.leaf_lock);
+	    this.load.image('leaf_lock_bottom_left', plantPicPng.leaf_lock_bottom_left);
+	    this.load.image('leaf_lock_bottom_right', plantPicPng.leaf_lock_bottom_right);
+	    this.load.image('leaf_lock_top', plantPicPng.leaf_lock_top);
 
         // Audio
         this.load.audio('woosh', audioMp3.woosh);
@@ -68,7 +71,7 @@ class Plants_Flowers extends Plants_Base {
 	}
 
 	createPlant(key, pd) {
-		return new OutlinePlantFlower(this, key, pd);
+		return new OutlinePlantLeaf(this, key, pd);
 	}
 
 	createBackground() {
@@ -77,10 +80,10 @@ class Plants_Flowers extends Plants_Base {
 
 		this.swirl = this.add.image(360, 300, 'blue_swirl');
 
-		this.background_open = this.add.image(0, 0, 'flower_open');
+		this.background_open = this.add.image(0, 0, 'kitchen');
 		this.background_open.setOrigin(0, 0);
 
-		this.background_closed = this.add.image(0, 0, 'flower_closed');
+		this.background_closed = this.add.image(0, 0, 'kitchen');
 		this.background_closed.setOrigin(0, 0);
 	}
 
@@ -169,33 +172,19 @@ class Plants_Flowers extends Plants_Base {
 
 	createAlerts() {
 		this.scene.add(INTRO1_ALERT, new Alert(INTRO1_ALERT), false, {
-			title: "Not sure where you are?",
-			content: "This is Hyrule! I need to get home fast so I have time to get ready for the party! Why don't you come with me? ",
-			buttonText: "Okay!",
+			title: "Welcome to Hyrule!",
+			content: "I lost the key to my door! Do you think you could help me get it back?",
+			buttonText: "You bet",
 			buttonAction: this.intro1AlertClicked,
 			context: this
 		});
 		this.scene.add(INTRO2_ALERT, new Alert(INTRO2_ALERT), false, {
-			title: "Uh oh!",
-			content: `That peacock is blocking the portal.`,
-			buttonText: "I'll go talk to it.",
+			title: "Thanks!",
+			content: `Some of these plants have the right mushrooms to make a new key.`,
+			buttonText: "Roger",
 			buttonAction: this.intro2AlertClicked,
 			context: this
 		});
-		this.scene.add(INTRO3_ALERT, new Alert(INTRO3_ALERT), false, {
-			title: "I'm so hungry!",
-			content: `You need to go through the portal? I can't concentrate enough to open it right now. I'm too hungry!`,
-			buttonText: "What would you like to eat?",
-			buttonAction: this.intro3AlertClicked,
-			context: this
-		});
-		this.scene.add(INTRO4_ALERT, new Alert(INTRO4_ALERT), false, {
-			title: "Flowers!",
-			content: `Here's a list of my favourite types.`,
-			buttonText: "I'll bring them to you.",
-			buttonAction: this.intro4AlertClicked,
-			context: this
-		});		
 		// this.scene.add(FAIL_ALERT, new Alert(FAIL_ALERT), false, {
 		// 	title: "Time to recharge",
 		// 	content: `We think there are ${this.success_count} invertebrates out there, but we are out of juice. We will be right back!`,
@@ -204,7 +193,7 @@ class Plants_Flowers extends Plants_Base {
 		// 	context: this
 		// });
 
-		return [INTRO1_ALERT, INTRO2_ALERT, INTRO3_ALERT, INTRO4_ALERT];
+		return [INTRO1_ALERT, INTRO2_ALERT];
 	}
 
 	createTools() {
@@ -292,25 +281,15 @@ class Plants_Flowers extends Plants_Base {
 	}
 
 	intro1AlertClicked() {
-		this.link.setFrame('wave');
+		this.link.setFrame('laugh');
 		this.stopAlert(INTRO1_ALERT);
 		this.runAlert(INTRO2_ALERT);
 	}
 
 	intro2AlertClicked() {
-		this.link.setFrame('notimpressed');
+		this.link.setFrame('happy');
 		this.stopAlert(INTRO2_ALERT);
-		this.runAlert(INTRO3_ALERT);
-	}
-	intro3AlertClicked() {
-		this.link.setFrame('peacock');
-		this.stopAlert(INTRO3_ALERT);
-		this.runAlert(INTRO4_ALERT);
-	}	
-	intro3AlertClicked() {
-		this.link.setFrame('peacock');
-		this.stopAlert(INTRO4_ALERT);
-		
+
 		if (!this.plants_have_entered) {
 			var tweens = [];
 
@@ -339,7 +318,7 @@ class Plants_Flowers extends Plants_Base {
 		// isn't populated until after createAlerts() is already run.
 		this.scene.add(SUCCESS_ALERT, new Alert(SUCCESS_ALERT), true, {
 			title: "Great work!",
-			content: `You found all of the right flowers. Thanks for your help! Now what do you think is behind this door?`,
+			content: `You found all of the right mushrooms. Thanks for your help! Now what do you think is behind this door?`,
 			buttonText: "I Dunno",
 			buttonAction: this.successAlertClicked,
 			context: this
@@ -385,4 +364,4 @@ class Plants_Flowers extends Plants_Base {
 // 	}
 }
 
-export default Plants_Flowers;
+export default Plants_Mushrooms;
