@@ -10,6 +10,10 @@ class Main_Hall extends BaseScene {
         super(MAIN_HALL);
 	}
 
+	storeLastScene() {
+		// Never store the Main Hall
+	}
+
 	create() {
 		super.create();
 

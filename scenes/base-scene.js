@@ -28,13 +28,11 @@ class BaseScene extends Scene {
     }
 
     init() {
-        // this.scene.setVisible(false, this.key);
-        // this.player = new Player(this, this.key, position);
-        // this.layers = {};
-        // this.prevSceneKey = this.key;
-        // this.nextSceneKey = null;
-        // this.transition = true;
-        // this.input.keyboard.removeAllListeners();
+        this.storeLastScene();
+    }
+
+    storeLastScene() {
+        this.store('last_scene', this.key);
     }
 
 	create() {
@@ -75,6 +73,14 @@ class BaseScene extends Scene {
         // console.log(`stopAlert: ${scene_key}`);
         this.scene.stop(scene_key);
         this.input.enabled = true;
+    }
+
+    store(key, value) {
+        this.game.config.storage.set(key, value);
+    }
+
+    fetch(key) {
+        return this.game.config.storage.get(key);
     }
 }
 

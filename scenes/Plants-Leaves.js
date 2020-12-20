@@ -220,6 +220,7 @@ class Plants_Leaves extends Plants_Base {
 			hitAreaCallback: Phaser.Geom.Triangle.Contains,
 			dropZone: true,
 			useHandCursor: true});
+		// this.input.enableDebug(top_zone, 0xff0000);
 		top_zone.name = 'spikey';
 		top_zone.lock_image = this.leaf_lock_top;
 		top_zone.particle = this.createTriangleEmitter(top_triangle, top_zone);

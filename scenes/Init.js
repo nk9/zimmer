@@ -1,6 +1,7 @@
 import { Scene } from 'phaser';
 import { INIT, MAIN_HALL, ANIMALS_OCEAN } from '../constants/scenes';
 
+
 import swirlsJpg from '../assets/pics/swirls/*.jpg';
 import imagesJpg from '../assets/pics/*.jpg';
 import audioMp3 from '../assets/audio/*.mp3';

@@ -306,14 +306,13 @@ class Numbers_Lego extends BaseScene {
 	createKeyZone() {
 		let keyZoneRect = this.keyZoneRect();
 
-		// let debug = this.add.rectangle(keyZoneRect.x, keyZoneRect.y, keyZoneRect.width, keyZoneRect.height, 0xff0000)
-		// 			.setOrigin(0,0);
 		this.key_zone = this.make.zone(keyZoneRect)
 			.setOrigin(0,0)
 			.setInteractive({useHandCursor: true})
 			.on('pointerup', pointer => {
 				this.clickKeyZone()
 			});
+		// this.input.enableDebug(this.key_zone, 0xff0000);
 	}
 
 	clickKeyZone() {
