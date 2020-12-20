@@ -210,6 +210,39 @@ class Plants_Leaves extends Plants_Base {
 			this.leaf_lock_container.add(this[segment]);
 		}
 
+		let top_triangle = new Phaser.Geom.Triangle.BuildEquilateral(150, 0, 145);
+		var top_zone = this.add.zone(0, 0, 300, 125);
+		top_zone.setOrigin(.5, 1);
+		top_zone.setInteractive({
+			hitArea: top_triangle,
+			hitAreaCallback: Phaser.Geom.Triangle.Contains,
+			dropZone: true,
+			useHandCursor: true});
+		top_zone.name = 'spikey';
+		this.leaf_lock_container.add(top_zone);
+
+		let bottom_left_triangle = new Phaser.Geom.Triangle.BuildEquilateral(top_triangle.x3+5, 0, 135);
+		var bottom_left_zone = this.add.zone(0, 0, 150, 125);
+		bottom_left_zone.setOrigin(1, 0);
+		bottom_left_zone.setInteractive({
+			hitArea: bottom_left_triangle,
+			hitAreaCallback: Phaser.Geom.Triangle.Contains,
+			dropZone: true,
+			useHandCursor: true});
+		bottom_left_zone.name = 'round';
+		this.leaf_lock_container.add(bottom_left_zone);
+
+		let bottom_right_triangle = new Phaser.Geom.Triangle.BuildEquilateral(top_triangle.x3-10, 0, 135);
+		var bottom_right_zone = this.add.zone(0, 0, 150, 125);
+		bottom_right_zone.setOrigin(0, 0);
+		bottom_right_zone.setInteractive({
+			hitArea: bottom_right_triangle,
+			hitAreaCallback: Phaser.Geom.Triangle.Contains,
+			dropZone: true,
+			useHandCursor: true});
+		bottom_right_zone.name = 'heart';
+		this.leaf_lock_container.add(bottom_right_zone);
+
 		this.leaf_lock.visible = true;
 		this.leaf_lock_container.visible = false;
 		this.leaf_lock_container.alpha = 0;
@@ -259,6 +292,14 @@ class Plants_Leaves extends Plants_Base {
 			buttonAction: this.successAlertClicked,
 			context: this
 		});
+	}
+
+	plantDropped(plant, drop_target) {
+		if (plant.leaf_type == drop_target.name) {
+			console.log("success!");
+		} else {
+			console.log("too bad");
+		}
 	}
 
 	successAlertClicked() {

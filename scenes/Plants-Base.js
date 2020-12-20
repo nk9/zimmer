@@ -77,7 +77,11 @@ class Plants_Base extends BaseScene {
 
 				plant.on('pointerdown', this.pointerDownPlant.bind(this, plant))
 					.on('dragstart', this.dragStartPlant.bind(this, plant))
-					.on('dragend', this.dragEndPlant.bind(this, plant));
+					.on('dragend', this.dragEndPlant.bind(this, plant))
+					.on('drop', (pointer, target) => {
+						const bound = this.plantDropped.bind(this);
+						bound(plant, target);
+					});
 				
 				this.plants.push(plant);
 			}
