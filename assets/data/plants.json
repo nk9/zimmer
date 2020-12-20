@@ -1,13 +1,13 @@
 {
   "Plants-Leaves": {
     "bedstraw": {
-      "leaf_type": "blunt",
+      "leaf_type": "spoon",
       "scale": 0.5,
       "x": 320,
       "y": 650
     },
     "chickweed": {
-      "leaf_type": "tear",
+      "leaf_type": "oval",
       "scale": 0.3,
       "x": 160,
       "y": 360
