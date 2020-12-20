@@ -64,6 +64,8 @@ class Numbers_Lego extends BaseScene {
 
 		this.createKeyZone();
 		this.createCountdownTimer();
+
+		this.portal_sound = this.sound.add('portal');
 	}
 
 	resetAfterFail() {
@@ -92,7 +94,8 @@ class Numbers_Lego extends BaseScene {
 			this.progress != SceneProgress.SUCCEEDED) {
 
 			for (var i = this.rects.length - 1; i >= 0; i--) {
-				let r = this.rects[i].getBounds();
+				let rect = this.rects[i];
+				let r = rect.getBounds();
 				var containedBricks = [];
 				
 				for (const brick of this.brick_store.bricks) {
@@ -107,7 +110,7 @@ class Numbers_Lego extends BaseScene {
 				}
 
 				var emit = false;
-				if (containedBricks.length == 2) {
+				if (containedBricks.length == 2 && rect.brick_count == 2) {
 					let brick1 = containedBricks[0],
 						brick2 = containedBricks[1];
 					let intersection = Phaser.Geom.Rectangle.Intersection(brick1.getBounds(),
@@ -116,6 +119,9 @@ class Numbers_Lego extends BaseScene {
 						emit = true;
 						completedRects.push(this.rects[i]);
 					}
+				} else if (containedBricks.length == 1 && rect.brick_count == 1) {
+					emit = true;
+					completedRects.push(rect);
 				}
 				
 				if (emit && !this.emitters[i].on) {
@@ -125,7 +131,7 @@ class Numbers_Lego extends BaseScene {
 				}
 			}
 
-			if (completedRects.length == 3) {
+			if (completedRects.length == this.rects.length) {
 				this.progress = SceneProgress.SUCCEEDED;
 				this.succeed();
 			}
@@ -208,7 +214,7 @@ class Numbers_Lego extends BaseScene {
 		}
 	}
 
-	addRectangle(w, h, x, y) {
+	addRectangle(w, h, x, y, brick_count=2) {
 		// Translated coordinates/dimensions
 		let rect = this.add.grid(
 			x*LEGO_GRID, y*LEGO_GRID,
@@ -226,6 +232,7 @@ class Numbers_Lego extends BaseScene {
 		text.setDepth(Layers.OVER_DOOR);
 		text.setAlpha(0);
 		rect.text = text;
+		rect.brick_count = brick_count;
 
 		this.rects.push(rect);
 
@@ -365,6 +372,7 @@ class Numbers_Lego extends BaseScene {
 	}
 
 	doSuccessTransition() {
+		this.portal_sound.play();
 		this.emitters.map(e => e.stop());
 		this.swirl.visible = true;
 

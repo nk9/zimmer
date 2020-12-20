@@ -33,41 +33,37 @@ class Numbers_Lego_First extends Numbers_Lego {
 	create() {
 		super.create();
 
-		this.run_time = 45; // scene timer length
+		this.run_time = 20; // scene timer length
 	}
 
 	createBackgroundImages() {
-		console.log("Hello world");
 		let center_x = GAME_WIDTH/2,
 			center_y = GAME_HEIGHT/2;
 
-		this.swirl = this.add.image(center_x, center_y, 'blue_swirl');
+		this.swirl = this.add.image(center_x, center_y+100, 'blue_swirl');
 		
 		// Shifted over slightly to line up with the lego grid rectangles
 		let bg_x = center_x + 10;
 		this.background_open = this.add.image(bg_x, center_y, 'abbey_open');
 		this.background_open.setOrigin(0.5, 0.5);
+		this.background_open.scale = 1.6;
 
 		this.background_closed = this.add.image(bg_x, center_y, 'abbey_closed');
-		this.background_closed.setOrigin(0.5, 0.5);	
+		this.background_closed.setOrigin(0.5, 0.5);
+		this.background_closed.scale = 1.6;
 
 	}
 
 	createBricks() {
-		let brick_store = new BrickStore(this, 29, 6);
+		let brick_store = new BrickStore(this, 32, 12);
 
-		brick_store.addRow(BSBrick.B1x2, BSBrick.B1x4, BSBrick.B1x4);
-		brick_store.addRow(BSBrick.B1x6);
-		brick_store.addRow(BSBrick.B1x3, BSBrick.B1x1, BSBrick.B1x6);
-		brick_store.addRow(BSBrick.B1x4, BSBrick.B1x5);
-		brick_store.addRow(BSBrick.B1x8);
-		brick_store.addRow(BSBrick.B1x7, BSBrick.B1x2);
+		brick_store.addRow(BSBrick.B2x3);
 
 		return brick_store;
 	}
 
 	keyZoneRect() {
-		return {x: 550, y: 330, width: 110, height: 110};
+		return {x: 550, y: 380, width: 110, height: 110};
 	}
 
 	pouchOpenPosition() {
@@ -77,17 +73,14 @@ class Numbers_Lego_First extends Numbers_Lego {
 	createRectangles() {
 		this.rects_background = this.add.graphics();
 		this.rects_background.fillStyle(0x000000, .6);
-		this.rects_background.fillRoundedRect(13 * LEGO_GRID,
-										 3  * LEGO_GRID,
-										 11  * LEGO_GRID,
-										 14 * LEGO_GRID);
+		this.rects_background.fillRoundedRect(18 * LEGO_GRID,
+										 10  * LEGO_GRID,
+										 6  * LEGO_GRID,
+										 10 * LEGO_GRID);
 		this.rects_background.setDepth(Layers.OVER_DOOR);
 		this.rects_background.setAlpha(0);
 
-		this.addRectangle(9, 1, 14, 5);
-		this.addRectangle(9, 1, 14, 8);
-		this.addRectangle(9, 1, 14, 11);
-		this.addRectangle(9, 1, 14, 14);
+		this.addRectangle(2, 3, 20, 14, 1);
 	}
 
 	callToActionRect() {
