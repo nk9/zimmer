@@ -121,10 +121,6 @@ class Numbers_Lego_9 extends Numbers_Lego {
 
 		this.scene.run(FAIL_ALERT);
 	}
-
-	startNextScene() {
-		console.log("Lego-9: startNextScene");
-	}
 }
 
 export default Numbers_Lego_9;

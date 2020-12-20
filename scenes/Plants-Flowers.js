@@ -203,8 +203,15 @@ class Plants_Flowers extends Plants_Base {
 		// 	buttonAction: this.failAlertClicked,
 		// 	context: this
 		// });
+		this.scene.add(SUCCESS_ALERT, new Alert(SUCCESS_ALERT), false, {
+			title: "Great work!",
+			content: `right flowers. Thanks for your help! Now what do you think is behind this door?`,
+			buttonText: "I Dunno",
+			buttonAction: this.successAlertClicked,
+			context: this
+		});
 
-		return [INTRO1_ALERT, INTRO2_ALERT, INTRO3_ALERT, INTRO4_ALERT];
+		return [INTRO1_ALERT, INTRO2_ALERT, INTRO3_ALERT, INTRO4_ALERT, SUCCESS_ALERT];
 	}
 
 	createTools() {
@@ -337,13 +344,7 @@ class Plants_Flowers extends Plants_Base {
 	willBeginSuccessTransition() {
 		// This alert needs to be created at runtime because success_animals
 		// isn't populated until after createAlerts() is already run.
-		this.scene.add(SUCCESS_ALERT, new Alert(SUCCESS_ALERT), true, {
-			title: "Great work!",
-			content: `You found all of the right flowers. Thanks for your help! Now what do you think is behind this door?`,
-			buttonText: "I Dunno",
-			buttonAction: this.successAlertClicked,
-			context: this
-		});
+		this.runAlert(SUCCESS_ALERT);
 	}
 
 	plantDropped(plant, drop_target) {
@@ -363,17 +364,10 @@ class Plants_Flowers extends Plants_Base {
 	}
 
 	successAlertClicked() {
-		this.scene.stop(SUCCESS_ALERT);
-		this.scene.remove(SUCCESS_ALERT);
+		this.stopAlert(SUCCESS_ALERT);
 		this.beginSuccessTransition();
 	}
 
-	startNextScene() {
-		this.willStartNextScene();
-
-        this.scene.start(MAIN_HALL);
-        this.scene.shutdown();
-	}
 
 // 	fail() {
 // 		this.runAlert(FAIL_ALERT);

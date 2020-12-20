@@ -4,6 +4,7 @@ import { INIT, MAIN_HALL, ANIMALS_OCEAN } from '../constants/scenes';
 
 import swirlsJpg from '../assets/pics/swirls/*.jpg';
 import imagesJpg from '../assets/pics/*.jpg';
+import imagesPng from '../assets/pics/*.png';
 import audioMp3 from '../assets/audio/*.mp3';
 import particles from '../assets/particles/*.png';
 import spritesImg from '../assets/sprites/*.png';
@@ -37,6 +38,9 @@ class Init extends Scene {
         // Audio
         this.load.audio('door_opens_heavy', audioMp3.door_opens_heavy);
         this.load.audio('portal', audioMp3.portal);
+
+        // Status
+        this.load.image('door', imagesPng.door);
 
         // JSON data
         this.load.json('animals_data', dataJson.animals);

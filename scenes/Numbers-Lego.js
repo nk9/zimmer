@@ -17,6 +17,8 @@ class Numbers_Lego extends BaseScene {
 	}
 
 	create() {
+		super.create();
+		
         // OVERRIDE THESE
 		this.run_time = 1; // scene timer length
 

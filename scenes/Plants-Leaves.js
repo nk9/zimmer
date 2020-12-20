@@ -185,15 +185,15 @@ class Plants_Leaves extends Plants_Base {
 			buttonAction: this.intro2AlertClicked,
 			context: this
 		});
-		// this.scene.add(FAIL_ALERT, new Alert(FAIL_ALERT), false, {
-		// 	title: "Time to recharge",
-		// 	content: `We think there are ${this.success_count} invertebrates out there, but we are out of juice. We will be right back!`,
-		// 	buttonText: "OK :(",
-		// 	buttonAction: this.failAlertClicked,
-		// 	context: this
-		// });
+		this.scene.add(SUCCESS_ALERT, new Alert(SUCCESS_ALERT), false, {
+			title: "Great work!",
+			content: `You found all of the right leaves. Thanks for your help! Now what do you think is behind this door?`,
+			buttonText: "I Dunno",
+			buttonAction: this.successAlertClicked,
+			context: this
+		});
 
-		return [INTRO1_ALERT, INTRO2_ALERT];
+		return [INTRO1_ALERT, INTRO2_ALERT, SUCCESS_ALERT];
 	}
 
 	createTools() {
@@ -317,13 +317,7 @@ class Plants_Leaves extends Plants_Base {
 	willBeginSuccessTransition() {
 		// This alert needs to be created at runtime because success_animals
 		// isn't populated until after createAlerts() is already run.
-		this.scene.add(SUCCESS_ALERT, new Alert(SUCCESS_ALERT), true, {
-			title: "Great work!",
-			content: `You found all of the right leaves. Thanks for your help! Now what do you think is behind this door?`,
-			buttonText: "I Dunno",
-			buttonAction: this.successAlertClicked,
-			context: this
-		});
+		this.runAlert(SUCCESS_ALERT);
 	}
 
 	plantDropped(plant, drop_target) {
@@ -343,16 +337,8 @@ class Plants_Leaves extends Plants_Base {
 	}
 
 	successAlertClicked() {
-		this.scene.stop(SUCCESS_ALERT);
-		this.scene.remove(SUCCESS_ALERT);
+		this.stopAlert(SUCCESS_ALERT);
 		this.beginSuccessTransition();
-	}
-
-	startNextScene() {
-		this.willStartNextScene();
-
-        this.scene.start(MAIN_HALL);
-        this.scene.shutdown();
 	}
 
 // 	fail() {

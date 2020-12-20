@@ -241,10 +241,23 @@ class Plants_Base extends BaseScene {
 	    this.time.delayedCall(5000, this.startNextScene, [], this);
 	}
 
-	willStartNextScene() {
+	startNextScene(key=null) {
+		if (!key) {
+			key = this.nextSceneKey();
+		}
+
 		this.portal_sound.stop();
+		// this.background_sound.stop();
+		this.willStartNextScene();
+		
+        this.scene.start(key);
+        this.scene.shutdown();
 	}
-// 
+
+	// Overridden by subclasses to clean up before the next scene
+	willStartNextScene() {
+	}
+
 // 	beginFailureTransition() {
 // 		this.setPlantsInput(false);
 // 		this.factText.visible = false;

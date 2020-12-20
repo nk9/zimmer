@@ -17,9 +17,9 @@ let SUCCESS_ALERT = 'Success_Alert';
 
 class Animals_Cave extends Animals_Base {
 	constructor() {
-        super(ANIMALS_CAVE);
+		super(ANIMALS_CAVE);
 
-        // initialize variables
+		// initialize variables
 		this.scan_limit = 5;
 		this.animals_have_entered = false;
 	}
@@ -30,17 +30,17 @@ class Animals_Cave extends Animals_Base {
 		// Images
 		this.load.image('cave_door_closed', cavePicJpg.cave_door_closed);
 		this.load.image('cave_door_open', cavePicPng.cave_door_open);
-        this.loadOutlineImage('amphisub');
+		this.loadOutlineImage('amphisub');
 
-        // Animals
+		// Animals
 		let animals_data = this.cache.json.get('animals_data')[this.key];
 
 		for (const key in animals_data) {
-	        this.loadXrayOutlineImage(key);
-	    }
+			this.loadXrayOutlineImage(key);
+		}
 
-        // Audio
-        this.load.audio('cave', audioMp3.cave);
+		// Audio
+		this.load.audio('cave', audioMp3.cave);
 	}
 
 	loadOutlineImage(name) {
@@ -113,8 +113,15 @@ class Animals_Cave extends Animals_Base {
 			buttonAction: this.intro2AlertClicked,
 			context: this
 		});
+		this.scene.add(SUCCESS_ALERT, new Alert(SUCCESS_ALERT), false, {
+			title: "Great work!",
+			content: `You found all ${this.success_count} of the invertebrates. We found the door you were looking for. Thanks for your help!`,
+			buttonText: "Thank you",
+			buttonAction: this.successAlertClicked,
+			context: this
+		});
 
-		return [INTRO1_ALERT, INTRO2_ALERT];
+		return [INTRO1_ALERT, INTRO2_ALERT, SUCCESS_ALERT];
 	}
 
 	intro1AlertClicked() {
@@ -140,7 +147,7 @@ class Animals_Cave extends Animals_Base {
 				})
 			}
 
-	    	this.tweens.timeline({ tweens: tweens });
+			this.tweens.timeline({ tweens: tweens });
 
 			// Animate in tools
 			this.revealTools();
@@ -150,26 +157,14 @@ class Animals_Cave extends Animals_Base {
 	}
 
 	willBeginSuccessTransition() {
-		// This alert needs to happen at runtime because success_animals
+		// This alert needs to be created at runtime because success_animals
 		// isn't populated until after createAlerts() is already run.
-		this.scene.add(SUCCESS_ALERT, new Alert(SUCCESS_ALERT), true, {
-			title: "Great work!",
-			content: `You found all ${this.success_animals.length} of the invertebrates. We found the door you were looking for. Thanks for your help!`,
-			buttonText: "Thank you",
-			buttonAction: this.successAlertClicked,
-			context: this
-		});
+		this.runAlert(SUCCESS_ALERT);
 	}
 
 	successAlertClicked() {
-		this.scene.stop(SUCCESS_ALERT);
-		this.scene.remove(SUCCESS_ALERT);
+		this.stopAlert(SUCCESS_ALERT);
 		this.beginSuccessTransition();
-	}
-
-	startNextScene() {
-        this.scene.start(MAIN_HALL);
-        this.scene.shutdown();
 	}
 }
 

@@ -1,5 +1,9 @@
 import { Scene } from 'phaser';
 import { FADE_DURATION } from '../constants/config';
+import { LAST_SCENE } from '../constants/storage';
+import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
+
+import { MAIN_HALL } from '../constants/scenes';
 
 export const SceneProgress = {
 	BEGIN:   1,
@@ -18,6 +22,7 @@ export const Layers = {
 
     // All
     DRAGGING: 100,
+    HOME: 200
 }
 
 class BaseScene extends Scene {
@@ -32,17 +37,23 @@ class BaseScene extends Scene {
     }
 
     storeLastScene() {
-        this.store('last_scene', this.key);
+        this.store(LAST_SCENE, this.key);
     }
 
 	create() {
         this.alert_keys = this.createAlerts();
 
-        this.events.on('transitionstart', function(fromScene, duration){
+        this.events.once('shutdown', () => {
             for (const key of this.alert_keys) {
-                fromScene.scene.remove(key);
+                this.scene.remove(key);
             }
         });
+
+        this.home = this.add.image(GAME_WIDTH-10, 10, 'door');
+        this.home.setOrigin(1, 0);
+        this.home.setDepth(Layers.HOME);
+        this.home.setInteractive({useHandCursor: true})
+            .on('pointerup', () => this.startNextScene() );
 	}
 
     update() {
@@ -55,11 +66,12 @@ class BaseScene extends Scene {
     }
 
     changeScene() {
-        // if (this.withTSAnimation)
-        //     this.tilesetAnimation.destroy();
-
         this.player.socket.disconnect();
         this.scene.start(this.nextSceneKey, this.prevSceneKey);
+    }
+
+    nextSceneKey() {
+        return MAIN_HALL;
     }
 
     // Disable the main scene's input while the alert scene is showing

@@ -119,9 +119,8 @@ class Numbers_Lego_10 extends Numbers_Lego {
 		this.scene.run(FAIL_ALERT);
 	}
 
-	startNextScene() {
-        this.scene.start(NUMBERS_LEGO_9);
-        this.scene.shutdown();
+	nextSceneKey() {
+		return NUMBERS_LEGO_9;
 	}
 
 }

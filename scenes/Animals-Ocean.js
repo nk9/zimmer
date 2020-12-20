@@ -136,8 +136,15 @@ class Animals_Ocean extends Animals_Base {
 			buttonAction: this.failAlertClicked,
 			context: this
 		});
+		this.scene.add(SUCCESS_ALERT, new Alert(SUCCESS_ALERT), false, {
+			title: "Great work!",
+			content: `You found all ${this.success_count} of the invertebrates. We found the door you were looking for. Thanks for your help!`,
+			buttonText: "Thank you",
+			buttonAction: this.successAlertClicked,
+			context: this
+		});
 
-		return [INTRO1_ALERT, INTRO2_ALERT];
+		return [INTRO1_ALERT, INTRO2_ALERT, FAIL_ALERT, SUCCESS_ALERT];
 	}
 
 	intro1AlertClicked() {
@@ -173,29 +180,13 @@ class Animals_Ocean extends Animals_Base {
 	}
 
 	willBeginSuccessTransition() {
-		// This alert needs to be created at runtime because success_animals
-		// isn't populated until after createAlerts() is already run.
-		this.scene.add(SUCCESS_ALERT, new Alert(SUCCESS_ALERT), true, {
-			title: "Great work!",
-			content: `You found all ${this.success_animals.length} of the invertebrates. We found the door you were looking for. Thanks for your help!`,
-			buttonText: "Thank you",
-			buttonAction: this.successAlertClicked,
-			context: this
-		});
+		this.runAlert(SUCCESS_ALERT);
 	}
 
 	successAlertClicked() {
-		this.scene.stop(SUCCESS_ALERT);
-		this.scene.remove(SUCCESS_ALERT);
+		this.stopAlert(SUCCESS_ALERT);
 
 		this.beginSuccessTransition();
-	}
-
-	startNextScene() {
-		this.willStartNextScene();
-		
-        this.scene.start(MAIN_HALL);
-        this.scene.shutdown();
 	}
 
 	fail() {

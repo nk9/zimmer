@@ -407,8 +407,20 @@ class Animals_Base extends BaseScene {
 		this.setAnimalsInput(true);
 	}
 
-	willStartNextScene() {
+	startNextScene(key=null) {
+		if (!key) {
+			key = this.nextSceneKey();
+		}
+
 		this.portal_sound.stop();
+		this.background_sound.stop();
+		this.willStartNextScene();
+		
+        this.scene.start(key);
+        this.scene.shutdown();
+	}
+
+	willStartNextScene() {
 	}
 }
 
