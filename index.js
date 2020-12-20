@@ -7,6 +7,7 @@ import Main_Hall from './scenes/Main-Hall';
 
 // Numbers
 import Numbers_Lego_First from './scenes/Numbers-Lego-First';
+import Numbers_Lego_Second from './scenes/Numbers-Lego-Second';
 import Numbers_Lego_10 from './scenes/Numbers-Lego-10';
 import Numbers_Lego_9 from './scenes/Numbers-Lego-9';
 
@@ -41,6 +42,7 @@ const config = {
 
 			// Numbers
 			Numbers_Lego_First,
+			Numbers_Lego_Second,
 			Numbers_Lego_10,
 			Numbers_Lego_9,
 
