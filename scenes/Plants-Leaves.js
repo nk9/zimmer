@@ -161,8 +161,8 @@ class Plants_Leaves extends Plants_Base {
 
 		this.tweens.add({
 			targets: this.leaf_lock_container,
-			x: 1000,
-			y: 150,
+			x: 950,
+			y: 200,
 			alpha: 1,
 			scale: 1,
 			duration: 1000
@@ -207,6 +207,7 @@ class Plants_Leaves extends Plants_Base {
 		for (const segment of segments) {
 			this[segment] = this.add.image(0, 0, segment);
 			this[segment].visible = false;
+			this[segment].setDepth = Layers.OVER_POUCH;
 			this.leaf_lock_container.add(this[segment]);
 		}
 
@@ -219,7 +220,9 @@ class Plants_Leaves extends Plants_Base {
 			dropZone: true,
 			useHandCursor: true});
 		top_zone.name = 'spikey';
-		this.leaf_lock_container.add(top_zone);
+		top_zone.lock_image = this.leaf_lock_top;
+		top_zone.particle = this.createTriangleEmitter(top_triangle, top_zone);
+		this.leaf_lock_container.add([top_zone, top_zone.particle]);
 
 		let bottom_left_triangle = new Phaser.Geom.Triangle.BuildEquilateral(top_triangle.x3+5, 0, 135);
 		var bottom_left_zone = this.add.zone(0, 0, 150, 125);
@@ -230,7 +233,9 @@ class Plants_Leaves extends Plants_Base {
 			dropZone: true,
 			useHandCursor: true});
 		bottom_left_zone.name = 'round';
-		this.leaf_lock_container.add(bottom_left_zone);
+		bottom_left_zone.lock_image = this.leaf_lock_bottom_left;
+		bottom_left_zone.particle = this.createTriangleEmitter(bottom_left_triangle, bottom_left_zone);
+		this.leaf_lock_container.add([bottom_left_zone, bottom_left_zone.particle]);
 
 		let bottom_right_triangle = new Phaser.Geom.Triangle.BuildEquilateral(top_triangle.x3-10, 0, 135);
 		var bottom_right_zone = this.add.zone(0, 0, 150, 125);
@@ -241,12 +246,37 @@ class Plants_Leaves extends Plants_Base {
 			dropZone: true,
 			useHandCursor: true});
 		bottom_right_zone.name = 'heart';
-		this.leaf_lock_container.add(bottom_right_zone);
+		bottom_right_zone.lock_image = this.leaf_lock_bottom_right;
+		bottom_right_zone.particle = this.createTriangleEmitter(bottom_right_triangle, bottom_right_zone);
+		this.leaf_lock_container.add([bottom_right_zone, bottom_right_zone.particle]);
 
 		this.leaf_lock.visible = true;
 		this.leaf_lock_container.visible = false;
 		this.leaf_lock_container.alpha = 0;
 		this.leaf_lock_container.scale = .3;
+	}
+
+	createTriangleEmitter(triangle, zone) {
+		let bounds = zone.getBounds();
+
+	    let particle = this.add.particles('spark');
+	    let emitter = particle.createEmitter({
+	    	on: false,
+	        x: bounds.x,
+	        y: bounds.y,
+	        blendMode: 'SCREEN',
+	        scale: { start: 0.2, end: 0 },
+	        speed: { min: -100, max: 100 },
+	        quantity: 10,
+	        emitZone: {
+		        source: triangle,
+		        type: 'edge',
+		        quantity: 50
+	        }
+	    });
+		particle.setDepth(Layers.POUCH);
+
+		return particle;
 	}
 
 	intro1AlertClicked() {
@@ -296,7 +326,10 @@ class Plants_Leaves extends Plants_Base {
 
 	plantDropped(plant, drop_target) {
 		if (plant.leaf_type == drop_target.name) {
-			console.log("success!");
+			drop_target.lock_image.visible = true;
+			drop_target.particle.emitters.list[0].explode(50);
+
+			drop_target.input.enabled = false;
 		} else {
 			console.log("too bad");
 		}
