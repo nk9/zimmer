@@ -2,7 +2,7 @@ import BaseScene, { SceneProgress, Layers } from './base-scene';
 import { MAIN_HALL,
 		 NUMBERS_LEGO_10, NUMBERS_LEGO_9,
 		 ANIMALS_OCEAN, ANIMALS_CAVE, ANIMALS_FOREST,
-		 PLANTS_LEAVES, PLANTS_FLOWERS } from '../constants/scenes';
+		 PLANTS_LEAVES, PLANTS_FLOWERS, PLANTS_MUSHROOMS } from '../constants/scenes';
 
 
 class Main_Hall extends BaseScene {
@@ -22,6 +22,7 @@ class Main_Hall extends BaseScene {
 
 		this.addButton(450, 100, 'Plants Leaves', PLANTS_LEAVES);
 		this.addButton(450, 120, 'Plants Flowers', PLANTS_FLOWERS);
+		this.addButton(450, 140, 'Plants Mushrooms', PLANTS_MUSHROOMS);
 	}
 
 	createAlerts() {
