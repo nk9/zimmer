@@ -34,6 +34,7 @@ class Numbers_Lego_First extends Numbers_Lego {
 	}
 
 	createBackgroundImages() {
+		console.log("Hello world");
 		let center_x = GAME_WIDTH/2,
 			center_y = GAME_HEIGHT/2;
 
@@ -127,4 +128,4 @@ class Numbers_Lego_First extends Numbers_Lego {
 	}
 }
 
-export default Numbers_Lego_9;
+export default Numbers_Lego_First;

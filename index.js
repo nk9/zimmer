@@ -6,6 +6,7 @@ import Init from './scenes/Init';
 import Main_Hall from './scenes/Main-Hall';
 
 // Numbers
+import Numbers_Lego_First from './scenes/Numbers-Lego-First';
 import Numbers_Lego_10 from './scenes/Numbers-Lego-10';
 import Numbers_Lego_9 from './scenes/Numbers-Lego-9';
 
@@ -18,6 +19,7 @@ import Animals_Forest from './scenes/Animals-Forest';
 // Plants
 import Plants_Leaves from './scenes/Plants-Leaves';
 import Plants_Flowers from './scenes/Plants-Flowers';
+import Plants_Mushrooms from './scenes/Plants-Mushrooms';
 
 
 const config = {
@@ -38,6 +40,7 @@ const config = {
 	scene: [Init, Main_Hall,
 
 			// Numbers
+			Numbers_Lego_First,
 			Numbers_Lego_10,
 			Numbers_Lego_9,
 
@@ -49,6 +52,7 @@ const config = {
 			// Plants
 			Plants_Leaves,
 			Plants_Flowers,
+			Plants_Mushrooms,
 
 			//Time
 			],

@@ -44,10 +44,10 @@ class Plants_Mushrooms extends Plants_Base {
 	        this.loadOutlineImage(key);
 
 	        // Get the leaf if needed
-	        const pd = this.plants_data[key];
-			if (!this.textures.exists(pd.leaf_type)) {
-				this.load.image(pd.leaf_type, dragPicPng[pd.leaf_type]);
-			}
+	  //       const pd = this.plants_data[key];
+			// if (!this.textures.exists(pd.leaf_type)) {
+			// 	this.load.image(pd.leaf_type, dragPicPng[pd.leaf_type]);
+			// }
 	    }
 
 	    // Triquetra
