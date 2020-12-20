@@ -5,6 +5,7 @@ export const MAIN_HALL = 'Main-Hall';
 // Numbers
 export const NUMBERS_LEGO_10 = 'Numbers-Lego-10';
 export const NUMBERS_LEGO_9 = 'Numbers-Lego-9';
+export const NUMBERS_LEGO_FIRST = 'Numbers-Lego-First';
 
 // Animals
 export const ANIMALS_OCEAN = 'Animals-Ocean';

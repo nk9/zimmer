@@ -1,6 +1,6 @@
 import BaseScene, { SceneProgress, Layers } from './base-scene';
 import { MAIN_HALL,
-		 NUMBERS_LEGO_10, NUMBERS_LEGO_9,
+		 NUMBERS_LEGO_10, NUMBERS_LEGO_9, NUMBERS_LEGO_FIRST,
 		 ANIMALS_OCEAN, ANIMALS_CAVE, ANIMALS_FOREST,
 		 PLANTS_LEAVES, PLANTS_FLOWERS, PLANTS_MUSHROOMS } from '../constants/scenes';
 
@@ -13,8 +13,10 @@ class Main_Hall extends BaseScene {
 	create() {
 		super.create();
 
-		this.addButton(100, 100, 'Lego 10', NUMBERS_LEGO_10);
-		this.addButton(100, 120, 'Lego 9', NUMBERS_LEGO_9);
+		this.addButton(100, 100, 'Lego', NUMBERS_LEGO_FIRST);
+		this.addButton(100, 120, 'Lego 10', NUMBERS_LEGO_10);
+		this.addButton(100, 140, 'Lego 9', NUMBERS_LEGO_9);
+
 
 		this.addButton(250, 100, 'Animals Ocean', ANIMALS_OCEAN);
 		this.addButton(250, 120, 'Animals Cave', ANIMALS_CAVE);
