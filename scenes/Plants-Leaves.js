@@ -1,5 +1,5 @@
 import { SceneProgress, Layers } from './base-scene';
-import { MAIN_HALL, PLANTS_LEAVES } from '../constants/scenes';
+import { PLANTS_LEAVES, PLANTS_MUSHROOMS } from '../constants/scenes';
 import { GAME_WIDTH, GAME_HEIGHT, DRAG_THRESHOLD } from '../constants/config';
 
 import Alert from '../components/alert';
@@ -27,6 +27,10 @@ class Plants_Leaves extends Plants_Base {
 		this.plants_have_entered = false;
 		this.success_drop_targets = [];
 	}
+
+    nextSceneKey() {
+        return PLANTS_MUSHROOMS;
+    }
 
 	preload() {
 		super.preload();

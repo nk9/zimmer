@@ -347,13 +347,6 @@ class Plants_Mushrooms extends Plants_Base {
 		this.beginSuccessTransition();
 	}
 
-	startNextScene() {
-		this.willStartNextScene();
-
-        this.scene.start(MAIN_HALL);
-        this.scene.shutdown();
-	}
-
 // 	fail() {
 // 		this.runAlert(FAIL_ALERT);
 // 	}

@@ -1,5 +1,5 @@
 import { SceneProgress, Layers } from './base-scene';
-import { MAIN_HALL, ANIMALS_FOREST } from '../constants/scenes';
+import { ANIMALS_FOREST, ANIMALS_CAVE } from '../constants/scenes';
 import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
 
 import Alert from '../components/alert';
@@ -24,6 +24,10 @@ class Animals_Forest extends Animals_Base {
 		this.scan_limit = 5;
 		this.animals_have_entered = false;
 	}
+
+    nextSceneKey() {
+        return ANIMALS_CAVE;
+    }
 
 	preload() {
 		super.preload();

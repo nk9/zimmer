@@ -1,5 +1,5 @@
 import { SceneProgress, Layers } from './base-scene';
-import { MAIN_HALL, ANIMALS_CAVE } from '../constants/scenes';
+import { ANIMALS_CAVE } from '../constants/scenes';
 import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
 
 import Alert from '../components/alert';

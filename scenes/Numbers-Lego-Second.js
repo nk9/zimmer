@@ -5,7 +5,7 @@ import Brick, { LEGO_GRID } from '../components/brick';
 import BrickStore, { BSBrick } from '../components/brick_store';
 import Alert from '../components/alert';
 
-import { NUMBERS_LEGO_SECOND } from '../constants/scenes';
+import { NUMBERS_LEGO_SECOND, NUMBERS_LEGO_10 } from '../constants/scenes';
 import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
 
 import numbersPicJpg from '../assets/pics/numbers/lego_second/*.jpg'
@@ -18,6 +18,10 @@ export default class Numbers_Lego_Second extends Numbers_Lego {
 	constructor() {
         super(NUMBERS_LEGO_SECOND);
 	}
+
+    nextSceneKey() {
+        return NUMBERS_LEGO_10;
+    }
 
 	preload() {
 		super.preload();
@@ -120,10 +124,6 @@ export default class Numbers_Lego_Second extends Numbers_Lego {
 		super.fail();
 
 		this.scene.run(FAIL_ALERT);
-	}
-
-	startNextScene() {
-		console.log("Lego-Second: startNextScene");
 	}
 }
 

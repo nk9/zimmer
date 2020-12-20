@@ -53,7 +53,7 @@ class BaseScene extends Scene {
         this.home.setOrigin(1, 0);
         this.home.setDepth(Layers.HOME);
         this.home.setInteractive({useHandCursor: true})
-            .on('pointerup', () => this.startNextScene() );
+            .on('pointerup', () => this.startNextScene(MAIN_HALL) );
 	}
 
     update() {

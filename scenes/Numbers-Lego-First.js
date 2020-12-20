@@ -5,7 +5,7 @@ import Brick, { LEGO_GRID } from '../components/brick';
 import BrickStore, { BSBrick } from '../components/brick_store';
 import Alert from '../components/alert';
 
-import { NUMBERS_LEGO_FIRST } from '../constants/scenes';
+import { NUMBERS_LEGO_FIRST, NUMBERS_LEGO_SECOND } from '../constants/scenes';
 import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
 
 import numbersPicJpg from '../assets/pics/numbers/lego_first/*.jpg'
@@ -19,6 +19,10 @@ class Numbers_Lego_First extends Numbers_Lego {
         super(NUMBERS_LEGO_FIRST);
 	}
 
+    nextSceneKey() {
+        return NUMBERS_LEGO_SECOND;
+    }
+
 	preload() {
 		super.preload();
 
@@ -27,7 +31,6 @@ class Numbers_Lego_First extends Numbers_Lego {
 	}
 
 	create() {
-		console.log("create");
 		super.create();
 
 		this.run_time = 45; // scene timer length
@@ -121,10 +124,6 @@ class Numbers_Lego_First extends Numbers_Lego {
 		super.fail();
 
 		this.scene.run(FAIL_ALERT);
-	}
-
-	startNextScene() {
-		console.log("Lego-First: startNextScene");
 	}
 }
 

@@ -389,6 +389,23 @@ class Numbers_Lego extends BaseScene {
 
 	    this.time.delayedCall(5000, this.startNextScene, [], this);
 	}
+
+	startNextScene(key=null) {
+		if (!key) {
+			key = this.nextSceneKey();
+		}
+
+		this.portal_sound.stop();
+		// this.background_sound.stop();
+		this.willStartNextScene();
+		
+        this.scene.start(key);
+        this.scene.shutdown();
+	}
+
+	// Overridden by subclasses to clean up before the next scene
+	willStartNextScene() {
+	}
 }
 
 export default Numbers_Lego;

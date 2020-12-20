@@ -19,6 +19,10 @@ class Numbers_Lego_9 extends Numbers_Lego {
         super(NUMBERS_LEGO_9);
 	}
 
+    // nextSceneKey() {
+    //     return NUMBERS_LEGO_BOSS;
+    // }
+
 	preload() {
 		super.preload();
 
@@ -27,7 +31,6 @@ class Numbers_Lego_9 extends Numbers_Lego {
 	}
 
 	create() {
-		console.log("create");
 		super.create();
 
 		this.run_time = 45; // scene timer length

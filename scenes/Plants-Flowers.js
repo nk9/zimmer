@@ -1,5 +1,5 @@
 import { SceneProgress, Layers } from './base-scene';
-import { MAIN_HALL, PLANTS_FLOWERS } from '../constants/scenes';
+import { PLANTS_FLOWERS, PLANTS_LEAVES } from '../constants/scenes';
 import { GAME_WIDTH, GAME_HEIGHT, DRAG_THRESHOLD } from '../constants/config';
 
 import Alert from '../components/alert';
@@ -29,6 +29,10 @@ class Plants_Flowers extends Plants_Base {
 		this.plants_have_entered = false;
 		this.success_drop_targets = [];
 	}
+
+    nextSceneKey() {
+        return PLANTS_LEAVES;
+    }
 
 	preload() {
 		super.preload();

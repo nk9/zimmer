@@ -18,6 +18,10 @@ class Numbers_Lego_10 extends Numbers_Lego {
         super(NUMBERS_LEGO_10);
 	}
 
+    nextSceneKey() {
+        return NUMBERS_LEGO_9;
+    }
+
 	preload() {
 		super.preload();
 
@@ -117,10 +121,6 @@ class Numbers_Lego_10 extends Numbers_Lego {
 		super.fail();
 
 		this.scene.run(FAIL_ALERT);
-	}
-
-	nextSceneKey() {
-		return NUMBERS_LEGO_9;
 	}
 
 }
