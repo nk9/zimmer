@@ -104,7 +104,7 @@ class Numbers_Lego extends BaseScene {
 					let intersection = Phaser.Geom.Rectangle.Intersection(r, br);
 
 					if (Phaser.Geom.Rectangle.Equals(intersection, br)) {
-						// console.log(`brick ${j} (${brick.legoTotal}) is inside rect ${i}`);
+						console.log(`brick (${brick.legoTotal}) is inside rect ${i}`);
 						containedBricks.push(brick);
 					}
 				}
@@ -115,9 +115,9 @@ class Numbers_Lego extends BaseScene {
 						brick2 = containedBricks[1];
 					let intersection = Phaser.Geom.Rectangle.Intersection(brick1.getBounds(),
 																		  brick2.getBounds());
-					if (intersection.isEmpty() && brick1.legoTotal + brick2.legoTotal == 10) {
+					if (intersection.isEmpty() && (brick1.legoTotal + brick2.legoTotal) == rect.legoTotal) {
 						emit = true;
-						completedRects.push(this.rects[i]);
+						completedRects.push(rect);
 					}
 				} else if (containedBricks.length == 1 && rect.brick_count == 1) {
 					emit = true;
@@ -233,6 +233,7 @@ class Numbers_Lego extends BaseScene {
 		text.setAlpha(0);
 		rect.text = text;
 		rect.brick_count = brick_count;
+		rect.legoTotal = w*h;
 
 		this.rects.push(rect);
 
