@@ -11,6 +11,8 @@ import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
 import numbersPicJpg from '../assets/pics/numbers/lego_first/*.jpg'
 import numbersPicPng from '../assets/pics/numbers/lego_first/*.png'
 
+const INTRO1_ALERT = 'Intro1_Alert';
+const INTRO2_ALERT = 'Intro2_Alert';
 const FAIL_ALERT = 'FailAlert';
 
 
@@ -33,6 +35,8 @@ class Numbers_Lego_First extends Numbers_Lego {
 	create() {
 		super.create();
 
+		this.createGarmadon();
+
 		this.run_time = 20; // scene timer length
 	}
 
@@ -51,7 +55,69 @@ class Numbers_Lego_First extends Numbers_Lego {
 		this.background_closed = this.add.image(bg_x, center_y, 'abbey_closed');
 		this.background_closed.setOrigin(0.5, 0.5);
 		this.background_closed.scale = 1.6;
+	}
 
+	createGarmadon() {
+		// The man himself
+		this.garmadon = this.add.image(GAME_WIDTH/2, GAME_HEIGHT, 'garmadon');
+		this.garmadon.scale = .5;
+		this.garmadon.setOrigin(.5, 1);
+		this.garmadon.setTint(0xaaaaaa);
+		this.garmadon.visible = false;
+
+		this.garmadon.setInteractive({useHandCursor: true})
+			.on('pointerover', () => { this.garmadon.clearTint() })
+			.on('pointerout', () => {
+				if (this.garmadon.input.enabled) {
+					this.garmadon.setTint(0xaaaaaa);
+				}
+			})
+			.on('pointerup', pointer => { this.clickGarmadon() });
+
+		let bounds = this.garmadon.getBounds();
+	    let particle = this.add.particles('smoke')
+	    this.emitter = particle.createEmitter({
+	    	// on: false,
+	        x: bounds.x,
+	        y: bounds.y,
+	        blendMode: 'SCREEN',
+	        scale: { start: 1, end: 2 },
+	        speed: { min: -100, max: 100 },
+	        quantity: 10,
+	        emitZone: {
+		        source: new Phaser.Geom.Rectangle(0, 0, bounds.width, bounds.height),
+		        type: 'random',
+		        quantity: 20
+	        },
+	        lifespan: 300
+	    });
+		// particle.setDepth(Layers.OVER_DOOR);
+
+		this.time.delayedCall(1500, this.clearSmoke, [], this);
+	}
+
+	clearSmoke() {
+		this.emitter.stop();
+		this.garmadon.visible = true;
+	}
+
+	clickGarmadon() {
+		this.runAlert(INTRO1_ALERT);
+	}
+
+	clickIntro1Alert() {
+		this.stopAlert(INTRO1_ALERT);
+		this.runAlert(INTRO2_ALERT);
+	}
+
+	clickIntro2Alert() {
+		this.stopAlert(INTRO2_ALERT);
+
+		this.tweens.add({
+			targets: this.garmadon,
+			alpha: 0,
+			duration: 750
+		})
 	}
 
 	createBricks() {
@@ -102,6 +168,20 @@ class Numbers_Lego_First extends Numbers_Lego {
 	}
 
 	createAlerts() {
+		this.scene.add(INTRO1_ALERT, new Alert(INTRO1_ALERT), false, {
+			title: "Hahaha!",
+			content: "I will have the power of the Skull of Hazza D’ur!",
+			buttonText: "As If!",
+			buttonAction: this.clickIntro1Alert,
+			context: this
+		});
+		this.scene.add(INTRO2_ALERT, new Alert(INTRO2_ALERT), false, {
+			title: "Just try and stop me",
+			content: "You can't even find the pouch of keys OR the keyhole to get through this door!",
+			buttonText: "…keys?",
+			buttonAction: this.clickIntro2Alert,
+			context: this
+		});
 		this.scene.add(FAIL_ALERT, new Alert(FAIL_ALERT), false, {
 			title: "Whoops",
 			content: "I need to find the right pieces faster next time!",
@@ -110,7 +190,7 @@ class Numbers_Lego_First extends Numbers_Lego {
 			context: this
 		});
 
-		return [FAIL_ALERT];
+		return [FAIL_ALERT, INTRO1_ALERT, INTRO2_ALERT];
 	}
 
 	fail() {

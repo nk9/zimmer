@@ -14,6 +14,8 @@ class Numbers_Lego extends BaseScene {
         this.load.image('pouch_open', numbersPicPng.pouch_open)
         this.load.image('pouch_closed', numbersPicPng.pouch_closed_small)
         this.load.image('pouch_closed_outlined', numbersPicPng.pouch_closed_small_outlined)
+        this.load.image('garmadon', numbersPicPng.garmadon)
+        this.load.image('masterwu', numbersPicPng.masterwu)
 	}
 
 	create() {

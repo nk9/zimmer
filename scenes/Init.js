@@ -35,6 +35,8 @@ class Init extends Scene {
 
         // Particles
         this.load.image('spark', particles.blue);
+        this.load.image('fire', particles.muzzleflash3);
+        this.load.image('smoke', particles.smoke_puff);
 
         // Audio
         this.load.audio('door_opens_heavy', audioMp3.door_opens_heavy);
