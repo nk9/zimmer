@@ -130,8 +130,13 @@ class Plants_Mushrooms extends Plants_Base {
 		for (const name in this.hidden_objects_data) {
 			let od = this.hidden_objects_data[name];
 			let hidden_object = new OutlinePlantObject(this, name, od);
+			hidden_object.on('pointerup', this.clickHiddenObject.bind(this, hidden_object));
 			this.hidden_objects.push(hidden_object);
 		}
+	}
+
+	clickHiddenObject(hidden_object) {
+		console.log(`clicked ${hidden_object.name}`);
 	}
 
 	createAlerts() {
