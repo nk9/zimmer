@@ -24,10 +24,8 @@ class Plants_Flowers extends Plants_Base {
 	constructor() {
         super(PLANTS_FLOWERS);
 
-        // initialize variables
+        // initialize class variables
 		this.success_count = 3;
-		this.plants_have_entered = false;
-		this.success_drop_targets = [];
 	}
 
     nextSceneKey() {

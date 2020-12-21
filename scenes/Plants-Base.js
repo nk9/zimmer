@@ -20,13 +20,15 @@ export const SelectionMode = {
 const LIGHTBOX_ALERT = 'Lightbox_Alert';
 
 class Plants_Base extends BaseScene {
-	constructor(key) {
-		super(key);
+	// constructor(key) {
+	// 	super(key);
+	// }
 
-		this.success_plants = [];
-
-		// Subclasses need to set these
+	init() {
 		this.selectionMode = SelectionMode.NONE;
+		this.plants_have_entered = false;
+
+		this.success_drop_targets = [];
 	}
 
 	preload() {
