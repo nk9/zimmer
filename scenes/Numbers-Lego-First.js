@@ -168,29 +168,31 @@ class Numbers_Lego_First extends Numbers_Lego {
 	}
 
 	createAlerts() {
-		this.scene.add(INTRO1_ALERT, new Alert(INTRO1_ALERT), false, {
-			title: "Hahaha!",
-			content: "I will have the power of the Skull of Hazza D’ur!",
-			buttonText: "As If!",
-			buttonAction: this.clickIntro1Alert,
-			context: this
-		});
-		this.scene.add(INTRO2_ALERT, new Alert(INTRO2_ALERT), false, {
-			title: "Just try and stop me",
-			content: "You can't even find the pouch of keys OR the keyhole to get through this door!",
-			buttonText: "…keys?",
-			buttonAction: this.clickIntro2Alert,
-			context: this
-		});
-		this.scene.add(FAIL_ALERT, new Alert(FAIL_ALERT), false, {
-			title: "Whoops",
-			content: "I need to find the right pieces faster next time!",
-			buttonText: "Try Again",
-			buttonAction: this.resetAfterFail,
-			context: this
-		});
+		let scenes = [
+			this.scene.add(INTRO1_ALERT, new Alert(INTRO1_ALERT), false, {
+				title: "Hahaha!",
+				content: "I will have the power of the Skull of Hazza D’ur!",
+				buttonText: "As If!",
+				buttonAction: this.clickIntro1Alert,
+				context: this
+			}),
+			this.scene.add(INTRO2_ALERT, new Alert(INTRO2_ALERT), false, {
+				title: "Just try and stop me",
+				content: "You can't even find the pouch of keys OR the keyhole to get through this door!",
+				buttonText: "…keys?",
+				buttonAction: this.clickIntro2Alert,
+				context: this
+			}),
+			this.scene.add(FAIL_ALERT, new Alert(FAIL_ALERT), false, {
+				title: "Whoops",
+				content: "I need to find the right pieces faster next time!",
+				buttonText: "Try Again",
+				buttonAction: this.resetAfterFail,
+				context: this
+			}),
+		];
 
-		return [FAIL_ALERT, INTRO1_ALERT, INTRO2_ALERT];
+		return scenes.map(s => s.key);
 	}
 
 	fail() {

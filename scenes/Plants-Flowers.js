@@ -169,50 +169,52 @@ class Plants_Flowers extends Plants_Base {
 	}
 
 	createAlerts() {
-		this.scene.add(INTRO1_ALERT, new Alert(INTRO1_ALERT), false, {
-			title: "Not sure where you are?",
-			content: "This is Hyrule! I need to get home fast so I have time to get ready for the party! Why don't you come with me? ",
-			buttonText: "Okay!",
-			buttonAction: this.intro1AlertClicked,
-			context: this
-		});
-		this.scene.add(INTRO2_ALERT, new Alert(INTRO2_ALERT), false, {
-			title: "Uh oh!",
-			content: `That peacock is blocking the portal.`,
-			buttonText: "I'll go talk to it.",
-			buttonAction: this.intro2AlertClicked,
-			context: this
-		});
-		this.scene.add(INTRO3_ALERT, new Alert(INTRO3_ALERT), false, {
-			title: "I'm so hungry!",
-			content: `You need to go through the portal? I can't concentrate enough to open it right now. I'm too hungry!`,
-			buttonText: "What would you like to eat?",
-			buttonAction: this.intro3AlertClicked,
-			context: this
-		});
-		this.scene.add(INTRO4_ALERT, new Alert(INTRO4_ALERT), false, {
-			title: "Flowers!",
-			content: `Here's a list of my favourite types.`,
-			buttonText: "I'll bring them to you.",
-			buttonAction: this.intro4AlertClicked,
-			context: this
-		});		
-		// this.scene.add(FAIL_ALERT, new Alert(FAIL_ALERT), false, {
-		// 	title: "Time to recharge",
-		// 	content: `We think there are ${this.success_count} invertebrates out there, but we are out of juice. We will be right back!`,
-		// 	buttonText: "OK :(",
-		// 	buttonAction: this.failAlertClicked,
-		// 	context: this
-		// });
-		this.scene.add(SUCCESS_ALERT, new Alert(SUCCESS_ALERT), false, {
-			title: "Great work!",
-			content: `right flowers. Thanks for your help! Now what do you think is behind this door?`,
-			buttonText: "I Dunno",
-			buttonAction: this.successAlertClicked,
-			context: this
-		});
+		let scenes = [
+			this.scene.add(INTRO1_ALERT, new Alert(INTRO1_ALERT), false, {
+				title: "Not sure where you are?",
+				content: "This is Hyrule! I need to get home fast so I have time to get ready for the party! Why don't you come with me? ",
+				buttonText: "Okay!",
+				buttonAction: this.intro1AlertClicked,
+				context: this
+			}),
+			this.scene.add(INTRO2_ALERT, new Alert(INTRO2_ALERT), false, {
+				title: "Uh oh!",
+				content: `That peacock is blocking the portal.`,
+				buttonText: "I'll go talk to it.",
+				buttonAction: this.intro2AlertClicked,
+				context: this
+			}),
+			this.scene.add(INTRO3_ALERT, new Alert(INTRO3_ALERT), false, {
+				title: "I'm so hungry!",
+				content: `You need to go through the portal? I can't concentrate enough to open it right now. I'm too hungry!`,
+				buttonText: "What would you like to eat?",
+				buttonAction: this.intro3AlertClicked,
+				context: this
+			}),
+			this.scene.add(INTRO4_ALERT, new Alert(INTRO4_ALERT), false, {
+				title: "Flowers!",
+				content: `Here's a list of my favourite types.`,
+				buttonText: "I'll bring them to you.",
+				buttonAction: this.intro4AlertClicked,
+				context: this
+			}),
+			// this.scene.add(FAIL_ALERT, new Alert(FAIL_ALERT), false, {
+			// 	title: "Time to recharge",
+			// 	content: `We think there are ${this.success_count} invertebrates out there, but we are out of juice. We will be right back!`,
+			// 	buttonText: "OK :(",
+			// 	buttonAction: this.failAlertClicked,
+			// 	context: this
+			// }),
+			this.scene.add(SUCCESS_ALERT, new Alert(SUCCESS_ALERT), false, {
+				title: "Great work!",
+				content: `right flowers. Thanks for your help! Now what do you think is behind this door?`,
+				buttonText: "I Dunno",
+				buttonAction: this.successAlertClicked,
+				context: this
+			}),
+		];
 
-		return [INTRO1_ALERT, INTRO2_ALERT, INTRO3_ALERT, INTRO4_ALERT, SUCCESS_ALERT];
+		return scenes.map(s => s.key);
 	}
 
 	createTools() {

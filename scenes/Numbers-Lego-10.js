@@ -106,15 +106,16 @@ class Numbers_Lego_10 extends Numbers_Lego {
 	}
 
 	createAlerts() {
-		this.scene.add(FAIL_ALERT, new Alert(FAIL_ALERT), false, {
-			title: "Whoops",
-			content: "I need to find the right pieces faster next time!",
-			buttonText: "Try Again",
-			buttonAction: this.resetAfterFail,
-			context: this
-		});
-
-		return [FAIL_ALERT];
+		let scenes = [
+			this.scene.add(FAIL_ALERT, new Alert(FAIL_ALERT), false, {
+				title: "Whoops",
+				content: "I need to find the right pieces faster next time!",
+				buttonText: "Try Again",
+				buttonAction: this.resetAfterFail,
+				context: this
+			}),
+		];
+		return scenes.map(s => s.key);
 	}
 
 	fail() {

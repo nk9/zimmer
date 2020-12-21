@@ -153,44 +153,46 @@ class Plants_Mushrooms extends Plants_Base {
 	}
 
 	createAlerts() {
-		this.scene.add(INTRO1_ALERT, new Alert(INTRO1_ALERT), false, {
-			title: "Thanks for helping!",
-			content: "Time to get ready for the party. You're coming right?",
-			buttonText: "You bet",
-			buttonAction: this.intro1AlertClicked,
-			context: this
-		});
-		this.scene.add(INTRO2_ALERT, new Alert(INTRO2_ALERT), false, {
-			title: "Great!",
-			content: `Before we go I need to finish up the stew! If you could lend a hand we'll be done in no time!`,
-			buttonText: "Okay",
-			buttonAction: this.intro2AlertClicked,
-			context: this
-		});
-		this.scene.add(INTRO3_ALERT, new Alert(INTRO3_ALERT), false, {
-			title: "",
-			content: `I left my mushroon guide around here somewhere. Could you find it and then put three edible mushrooms in the pot?`,
-			buttonText: "Okay",
-			buttonAction: this.intro3AlertClicked,
-			context: this
-		});
-		this.scene.add(INTRO4_ALERT, new Alert(INTRO4_ALERT), false, {
-			title: "Mushrooms are tricky.",
-			content: `Once you've added three mushrooms use some of my poison checking potion on the pot. 
-			We don't want want to get everyone sick!`,
-			buttonText: "On it!",
-			buttonAction: this.intro4AlertClicked,
-			context: this
-		});
-		// this.scene.add(FAIL_ALERT, new Alert(FAIL_ALERT), false, {
-		// 	title: "Time to recharge",
-		// 	content: `We think there are ${this.success_count} invertebrates out there, but we are out of juice. We will be right back!`,
-		// 	buttonText: "OK :(",
-		// 	buttonAction: this.failAlertClicked,
-		// 	context: this
-		// });
+		let scenes = [
+			this.scene.add(INTRO1_ALERT, new Alert(INTRO1_ALERT), false, {
+				title: "Thanks for helping!",
+				content: "Time to get ready for the party. You're coming right?",
+				buttonText: "You bet",
+				buttonAction: this.intro1AlertClicked,
+				context: this
+			}),
+			this.scene.add(INTRO2_ALERT, new Alert(INTRO2_ALERT), false, {
+				title: "Great!",
+				content: `Before we go I need to finish up the stew! If you could lend a hand we'll be done in no time!`,
+				buttonText: "Okay",
+				buttonAction: this.intro2AlertClicked,
+				context: this
+			}),
+			this.scene.add(INTRO3_ALERT, new Alert(INTRO3_ALERT), false, {
+				title: "",
+				content: `I left my mushroon guide around here somewhere. Could you find it and then put three edible mushrooms in the pot?`,
+				buttonText: "Okay",
+				buttonAction: this.intro3AlertClicked,
+				context: this
+			}),
+			this.scene.add(INTRO4_ALERT, new Alert(INTRO4_ALERT), false, {
+				title: "Mushrooms are tricky.",
+				content: `Once you've added three mushrooms use some of my poison checking potion on the pot. 
+				We don't want want to get everyone sick!`,
+				buttonText: "On it!",
+				buttonAction: this.intro4AlertClicked,
+				context: this
+			}),
+			// this.scene.add(FAIL_ALERT, new Alert(FAIL_ALERT), false, {
+			// 	title: "Time to recharge",
+			// 	content: `We think there are ${this.success_count} invertebrates out there, but we are out of juice. We will be right back!`,
+			// 	buttonText: "OK :(",
+			// 	buttonAction: this.failAlertClicked,
+			// 	context: this
+			// }),
+		];
 
-		return [INTRO1_ALERT, INTRO2_ALERT, INTRO3_ALERT, INTRO4_ALERT];
+		return scenes.map(s => s.key);
 	}
 
 	createTools() {

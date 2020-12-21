@@ -118,36 +118,38 @@ class Animals_Ocean extends Animals_Base {
 	}
 
 	createAlerts() {
-		this.scene.add(INTRO1_ALERT, new Alert(INTRO1_ALERT), false, {
-			title: "Hi Sea Explorer!",
-			content: "You are looking for a door? Koki and I are looking for invertebrates. Those are animals with no skeletons. Can you help us find them? While you are looking, we will check our map for your door.",
-			buttonText: "Sure!",
-			buttonAction: this.intro1AlertClicked,
-			context: this
-		});
-		this.scene.add(INTRO2_ALERT, new Alert(INTRO2_ALERT), false, {
-			title: "Thank You!",
-			content: `Use the X-ray gun to have a look at the animals first. Then drag all the invertebrates over to the scanner. But be careful! The scanner only has charge for ${this.scan_limit} scans.`,
-			buttonText: "Got it",
-			buttonAction: this.intro2AlertClicked,
-			context: this
-		});
-		this.scene.add(FAIL_ALERT, new Alert(FAIL_ALERT), false, {
-			title: "Time to recharge",
-			content: `We think there are ${this.success_count} invertebrates out there, but we are out of juice. We will be right back!`,
-			buttonText: "OK :(",
-			buttonAction: this.failAlertClicked,
-			context: this
-		});
-		this.scene.add(SUCCESS_ALERT, new Alert(SUCCESS_ALERT), false, {
-			title: "Great work!",
-			content: `You found all ${this.success_count} of the invertebrates. We found the door you were looking for. Thanks for your help!`,
-			buttonText: "Thank you",
-			buttonAction: this.successAlertClicked,
-			context: this
-		});
+		let scenes = [
+			this.scene.add(INTRO1_ALERT, new Alert(INTRO1_ALERT), false, {
+				title: "Hi Sea Explorer!",
+				content: "You are looking for a door? Koki and I are looking for invertebrates. Those are animals with no skeletons. Can you help us find them? While you are looking, we will check our map for your door.",
+				buttonText: "Sure!",
+				buttonAction: this.intro1AlertClicked,
+				context: this
+			}),
+			this.scene.add(INTRO2_ALERT, new Alert(INTRO2_ALERT), false, {
+				title: "Thank You!",
+				content: `Use the X-ray gun to have a look at the animals first. Then drag all the invertebrates over to the scanner. But be careful! The scanner only has charge for ${this.scan_limit} scans.`,
+				buttonText: "Got it",
+				buttonAction: this.intro2AlertClicked,
+				context: this
+			}),
+			this.scene.add(FAIL_ALERT, new Alert(FAIL_ALERT), false, {
+				title: "Time to recharge",
+				content: `We think there are ${this.success_count} invertebrates out there, but we are out of juice. We will be right back!`,
+				buttonText: "OK :(",
+				buttonAction: this.failAlertClicked,
+				context: this
+			}),
+			this.scene.add(SUCCESS_ALERT, new Alert(SUCCESS_ALERT), false, {
+				title: "Great work!",
+				content: `You found all ${this.success_count} of the invertebrates. We found the door you were looking for. Thanks for your help!`,
+				buttonText: "Thank you",
+				buttonAction: this.successAlertClicked,
+				context: this
+			}),
+		];
 
-		return [INTRO1_ALERT, INTRO2_ALERT, FAIL_ALERT, SUCCESS_ALERT];
+		return scenes.map(s => s.key);
 	}
 
 	intro1AlertClicked() {

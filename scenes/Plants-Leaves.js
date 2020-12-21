@@ -173,29 +173,31 @@ class Plants_Leaves extends Plants_Base {
 	}
 
 	createAlerts() {
-		this.scene.add(INTRO1_ALERT, new Alert(INTRO1_ALERT), false, {
-			title: "Welcome to Hyrule!",
-			content: "I lost the key to my door! Do you think you could help me get it back?",
-			buttonText: "You bet",
-			buttonAction: this.intro1AlertClicked,
-			context: this
-		});
-		this.scene.add(INTRO2_ALERT, new Alert(INTRO2_ALERT), false, {
-			title: "Thanks!",
-			content: `Some of these plants have the right leaves to make a new key.`,
-			buttonText: "Roger",
-			buttonAction: this.intro2AlertClicked,
-			context: this
-		});
-		this.scene.add(SUCCESS_ALERT, new Alert(SUCCESS_ALERT), false, {
-			title: "Great work!",
-			content: `You found all of the right leaves. Thanks for your help! Now what do you think is behind this door?`,
-			buttonText: "I Dunno",
-			buttonAction: this.successAlertClicked,
-			context: this
-		});
+		let scenes = [
+			this.scene.add(INTRO1_ALERT, new Alert(INTRO1_ALERT), false, {
+				title: "Welcome to Hyrule!",
+				content: "I lost the key to my door! Do you think you could help me get it back?",
+				buttonText: "You bet",
+				buttonAction: this.intro1AlertClicked,
+				context: this
+			}),
+			this.scene.add(INTRO2_ALERT, new Alert(INTRO2_ALERT), false, {
+				title: "Thanks!",
+				content: `Some of these plants have the right leaves to make a new key.`,
+				buttonText: "Roger",
+				buttonAction: this.intro2AlertClicked,
+				context: this
+			}),
+			this.scene.add(SUCCESS_ALERT, new Alert(SUCCESS_ALERT), false, {
+				title: "Great work!",
+				content: `You found all of the right leaves. Thanks for your help! Now what do you think is behind this door?`,
+				buttonText: "I Dunno",
+				buttonAction: this.successAlertClicked,
+				context: this
+			}),
+		];
 
-		return [INTRO1_ALERT, INTRO2_ALERT, SUCCESS_ALERT];
+		return scenes.map(s => s.key);
 	}
 
 	createTools() {
