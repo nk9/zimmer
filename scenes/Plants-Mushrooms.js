@@ -137,6 +137,19 @@ class Plants_Mushrooms extends Plants_Base {
 
 	clickHiddenObject(hidden_object) {
 		console.log(`clicked ${hidden_object.name}`);
+		
+		switch(hidden_object.name) {
+			case 'pot':
+				// do stuff
+				break;
+			case 'book':
+				// do stuff
+				break;
+			case 'jug':
+				// do stuff
+				break;
+			default:
+		}
 	}
 
 	createAlerts() {
