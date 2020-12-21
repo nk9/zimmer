@@ -20,9 +20,8 @@ class Animals_Ocean extends Animals_Base {
 	constructor() {
         super(ANIMALS_OCEAN);
 
-        // initialize variables
+        // initialize class variables
 		this.scan_limit = 5;
-		this.animals_have_entered = false;
 	}
 
     nextSceneKey() {

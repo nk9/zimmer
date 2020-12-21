@@ -18,11 +18,15 @@ class Animals_Base extends BaseScene {
 	constructor(key) {
 		super(key);
 
-		this.success_animals = [];
-
 		// Subclasses need to set these
 		this.scan_limit;
+	}
+
+	init() {
 		this.selectionMode = SelectionMode.NONE;
+		this.animals_have_entered = false;
+
+		this.success_animals = [];
 	}
 
 	preload() {

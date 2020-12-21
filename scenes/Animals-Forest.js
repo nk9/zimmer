@@ -22,7 +22,6 @@ class Animals_Forest extends Animals_Base {
 
         // initialize variables
 		this.scan_limit = 5;
-		this.animals_have_entered = false;
 	}
 
     nextSceneKey() {
