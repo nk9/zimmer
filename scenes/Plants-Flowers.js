@@ -214,7 +214,7 @@ class Plants_Flowers extends Plants_Base {
 			}),
 		];
 
-		return scenes.map(s => s.key);
+		return scenes.map(s => s.sys.config);
 	}
 
 	createTools() {

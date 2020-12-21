@@ -46,8 +46,8 @@ class BaseScene extends Scene {
         this.events.once('shutdown', () => {
             for (const key of this.alert_keys) {
                 this.scene.remove(key);
-                this.input.setDefaultCursor('default');
             }
+            this.input.setDefaultCursor('default');
         });
 
         this.home = this.add.image(GAME_WIDTH-10, 10, 'door');

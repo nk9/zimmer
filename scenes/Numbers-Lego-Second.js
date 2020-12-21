@@ -113,7 +113,7 @@ export default class Numbers_Lego_Second extends Numbers_Lego {
 			}),
 		];
 
-		return scenes.map(s => s.key);
+		return scenes.map(s => s.sys.config);
 	}
 
 	fail() {

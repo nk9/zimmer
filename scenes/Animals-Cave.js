@@ -122,7 +122,7 @@ class Animals_Cave extends Animals_Base {
 			}),
 		];
 
-		return scenes.map(s => s.key);
+		return scenes.map(s => s.sys.config);
 	}
 
 	intro1AlertClicked() {

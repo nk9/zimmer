@@ -197,7 +197,7 @@ class Plants_Leaves extends Plants_Base {
 			}),
 		];
 
-		return scenes.map(s => s.key);
+		return scenes.map(s => s.sys.config);
 	}
 
 	createTools() {

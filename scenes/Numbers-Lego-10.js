@@ -115,7 +115,7 @@ class Numbers_Lego_10 extends Numbers_Lego {
 				context: this
 			}),
 		];
-		return scenes.map(s => s.key);
+		return scenes.map(s => s.sys.config);
 	}
 
 	fail() {

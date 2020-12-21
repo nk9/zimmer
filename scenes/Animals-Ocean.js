@@ -149,7 +149,7 @@ class Animals_Ocean extends Animals_Base {
 			}),
 		];
 
-		return scenes.map(s => s.key);
+		return scenes.map(s => s.sys.config);
 	}
 
 	intro1AlertClicked() {
