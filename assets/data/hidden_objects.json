@@ -1,0 +1,19 @@
+{
+  "Plants-Mushrooms": {
+    "jug": {
+      "scale": 1,
+      "x": 370,
+      "y": 580
+    },
+    "book": {
+      "scale": 1,
+      "x": 1015,
+      "y": 172
+    },
+    "pillow": {
+      "scale": 1,
+      "x": 187,
+      "y": 447
+    }
+  }
+}

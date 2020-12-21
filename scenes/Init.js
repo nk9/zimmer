@@ -48,6 +48,7 @@ class Init extends Scene {
         // JSON data
         this.load.json('animals_data', dataJson.animals);
         this.load.json('plants_data', dataJson.plants);
+        this.load.json('hidden_objects_data', dataJson.hidden_objects);
 
         this.load.on('progress', this.onLoadProgress, this);
         this.load.on('complete', this.onLoadComplete, this);

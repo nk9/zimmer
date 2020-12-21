@@ -4,6 +4,7 @@ import { GAME_WIDTH, GAME_HEIGHT, DRAG_THRESHOLD } from '../constants/config';
 
 import Alert from '../components/alert';
 import OutlinePlantLeaf from '../components/outline_plant_leaf';
+import OutlinePlantObject from '../components/outline_plant_object';
 
 import plantPicJpg from '../assets/pics/plants/mushrooms/*.jpg'
 import plantPicPng from '../assets/pics/plants/mushrooms/*.png'
@@ -37,8 +38,7 @@ class Plants_Mushrooms extends Plants_Base {
 		this.load.image('kitchen', plantPicPng.kitchen);
 
 		// Pot
-		this.load.image('pot', plantPicPng.harp_lock);
-		this.load.image('pot_outline', plantPicPng.harp_lock_outline);
+		this.loadOutlineImage('pot');
         
         // Plants
 		for (const key in this.plants_data) {
@@ -54,6 +54,12 @@ class Plants_Mushrooms extends Plants_Base {
         // Audio
         this.load.audio('woosh', audioMp3.woosh);
         this.load.audio('kitchen', audioMp3.kitchen);
+
+		this.hidden_objects_data = this.cache.json.get('hidden_objects_data')[this.key];
+		
+		for (const key in this.hidden_objects_data) {
+	        this.loadOutlineImage(key);
+	    }
 	}
 
 	loadOutlineImage(name) {
@@ -110,37 +116,6 @@ class Plants_Mushrooms extends Plants_Base {
 		});
 
 	    var timeline = this.tweens.timeline({ tweens: tweens });
-
-	    this.createHarpLock();
-	}
-
-	createHarpLock() {
-		this.harp_lock_container = this.add.container(360, 350);
-		this.harp_lock = this.add.image(0, 0, 'harp_lock');
-		this.harp_lock_outline = this.add.image(0, 0, 'harp_lock_outline');
-		this.harp_lock_container.add(this.harp_lock);
-		this.harp_lock_container.add(this.harp_lock_outline);
-
-		let bounds = this.harp_lock.getBounds();
-		this.harp_lock_container.setSize(bounds.width, bounds.height);
-
-		this.harp_lock_outline.visible = false;
-
-	    this.harp_lock_container.scale = .7;
-
-	    this.harp_lock_container.setInteractive({useHandCursor: true})
-	    	.on('pointerover', () => {
-	    		this.harp_lock_outline.visible = true;
-	    	})
-	    	.on('pointerout', () => {
-	    		this.harp_lock_outline.visible = false;
-	    	})
-			.on('pointerup', pointer => {
-				if (pointer.getDistance() < DRAG_THRESHOLD) {
-					this.harp_lock_container.visible = false;
-					this.clickHarpLock();
-				}
-			});
 	}
 
 	clickLink() {
@@ -149,20 +124,14 @@ class Plants_Mushrooms extends Plants_Base {
 		this.runAlert(INTRO1_ALERT);
 	}
 
-	clickHarpLock() {
-		this.sound.play('potbubble');
+	createHiddenObjects() {
+		this.hidden_objects = [];
 
-		this.harp_lock_container.visible = false;
-		this.leaf_lock_container.visible = true;
-
-		this.tweens.add({
-			targets: this.leaf_lock_container,
-			x: 950,
-			y: 200,
-			alpha: 1,
-			scale: 1,
-			duration: 1000
-		});
+		for (const name in this.hidden_objects_data) {
+			let od = this.hidden_objects_data[name];
+			let hidden_object = new OutlinePlantObject(this, name, od);
+			this.hidden_objects.push(hidden_object);
+		}
 	}
 
 	createAlerts() {
@@ -209,62 +178,6 @@ class Plants_Mushrooms extends Plants_Base {
 	createTools() {
 		super.createTools();
 
-		// Create the triangle
-		let bounds = this.harp_lock_container.getBounds();
-		this.leaf_lock_container = this.add.container(bounds.x, bounds.y);
-
-		let segments = ['leaf_lock', 'leaf_lock_top', 'leaf_lock_bottom_left', 'leaf_lock_bottom_right'];
-
-		for (const segment of segments) {
-			this[segment] = this.add.image(0, 0, segment);
-			this[segment].visible = false;
-			this[segment].setDepth = Layers.OVER_POUCH;
-			this.leaf_lock_container.add(this[segment]);
-		}
-
-		let top_triangle = new Phaser.Geom.Triangle.BuildEquilateral(150, 0, 145);
-		var top_zone = this.add.zone(0, 0, 300, 125);
-		top_zone.setOrigin(.5, 1);
-		top_zone.setInteractive({
-			hitArea: top_triangle,
-			hitAreaCallback: Phaser.Geom.Triangle.Contains,
-			dropZone: true,
-			useHandCursor: true});
-		top_zone.name = 'spikey';
-		top_zone.lock_image = this.leaf_lock_top;
-		top_zone.particle = this.createTriangleEmitter(top_triangle, top_zone);
-		this.leaf_lock_container.add([top_zone, top_zone.particle]);
-
-		let bottom_left_triangle = new Phaser.Geom.Triangle.BuildEquilateral(top_triangle.x3+5, 0, 135);
-		var bottom_left_zone = this.add.zone(0, 0, 150, 125);
-		bottom_left_zone.setOrigin(1, 0);
-		bottom_left_zone.setInteractive({
-			hitArea: bottom_left_triangle,
-			hitAreaCallback: Phaser.Geom.Triangle.Contains,
-			dropZone: true,
-			useHandCursor: true});
-		bottom_left_zone.name = 'round';
-		bottom_left_zone.lock_image = this.leaf_lock_bottom_left;
-		bottom_left_zone.particle = this.createTriangleEmitter(bottom_left_triangle, bottom_left_zone);
-		this.leaf_lock_container.add([bottom_left_zone, bottom_left_zone.particle]);
-
-		let bottom_right_triangle = new Phaser.Geom.Triangle.BuildEquilateral(top_triangle.x3-10, 0, 135);
-		var bottom_right_zone = this.add.zone(0, 0, 150, 125);
-		bottom_right_zone.setOrigin(0, 0);
-		bottom_right_zone.setInteractive({
-			hitArea: bottom_right_triangle,
-			hitAreaCallback: Phaser.Geom.Triangle.Contains,
-			dropZone: true,
-			useHandCursor: true});
-		bottom_right_zone.name = 'heart';
-		bottom_right_zone.lock_image = this.leaf_lock_bottom_right;
-		bottom_right_zone.particle = this.createTriangleEmitter(bottom_right_triangle, bottom_right_zone);
-		this.leaf_lock_container.add([bottom_right_zone, bottom_right_zone.particle]);
-
-		this.leaf_lock.visible = true;
-		this.leaf_lock_container.visible = false;
-		this.leaf_lock_container.alpha = 0;
-		this.leaf_lock_container.scale = .3;
 	}
 
 	createTriangleEmitter(triangle, zone) {

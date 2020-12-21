@@ -50,6 +50,7 @@ class Plants_Base extends BaseScene {
 		this.createBackground();
 		this.swirl.visible = false;
 
+		this.createHiddenObjects();
 		this.createCallToAction();
 		this.createTools();
 		this.createPlants();
@@ -81,6 +82,10 @@ class Plants_Base extends BaseScene {
 				this.plants.push(plant);
 			}
 		}
+	}
+
+	createHiddenObjects() {
+		// Overridden by subclasses
 	}
 
 	pointerDownPlant(plant) {
