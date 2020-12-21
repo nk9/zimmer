@@ -15,6 +15,9 @@ import Plants_Base, { SelectionMode } from './Plants-Base';
 
 let INTRO1_ALERT = 'Intro1_Alert';
 let INTRO2_ALERT = 'Intro2_Alert';
+let INTRO3_ALERT = 'Intro3_Alert';
+let INTRO4_ALERT = 'Intro4_Alert';
+
 let FAIL_ALERT   = 'Fail_Alert';
 let SUCCESS_ALERT = 'Success_Alert';
 
@@ -35,9 +38,9 @@ class Plants_Mushrooms extends Plants_Base {
 		this.load.image('kitchen', plantPicJpg.kitchen);
 		this.load.image('kitchen', plantPicPng.kitchen);
 
-		// Lock
-		this.load.image('harp_lock', plantPicPng.harp_lock);
-		this.load.image('harp_lock_outline', plantPicPng.harp_lock_outline);
+		// Pot
+		this.load.image('pot', plantPicPng.harp_lock);
+		this.load.image('pot_outline', plantPicPng.harp_lock_outline);
         
         // Plants
 		for (const key in this.plants_data) {
@@ -50,15 +53,9 @@ class Plants_Mushrooms extends Plants_Base {
 			// }
 	    }
 
-	    // Triquetra
-	    this.load.image('leaf_lock', plantPicPng.leaf_lock);
-	    this.load.image('leaf_lock_bottom_left', plantPicPng.leaf_lock_bottom_left);
-	    this.load.image('leaf_lock_bottom_right', plantPicPng.leaf_lock_bottom_right);
-	    this.load.image('leaf_lock_top', plantPicPng.leaf_lock_top);
-
         // Audio
         this.load.audio('woosh', audioMp3.woosh);
-        this.load.audio('twinkle', audioMp3.twinkle);
+        this.load.audio('kitchen', audioMp3.kitchen);
 	}
 
 	loadOutlineImage(name) {
@@ -90,7 +87,7 @@ class Plants_Mushrooms extends Plants_Base {
 	createCallToAction() {
 		this.sound.play('woosh', {volume: .3});
 
-		this.link = this.add.sprite(0, GAME_HEIGHT+256, 'link', 'wave');
+		this.link = this.add.sprite(0, GAME_HEIGHT+256, 'link', 'thumbsup');
 		this.link.setOrigin(0, 1);
 		this.link.setTint(0xaaaaaa);
 
@@ -155,7 +152,7 @@ class Plants_Mushrooms extends Plants_Base {
 	}
 
 	clickHarpLock() {
-		this.sound.play('twinkle');
+		this.sound.play('potbubble');
 
 		this.harp_lock_container.visible = false;
 		this.leaf_lock_container.visible = true;
@@ -172,17 +169,32 @@ class Plants_Mushrooms extends Plants_Base {
 
 	createAlerts() {
 		this.scene.add(INTRO1_ALERT, new Alert(INTRO1_ALERT), false, {
-			title: "Welcome to Hyrule!",
-			content: "I lost the key to my door! Do you think you could help me get it back?",
+			title: "Thanks for helping!",
+			content: "Time to get ready for the party. You're coming right?",
 			buttonText: "You bet",
 			buttonAction: this.intro1AlertClicked,
 			context: this
 		});
 		this.scene.add(INTRO2_ALERT, new Alert(INTRO2_ALERT), false, {
-			title: "Thanks!",
-			content: `Some of these plants have the right mushrooms to make a new key.`,
-			buttonText: "Roger",
+			title: "Great!",
+			content: `Before we go I need to finish up the stew! If you could lend a hand we'll be done in no time!`,
+			buttonText: "Okay",
 			buttonAction: this.intro2AlertClicked,
+			context: this
+		});
+		this.scene.add(INTRO3_ALERT, new Alert(INTRO3_ALERT), false, {
+			title: "",
+			content: `I left my mushroon guide around here somewhere. Could you find it and then put three edible mushrooms in the pot?`,
+			buttonText: "Okay",
+			buttonAction: this.intro3AlertClicked,
+			context: this
+		});
+		this.scene.add(INTRO4_ALERT, new Alert(INTRO4_ALERT), false, {
+			title: "Mushrooms are tricky.",
+			content: `Once you've added three mushrooms use some of my poison checking potion on the pot. 
+			We don't want want to get everyone sick!`,
+			buttonText: "On it!",
+			buttonAction: this.intro4AlertClicked,
 			context: this
 		});
 		// this.scene.add(FAIL_ALERT, new Alert(FAIL_ALERT), false, {
@@ -193,7 +205,7 @@ class Plants_Mushrooms extends Plants_Base {
 		// 	context: this
 		// });
 
-		return [INTRO1_ALERT, INTRO2_ALERT];
+		return [INTRO1_ALERT, INTRO2_ALERT, INTRO3_ALERT, INTRO4_ALERT];
 	}
 
 	createTools() {
@@ -287,8 +299,18 @@ class Plants_Mushrooms extends Plants_Base {
 	}
 
 	intro2AlertClicked() {
-		this.link.setFrame('happy');
+		this.link.setFrame('explain');
 		this.stopAlert(INTRO2_ALERT);
+	}
+
+	intro3AlertClicked() {
+		this.link.setFrame('explain');
+		this.stopAlert(INTRO3_ALERT);
+	}
+
+	intro4AlertClicked() {
+		this.link.setFrame('explain');
+		this.stopAlert(INTRO4_ALERT);
 
 		if (!this.plants_have_entered) {
 			var tweens = [];
