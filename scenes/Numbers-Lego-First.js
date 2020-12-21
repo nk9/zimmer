@@ -75,17 +75,14 @@ class Numbers_Lego_First extends Numbers_Lego {
 			.on('pointerup', pointer => { this.clickGarmadon() });
 
 		let bounds = this.garmadon.getBounds();
-	    let particle = this.add.particles('smoke')
+	    let particle = this.add.particles('smoke_purple');
 	    this.emitter = particle.createEmitter({
-	    	// on: false,
-	        x: bounds.x,
-	        y: bounds.y,
 	        blendMode: 'SCREEN',
 	        scale: { start: 1, end: 2 },
 	        speed: { min: -100, max: 100 },
 	        quantity: 10,
 	        emitZone: {
-		        source: new Phaser.Geom.Rectangle(0, 0, bounds.width, bounds.height),
+		        source: new Phaser.Geom.Triangle(bounds.left, bounds.top, bounds.right, bounds.top, bounds.centerX, bounds.bottom),
 		        type: 'random',
 		        quantity: 20
 	        },

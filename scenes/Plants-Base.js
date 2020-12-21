@@ -39,6 +39,8 @@ class Plants_Base extends BaseScene {
 		this.load.audio('twinkle', audioMp3.twinkle);
 
 		this.plants_data = this.cache.json.get('plants_data')[this.key];
+		this.hidden_objects_data = this.cache.json.get('hidden_objects_data')[this.key];
+		
 	}
 
 	create() {
