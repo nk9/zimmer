@@ -314,8 +314,8 @@ class Plants_Mushrooms extends Plants_Base {
 		this.link.setFrame('explain');
 		this.stopAlert(INTRO4_ALERT);
 
-		if (!this.plants_have_entered) {
-			var tweens = [];
+		// if (!this.plants_have_entered) {
+		// 	var tweens = [];
 
 			// // Animate in plants
 			// for (const animal of this.plants) {
@@ -328,13 +328,13 @@ class Plants_Mushrooms extends Plants_Base {
 			// 	})
 			// }
 
-	    	this.tweens.timeline({ tweens: tweens });
+	  //   	this.tweens.timeline({ tweens: tweens });
 
 			// Animate in tools
 			this.revealTools();
 
-			this.plants_have_entered = true;
-		}
+		// 	this.plants_have_entered = true;
+		// }
 	}
 
 	willBeginSuccessTransition() {
