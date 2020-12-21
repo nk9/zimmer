@@ -16,6 +16,8 @@ const FAIL_ALERT = 'FailAlert';
 class Numbers_Lego_10 extends Numbers_Lego {
 	constructor() {
         super(NUMBERS_LEGO_10);
+
+		this.run_time = 30; // scene timer length
 	}
 
     nextSceneKey() {
@@ -31,8 +33,6 @@ class Numbers_Lego_10 extends Numbers_Lego {
 
 	create() {
 		super.create();
-
-		this.run_time = 30; // scene timer length
 	}
 
 	createBackgroundImages() {
