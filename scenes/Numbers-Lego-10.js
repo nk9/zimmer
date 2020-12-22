@@ -118,10 +118,10 @@ class Numbers_Lego_10 extends Numbers_Lego {
 		let brick_store = new BrickStore(this, 29, 6);
 
 		brick_store.addRow(BSBrick.B1x2, BSBrick.B1x3, BSBrick.B1x2);
-		brick_store.addRow(BSBrick.B2x4);
-		brick_store.addRow(BSBrick.B2x2, BSBrick.B2x3, BSBrick.B2x2);
-		brick_store.addRow(BSBrick.B1x3, BSBrick.B1x5);
-		brick_store.addRow(BSBrick.B1x2);
+		brick_store.addRow(BSBrick.B2x4, BSBrick.B1x4);
+		brick_store.addRow(BSBrick.B2x2, BSBrick.B2x3, BSBrick.B1x2);
+		brick_store.addRow(BSBrick.B1x1, BSBrick.B1x1, BSBrick.B1x5);
+		brick_store.addRow(BSBrick.B1x2, BSBrick.B2x2, BSBrick.B1x3);
 		brick_store.addRow(BSBrick.B1x3, BSBrick.B1x5);
 
 		return brick_store;
