@@ -22,8 +22,8 @@ let INTRO4_ALERT = 'Intro4_Alert';
 let FAIL_ALERT   = 'Fail_Alert';
 let SUCCESS_ALERT = 'Success_Alert';
 
-var groupBy = require('lodash.groupBy');
-var sampleSize = require('lodash.sampleSize');
+var groupBy = require('lodash.groupby');
+var sampleSize = require('lodash.samplesize');
 
 class Plants_Mushrooms extends Plants_Base {
 	constructor() {
