@@ -88,7 +88,7 @@
     },
     "spider1": {
       "scale": 1,
-      "targetX": 870,
+      "targetX": 990,
       "targetY": 420,
       "success": true,
       "fact": "This spider likes to live in the dark. More animals get stuck in the web because they can’t see it."
@@ -99,6 +99,13 @@
       "targetY": 400,
       "success": true,
       "fact": "A whip scorpion! Don’t worry, they aren’t venomous. But when they get scared they can spray stuff that smells like vinegar."
+    },
+      "cricket": {
+      "scale": 1,
+      "targetX": 770,
+      "targetY": 370,
+      "success": true,
+      "fact": "Cave crickets have super long antennae to help feel around them in the dark."
     },
     "mushroom": {
       "scale": 1,

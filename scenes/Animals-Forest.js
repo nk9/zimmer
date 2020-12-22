@@ -155,7 +155,7 @@ class Animals_Forest extends Animals_Base {
 			}),
 		];
 
-		return scene.map(s => s.key);
+		return scenes.map(s => s.key);
 	}
 
 	intro1AlertClicked() {
