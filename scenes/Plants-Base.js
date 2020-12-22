@@ -14,7 +14,8 @@ var random = require('lodash.random');
 export const SelectionMode = {
 	NONE:    "none", 
 	MAGNIFY: "magnify",
-	PICK: 	 "pick"
+	PICK: 	 "pick",
+	VIAL:	 "vial", 
 }
 
 const LIGHTBOX_ALERT = 'Lightbox_Alert';
