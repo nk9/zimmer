@@ -13,7 +13,10 @@ import Animals_Base, { SelectionMode } from './Animals-Base';
 
 let INTRO1_ALERT = 'Intro1_Alert';
 let INTRO2_ALERT = 'Intro2_Alert';
+let INTRO3_ALERT = 'Intro3_Alert';
+let INTRO4_ALERT = 'Intro4_Alert';
 let SUCCESS_ALERT = 'Success_Alert';
+let FAIL_ALERT = 'Fail_Alert';
 
 class Animals_Cave extends Animals_Base {
 	constructor() {
@@ -40,6 +43,7 @@ class Animals_Cave extends Animals_Base {
 
 		// Audio
 		this.load.audio('cave', audioMp3.cave);
+		this.load.audio('steps_cave', audioMp3.steps_cave);
 	}
 
 	loadOutlineImage(name) {
@@ -71,26 +75,38 @@ class Animals_Cave extends Animals_Base {
 		this.background_sound = this.sound.add('cave', {volume: .4, loop: true});
 	}
 
-	createCallToAction() {
-// 		this.submarine = new OutlineImage(this, 'amphisub', 150, 150, 125, -136, 1);
-// 		this.submarine
-// 			.on('pointerup', pointer => {
-// 				this.clickCallToAction();
-// 			});
-// 		this.submarine.input.cursor = 'pointer';
-// 
-// 		var tweens = [];
-// 
-// 		tweens.push({
-// 			targets: this.submarine,
-// 			x: this.submarine.targetX,
-// 			y: this.submarine.targetY,
-// 			ease: 'Sine.easeOut',
-// 			duration: 2500,
-// 			delay: 500
-// 		});
-// 
-// 	    var timeline = this.tweens.timeline({ tweens: tweens });
+createCallToAction() {
+		this.sound.play('steps_cave');
+
+		this.kratts = this.add.sprite(0-300, GAME_HEIGHT, 'kratts', 'scared');
+		this.kratts.setOrigin(1, 1);
+		this.kratts.setTint(0xaaaaaa);
+		// this.kratts.scale = .5;
+
+		this.kratts.setInteractive({useHandCursor: true})
+			.on('pointerover', () => { this.kratts.clearTint() })
+			.on('pointerout', () => {
+				if (this.kratts.input.enabled) {
+					this.kratts.setTint(0xaaaaaa);
+				}
+			})
+			.on('pointerup', pointer => { this.clickKratts() });
+
+		var tweens = [];
+
+		tweens.push({
+			targets: this.kratts,
+			x: this.kratts.width,
+			ease: 'Sine.easeOut',
+			duration: 2500,
+			delay: 1000
+		});
+
+	    var timeline = this.tweens.timeline({ tweens: tweens });
+	}
+
+	clickKratts() {
+		this.runAlert(INTRO1_ALERT);
 	}
 
 	clickCallToAction() {
@@ -100,38 +116,70 @@ class Animals_Cave extends Animals_Base {
 	createAlerts() {
 		let scenes = [
 			this.scene.add(INTRO1_ALERT, new Alert(INTRO1_ALERT), false, {
-				title: "Hi Sea Explorer!",
-				content: "You are looking for a door? Koki and I are looking for invertebrates. Those are animals with no skeletons. Can you help us find them? While you are looking, we will check our map for your door.",
-				buttonText: "Sure!",
+				title: "It's so wet in here!",
+				content: "All the water dripping through the ceiling is making it really slippery!",
+				buttonText: "Hi again!",
 				buttonAction: this.intro1AlertClicked,
 				context: this
 			}),
 			this.scene.add(INTRO2_ALERT, new Alert(INTRO2_ALERT), false, {
-				title: "Thank You!",
-				content: `Use the X-ray gun to have a look at the animals first. Then drag all the invertebrates over to the scanner. But be careful! The scanner only has charge for ${this.scanLimit} scans.`,
-				buttonText: "Got it",
+				title: "How did you get here?",
+				content: "You are trying to open that door? Martin and I might have some tools which can help!",
+				buttonText: "Great!",
 				buttonAction: this.intro2AlertClicked,
+				context: this
+			}),
+			this.scene.add(INTRO3_ALERT, new Alert(INTRO3_ALERT), false, {
+				title: "While you are waiting.",
+				content: "Could you help us find invertebrates? They don't have bones, but they often have a hard shell called an exoskeleton.",
+				buttonText: "Sure!",
+				buttonAction: this.intro3AlertClicked,
+				context: this
+			}),
+			this.scene.add(INTRO4_ALERT, new Alert(INTRO4_ALERT), false, {
+				title: "Thank you!",
+				content: `Use the X-ray gun to have a look at the animals first. Then put the invertebrates in the scanner like before. Remember! The scanner only has charge for ${this.scan_limit} scans.`,
+				buttonText: "Got it",
+				buttonAction: this.intro4AlertClicked,
+				context: this
+			}),
+			this.scene.add(FAIL_ALERT, new Alert(FAIL_ALERT), false, {
+				title: "Time to recharge",
+				content: `We think there are ${this.success_count} invertebrates out there, but we are out of juice. We will be right back!`,
+				buttonText: "OK :(",
+				buttonAction: this.failAlertClicked,
 				context: this
 			}),
 			this.scene.add(SUCCESS_ALERT, new Alert(SUCCESS_ALERT), false, {
 				title: "Great work!",
-				content: `You found all ${this.success_count} of the invertebrates. We found the door you were looking for. Thanks for your help!`,
-				buttonText: "Thank you",
+				content: `You found all ${this.success_count} of the invertebrates. We managed to get the door open for you! Thanks for your help!`,
+				buttonText: "Thank you!",
 				buttonAction: this.successAlertClicked,
 				context: this
 			}),
 		];
 
-		return scenes.map(s => s.sys.config);
+		return scenes.map(s => s.key);
 	}
 
 	intro1AlertClicked() {
+		this.kratts.setFrame('determined');
 		this.stopAlert(INTRO1_ALERT);
 		this.runAlert(INTRO2_ALERT);
 	}
-
 	intro2AlertClicked() {
+		this.kratts.setFrame('normal');
 		this.stopAlert(INTRO2_ALERT);
+		this.runAlert(INTRO3_ALERT);
+	}
+	intro3AlertClicked() {
+		this.kratts.setFrame('normal');
+		this.stopAlert(INTRO3_ALERT);
+		this.runAlert(INTRO4_ALERT);
+	}
+	intro4AlertClicked() {
+		this.kratts.setFrame('thumbs');
+		this.stopAlert(INTRO4_ALERT);
 
 		if (!this.animals_have_entered) {
 			var tweens = [];
@@ -148,7 +196,15 @@ class Animals_Cave extends Animals_Base {
 				})
 			}
 
-			this.tweens.timeline({ tweens: tweens });
+			tweens.push({
+				targets: this.kratts,
+				y: GAME_HEIGHT+350,
+				ease: 'Sine',
+				duration: 2000,
+				offset: 0
+			});
+
+	    	this.tweens.timeline({ tweens: tweens });
 
 			// Animate in tools
 			this.revealTools();
@@ -158,12 +214,28 @@ class Animals_Cave extends Animals_Base {
 	}
 
 	willBeginSuccessTransition() {
-		this.runAlert(SUCCESS_ALERT);
+		this.tweens.add({
+			targets: this.kratts,
+			y: GAME_HEIGHT,
+			ease: 'Sine',
+			duration: 2000,
+			onComplete: () => {this.runAlert(SUCCESS_ALERT);},
+			onCompleteScope: this
+		});
 	}
 
 	successAlertClicked() {
 		this.stopAlert(SUCCESS_ALERT);
 		this.beginSuccessTransition();
+	}
+
+	fail() {
+		this.runAlert(FAIL_ALERT);
+	}
+
+	failAlertClicked() {
+		this.stopAlert(FAIL_ALERT);
+		this.beginFailureTransition();
 	}
 }
 
