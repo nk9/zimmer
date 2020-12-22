@@ -57,7 +57,7 @@ export default class Numbers_Lego_Second extends Numbers_Lego {
 		this.background_closed.setOrigin(0.5, 0.5);	
 
 	}
-createGarmadon() {
+	createGarmadon() {
 		// The man himself
 		this.garmadon = this.add.image(GAME_WIDTH/2, GAME_HEIGHT, 'garmadon');
 		this.garmadon.scale = .5;
@@ -80,7 +80,7 @@ createGarmadon() {
 	        blendMode: 'SCREEN',
 	        scale: { start: 1, end: 2 },
 	        speed: { min: -100, max: 100 },
-	        quantity: 10,
+	        quantity: 5,
 	        emitZone: {
 		        source: new Phaser.Geom.Triangle(bounds.left, bounds.top, bounds.right, bounds.top, bounds.centerX, bounds.bottom),
 		        type: 'random',

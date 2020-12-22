@@ -11,14 +11,14 @@ import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
 import numbersPicJpg from '../assets/pics/numbers/lego_9/*.jpg'
 import numbersPicPng from '../assets/pics/numbers/lego_9/*.png'
 
+const INTRO1_ALERT = 'Intro1_Alert';
+const INTRO2_ALERT = 'Intro2_Alert';
 const FAIL_ALERT = 'FailAlert';
 
 
 class Numbers_Lego_9 extends Numbers_Lego {
 	constructor() {
         super(NUMBERS_LEGO_9);
-
-		this.run_time = 45; // scene timer length
 	}
 
     // nextSceneKey() {
@@ -34,13 +34,15 @@ class Numbers_Lego_9 extends Numbers_Lego {
 
 	create() {
 		super.create();
+		this.createGarmadon();
+		this.run_time = 45; // scene timer length
 	}
 
 	createBackgroundImages() {
 		let center_x = GAME_WIDTH/2,
 			center_y = GAME_HEIGHT/2;
 
-		this.swirl = this.add.image(center_x, center_y, 'blue_swirl');
+		this.swirl = this.add.image(640, 330, 'green_swirl');
 		
 		// Shifted over slightly to line up with the lego grid rectangles
 		let bg_x = center_x + 10;
@@ -51,16 +53,73 @@ class Numbers_Lego_9 extends Numbers_Lego {
 		this.background_closed.setOrigin(0.5, 0.5);	
 
 	}
+	createGarmadon() {
+		// The man himself
+		this.garmadon = this.add.image(GAME_WIDTH/2, GAME_HEIGHT, 'garmadon');
+		this.garmadon.scale = .5;
+		this.garmadon.setOrigin(.5, 1);
+		this.garmadon.setTint(0xaaaaaa);
+		this.garmadon.visible = false;
 
+		this.garmadon.setInteractive({useHandCursor: true})
+			.on('pointerover', () => { this.garmadon.clearTint() })
+			.on('pointerout', () => {
+				if (this.garmadon.input.enabled) {
+					this.garmadon.setTint(0xaaaaaa);
+				}
+			})
+			.on('pointerup', pointer => { this.clickGarmadon() });
+
+		let bounds = this.garmadon.getBounds();
+	    let particle = this.add.particles('smoke_purple');
+	    this.emitter = particle.createEmitter({
+	        blendMode: 'SCREEN',
+	        scale: { start: 1, end: 2 },
+	        speed: { min: -100, max: 100 },
+	        quantity: 5,
+	        emitZone: {
+		        source: new Phaser.Geom.Triangle(bounds.left, bounds.top, bounds.right, bounds.top, bounds.centerX, bounds.bottom),
+		        type: 'random',
+		        quantity: 20
+	        },
+	        lifespan: 300
+	    });
+		// particle.setDepth(Layers.OVER_DOOR);
+
+		this.time.delayedCall(1500, this.clearSmoke, [], this);
+	}
+
+	clearSmoke() {
+		this.emitter.stop();
+		this.garmadon.visible = true;
+	}
+
+	clickGarmadon() {
+		this.runAlert(INTRO1_ALERT);
+	}
+	clickIntro1Alert() {
+		this.stopAlert(INTRO1_ALERT);
+		this.runAlert(INTRO2_ALERT);
+	}
+
+	clickIntro2Alert() {
+		this.stopAlert(INTRO2_ALERT);
+
+		this.tweens.add({
+			targets: this.garmadon,
+			alpha: 0,
+			duration: 750
+		})
+	}	
 	createBricks() {
 		let brick_store = new BrickStore(this, 29, 6);
 
-		brick_store.addRow(BSBrick.B1x2, BSBrick.B1x4, BSBrick.B1x4);
-		brick_store.addRow(BSBrick.B1x6);
-		brick_store.addRow(BSBrick.B1x3, BSBrick.B1x1, BSBrick.B1x6);
-		brick_store.addRow(BSBrick.B1x4, BSBrick.B1x5);
+		brick_store.addRow(BSBrick.B1x2, BSBrick.B1x3);
+		brick_store.addRow(BSBrick.B1x6, BSBrick.B1x4);
+		brick_store.addRow(BSBrick.B1x1, BSBrick.B1x2, BSBrick.B1x6);
+		brick_store.addRow(BSBrick.B1x4, BSBrick.B1x7);
 		brick_store.addRow(BSBrick.B1x8);
-		brick_store.addRow(BSBrick.B1x7, BSBrick.B1x2);
+		brick_store.addRow(BSBrick.B1x5, BSBrick.B1x2);
 
 		return brick_store;
 	}
@@ -109,6 +168,20 @@ class Numbers_Lego_9 extends Numbers_Lego {
 
 	createAlerts() {
 		let scenes = [
+			this.scene.add(INTRO1_ALERT, new Alert(INTRO1_ALERT), false, {
+				title: "What!",
+				content: "I don't know how you made it past my lock. But I've got you now!",
+				buttonText: "...",
+				buttonAction: this.clickIntro1Alert,
+				context: this
+			}),
+			this.scene.add(INTRO2_ALERT, new Alert(INTRO2_ALERT), false, {
+				title: "Mwa ha ha!",
+				content: "I've split my hidden key into 2 pieces! You'll never figure it out!",
+				buttonText: "2 pieces?",
+				buttonAction: this.clickIntro2Alert,
+				context: this
+			}),
 			this.scene.add(FAIL_ALERT, new Alert(FAIL_ALERT), false, {
 				title: "Whoops",
 				content: "I need to find the right pieces faster next time!",

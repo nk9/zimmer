@@ -77,7 +77,7 @@ class Numbers_Lego_10 extends Numbers_Lego {
 	        blendMode: 'SCREEN',
 	        scale: { start: 1, end: 2 },
 	        speed: { min: -100, max: 100 },
-	        quantity: 10,
+	        quantity: 5,
 	        emitZone: {
 		        source: new Phaser.Geom.Triangle(bounds.left, bounds.top, bounds.right, bounds.top, bounds.centerX, bounds.bottom),
 		        type: 'random',
