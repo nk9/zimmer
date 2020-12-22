@@ -28,7 +28,7 @@ class Plants_Base extends BaseScene {
 		this.selectionMode = SelectionMode.NONE;
 		this.plants_have_entered = false;
 
-		this.success_drop_targets = [];
+		this.successful_drops = [];
 	}
 
 	preload() {
@@ -71,7 +71,6 @@ class Plants_Base extends BaseScene {
 
 			if ('x' in pd && 'y' in pd) {
 				let plant = this.createPlant(key, pd);
-				plant.alpha = 0;
 
 				plant.on('pointerdown', this.pointerDownPlant.bind(this, plant))
 					.on('dragstart', this.dragStartPlant.bind(this, plant))
@@ -266,48 +265,6 @@ class Plants_Base extends BaseScene {
 	// Overridden by subclasses to clean up before the next scene
 	willStartNextScene() {
 	}
-
-// 	beginFailureTransition() {
-// 		this.setPlantsInput(false);
-// 		this.factText.visible = false;
-// 		this.disperseAnimals();
-// 
-// 		var reset_cta_tween = this.resetCallToActionTween();
-// 
-// 		let tweens = [
-// 			reset_cta_tween,
-// 			{
-// 				targets: this.scan_charge_bar,
-// 				x: -90,
-// 				ease: 'Sine',
-// 				duration: 1500,
-// 				onYoyo: (tween, sprite) => { this.updateScanChargeBar(); },
-// 				yoyo: true,
-// 				hold: 2000,
-// 				offset: 0
-// 			},{
-// 				targets: this.scanner,
-// 				x: -100,
-// 				ease: 'Sine',
-// 				duration: 1500,
-// 				yoyo: true,
-// 				hold: 2000,
-// 				offset: 0
-// 			}];
-// 
-// 	    var timeline = this.tweens.timeline({
-// 	    	tweens: tweens,
-// 	    	onComplete: this.finishFailureTransition,
-// 	    	onCompleteScope: this
-// 	    });
-// 
-// 		this.scanned_animals = [];
-// 
-// 	}
-// 
-// 	finishFailureTransition() {
-// 		this.setPlantsInput(true);
-// 	}
 }
 
 export default Plants_Base;

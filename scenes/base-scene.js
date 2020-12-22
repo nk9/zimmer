@@ -20,6 +20,11 @@ export const Layers = {
     POUCH: 10,
     OVER_POUCH: 12,
 
+    // Mushrooms
+    UNDER_BASKET: 9,
+    BASKET: 10,
+    OVER_BASKET: 12,
+
     // All
     DRAGGING: 100,
     HOME: 200

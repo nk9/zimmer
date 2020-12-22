@@ -3,7 +3,7 @@ import { MAIN_HALL, PLANTS_MUSHROOMS } from '../constants/scenes';
 import { GAME_WIDTH, GAME_HEIGHT, DRAG_THRESHOLD } from '../constants/config';
 
 import Alert from '../components/alert';
-import OutlinePlantLeaf from '../components/outline_plant_leaf';
+import OutlinePlantMushroom from '../components/outline_plant_mushroom';
 import OutlinePlantObject from '../components/outline_plant_object';
 
 import plantPicJpg from '../assets/pics/plants/mushrooms/*.jpg'
@@ -22,12 +22,22 @@ let INTRO4_ALERT = 'Intro4_Alert';
 let FAIL_ALERT   = 'Fail_Alert';
 let SUCCESS_ALERT = 'Success_Alert';
 
+var groupBy = require('lodash.groupBy');
+var sampleSize = require('lodash.sampleSize');
+
 class Plants_Mushrooms extends Plants_Base {
 	constructor() {
         super(PLANTS_MUSHROOMS);
 
         // initialize class variables
 		this.success_count = 3;
+		this.total_mushrooms = 8;
+	}
+
+	init() {
+		super.init();
+
+		this.basket_open = false;
 	}
 
 	preload() {
@@ -35,10 +45,12 @@ class Plants_Mushrooms extends Plants_Base {
 
 		// Doors
 		this.load.image('kitchen', plantPicJpg.kitchen);
-		this.load.image('kitchen', plantPicPng.kitchen);
+
+		// TODO: Victor: add png background or delete
+		// this.load.image('kitchen', plantPicPng.kitchen);
 
 		// Pot
-		this.loadOutlineImage('pot');
+		this.loadOutlineImage('bigbasket');
         
         // Plants
 		for (const key in this.plants_data) {
@@ -54,6 +66,7 @@ class Plants_Mushrooms extends Plants_Base {
         // Audio
         this.load.audio('woosh', audioMp3.woosh);
         this.load.audio('kitchen', audioMp3.kitchen);
+        this.load.audio('potbubble', audioMp3.potbubble);
 
 		for (const key in this.hidden_objects_data) {
 	        this.loadOutlineImage(key);
@@ -67,10 +80,30 @@ class Plants_Mushrooms extends Plants_Base {
 
 	create() {
 		super.create();
+
+		this.addRandomMushrooms();
+		this.setPlantsDraggable(true);
+		this.input.on('drag', (pointer, plant, dragX, dragY) => {
+			// if (this.selectionMode == SelectionMode.GRABBER) {
+				plant.x = dragX;
+				plant.y = dragY;
+			// }
+		});
 	}
 
 	createPlant(key, pd) {
-		return new OutlinePlantLeaf(this, key, pd);
+		let m = new OutlinePlantMushroom(this, key, pd);
+		m.alpha = 1;
+		this.basket_container.add(m);
+		// this.input.enableDebug(m);
+
+		return m;
+	}
+
+	dragStartPlant(plant) {
+	}
+
+	dragEndPlant(plant) {
 	}
 
 	createBackground() {
@@ -82,14 +115,15 @@ class Plants_Mushrooms extends Plants_Base {
 		this.background_open = this.add.image(0, 0, 'kitchen');
 		this.background_open.setOrigin(0, 0);
 
-		this.background_closed = this.add.image(0, 0, 'kitchen');
-		this.background_closed.setOrigin(0, 0);
+		// TODO: Victor: add png background or delete
+		// this.background_closed = this.add.image(0, 0, 'kitchen');
+		// this.background_closed.setOrigin(0, 0);
 	}
 
 	createCallToAction() {
 		this.sound.play('woosh', {volume: .3});
 
-		this.link = this.add.sprite(0, GAME_HEIGHT+256, 'link', 'thumbsup');
+		this.link = this.add.sprite(0, GAME_HEIGHT+256, 'link', 'wave');
 		this.link.setOrigin(0, 1);
 		this.link.setTint(0xaaaaaa);
 
@@ -137,6 +171,9 @@ class Plants_Mushrooms extends Plants_Base {
 		console.log(`clicked ${hidden_object.name}`);
 		
 		switch(hidden_object.name) {
+			case 'basket':
+				this.clickBasket();
+				break;
 			case 'pot':
 				// do stuff
 				break;
@@ -148,6 +185,10 @@ class Plants_Mushrooms extends Plants_Base {
 				break;
 			default:
 		}
+	}
+
+	clickBasket() {
+		this.basket_open = true;
 	}
 
 	createAlerts() {
@@ -196,6 +237,56 @@ class Plants_Mushrooms extends Plants_Base {
 	createTools() {
 		super.createTools();
 
+		this.basket_container = this.add.container((GAME_WIDTH/2)+50, GAME_HEIGHT*.5);
+		this.bigbasket = this.add.image(0, 0, 'bigbasket');
+		this.bigbasket.scale = 1.5;
+		this.bigbasket.setOrigin(.5, .5);
+		this.bigbasket.setDepth(Layers.BASKET);
+
+		// Create close button
+
+		this.basket_container.add(this.bigbasket);
+
+		// Make pot a drop target
+		for (const obj of this.hidden_objects) {
+			if (obj.name == 'pot') {
+				obj.input.dropZone = true;
+			}
+		}
+	}
+
+	addRandomMushrooms() {
+		let grouped_shrooms = groupBy(this.plants, 'edible');
+		let edibles   = sampleSize(grouped_shrooms['true'], this.success_count);
+		let inedibles = sampleSize(grouped_shrooms['false'], this.total_mushrooms-this.success_count);
+		let shrooms = [...edibles, ...inedibles];
+
+		// Create ellipse
+		let basket_bounds = this.bigbasket.getBounds();
+		let ellipse = new Phaser.Geom.Ellipse(5, -45, 350, 350);
+
+		// Highlight hitArea
+		// let zone = this.add.zone(0, 0);
+		// zone.setInteractive({
+		// 	hitArea: ellipse,
+		// 	hitAreaCallback: Phaser.Geom.Ellipse.Contains,
+		// 	useHandCursor: true
+		// });
+		// this.input.enableDebug(zone);
+		// this.bigbasket.setInteractive();
+		// this.input.enableDebug(this.bigbasket);
+		// this.basket_container.add(zone);
+
+		// iterate shrooms
+		for (const m of shrooms) {
+			//  - find random point
+			let rxy = Phaser.Geom.Ellipse.Random(ellipse);
+
+			//  - assign to shroom x,y
+			m.x = rxy.x;
+			m.y = rxy.y;
+			m.visible = true;
+		}
 	}
 
 	createTriangleEmitter(triangle, zone) {
@@ -279,14 +370,13 @@ class Plants_Mushrooms extends Plants_Base {
 	}
 
 	plantDropped(plant, drop_target) {
-		if (plant.leaf_type == drop_target.name) {
-			drop_target.lock_image.visible = true;
-			drop_target.particle.emitters.list[0].explode(50);
+		this.sound.play('potbubble');
+		plant.visible = false;
 
-			drop_target.input.enabled = false;
-			this.success_drop_targets.push(drop_target);
+		if (plant.edible) {
+			this.successful_drops.push(plant);
 
-			if (this.success_drop_targets.length == this.success_count) {
+			if (this.successful_drops.length == this.success_count) {
 				this.succeed();
 			}
 		} else {
@@ -300,14 +390,60 @@ class Plants_Mushrooms extends Plants_Base {
 		this.beginSuccessTransition();
 	}
 
-// 	fail() {
-// 		this.runAlert(FAIL_ALERT);
-// 	}
+	fail() {
+		this.runAlert(FAIL_ALERT);
+	}
+
+	failAlertClicked() {
+		this.stopAlert(FAIL_ALERT);
+		this.resetS();
+		this.beginFailureTransition();
+	}
+
+	beginFailureTransition() {
+		this.setPlantsInput(false);
+
+		// reset mushrooms!!
+
+// 		this.factText.visible = false;
+// 		this.disperseAnimals();
 // 
-// 	failAlertClicked() {
-// 		this.stopAlert(FAIL_ALERT);
-// 		this.beginFailureTransition();
-// 	}
+// 		var reset_cta_tween = this.resetCallToActionTween();
+// 
+// 		let tweens = [
+// 			reset_cta_tween,
+// 			{
+// 				targets: this.scan_charge_bar,
+// 				x: -90,
+// 				ease: 'Sine',
+// 				duration: 1500,
+// 				onYoyo: (tween, sprite) => { this.updateScanChargeBar(); },
+// 				yoyo: true,
+// 				hold: 2000,
+// 				offset: 0
+// 			},{
+// 				targets: this.scanner,
+// 				x: -100,
+// 				ease: 'Sine',
+// 				duration: 1500,
+// 				yoyo: true,
+// 				hold: 2000,
+// 				offset: 0
+// 			}];
+// 
+// 	    var timeline = this.tweens.timeline({
+// 	    	tweens: tweens,
+// 	    	onComplete: this.finishFailureTransition,
+// 	    	onCompleteScope: this
+// 	    });
+// 
+// 		this.scanned_animals = [];
+	}
+
+	finishFailureTransition() {
+		this.setPlantsInput(true);
+	}
+
 }
 
 export default Plants_Mushrooms;

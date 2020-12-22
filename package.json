@@ -14,7 +14,10 @@
   "dependencies": {
     "lodash": "^4.17.20",
     "lodash.get": "^4.4.2",
+    "lodash.groupby": "^4.6.0",
     "lodash.random": "^3.2.0",
+    "lodash.sample": "^4.2.1",
+    "lodash.samplesize": "^4.2.0",
     "lodash.shuffle": "^4.2.0",
     "phaser": "^3.24.1"
   },

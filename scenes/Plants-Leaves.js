@@ -73,7 +73,10 @@ class Plants_Leaves extends Plants_Base {
 	}
 
 	createPlant(key, pd) {
-		return new OutlinePlantLeaf(this, key, pd);
+		let l = new OutlinePlantLeaf(this, key, pd);
+		l.alpha = 0;
+		
+		return l;
 	}
 
 	createBackground() {
@@ -330,9 +333,9 @@ class Plants_Leaves extends Plants_Base {
 			drop_target.particle.emitters.list[0].explode(50);
 
 			drop_target.input.enabled = false;
-			this.success_drop_targets.push(drop_target);
+			this.successful_drops.push(drop_target);
 
-			if (this.success_drop_targets.length == this.success_count) {
+			if (this.successful_drops.length == this.success_count) {
 				this.succeed();
 			}
 		} else {

@@ -70,7 +70,10 @@ class Plants_Flowers extends Plants_Base {
 	}
 
 	createPlant(key, pd) {
-		return new OutlinePlantFlower(this, key, pd);
+		let f = new OutlinePlantFlower(this, key, pd);
+		f.alpha = 0;
+		
+		return f;
 	}
 
 	createBackground() {
@@ -356,9 +359,9 @@ class Plants_Flowers extends Plants_Base {
 			drop_target.particle.emitters.list[0].explode(50);
 
 			drop_target.input.enabled = false;
-			this.success_drop_targets.push(drop_target);
+			this.successful_drops.push(drop_target);
 
-			if (this.success_drop_targets.length == this.success_count) {
+			if (this.successful_drops.length == this.success_count) {
 				this.succeed();
 			}
 		} else {
