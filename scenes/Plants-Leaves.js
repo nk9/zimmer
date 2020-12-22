@@ -175,6 +175,10 @@ class Plants_Leaves extends Plants_Base {
 		});
 	}
 
+	clickHiddenObject(object) {
+		
+	}
+
 	createAlerts() {
 		let scenes = [
 			this.scene.add(INTRO1_ALERT, new Alert(INTRO1_ALERT), false, {

@@ -87,7 +87,14 @@ class Plants_Base extends BaseScene {
 	}
 
 	createHiddenObjects() {
-		// Overridden by subclasses
+		this.hidden_objects = [];
+
+		for (const name in this.hidden_objects_data) {
+			let od = this.hidden_objects_data[name];
+			let hidden_object = new OutlinePlantObject(this, name, od);
+			hidden_object.on('pointerup', this.clickHiddenObject.bind(this, hidden_object));
+			this.hidden_objects.push(hidden_object);
+		}
 	}
 
 	pointerDownPlant(plant) {

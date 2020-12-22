@@ -72,7 +72,7 @@ class Plants_Flowers extends Plants_Base {
 	createPlant(key, pd) {
 		let f = new OutlinePlantFlower(this, key, pd);
 		f.alpha = 0;
-		
+
 		return f;
 	}
 
@@ -169,6 +169,10 @@ class Plants_Flowers extends Plants_Base {
 			scale: 1,
 			duration: 1000
 		});
+	}
+
+	clickHiddenObject(object) {
+		
 	}
 
 	createAlerts() {
