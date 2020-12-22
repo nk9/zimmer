@@ -151,7 +151,7 @@
     "amethyst2": {
       "edible": false,
       "color": "purple",
-      "scale": 1,
+      "scale": 2,
       "x": 1000,
       "y": 600
     },
@@ -197,7 +197,7 @@
       "x": 300,
       "y": 650
     },
-    "horse": {
+    "horse1": {
       "edible": true,
       "color": "purple",
       "scale": 1,

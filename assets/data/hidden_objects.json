@@ -2,8 +2,8 @@
   "Plants-Mushrooms": {
     "jug": {
       "scale": 1,
-      "x": 370,
-      "y": 580
+      "x": 832,
+      "y": 213
     },
     "book": {
       "scale": 1,
@@ -23,7 +23,17 @@
     "pot": {
       "scale": 1,
       "x": 1100,
-      "y": 500
+      "y": 530
+    },
+    "rag": {
+      "scale": 1,
+      "x": 780,
+      "y": 353
+    },
+    "vial": {
+      "scale": 1,
+      "x": 1160,
+      "y": 193
     }
   },
   "Plants-Leaves": {

@@ -248,7 +248,7 @@ class Plants_Mushrooms extends Plants_Base {
 		this.basket_container.add(this.bigbasket);
 
 		// TODO: Victor, you can unhide this to see the mushroom basket!
-		this.basket_container.visible = false;
+		this.basket_container.visible = true;
 
 		// Make pot a drop target
 		for (const obj of this.hidden_objects) {
