@@ -8,6 +8,7 @@ class OutlinePlantMushroom extends OutlinePlant {
 
 		this.edible = get(info, 'edible');
 		this.visible = false;
+		this.input.cursor = 'grab';
 	}
 }
 

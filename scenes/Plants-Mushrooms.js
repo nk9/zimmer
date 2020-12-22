@@ -25,6 +25,7 @@ let SUCCESS_ALERT = 'Success_Alert';
 var groupBy = require('lodash.groupby');
 var sampleSize = require('lodash.samplesize');
 var random = require('lodash.random');
+var pull = require('lodash.pull');
 
 class Plants_Mushrooms extends Plants_Base {
 	constructor() {
@@ -59,12 +60,6 @@ class Plants_Mushrooms extends Plants_Base {
         // Plants
 		for (const key in this.plants_data) {
 	        this.loadOutlineImage(key);
-
-	        // Get the leaf if needed
-	  //       const pd = this.plants_data[key];
-			// if (!this.textures.exists(pd.leaf_type)) {
-			// 	this.load.image(pd.leaf_type, dragPicPng[pd.leaf_type]);
-			// }
 	    }
 
         // Audio
@@ -88,10 +83,8 @@ class Plants_Mushrooms extends Plants_Base {
 		this.addRandomMushrooms();
 		this.setPlantsDraggable(true);
 		this.input.on('drag', (pointer, plant, dragX, dragY) => {
-			// if (this.selectionMode == SelectionMode.GRABBER) {
-				plant.x = dragX;
-				plant.y = dragY;
-			// }
+			plant.x = dragX;
+			plant.y = dragY;
 		});
 	}
 
@@ -153,12 +146,6 @@ class Plants_Mushrooms extends Plants_Base {
 	    var timeline = this.tweens.timeline({ tweens: tweens });
 	}
 
-	clickLink() {
-		this.link.input.enabled = false;
-		this.link.clearTint();
-		this.runAlert(INTRO1_ALERT);
-	}
-
 	clickHiddenObject(hidden_object) {
 		console.log(`clicked ${hidden_object.name}`);
 		
@@ -207,14 +194,15 @@ class Plants_Mushrooms extends Plants_Base {
 		this.sound.play('potbubble');
 
 		if (this.selectionMode == SelectionMode.VIAL) {
+			this.unchooseVial();
 			this.checkSuccess();
 		}
 	}
 
 	checkSuccess() {
-		// if (this.successful_drops.length == this.success_count) {
+		if (this.successful_drops.length == this.success_count) {
 			this.succeed();
-		// }
+		}
 	}
 
 	createAlerts() {
@@ -285,6 +273,7 @@ class Plants_Mushrooms extends Plants_Base {
 		for (const obj of this.hidden_objects) {
 			if (obj.name == 'pot') {
 				obj.input.dropZone = true;
+				this.pot = obj;
 			}
 		}
 
@@ -310,8 +299,28 @@ class Plants_Mushrooms extends Plants_Base {
 
 	chooseVial() {
 		this.selectionMode = SelectionMode.VIAL;
-		this.input.setDefaultCursor(`url(${plantPicPng.vial_tool}), pointer`);
+		let cursor = `url(${plantPicPng.vial_tool}), pointer`;
+		this.input.setDefaultCursor(cursor);
 
+		// Remove pot's pointer cursor
+		this.pot.input.cursor = cursor;
+		this.setObjectsInput(false);
+	}
+
+	unchooseVial() {
+		this.selectionMode = SelectionMode.NONE;
+		this.input.setDefaultCursor('default');
+		this.pot.input.cursor = 'pointer';
+		this.setObjectsInput(true);
+	}
+
+	setObjectsInput(inputEnabled) {
+		let to_disable = [...this.plants, ...this.hidden_objects, this.ediblesMenu];
+		pull(to_disable, this.pot);
+
+		for (const o of to_disable) {
+			o.input.enabled = inputEnabled;
+		}
 	}
 
 	addRandomMushrooms() {
@@ -349,6 +358,11 @@ class Plants_Mushrooms extends Plants_Base {
 		}
 	}
 
+	clickLink() {
+		this.link.input.enabled = false;
+		this.link.clearTint();
+		this.runAlert(INTRO1_ALERT);
+	}
 	intro1AlertClicked() {
 		this.link.setFrame('laugh');
 		this.stopAlert(INTRO1_ALERT);
@@ -368,7 +382,7 @@ class Plants_Mushrooms extends Plants_Base {
 	}
 
 	intro4AlertClicked() {
-		this.link.setFrame('explain');
+		this.link.setFrame('happy');
 		this.stopAlert(INTRO4_ALERT);
 		this.link.clearTint();
 	}
