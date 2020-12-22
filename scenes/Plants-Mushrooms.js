@@ -35,6 +35,10 @@ class Plants_Mushrooms extends Plants_Base {
 		this.total_mushrooms = 8;
 	}
 
+    nextSceneKey() {
+        return MAIN_HALL;
+    }
+
 	init() {
 		super.init();
 
@@ -50,6 +54,7 @@ class Plants_Mushrooms extends Plants_Base {
 		// Tools
 		this.loadOutlineImage('bigbasket');
 		this.load.image('edible', plantPicJpg.edible);
+		this.load.image('party', plantPicJpg.zeldaparty);
         
         // Plants
 		for (const key in this.plants_data) {
@@ -154,17 +159,6 @@ class Plants_Mushrooms extends Plants_Base {
 		this.runAlert(INTRO1_ALERT);
 	}
 
-	createHiddenObjects() {
-		this.hidden_objects = [];
-
-		for (const name in this.hidden_objects_data) {
-			let od = this.hidden_objects_data[name];
-			let hidden_object = new OutlinePlantObject(this, name, od);
-			hidden_object.on('pointerup', this.clickHiddenObject.bind(this, hidden_object));
-			this.hidden_objects.push(hidden_object);
-		}
-	}
-
 	clickHiddenObject(hidden_object) {
 		console.log(`clicked ${hidden_object.name}`);
 		
@@ -218,9 +212,9 @@ class Plants_Mushrooms extends Plants_Base {
 	}
 
 	checkSuccess() {
-		if (this.successful_drops.length == this.success_count) {
+		// if (this.successful_drops.length == this.success_count) {
 			this.succeed();
-		}
+		// }
 	}
 
 	createAlerts() {
@@ -252,6 +246,13 @@ class Plants_Mushrooms extends Plants_Base {
 				We don't want want to get everyone sick!`,
 				buttonText: "On it!",
 				buttonAction: this.intro4AlertClicked,
+				context: this
+			}),
+			this.scene.add(SUCCESS_ALERT, new Alert(SUCCESS_ALERT), false, {
+				title: "Great work!",
+				content: `You found all of the right mushrooms. Thanks for your help! Now what do you think is behind this door?`,
+				buttonText: "I Dunno",
+				buttonAction: this.doSuccessTransition,
 				context: this
 			}),
 			// this.scene.add(FAIL_ALERT, new Alert(FAIL_ALERT), false, {
@@ -296,6 +297,11 @@ class Plants_Mushrooms extends Plants_Base {
 				this.ediblesMenu.visible = false;
 			});
 		// this.input.enableDebug(this.ediblesMenu);
+
+		this.party = this.add.image(GAME_WIDTH/2, GAME_HEIGHT/2, 'party');
+		this.party.scale = 1.3;
+		this.party.angle = 10;
+		this.party.visible = false;
 	}
 
 	chooseMagnifyingGlass() {
@@ -368,15 +374,7 @@ class Plants_Mushrooms extends Plants_Base {
 	}
 
 	willBeginSuccessTransition() {
-		// This alert needs to be created at runtime because success_animals
-		// isn't populated until after createAlerts() is already run.
-		this.scene.add(SUCCESS_ALERT, new Alert(SUCCESS_ALERT), true, {
-			title: "Great work!",
-			content: `You found all of the right mushrooms. Thanks for your help! Now what do you think is behind this door?`,
-			buttonText: "I Dunno",
-			buttonAction: this.successAlertClicked,
-			context: this
-		});
+		this.runAlert(SUCCESS_ALERT);
 	}
 
 	plantDropped(plant, drop_target) {
@@ -385,15 +383,28 @@ class Plants_Mushrooms extends Plants_Base {
 
 		if (plant.edible) {
 			this.successful_drops.push(plant);
-		} else {
-			console.log("too bad");
 		}
 	}
 
-	successAlertClicked() {
-		this.scene.stop(SUCCESS_ALERT);
-		this.scene.remove(SUCCESS_ALERT);
-		this.beginSuccessTransition();
+	doSuccessTransition() {
+		this.stopAlert(SUCCESS_ALERT);
+		this.party.visible = true;
+		this.overlay.visible = true;
+
+	    var timeline = this.tweens.timeline({
+	    	tweens: [{
+				targets: this.party,
+				scale: 1,
+				angle: 0,
+				duration: 7000,
+			},{
+	    		targets: this.overlay,
+	    		alpha: 1,
+	    		duration: 2500,
+	    	}]
+	    });
+
+	    this.time.delayedCall(9500, this.startNextScene, [], this);
 	}
 
 	fail() {

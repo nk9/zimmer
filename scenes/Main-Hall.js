@@ -58,9 +58,12 @@ class Main_Hall extends BaseScene {
 		zone.setOrigin(0, 0);
 
 		zone.setInteractive({useHandCursor: true})
-			.on('pointerover', () => { village.visible = false; village2.visible = true;})
+			.on('pointerover', () => {
+				village.visible = false;
+				village2.visible = true;})
 			.on('pointerout', () => {
-				console.log("pointerout"); village.visible = true; village2.visible = false;})
+				village.visible = true;
+				village2.visible = false;})
 	}
 
 	createBareBones() {

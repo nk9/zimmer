@@ -236,7 +236,7 @@ class Plants_Flowers extends Plants_Base {
 		for (const segment of segments) {
 			this[segment] = this.add.image(0, 0, segment);
 			this[segment].visible = false;
-			this[segment].setDepth = Layers.OVER_POUCH;
+			this[segment].depth = Layers.OVER_POUCH;
 			this.leaf_lock_container.add(this[segment]);
 		}
 

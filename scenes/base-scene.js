@@ -27,7 +27,8 @@ export const Layers = {
 
     // All
     DRAGGING: 100,
-    HOME: 200
+    HOME: 200,
+    OVERLAY: 300
 }
 
 class BaseScene extends Scene {
@@ -60,7 +61,17 @@ class BaseScene extends Scene {
         this.home.setDepth(Layers.HOME);
         this.home.setInteractive({useHandCursor: true})
             .on('pointerup', () => this.startNextScene(MAIN_HALL) );
+
+        this.createOverlay();
 	}
+
+    createOverlay() {
+        this.overlay = this.add.rectangle(0, 0, GAME_WIDTH, GAME_HEIGHT, 0x000000);
+        this.overlay.setOrigin(0, 0);
+        this.overlay.setDepth(Layers.OVERLAY);
+        this.overlay.alpha = 0;
+        this.overlay.visible = false;
+    }
 
     update() {
     }

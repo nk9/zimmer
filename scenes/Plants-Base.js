@@ -4,6 +4,7 @@ import { nearestPointOnRect } from '../utilities/geom_utils'
 
 import OutlinePlant from '../components/outline_plant'
 import LightboxAlert from '../components/lightbox_alert'
+import OutlinePlantObject from '../components/outline_plant_object';
 
 import plantsPicPng from '../assets/pics/plants/*.png'
 import audioMp3 from '../assets/audio/*.mp3'
@@ -72,6 +73,10 @@ class Plants_Base extends BaseScene {
 
 			if ('x' in pd && 'y' in pd) {
 				let plant = this.createPlant(key, pd);
+
+				if (plant.hasOwnProperty('drag_image')) {
+					plant.drag_image.setDepth(Layers.DRAGGING);
+				}
 
 				plant.on('pointerdown', this.pointerDownPlant.bind(this, plant))
 					.on('dragstart', this.dragStartPlant.bind(this, plant))
@@ -241,20 +246,22 @@ class Plants_Base extends BaseScene {
 	doSuccessTransition() {
 		this.portal_sound.play();
 		this.swirl.visible = true;
-
-		let fadeObjects = [
-			this.background_closed
-		];
+		this.overlay.visible = true;
 
 	    var timeline = this.tweens.timeline({
 	    	tweens: [{
-	    		targets: fadeObjects,
+	    		targets: this.background_closed,
 	    		duration: 2000,
 	    		alpha: 0,
+	    	},{
+	    		targets: this.overlay,
+	    		duration: 2500,
+	    		alpha: 1,
+	    		offset: 7000
 	    	}]
 	    });
 
-	    this.time.delayedCall(5000, this.startNextScene, [], this);
+	    this.time.delayedCall(9500, this.startNextScene, [], this);
 	}
 
 	startNextScene(key=null) {

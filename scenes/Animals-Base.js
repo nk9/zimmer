@@ -65,7 +65,6 @@ class Animals_Base extends BaseScene {
 		this.createTools();
 		this.createCallToAction();
 		this.createAnimals();
-		this.createOverlay();
 
 		this.portal_sound = this.sound.add('portal');
 	}
@@ -89,13 +88,6 @@ class Animals_Base extends BaseScene {
 
 			this.animals.push(animal);
 		}
-	}
-
-	createOverlay() {
-		this.overlay = this.add.rectangle(0, 0, GAME_WIDTH, GAME_HEIGHT, 0x000000);
-		this.overlay.setOrigin(0, 0);
-		this.overlay.alpha = 0;
-		this.overlay.visible = false;
 	}
 
 	pointerDownAnimal(pointer_down_animal) {
