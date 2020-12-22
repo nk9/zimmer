@@ -24,6 +24,7 @@ let SUCCESS_ALERT = 'Success_Alert';
 
 var groupBy = require('lodash.groupby');
 var sampleSize = require('lodash.samplesize');
+var random = require('lodash.random');
 
 class Plants_Mushrooms extends Plants_Base {
 	constructor() {
@@ -266,14 +267,14 @@ class Plants_Mushrooms extends Plants_Base {
 
 		// Create ellipse
 		let basket_bounds = this.bigbasket.getBounds();
-		let ellipse = new Phaser.Geom.Ellipse(5, -45, 350, 350);
+		let ellipse = new Phaser.Geom.Ellipse(5, 5, 370, 370);
 
 		// Highlight hitArea
 		// let zone = this.add.zone(0, 0);
 		// zone.setInteractive({
 		// 	hitArea: ellipse,
 		// 	hitAreaCallback: Phaser.Geom.Ellipse.Contains,
-		// 	useHandCursor: true
+			// useHandCursor: true
 		// });
 		// this.input.enableDebug(zone);
 		// this.bigbasket.setInteractive();
@@ -288,6 +289,7 @@ class Plants_Mushrooms extends Plants_Base {
 			//  - assign to shroom x,y
 			m.x = rxy.x;
 			m.y = rxy.y;
+			m.angle = random(0, 360);
 			m.visible = true;
 		}
 	}
