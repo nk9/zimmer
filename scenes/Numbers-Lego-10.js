@@ -34,7 +34,7 @@ class Numbers_Lego_10 extends Numbers_Lego {
 	create() {
 		super.create();
 		this.createGarmadon();
-		this.run_time = 30; // scene timer length
+		this.run_time = 20; // scene timer length
 	}
 
 	createBackgroundImages() {
@@ -170,16 +170,16 @@ class Numbers_Lego_10 extends Numbers_Lego {
 	createAlerts() {
 		let alerts = {
 			[INTRO1_ALERT]: {
-				title: "What!",
-				content: "I don't know how you made it past my lock. But I've got you now!",
+				title: "Arrgh!",
+				content: "Let's see you get past this door! Each lock needs a different key.",
 				buttonText: "...",
 				buttonAction: this.clickIntro1Alert,
 				context: this
 			},
 			[INTRO2_ALERT]: {
 				title: "Mwa ha ha!",
-				content: "I've split my hidden key into 2 pieces! You'll never figure it out!",
-				buttonText: "2 pieces?",
+				content: "And each key is broken into 2 pieces!",
+				buttonText: "Easy!",
 				buttonAction: this.clickIntro2Alert,
 				context: this
 		},

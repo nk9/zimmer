@@ -36,7 +36,7 @@ class Numbers_Lego_First extends Numbers_Lego {
 
 		this.createGarmadon();
 
-		this.run_time = 20; // scene timer length
+		this.run_time = 10; // scene timer length
 	}
 
 	createBackgroundImages() {
