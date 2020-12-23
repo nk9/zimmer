@@ -6,6 +6,7 @@ import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
 import { MAIN_HALL } from '../constants/scenes';
 
 import Alert from '../components/alert';
+import PointerOutlineImage from '../components/pointer_outline_image';
 
 import { get } from 'lodash-es';
 
@@ -85,6 +86,24 @@ class BaseScene extends Scene {
         this.overlay.setDepth(Layers.OVERLAY);
         this.overlay.alpha = 0;
         this.overlay.visible = false;
+    }
+
+    addImagesFromStoredData(data_name, callback) {
+        var images = [];
+
+        for (const [key, image_data] of Object.entries(this.stored_data[data_name])) {
+            if ('x' in image_data && 'y' in image_data) {
+                if (get(image_data, 'enabled', true)) {
+                    let image = new PointerOutlineImage(this, key, image_data);
+
+                    image.on('pointerdown', callback.bind(this, image));
+                    
+                    images.push(image);
+                }
+            }
+        }
+
+        return images;
     }
 
     update() {

@@ -275,6 +275,7 @@ class Plants_Base extends BaseScene {
 		this.portal_sound.stop();
 		// this.background_sound.stop();
 		this.willStartNextScene();
+		this.scene.remove(LIGHTBOX_ALERT);
 		
         this.scene.start(key);
         this.scene.shutdown();

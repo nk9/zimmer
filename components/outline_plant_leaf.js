@@ -1,4 +1,4 @@
-import StoredOutlineImage from './stored_outline_Image';
+import StoredOutlineImage from './stored_outline_image';
 
 import { get } from 'lodash-es';
 
