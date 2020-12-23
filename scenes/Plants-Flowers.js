@@ -191,16 +191,16 @@ class Plants_Flowers extends Plants_Base {
 				context: this
 			},
 			[INTRO3_ALERT]: {
-				title: "I'm so hungry!",
-				content: `You need to go through the portal? I can't concentrate enough to open it right now. I'm too hungry!`,
-				buttonText: "What would you like to eat?",
+				title: "What do you want?",
+				content: `You need to go through the portal? I can open it for you but I need four flowers for the spell.`,
+				buttonText: "Flowers?",
 				buttonAction: this.intro3AlertClicked,
 				context: this
 			},
 			[INTRO4_ALERT]: {
 				title: "Flowers!",
-				content: `Here's a list of my favourite types.`,
-				buttonText: "I'll bring them to you.",
+				content: `I'll give you a list of the ones to find. Bring them to me and I'll open the portal for you.`,
+				buttonText: "Okay",
 				buttonAction: this.intro4AlertClicked,
 				context: this
 			},
@@ -319,12 +319,12 @@ class Plants_Flowers extends Plants_Base {
 		this.runAlert(INTRO3_ALERT);
 	}
 	intro3AlertClicked() {
-		this.link.setFrame('peacock');
+		this.link.setFrame('smile');
 		this.stopAlert(INTRO3_ALERT);
 		this.runAlert(INTRO4_ALERT);
 	}	
-	intro3AlertClicked() {
-		this.link.setFrame('peacock');
+	intro4AlertClicked() {
+		this.link.setFrame('smile');
 		this.stopAlert(INTRO4_ALERT);
 		
 		if (!this.plants_have_entered) {

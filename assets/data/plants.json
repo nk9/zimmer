@@ -91,6 +91,13 @@
       "x": 1150,
       "y": 410
     },
+    "magnolia": {
+      "shape": "cup",
+      "color": "pink",
+      "scale": 0.5,
+      "x": 807,
+      "y": 218
+    },
     "marigold": {
       "shape": "blunt",
       "color": "yellow",
