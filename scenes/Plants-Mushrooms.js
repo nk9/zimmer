@@ -239,13 +239,13 @@ class Plants_Mushrooms extends Plants_Base {
 				buttonAction: this.doSuccessTransition,
 				context: this
 			},
-			// FAIL_ALERT: {
-			// 	title: "Time to recharge",
-			// 	content: `We think there are ${this.success_count} invertebrates out there, but we are out of juice. We will be right back!`,
-			// 	buttonText: "OK :(",
-			// 	buttonAction: this.failAlertClicked,
-			// 	context: this
-			// },
+			[FAIL_ALERT]: {
+				title: "Oops!",
+				content: `Looks like we chose a poisonous mushroom by mistake! We'll have to try again.`,
+				buttonText: "Okay",
+				buttonAction: this.failAlertClicked,
+				context: this
+			},
 		};
 
 		return alerts;
