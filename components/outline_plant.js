@@ -8,7 +8,7 @@ class OutlinePlant extends OutlineImage {
 		let y = get(info, 'y', 0);
 		let scale = get(info, 'scale', 0.5);
 		
-		super(scene, name, x, y, x, y);
+		super(scene, name, x, y);
 
 		this.scale = scale;
 	}

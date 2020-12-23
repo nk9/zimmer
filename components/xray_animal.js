@@ -1,9 +1,9 @@
 import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config'
 import { randomPointOnNearestEdge } from '../utilities/geom_utils';
 
-import OutlineImage from '../components/outline_image';
+import OutlineTargetImage from '../components/outline_target_image';
 
-class XrayAnimal extends OutlineImage {
+class XrayAnimal extends OutlineTargetImage {
 	constructor(scene, name, success, targetX, targetY, scale=.5) {
 		let bounds = new Phaser.Geom.Rectangle(0, 0, GAME_WIDTH, GAME_HEIGHT);
 		Phaser.Geom.Rectangle.Inflate(bounds, 200, 200);

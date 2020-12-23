@@ -2,7 +2,7 @@ import { SceneProgress, Layers } from './base-scene';
 import { ANIMALS_OCEAN, ANIMALS_FOREST } from '../constants/scenes';
 import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
 
-import OutlineImage from '../components/outline_image';
+import OutlineTargetImage from '../components/outline_target_image';
 
 import oceanPicJpg from '../assets/pics/animals/ocean/*.jpg'
 import oceanPicPng from '../assets/pics/animals/ocean/*.png'
@@ -77,7 +77,7 @@ class Animals_Ocean extends Animals_Base {
 	createCallToAction() {
 		this.sound.play('splash_bubble');
 
-		this.submarine = new OutlineImage(this, 'amphisub', 150, 150, 125, -136, 1);
+		this.submarine = new OutlineTargetImage(this, 'amphisub', 150, 150, 125, -136, 1);
 		this.submarine
 			.on('pointerup', pointer => {
 				this.clickCallToAction();

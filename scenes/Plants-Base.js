@@ -44,7 +44,6 @@ class Plants_Base extends BaseScene {
 		this.plants_data = this.cache.json.get('plants_data')[this.key];
 		this.hidden_objects_data = this.cache.json.get('hidden_objects_data')[this.key];
 		
-
 		for (const key in this.hidden_objects_data) {
 	        this.loadOutlineImage(key);
 	    }
