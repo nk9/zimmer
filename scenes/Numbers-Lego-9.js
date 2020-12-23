@@ -177,7 +177,7 @@ class Numbers_Lego_9 extends Numbers_Lego {
 			},
 			[INTRO2_ALERT]: {
 				title: "Mwa ha ha!",
-				content: "And this time I've made a secret hidden door.",
+				content: "And this time I've made it a secret hidden door.",
 				buttonText: "Hidden?",
 				buttonAction: this.clickIntro2Alert,
 				context: this

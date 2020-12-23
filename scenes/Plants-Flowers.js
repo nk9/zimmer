@@ -324,7 +324,7 @@ class Plants_Flowers extends Plants_Base {
 		this.runAlert(INTRO4_ALERT);
 	}	
 	intro4AlertClicked() {
-		this.link.setFrame('smile');
+		this.link.setFrame('peacock');
 		this.stopAlert(INTRO4_ALERT);
 		
 		if (!this.plants_have_entered) {
