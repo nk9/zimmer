@@ -62,10 +62,6 @@ class Plants_Mushrooms extends Plants_Base {
         this.load.audio('woosh', audioMp3.woosh);
         this.load.audio('kitchen', audioMp3.kitchen);
         this.load.audio('potbubble', audioMp3.potbubble);
-
-		for (const key in this.hidden_objects_data) {
-	        this.loadOutlineImage(key);
-	    }
 	}
 
 	loadOutlineImage(name) {
