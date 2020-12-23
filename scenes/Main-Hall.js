@@ -79,6 +79,7 @@ class Main_Hall extends BaseScene {
 		// this.input.enableDebug(this.map_container);
 
 		this.map_container.add([this.map, ...this.levels, close]);
+		this.map_container.visible = false;
 	}
 
 	createItems() {
@@ -104,7 +105,7 @@ class Main_Hall extends BaseScene {
 	}
 
 	clickedLevel(level) {
-		console.log(`clicked ${level.name}`);
+		console.log(`clicked ${level.info.level_key}`);
 		this.doSceneTransition(level.info.level_key);
 	}
 
@@ -117,8 +118,35 @@ class Main_Hall extends BaseScene {
 		}
 	}
 
-	clickedPlinth() {
+	clickedPlinth(plinth) {
+		this.setLevelsInput(false);
+
+		let open_basket_tween = {
+			targets: this.map_container,
+			x: this.map_container.x,
+			y: this.map_container.y,
+			alpha: 1,
+			scale: 1,
+			ease: 'Sine',
+			duration: 1000,
+			onComplete: () => { this.setLevelsInput(true) },
+			onCompleteScope: this
+		};
+
+		this.map_container.setPosition(plinth.x, plinth.y);
+		this.map_container.setSize(plinth.width, plinth.height);
 		this.map_container.visible = true;
+		this.map_container.scale = .2;
+		this.map_container.alpha = 0;
+
+		this.tweens.add(open_basket_tween);
+		this.basket_open = true;
+	}
+
+	setLevelsInput(handleInput) {
+		for (const l of this.levels) {
+			l.input.enabled = handleInput;
+		}
 	}
 
 	closeMap() {
@@ -140,6 +168,11 @@ class Main_Hall extends BaseScene {
 
 	    this.time.delayedCall(3000, this.startScene, [key], this);
 
+	}
+
+	startScene(key) {
+		this.scene.start(key);
+		this.scene.shutdown();
 	}
 
 	////
@@ -168,11 +201,6 @@ class Main_Hall extends BaseScene {
 		this.add.text(x, y, title)
 			.setInteractive({useHandCursor: true})
 			.on('pointerup', pointer => { this.startScene(key) });
-	}
-
-	startScene(key) {
-		this.scene.start(key);
-		this.scene.shutdown();
 	}
 }
 

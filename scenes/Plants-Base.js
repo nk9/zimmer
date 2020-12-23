@@ -224,8 +224,8 @@ class Plants_Base extends BaseScene {
 	}
 
 	setPlantsInput(handleInput) {
-		for (const a of this.plants) {
-			this.input.enabled = handleInput;
+		for (const p of this.plants) {
+			p.input.enabled = handleInput;
 		}
 	}
 

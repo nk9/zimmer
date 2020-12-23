@@ -259,13 +259,13 @@ class Animals_Base extends BaseScene {
 
 	setAnimalsDraggable(canDrag) {
 		for (const a of this.animals) {
-			this.input.setDraggable(a, canDrag);
+			a.input.setDraggable(a, canDrag);
 		}
 	}
 
 	setAnimalsInput(handleInput) {
 		for (const a of this.animals) {
-			this.input.enabled = handleInput;
+			a.input.enabled = handleInput;
 		}
 	}
 
