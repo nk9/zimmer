@@ -3,53 +3,64 @@
     "map": {
     "animals_cave": {
       "scale": 1,
+      "level_key": "Animals-Cave",
       "x": 220,
       "y": -100
       },
       "animals_forest": {
         "scale": 1,
+        "level_key": "Animals_Forest",
         "x": 218,
         "y": 15
       },
       "animals_ocean": {
         "scale": 1,
+        "level_key": "Animals-Ocean",
         "x": 212,
         "y": 100
       },
       "plants1": {
         "scale": 1,
+        "level_key": "Plants-Flowers",
         "x": -15,
         "y": 20
       },
       "plants2": {
         "scale": 1,
+        "level_key": "Plants-Leaves",
         "x": 0,
         "y": -70
       },
       "plants3": {
         "scale": 1,
+        "level_key": "Plants-Mushrooms",
         "x": 0,
         "y": -135
       },
       "map_lego1": {
         "scale": 1,
+        "level_key": "Numbers-Lego-First",
         "x": -122,
         "y": 100
       },
       "map_lego2": {
         "scale": 1,
+        "level_key": "Numbers-Lego-10",
         "x": -250,
         "y": 100
       },
       "map_lego3": {
         "scale": 1,
+        "level_key": "Numbers-Lego-9",
         "x": -260,
         "y": 0
       },
       "map_lego_boss": {
         "scale": 1,
+        "level_key": "Numbers-Lego-Boss",
         "x": -210,
-        "y": -90
+        "y": -90,
+        "enabled": false
       }
     },
   "entry": {
