@@ -1,3 +1,5 @@
+import {groupBy, sampleSize, random, pull} from 'lodash-es';
+
 import { SceneProgress, Layers } from './base-scene';
 import { MAIN_HALL, PLANTS_MUSHROOMS } from '../constants/scenes';
 import { GAME_WIDTH, GAME_HEIGHT, DRAG_THRESHOLD } from '../constants/config';
@@ -20,11 +22,6 @@ let INTRO4_ALERT = 'Intro4_Alert';
 
 let FAIL_ALERT   = 'Fail_Alert';
 let SUCCESS_ALERT = 'Success_Alert';
-
-var groupBy = require('lodash.groupby');
-var sampleSize = require('lodash.samplesize');
-var random = require('lodash.random');
-var pull = require('lodash.pull');
 
 class Plants_Mushrooms extends Plants_Base {
 	constructor() {

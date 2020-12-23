@@ -1,6 +1,6 @@
 import OutlineImage from './outline_image';
 
-var get = require('lodash.get');
+import { get } from 'lodash-es';
 
 class OutlinePlant extends OutlineImage {
 	constructor(scene, name, info) {

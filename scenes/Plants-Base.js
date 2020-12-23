@@ -1,3 +1,5 @@
+import { random } from 'lodash-es';
+
 import BaseScene, { SceneProgress, Layers } from './base-scene'
 import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config'
 import { nearestPointOnRect } from '../utilities/geom_utils'
@@ -10,7 +12,6 @@ import plantsPicPng from '../assets/pics/plants/*.png'
 import audioMp3 from '../assets/audio/*.mp3'
 
 const hmm_count = 7;
-var random = require('lodash.random');
 
 export const SelectionMode = {
 	NONE:    "none", 

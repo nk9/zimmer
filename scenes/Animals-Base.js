@@ -1,3 +1,5 @@
+import { filter } from 'lodash-es'
+
 import BaseScene, { SceneProgress, Layers } from './base-scene'
 import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config'
 import { nearestPointOnRect } from '../utilities/geom_utils'
@@ -43,13 +45,7 @@ class Animals_Base extends BaseScene {
 		this.animals_data = this.cache.json.get('animals_data')[this.key];
 
 		// Count success animals, needed for alerts
-		this.success_count = 0;
-		for (const key in this.animals_data) {
-			const ad = this.animals_data[key];
-			if (ad.success) {
-				this.success_count++;
-			}
-		}
+		this.success_count = filter(Object.values(this.animals_data), 'success').length;
 	}
 
 	create() {

@@ -1,5 +1,4 @@
-var get = require('lodash.get');
-// var merge = require('lodash.merge');
+import { get } from 'lodash-es'
 
 const DATA_KEY = 'zimmerData';
 

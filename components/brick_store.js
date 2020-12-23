@@ -1,6 +1,6 @@
 import Brick, { LEGO_GRID } from '../components/brick';
 
-var shuffle = require('lodash.shuffle');
+import { shuffle } from 'lodash-es';
 
 export const BSBrick = {
 	B1x1:		{hL: 1, wL: 1},
