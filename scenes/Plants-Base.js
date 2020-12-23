@@ -5,7 +5,7 @@ import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config'
 import { nearestPointOnRect } from '../utilities/geom_utils'
 
 import LightboxAlert from '../components/lightbox_alert'
-import OutlinePlantObject from '../components/outline_plant_object';
+import PointerOutlineImage from '../components/pointer_outline_image';
 
 import plantsPicPng from '../assets/pics/plants/*.png'
 import audioMp3 from '../assets/audio/*.mp3'
@@ -99,7 +99,7 @@ class Plants_Base extends BaseScene {
 
 		for (const name in this.hidden_objects_data) {
 			let od = this.hidden_objects_data[name];
-			let hidden_object = new OutlinePlantObject(this, name, od);
+			let hidden_object = new PointerOutlineImage(this, name, od);
 			hidden_object.on('pointerup', this.clickHiddenObject.bind(this, hidden_object));
 			this.hidden_objects.push(hidden_object);
 		}

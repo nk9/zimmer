@@ -5,7 +5,6 @@ import { MAIN_HALL, PLANTS_MUSHROOMS } from '../constants/scenes';
 import { GAME_WIDTH, GAME_HEIGHT, DRAG_THRESHOLD } from '../constants/config';
 
 import OutlinePlantMushroom from '../components/outline_plant_mushroom';
-import OutlinePlantObject from '../components/outline_plant_object';
 
 import plantPicJpg from '../assets/pics/plants/mushrooms/*.jpg'
 import plantPicPng from '../assets/pics/plants/mushrooms/*.png'
