@@ -48,12 +48,6 @@ class Plants_Flowers extends Plants_Base {
 
 	    }
 
-	    // // Triquetra
-	    // this.load.image('leaf_lock', plantPicPng.leaf_lock);
-	    // this.load.image('leaf_lock_bottom_left', plantPicPng.leaf_lock_bottom_left);
-	    // this.load.image('leaf_lock_bottom_right', plantPicPng.leaf_lock_bottom_right);
-	    // this.load.image('leaf_lock_top', plantPicPng.leaf_lock_top);
-
         // Audio
         this.load.audio('woosh', audioMp3.woosh);
         this.load.audio('twinkle', audioMp3.twinkle);
@@ -115,59 +109,12 @@ class Plants_Flowers extends Plants_Base {
 		});
 
 	    var timeline = this.tweens.timeline({ tweens: tweens });
-
-	    this.createHarpLock();
-	}
-
-	createHarpLock() {
-		this.harp_lock_container = this.add.container(360, 350);
-		this.harp_lock = this.add.image(0, 0, 'harp_lock');
-		this.harp_lock_outline = this.add.image(0, 0, 'harp_lock_outline');
-		this.harp_lock_container.add(this.harp_lock);
-		this.harp_lock_container.add(this.harp_lock_outline);
-
-		let bounds = this.harp_lock.getBounds();
-		this.harp_lock_container.setSize(bounds.width, bounds.height);
-
-		this.harp_lock_outline.visible = false;
-
-	    this.harp_lock_container.scale = .7;
-
-	    this.harp_lock_container.setInteractive({useHandCursor: true})
-	    	.on('pointerover', () => {
-	    		this.harp_lock_outline.visible = true;
-	    	})
-	    	.on('pointerout', () => {
-	    		this.harp_lock_outline.visible = false;
-	    	})
-			.on('pointerup', pointer => {
-				if (pointer.getDistance() < DRAG_THRESHOLD) {
-					this.harp_lock_container.visible = false;
-					this.clickHarpLock();
-				}
-			});
 	}
 
 	clickLink() {
 		this.link.input.enabled = false;
 		this.link.clearTint();
 		this.runAlert(INTRO1_ALERT);
-	}
-
-	clickHarpLock() {
-		this.sound.play('twinkle');
-
-		this.harp_lock_container.visible = false;
-		this.leaf_lock_container.visible = true;
-
-		this.tweens.add({
-			targets: this.leaf_lock_container,
-			x: 950,
-			y: 200,
-			alpha: 1,
-			scale: 1,
-			duration: 1000
-		});
 	}
 
 	clickHiddenObject(object) {
@@ -226,86 +173,31 @@ class Plants_Flowers extends Plants_Base {
 	createTools() {
 		super.createTools();
 
-		// Create the triangle
-		let bounds = this.harp_lock_container.getBounds();
-		this.leaf_lock_container = this.add.container(bounds.x, bounds.y);
 
-		let segments = ['leaf_lock', 'leaf_lock_top', 'leaf_lock_bottom_left', 'leaf_lock_bottom_right'];
-
-		for (const segment of segments) {
-			this[segment] = this.add.image(0, 0, segment);
-			this[segment].visible = false;
-			this[segment].depth = Layers.OVER_POUCH;
-			this.leaf_lock_container.add(this[segment]);
-		}
-
-		let top_triangle = new Phaser.Geom.Triangle.BuildEquilateral(150, 0, 145);
-		var top_zone = this.add.zone(0, 0, 300, 125);
-		top_zone.setOrigin(.5, 1);
-		top_zone.setInteractive({
-			hitArea: top_triangle,
-			hitAreaCallback: Phaser.Geom.Triangle.Contains,
-			dropZone: true,
-			useHandCursor: true});
-		top_zone.name = 'spikey';
-		top_zone.lock_image = this.leaf_lock_top;
-		top_zone.particle = this.createTriangleEmitter(top_triangle, top_zone);
-		this.leaf_lock_container.add([top_zone, top_zone.particle]);
-
-		let bottom_left_triangle = new Phaser.Geom.Triangle.BuildEquilateral(top_triangle.x3+5, 0, 135);
-		var bottom_left_zone = this.add.zone(0, 0, 150, 125);
-		bottom_left_zone.setOrigin(1, 0);
-		bottom_left_zone.setInteractive({
-			hitArea: bottom_left_triangle,
-			hitAreaCallback: Phaser.Geom.Triangle.Contains,
-			dropZone: true,
-			useHandCursor: true});
-		bottom_left_zone.name = 'round';
-		bottom_left_zone.lock_image = this.leaf_lock_bottom_left;
-		bottom_left_zone.particle = this.createTriangleEmitter(bottom_left_triangle, bottom_left_zone);
-		this.leaf_lock_container.add([bottom_left_zone, bottom_left_zone.particle]);
-
-		let bottom_right_triangle = new Phaser.Geom.Triangle.BuildEquilateral(top_triangle.x3-10, 0, 135);
-		var bottom_right_zone = this.add.zone(0, 0, 150, 125);
-		bottom_right_zone.setOrigin(0, 0);
-		bottom_right_zone.setInteractive({
-			hitArea: bottom_right_triangle,
-			hitAreaCallback: Phaser.Geom.Triangle.Contains,
-			dropZone: true,
-			useHandCursor: true});
-		bottom_right_zone.name = 'heart';
-		bottom_right_zone.lock_image = this.leaf_lock_bottom_right;
-		bottom_right_zone.particle = this.createTriangleEmitter(bottom_right_triangle, bottom_right_zone);
-		this.leaf_lock_container.add([bottom_right_zone, bottom_right_zone.particle]);
-
-		this.leaf_lock.visible = true;
-		this.leaf_lock_container.visible = false;
-		this.leaf_lock_container.alpha = 0;
-		this.leaf_lock_container.scale = .3;
 	}
 
-	createTriangleEmitter(triangle, zone) {
-		let bounds = zone.getBounds();
-
-	    let particle = this.add.particles('spark');
-	    let emitter = particle.createEmitter({
-	    	on: false,
-	        x: bounds.x,
-	        y: bounds.y,
-	        blendMode: 'SCREEN',
-	        scale: { start: 0.2, end: 0 },
-	        speed: { min: -100, max: 100 },
-	        quantity: 10,
-	        emitZone: {
-		        source: triangle,
-		        type: 'edge',
-		        quantity: 50
-	        }
-	    });
-		particle.setDepth(Layers.POUCH);
-
-		return particle;
-	}
+// 	createTriangleEmitter(triangle, zone) {
+// 		let bounds = zone.getBounds();
+// 
+// 	    let particle = this.add.particles('spark');
+// 	    let emitter = particle.createEmitter({
+// 	    	on: false,
+// 	        x: bounds.x,
+// 	        y: bounds.y,
+// 	        blendMode: 'SCREEN',
+// 	        scale: { start: 0.2, end: 0 },
+// 	        speed: { min: -100, max: 100 },
+// 	        quantity: 10,
+// 	        emitZone: {
+// 		        source: triangle,
+// 		        type: 'edge',
+// 		        quantity: 50
+// 	        }
+// 	    });
+// 		particle.setDepth(Layers.POUCH);
+// 
+// 		return particle;
+// 	}
 
 	intro1AlertClicked() {
 		this.link.setFrame('wave');
@@ -314,17 +206,17 @@ class Plants_Flowers extends Plants_Base {
 	}
 
 	intro2AlertClicked() {
-		this.link.setFrame('notimpressed');
+		this.link.setFrame('peacock');
 		this.stopAlert(INTRO2_ALERT);
 		this.runAlert(INTRO3_ALERT);
 	}
 	intro3AlertClicked() {
-		this.link.setFrame('smile');
+		this.link.setFrame('peacock');
 		this.stopAlert(INTRO3_ALERT);
 		this.runAlert(INTRO4_ALERT);
 	}	
 	intro4AlertClicked() {
-		this.link.setFrame('peacock');
+		this.link.setFrame('thumbsup');
 		this.stopAlert(INTRO4_ALERT);
 		
 		if (!this.plants_have_entered) {
