@@ -29,7 +29,7 @@ class Plants_Mushrooms extends Plants_Base {
 
         // initialize class variables
 		this.success_count = 3;
-		this.total_mushrooms = 8;
+		this.total_mushrooms = 10;
 	}
 
     nextSceneKey() {

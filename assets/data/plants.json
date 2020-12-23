@@ -155,7 +155,28 @@
       "x": 1000,
       "y": 600
     },
+    "blue": {
+      "edible": false,
+      "color": "purple",
+      "scale": 1,
+      "x": 1000,
+      "y": 600
+    },
+    "candlesnuff": {
+      "edible": false,
+      "color": "black",
+      "scale": 1.5,
+      "x": 1000,
+      "y": 600
+    },
     "chanterelle": {
+      "edible": true,
+      "color": "white",
+      "scale": 1,
+      "x": 720,
+      "y": 660
+    },
+    "chanterelle2": {
       "edible": true,
       "color": "white",
       "scale": 1,
@@ -172,7 +193,7 @@
     "deathcap": {
       "edible": false,
       "color": "pink",
-      "scale": 1,
+      "scale": 0.8,
       "x": 1150,
       "y": 410
     },
@@ -218,6 +239,13 @@
       "x": 450,
       "y": 550
     },
+    "inkcap": {
+      "edible": false,
+      "color": "grey",
+      "scale": 1,
+      "x": 450,
+      "y": 550
+    },
     "morel": {
       "edible": true,
       "color": "purple",
@@ -253,17 +281,31 @@
       "x": 540,
       "y": 570
     },
-    "truffle": {
-      "Edible": true,
+    "scaly2": {
+      "edible": true,
       "color": "white",
       "scale": 1,
+      "x": 540,
+      "y": 570
+    },
+    "truffle": {
+      "edible": true,
+      "color": "white",
+      "scale": 1,
+      "x": 300,
+      "y": 410
+    },
+    "truffle2": {
+      "edible": true,
+      "color": "white",
+      "scale": 0.7,
       "x": 300,
       "y": 410
     },
     "virosa": {
       "edible": false,
       "color": "white",
-      "scale": 1,
+      "scale": 0.7,
       "x": 300,
       "y": 410
     }
