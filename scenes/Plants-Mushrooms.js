@@ -2,7 +2,6 @@ import { SceneProgress, Layers } from './base-scene';
 import { MAIN_HALL, PLANTS_MUSHROOMS } from '../constants/scenes';
 import { GAME_WIDTH, GAME_HEIGHT, DRAG_THRESHOLD } from '../constants/config';
 
-import Alert from '../components/alert';
 import OutlinePlantMushroom from '../components/outline_plant_mushroom';
 import OutlinePlantObject from '../components/outline_plant_object';
 
@@ -206,53 +205,53 @@ class Plants_Mushrooms extends Plants_Base {
 	}
 
 	createAlerts() {
-		let scenes = [
-			this.scene.add(INTRO1_ALERT, new Alert(INTRO1_ALERT), false, {
+		let alerts = {
+			[INTRO1_ALERT]: {
 				title: "Thanks for helping!",
-				content: "Time to get ready for the party. You're coming right?",
+				content: "Time to get ready for the party. You’re coming right?",
 				buttonText: "You bet",
 				buttonAction: this.intro1AlertClicked,
 				context: this
-			}),
-			this.scene.add(INTRO2_ALERT, new Alert(INTRO2_ALERT), false, {
+			},
+			[INTRO2_ALERT]: {
 				title: "Great!",
-				content: `Before we go I need to finish up the stew! If you could lend a hand we'll be done in no time!`,
+				content: `Before we go I need to finish up the stew! If you could lend a hand we’ll be done in no time!`,
 				buttonText: "Okay",
 				buttonAction: this.intro2AlertClicked,
 				context: this
-			}),
-			this.scene.add(INTRO3_ALERT, new Alert(INTRO3_ALERT), false, {
+			},
+			[INTRO3_ALERT]: {
 				title: "",
 				content: `I left my mushroon guide around here somewhere. Could you find it and then put three edible mushrooms in the pot?`,
 				buttonText: "Okay",
 				buttonAction: this.intro3AlertClicked,
 				context: this
-			}),
-			this.scene.add(INTRO4_ALERT, new Alert(INTRO4_ALERT), false, {
+			},
+			[INTRO4_ALERT]: {
 				title: "Mushrooms are tricky.",
 				content: `Once you've added three mushrooms use some of my poison checking potion on the pot. 
-				We don't want want to get everyone sick!`,
+				We don’t want want to get everyone sick!`,
 				buttonText: "On it!",
 				buttonAction: this.intro4AlertClicked,
 				context: this
-			}),
-			this.scene.add(SUCCESS_ALERT, new Alert(SUCCESS_ALERT), false, {
+			},
+			[SUCCESS_ALERT]: {
 				title: "Great work!",
 				content: `You found all of the right mushrooms. Thanks for your help! Now what do you think is behind this door?`,
 				buttonText: "I Dunno",
 				buttonAction: this.doSuccessTransition,
 				context: this
-			}),
-			// this.scene.add(FAIL_ALERT, new Alert(FAIL_ALERT), false, {
+			},
+			// FAIL_ALERT: {
 			// 	title: "Time to recharge",
 			// 	content: `We think there are ${this.success_count} invertebrates out there, but we are out of juice. We will be right back!`,
 			// 	buttonText: "OK :(",
 			// 	buttonAction: this.failAlertClicked,
 			// 	context: this
-			// }),
-		];
+			// },
+		};
 
-		return scenes.map(s => s.sys.config);
+		return alerts;
 	}
 
 	createTools() {
@@ -363,6 +362,7 @@ class Plants_Mushrooms extends Plants_Base {
 		this.link.clearTint();
 		this.runAlert(INTRO1_ALERT);
 	}
+
 	intro1AlertClicked() {
 		this.link.setFrame('laugh');
 		this.stopAlert(INTRO1_ALERT);

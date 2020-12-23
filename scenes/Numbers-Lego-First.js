@@ -3,7 +3,6 @@ import BaseScene, { SceneProgress, Layers } from './base-scene';
 import Numbers_Lego from './Numbers-Lego'
 import Brick, { LEGO_GRID } from '../components/brick';
 import BrickStore, { BSBrick } from '../components/brick_store';
-import Alert from '../components/alert';
 
 import { NUMBERS_LEGO_FIRST, NUMBERS_LEGO_SECOND } from '../constants/scenes';
 import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
@@ -165,31 +164,31 @@ class Numbers_Lego_First extends Numbers_Lego {
 	}
 
 	createAlerts() {
-		let scenes = [
-			this.scene.add(INTRO1_ALERT, new Alert(INTRO1_ALERT), false, {
+		let alerts = {
+			[INTRO1_ALERT]: {
 				title: "Hahaha!",
 				content: "I will have the power of the Skull of Hazza D’ur!",
 				buttonText: "As If!",
 				buttonAction: this.clickIntro1Alert,
 				context: this
-			}),
-			this.scene.add(INTRO2_ALERT, new Alert(INTRO2_ALERT), false, {
+			},
+			[INTRO2_ALERT]: {
 				title: "Just try and stop me",
 				content: "You can't even find the pouch of keys OR the keyhole to get through this door!",
 				buttonText: "…keys?",
 				buttonAction: this.clickIntro2Alert,
 				context: this
-			}),
-			this.scene.add(FAIL_ALERT, new Alert(FAIL_ALERT), false, {
+			},
+			[FAIL_ALERT]: {
 				title: "Whoops",
 				content: "I need to find the right pieces faster next time!",
 				buttonText: "Try Again",
 				buttonAction: this.resetAfterFail,
 				context: this
-			}),
-		];
+			},
+		};
 
-		return scenes.map(s => s.sys.config);
+		return alerts;
 	}
 
 	fail() {

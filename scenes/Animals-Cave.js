@@ -2,7 +2,6 @@ import { SceneProgress, Layers } from './base-scene';
 import { MAIN_HALL, ANIMALS_CAVE } from '../constants/scenes';
 import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
 
-import Alert from '../components/alert';
 import OutlineImage from '../components/outline_image';
 
 import cavePicJpg from '../assets/pics/animals/cave/*.jpg'
@@ -118,52 +117,52 @@ createCallToAction() {
 	}
 
 	createAlerts() {
-		let scenes = [
-			this.scene.add(INTRO1_ALERT, new Alert(INTRO1_ALERT), false, {
+		let alerts = {
+			[INTRO1_ALERT]: {
 				title: "It's so wet in here!",
 				content: "All the water dripping through the ceiling is making it really slippery!",
 				buttonText: "Hi again!",
 				buttonAction: this.intro1AlertClicked,
 				context: this
-			}),
-			this.scene.add(INTRO2_ALERT, new Alert(INTRO2_ALERT), false, {
+			},
+			[INTRO2_ALERT]: {
 				title: "How did you get here?",
 				content: "You are trying to open that door? Martin and I might have some tools which can help!",
 				buttonText: "Great!",
 				buttonAction: this.intro2AlertClicked,
 				context: this
-			}),
-			this.scene.add(INTRO3_ALERT, new Alert(INTRO3_ALERT), false, {
+			},
+			[INTRO3_ALERT]: {
 				title: "While you are waiting.",
 				content: "Could you help us find invertebrates? They don't have bones, but they often have a hard shell called an exoskeleton.",
 				buttonText: "Sure!",
 				buttonAction: this.intro3AlertClicked,
 				context: this
-			}),
-			this.scene.add(INTRO4_ALERT, new Alert(INTRO4_ALERT), false, {
+			},
+			[INTRO4_ALERT]: {
 				title: "Thank you!",
 				content: `Use the X-ray gun to have a look at the animals first. Then put the invertebrates in the scanner like before. Remember! The scanner only has charge for ${this.scan_limit} scans.`,
 				buttonText: "Got it",
 				buttonAction: this.intro4AlertClicked,
 				context: this
-			}),
-			this.scene.add(FAIL_ALERT, new Alert(FAIL_ALERT), false, {
+			},
+			[FAIL_ALERT]: {
 				title: "Time to recharge",
 				content: `We think there are ${this.success_count} invertebrates out there, but we are out of juice. We will be right back!`,
 				buttonText: "OK :(",
 				buttonAction: this.failAlertClicked,
 				context: this
-			}),
-			this.scene.add(SUCCESS_ALERT, new Alert(SUCCESS_ALERT), false, {
+			},
+			[SUCCESS_ALERT]: {
 				title: "Great work!",
 				content: `You found all ${this.success_count} of the invertebrates. We managed to get the door open for you! Thanks for your help!`,
 				buttonText: "Thank you!",
 				buttonAction: this.successAlertClicked,
 				context: this
-			}),
-		];
+			},
+		};
 
-		return scenes.map(s => s.key);
+		return alerts;
 	}
 
 	intro1AlertClicked() {

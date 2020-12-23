@@ -2,7 +2,6 @@ import { SceneProgress, Layers } from './base-scene';
 import { PLANTS_FLOWERS, PLANTS_LEAVES } from '../constants/scenes';
 import { GAME_WIDTH, GAME_HEIGHT, DRAG_THRESHOLD } from '../constants/config';
 
-import Alert from '../components/alert';
 import OutlinePlantFlower from '../components/outline_plant_flower';
 
 import plantPicJpg from '../assets/pics/plants/flowers/*.jpg'
@@ -176,52 +175,52 @@ class Plants_Flowers extends Plants_Base {
 	}
 
 	createAlerts() {
-		let scenes = [
-			this.scene.add(INTRO1_ALERT, new Alert(INTRO1_ALERT), false, {
+		let alerts = {
+			[INTRO1_ALERT]: {
 				title: "Not sure where you are?",
 				content: "This is Hyrule! I need to get home fast so I have time to get ready for the party! Why don't you come with me? ",
 				buttonText: "Okay!",
 				buttonAction: this.intro1AlertClicked,
 				context: this
-			}),
-			this.scene.add(INTRO2_ALERT, new Alert(INTRO2_ALERT), false, {
+			},
+			[INTRO2_ALERT]: {
 				title: "Uh oh!",
 				content: `That peacock is blocking the portal.`,
 				buttonText: "I'll go talk to it.",
 				buttonAction: this.intro2AlertClicked,
 				context: this
-			}),
-			this.scene.add(INTRO3_ALERT, new Alert(INTRO3_ALERT), false, {
+			},
+			[INTRO3_ALERT]: {
 				title: "I'm so hungry!",
 				content: `You need to go through the portal? I can't concentrate enough to open it right now. I'm too hungry!`,
 				buttonText: "What would you like to eat?",
 				buttonAction: this.intro3AlertClicked,
 				context: this
-			}),
-			this.scene.add(INTRO4_ALERT, new Alert(INTRO4_ALERT), false, {
+			},
+			[INTRO4_ALERT]: {
 				title: "Flowers!",
 				content: `Here's a list of my favourite types.`,
 				buttonText: "I'll bring them to you.",
 				buttonAction: this.intro4AlertClicked,
 				context: this
-			}),
-			// this.scene.add(FAIL_ALERT, new Alert(FAIL_ALERT), false, {
+			},
+			// [FAIL_ALERT]: {
 			// 	title: "Time to recharge",
 			// 	content: `We think there are ${this.success_count} invertebrates out there, but we are out of juice. We will be right back!`,
 			// 	buttonText: "OK :(",
 			// 	buttonAction: this.failAlertClicked,
 			// 	context: this
-			// }),
-			this.scene.add(SUCCESS_ALERT, new Alert(SUCCESS_ALERT), false, {
+			// },
+			[SUCCESS_ALERT]: {
 				title: "Great work!",
 				content: `right flowers. Thanks for your help! Now what do you think is behind this door?`,
 				buttonText: "I Dunno",
 				buttonAction: this.successAlertClicked,
 				context: this
-			}),
-		];
+			},
+		};
 
-		return scenes.map(s => s.sys.config);
+		return alerts;
 	}
 
 	createTools() {

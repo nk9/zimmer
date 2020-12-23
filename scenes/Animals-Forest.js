@@ -2,7 +2,6 @@ import { SceneProgress, Layers } from './base-scene';
 import { ANIMALS_FOREST, ANIMALS_CAVE } from '../constants/scenes';
 import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
 
-import Alert from '../components/alert';
 import OutlineImage from '../components/outline_image';
 
 import forestPicJpg from '../assets/pics/animals/forest/*.jpg'
@@ -124,38 +123,38 @@ class Animals_Forest extends Animals_Base {
 	}
 
 	createAlerts() {
-		let scenes = [
-			this.scene.add(INTRO1_ALERT, new Alert(INTRO1_ALERT), false, {
+		let alerts = {
+			[INTRO1_ALERT]: {
 				title: "Oh hi again!",
 				content: "You are looking for a door? Martin and I are looking for vertebrates. Those are animals with skeletons. Can you help us find them? While you are looking, we will check our map for your door.",
 				buttonText: "Sure!",
 				buttonAction: this.intro1AlertClicked,
 				context: this
-			}),
-			this.scene.add(INTRO2_ALERT, new Alert(INTRO2_ALERT), false, {
+			},
+			[INTRO2_ALERT]: {
 				title: "Thank You!",
 				content: `Use the X-ray gun to have a look at the animals first. Then drag all the vertebrates over to the scanner. But be careful! The scanner only has charge for ${this.scan_limit} scans.`,
 				buttonText: "Got it",
 				buttonAction: this.intro2AlertClicked,
 				context: this
-			}),
-			this.scene.add(FAIL_ALERT, new Alert(FAIL_ALERT), false, {
+			},
+			[FAIL_ALERT]: {
 				title: "Time to recharge",
 				content: `We think there are ${this.success_count} invertebrates out there, but we are out of juice. We will be right back!`,
 				buttonText: "OK :(",
 				buttonAction: this.failAlertClicked,
 				context: this
-			}),
-			this.scene.add(SUCCESS_ALERT, new Alert(SUCCESS_ALERT), false, {
+			},
+			[SUCCESS_ALERT]: {
 				title: "Great work!",
 				content: `You found all ${this.success_count} of the vertebrates. We found the door you were looking for. Thanks for your help!`,
 				buttonText: "Thank you",
 				buttonAction: this.successAlertClicked,
 				context: this
-			}),
-		];
+			},
+		};
 
-		return scenes.map(s => s.key);
+		return alerts;
 	}
 
 	intro1AlertClicked() {

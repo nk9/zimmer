@@ -5,6 +5,8 @@ import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
 
 import { MAIN_HALL } from '../constants/scenes';
 
+import Alert from '../components/alert';
+
 export const SceneProgress = {
 	BEGIN:   1,
 	FAILED:  10,
@@ -47,7 +49,13 @@ class BaseScene extends Scene {
     }
 
 	create() {
-        this.alert_keys = this.createAlerts();
+        let alerts = this.createAlerts();
+        this.alert_keys = [];
+
+        for (const [key, data] of Object.entries(alerts)) {
+            this.alert_keys.push(key);
+            this.scene.add(key, new Alert(key), false, data)
+        }
 
         this.events.once('shutdown', () => {
             for (const key of this.alert_keys) {

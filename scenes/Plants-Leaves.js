@@ -2,7 +2,6 @@ import { SceneProgress, Layers } from './base-scene';
 import { PLANTS_LEAVES, PLANTS_MUSHROOMS } from '../constants/scenes';
 import { GAME_WIDTH, GAME_HEIGHT, DRAG_THRESHOLD } from '../constants/config';
 
-import Alert from '../components/alert';
 import OutlinePlantLeaf from '../components/outline_plant_leaf';
 
 import plantPicJpg from '../assets/pics/plants/leaves/*.jpg'
@@ -180,31 +179,31 @@ class Plants_Leaves extends Plants_Base {
 	}
 
 	createAlerts() {
-		let scenes = [
-			this.scene.add(INTRO1_ALERT, new Alert(INTRO1_ALERT), false, {
+		let alerts = {
+			[INTRO1_ALERT]: {
 				title: "Welcome to Hyrule!",
 				content: "I lost the key to my door! Do you think you could help me get it back?",
 				buttonText: "You bet",
 				buttonAction: this.intro1AlertClicked,
 				context: this
-			}),
-			this.scene.add(INTRO2_ALERT, new Alert(INTRO2_ALERT), false, {
+			},
+			[INTRO2_ALERT]: {
 				title: "Thanks!",
 				content: `Some of these plants have the right leaves to make a new key.`,
 				buttonText: "Roger",
 				buttonAction: this.intro2AlertClicked,
 				context: this
-			}),
-			this.scene.add(SUCCESS_ALERT, new Alert(SUCCESS_ALERT), false, {
+			},
+			[SUCCESS_ALERT]: {
 				title: "Great work!",
 				content: `You found all of the right leaves. Thanks for your help! Now what do you think is behind this door?`,
 				buttonText: "I Dunno",
 				buttonAction: this.successAlertClicked,
 				context: this
-			}),
-		];
+			},
+		};
 
-		return scenes.map(s => s.sys.config);
+		return alerts;
 	}
 
 	createTools() {

@@ -3,7 +3,6 @@ import BaseScene, { SceneProgress, Layers } from './base-scene';
 import Numbers_Lego from './Numbers-Lego'
 import Brick, { LEGO_GRID } from '../components/brick';
 import BrickStore, { BSBrick } from '../components/brick_store';
-import Alert from '../components/alert';
 
 import { NUMBERS_LEGO_9 } from '../constants/scenes';
 import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
@@ -169,31 +168,31 @@ class Numbers_Lego_9 extends Numbers_Lego {
 	}
 
 	createAlerts() {
-		let scenes = [
-			this.scene.add(INTRO1_ALERT, new Alert(INTRO1_ALERT), false, {
+		let alerts = {
+			[INTRO1_ALERT]: {
 				title: "What!",
 				content: "I don't know how you made it past my lock. But I've got you now!",
 				buttonText: "...",
 				buttonAction: this.clickIntro1Alert,
 				context: this
-			}),
-			this.scene.add(INTRO2_ALERT, new Alert(INTRO2_ALERT), false, {
+			},
+			[INTRO2_ALERT]: {
 				title: "Mwa ha ha!",
 				content: "I've split my hidden key into 2 pieces! You'll never figure it out!",
 				buttonText: "2 pieces?",
 				buttonAction: this.clickIntro2Alert,
 				context: this
-			}),
-			this.scene.add(FAIL_ALERT, new Alert(FAIL_ALERT), false, {
+			},
+			[FAIL_ALERT]: {
 				title: "Whoops",
 				content: "I need to find the right pieces faster next time!",
 				buttonText: "Try Again",
 				buttonAction: this.resetAfterFail,
 				context: this
-			}),
-		];
+			},
+		};
 
-		return scenes.map(s => s.sys.config);
+		return alerts;
 	}
 
 	fail() {
