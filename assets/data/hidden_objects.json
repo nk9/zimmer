@@ -39,23 +39,23 @@
   "Plants-Leaves": {
     "birdhouse": {
       "scale": 1,
-      "x": 630,
-      "y": 350
+      "x": 628,
+      "y": 344
     },
     "flowerpot": {
       "scale": 1,
-      "x": 470,
-      "y": 380
+      "x": 479,
+      "y": 385
     },
     "lantern": {
       "scale": 1,
-      "x": 430,
-      "y": 110
+      "x": 427,
+      "y": 126
     },
     "mailbox": {
       "scale": 1,
-      "x": 810,
-      "y": 540
+      "x": 829,
+      "y": 547
     }  
   },
   "Plants-Flowers": {

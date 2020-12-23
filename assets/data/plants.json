@@ -22,7 +22,7 @@
       "leaf_type": "heart",
       "scale": 0.3,
       "x": 650,
-      "y": 530
+      "y": 430
     },
     "fleabane": {
       "leaf_type": "tear",
@@ -33,8 +33,8 @@
     "garlic_mustard": {
       "leaf_type": "tear",
       "scale": 0.4,
-      "x": 630,
-      "y": 370
+      "x": 650,
+      "y": 600
     },
     "pennywort": {
       "leaf_type": "round",
