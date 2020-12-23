@@ -17,7 +17,7 @@ class Main_Hall extends BaseScene {
 	}
 
 	init() {
-		this.level = [];
+		this.levels = [];
 	}
 
 	storeLastScene() {
@@ -47,7 +47,7 @@ class Main_Hall extends BaseScene {
 
 		// this.createBareBones();
 		this.createBackground();
-		// this.createTools();
+		this.createItems();
 		this.createMap();
 
 		this.home.visible = false;
@@ -62,47 +62,42 @@ class Main_Hall extends BaseScene {
 		this.background.setOrigin(0, 0);
 	}
 
-// 	createTools() {
-// 		this.map = this.add.image(, , 'map');
-// 
-// 		let village = this.add.image(GAME_WIDTH/2, GAME_HEIGHT/2, 'village');
-// 		let village2 = this.add.image(GAME_WIDTH/2, GAME_HEIGHT/2, 'village_glow');
-// 		village2.visible = false;
-// 
-// 		let b = village.getBounds();
-// 		let zone = this.add.zone(b.x, b.y, b.width, b.height);
-// 		zone.setOrigin(0, 0);
-// 
-// 		zone.setInteractive({useHandCursor: true})
-// 			.on('pointerover', () => {
-// 				village.visible = false;
-// 				village2.visible = true;})
-// 			.on('pointerout', () => {
-// 				village.visible = true;
-// 				village2.visible = false;})
-// 	}
-
 	createMap() {
 		this.map_container = this.add.container(GAME_WIDTH/2, GAME_HEIGHT/2);
-		// this.map_container.setOrigin(0, 0);
 		this.map = this.add.image(0, 0, 'map');
 
-		// TODO: Create close button
+		this.levels = this.addImagesFromStoredData('map', this.clickedLevel);
 
-		for (const [key, ld] of Object.entries(this.stored_data.map)) {
-			if ('x' in ld && 'y' in ld) {
-				let level = new PointerOutlineImage(this, key, ld);
+		// Create close button
+		let bounds = this.map.getBounds();
+		let close = this.add.image(bounds.right-10, bounds.top+10, 'close_button')
+						.setInteractive({useHandCursor: true})
+						.on('pointerup', () => { this.closeMap(); });
 
-				level.on('pointerdown', this.clickedScene.bind(this, level));
+		// this.map_container.setInteractive();
+		// this.input.enableDebug(this.map_container);
+
+		this.map_container.add([this.map, ...this.levels, close]);
+	}
+
+	createItems() {
+		this.items = this.addImagesFromStoredData('entry', this.clickedItem);
+	}
+
+	addImagesFromStoredData(data_name, callback) {
+		var images = [];
+
+		for (const [key, image_data] of Object.entries(this.stored_data[data_name])) {
+			if ('x' in image_data && 'y' in image_data) {
+				let image = new PointerOutlineImage(this, key, image_data);
+
+				image.on('pointerdown', callback.bind(this, image));
 				
-				this.level.push(level);
+				images.push(image);
 			}
 		}
 
-		this.map_container.setInteractive();
-		this.input.enableDebug(this.map_container);
-
-		this.map_container.add([this.map, ...this.level]);
+		return images;
 	}
 
 	createBareBones() {
@@ -129,8 +124,20 @@ class Main_Hall extends BaseScene {
 			.on('pointerup', pointer => { this.startScene(key) });
 	}
 
-	clickedScene(scene) {
-		console.log(`clicked ${scene.key}`);
+	clickedLevel(level) {
+		console.log(`clicked ${level.name}`);
+	}
+
+	clickedItem(item) {
+		console.log(`clicked ${item.name}`);
+	}
+
+	clickedPlinth() {
+		this.map_container.visible = true;
+	}
+
+	closeMap() {
+		this.map_container.visible = false;
 	}
 
 	startScene(key) {
