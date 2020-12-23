@@ -103,6 +103,49 @@ class Main_Hall extends BaseScene {
 		return images;
 	}
 
+	clickedLevel(level) {
+		console.log(`clicked ${level.name}`);
+		this.doSceneTransition(level.info.level_key);
+	}
+
+	clickedItem(item) {
+		console.log(`clicked ${item.name}`);
+		
+		switch(item.name) {
+			case 'plinth2':	this.clickedPlinth(item); break;
+			default:
+		}
+	}
+
+	clickedPlinth() {
+		this.map_container.visible = true;
+	}
+
+	closeMap() {
+		this.map_container.visible = false;
+	}
+
+	doSceneTransition(key) {
+		this.sound.play('poof');
+		this.overlay.visible = true;
+
+	    this.tweens.timeline({
+	    	tweens: [{
+	    		targets: this.overlay,
+	    		duration: 2500,
+	    		alpha: 1,
+	    		offset: 500
+	    	}]
+	    });
+
+	    this.time.delayedCall(3000, this.startScene, [key], this);
+
+	}
+
+	////
+	// Bare bones version
+	////
+
 	createBareBones() {
 		this.addButton(100, 100, 'Lego First', NUMBERS_LEGO_FIRST);
 		this.addButton(100, 120, 'Lego Second', NUMBERS_LEGO_SECOND);
@@ -125,28 +168,6 @@ class Main_Hall extends BaseScene {
 		this.add.text(x, y, title)
 			.setInteractive({useHandCursor: true})
 			.on('pointerup', pointer => { this.startScene(key) });
-	}
-
-	clickedLevel(level) {
-		console.log(`clicked ${level.name}`);
-		this.startScene(level.info.level_key);
-	}
-
-	clickedItem(item) {
-		console.log(`clicked ${item.name}`);
-		
-		switch(item.name) {
-			case 'plinth2':	this.clickedPlinth(item); break;
-			default:
-		}
-	}
-
-	clickedPlinth() {
-		this.map_container.visible = true;
-	}
-
-	closeMap() {
-		this.map_container.visible = false;
 	}
 
 	startScene(key) {
