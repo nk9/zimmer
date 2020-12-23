@@ -48,6 +48,7 @@ class Init extends Scene {
         this.load.image('close_button', imagesPng.close_button);
 
         // JSON data
+        this.load.json('data', dataJson.data);
         this.load.json('animals_data', dataJson.animals);
         this.load.json('plants_data', dataJson.plants);
         this.load.json('hidden_objects_data', dataJson.hidden_objects);

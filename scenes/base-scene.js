@@ -7,6 +7,8 @@ import { MAIN_HALL } from '../constants/scenes';
 
 import Alert from '../components/alert';
 
+import { get } from 'lodash-es';
+
 export const SceneProgress = {
 	BEGIN:   1,
 	FAILED:  10,
@@ -46,6 +48,10 @@ class BaseScene extends Scene {
 
     storeLastScene() {
         this.store(LAST_SCENE, this.key);
+    }
+
+    preload() {
+        this.stored_data = get(this.cache.json.get('data'), this.key);
     }
 
 	create() {

@@ -1,0 +1,20 @@
+{
+  "Main-Hall": {
+    "map": {
+    "animals_cave": {
+      "x": 0,
+      "y": 0
+    },
+      "plants1": {
+        "x": -40,
+        "y": -140
+      }
+    },
+  "entry": {
+    "plinth2": {
+      "x": 0,
+      "y": 0
+    }
+  }
+}
+}

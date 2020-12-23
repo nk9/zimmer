@@ -5,8 +5,10 @@ import { MAIN_HALL,
 		 PLANTS_LEAVES, PLANTS_FLOWERS, PLANTS_MUSHROOMS } from '../constants/scenes';
 import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
 
-import numbersPicPng from '../assets/pics/entry/*.png';
-import numbersPicJpg from '../assets/pics/entry/*.jpg';
+import PointerOutlineImage from '../components/pointer_outline_image';
+
+import entryPicPng from '../assets/pics/entry/*.png';
+import entryPicJpg from '../assets/pics/entry/*.jpg';
 
 
 class Main_Hall extends BaseScene {
@@ -14,25 +16,39 @@ class Main_Hall extends BaseScene {
         super(MAIN_HALL);
 	}
 
+	init() {
+		this.level = [];
+	}
+
 	storeLastScene() {
 		// Never store the Main Hall
 	}
 
 	preload() {
-		this.load.image('entryhall', numbersPicJpg.entryhall);
-		this.load.image('map', numbersPicPng.map);
+		super.preload();
 
-		this.load.image('village', numbersPicPng.map_lego_boss);
-		this.load.image('village_glow', numbersPicPng.map_lego_boss_glow);
+		this.load.image('entryhall', entryPicJpg.entryhall);
+		this.load.image('map', entryPicPng.map);
 
+		let keys = [...Object.keys(this.stored_data.entry),
+					...Object.keys(this.stored_data.map)];
+		for (const key of keys) {
+	        this.loadOutlineImage(key);
+		}
+	}
+
+	loadOutlineImage(name) {
+		this.load.image(name, entryPicPng[name]);
+		this.load.image(name+"_outline", entryPicPng[name+"_outline"]);
 	}
 
 	create() {
 		super.create();
 
-		this.createBareBones();
-		// this.createBackground();
+		// this.createBareBones();
+		this.createBackground();
 		// this.createTools();
+		this.createMap();
 
 		this.home.visible = false;
 	}
@@ -46,24 +62,47 @@ class Main_Hall extends BaseScene {
 		this.background.setOrigin(0, 0);
 	}
 
-	createTools() {
-		this.map = this.add.image(GAME_WIDTH/2, GAME_HEIGHT/2, 'map');
+// 	createTools() {
+// 		this.map = this.add.image(, , 'map');
+// 
+// 		let village = this.add.image(GAME_WIDTH/2, GAME_HEIGHT/2, 'village');
+// 		let village2 = this.add.image(GAME_WIDTH/2, GAME_HEIGHT/2, 'village_glow');
+// 		village2.visible = false;
+// 
+// 		let b = village.getBounds();
+// 		let zone = this.add.zone(b.x, b.y, b.width, b.height);
+// 		zone.setOrigin(0, 0);
+// 
+// 		zone.setInteractive({useHandCursor: true})
+// 			.on('pointerover', () => {
+// 				village.visible = false;
+// 				village2.visible = true;})
+// 			.on('pointerout', () => {
+// 				village.visible = true;
+// 				village2.visible = false;})
+// 	}
 
-		let village = this.add.image(GAME_WIDTH/2, GAME_HEIGHT/2, 'village');
-		let village2 = this.add.image(GAME_WIDTH/2, GAME_HEIGHT/2, 'village_glow');
-		village2.visible = false;
+	createMap() {
+		this.map_container = this.add.container(GAME_WIDTH/2, GAME_HEIGHT/2);
+		// this.map_container.setOrigin(0, 0);
+		this.map = this.add.image(0, 0, 'map');
 
-		let b = village.getBounds();
-		let zone = this.add.zone(b.x, b.y, b.width, b.height);
-		zone.setOrigin(0, 0);
+		// TODO: Create close button
 
-		zone.setInteractive({useHandCursor: true})
-			.on('pointerover', () => {
-				village.visible = false;
-				village2.visible = true;})
-			.on('pointerout', () => {
-				village.visible = true;
-				village2.visible = false;})
+		for (const [key, ld] of Object.entries(this.stored_data.map)) {
+			if ('x' in ld && 'y' in ld) {
+				let level = new PointerOutlineImage(this, key, ld);
+
+				level.on('pointerdown', this.clickedScene.bind(this, level));
+				
+				this.level.push(level);
+			}
+		}
+
+		this.map_container.setInteractive();
+		this.input.enableDebug(this.map_container);
+
+		this.map_container.add([this.map, ...this.level]);
 	}
 
 	createBareBones() {
@@ -88,6 +127,10 @@ class Main_Hall extends BaseScene {
 		this.add.text(x, y, title)
 			.setInteractive({useHandCursor: true})
 			.on('pointerup', pointer => { this.startScene(key) });
+	}
+
+	clickedScene(scene) {
+		console.log(`clicked ${scene.key}`);
 	}
 
 	startScene(key) {
