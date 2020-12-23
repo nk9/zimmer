@@ -168,6 +168,10 @@ class Plants_Mushrooms extends Plants_Base {
 		this.basket_open = true;
 	}
 
+	closeBasket() {
+		this.basket_container.visible = false;
+	}
+
 	clickBook(book) {
 		// Show edible mushrooms image
 		this.ediblesMenu.visible = true;
@@ -254,8 +258,12 @@ class Plants_Mushrooms extends Plants_Base {
 		this.bigbasket.setDepth(Layers.BASKET);
 
 		// Create close button
+		let bounds = this.bigbasket.getBounds();
+		let close = this.add.image(bounds.right*.7, bounds.top*.7, 'close_button')
+						.setInteractive({useHandCursor: true})
+						.on('pointerup', () => { this.closeBasket(); });
 
-		this.basket_container.add(this.bigbasket);
+		this.basket_container.add([this.bigbasket, close]);
 
 		// Make pot a drop target
 		for (const obj of this.hidden_objects) {
