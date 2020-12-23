@@ -10,6 +10,7 @@ import PointerOutlineImage from '../components/pointer_outline_image';
 import entryPicPng from '../assets/pics/entry/*.png';
 import entryPicJpg from '../assets/pics/entry/*.jpg';
 
+import { get } from 'lodash-es';
 
 class Main_Hall extends BaseScene {
 	constructor() {
@@ -89,11 +90,13 @@ class Main_Hall extends BaseScene {
 
 		for (const [key, image_data] of Object.entries(this.stored_data[data_name])) {
 			if ('x' in image_data && 'y' in image_data) {
-				let image = new PointerOutlineImage(this, key, image_data);
+				if (get(image_data, 'enabled', true)) {
+					let image = new PointerOutlineImage(this, key, image_data);
 
-				image.on('pointerdown', callback.bind(this, image));
-				
-				images.push(image);
+					image.on('pointerdown', callback.bind(this, image));
+					
+					images.push(image);
+				}
 			}
 		}
 
@@ -126,10 +129,16 @@ class Main_Hall extends BaseScene {
 
 	clickedLevel(level) {
 		console.log(`clicked ${level.name}`);
+		this.startScene(level.info.level_key);
 	}
 
 	clickedItem(item) {
 		console.log(`clicked ${item.name}`);
+		
+		switch(item.name) {
+			case 'plinth2':	this.clickedPlinth(item); break;
+			default:
+		}
 	}
 
 	clickedPlinth() {
