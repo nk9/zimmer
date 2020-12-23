@@ -2,10 +2,42 @@
   "Main-Hall": {
     "map": {
     "animals_cave": {
-      "x": 0,
-      "y": 0
+      "x": 40,
+      "y": -20
+    },
+      "animals_forest": {
+        "x": 50,
+        "y": 0
+      },
+      "animals_ocean": {
+        "x": 150,
+        "y": 100
     },
       "plants1": {
+        "x": 0,
+        "y": 0
+      },
+      "plants2": {
+        "x": 0,
+        "y": 20
+      },
+      "plants3": {
+        "x": 0,
+        "y": -40
+      },
+      "map_lego_1": {
+        "x": -40,
+        "y": -140
+      },
+      "map_lego_2": {
+        "x": -40,
+        "y": -140
+      },
+      "map_lego_3": {
+        "x": -40,
+        "y": -140
+      },
+      "map_lego_boss": {
         "x": -40,
         "y": -140
       }
