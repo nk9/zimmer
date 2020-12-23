@@ -91,12 +91,12 @@ class Main_Hall extends BaseScene {
 		console.log(`clicked ${item.name}`);
 		
 		switch(item.name) {
-			case 'plinth2':	this.clickedPlinth(item); break;
+			case 'box':	this.clickedBox(item); break;
 			default:
 		}
 	}
 
-	clickedPlinth(plinth) {
+	clickedBox(box) {
 		this.setLevelsInput(false);
 
 		let open_basket_tween = {
@@ -111,8 +111,8 @@ class Main_Hall extends BaseScene {
 			onCompleteScope: this
 		};
 
-		this.map_container.setPosition(plinth.x, plinth.y);
-		this.map_container.setSize(plinth.width, plinth.height);
+		this.map_container.setPosition(box.x, box.y);
+		this.map_container.setSize(box.width, box.height);
 		this.map_container.visible = true;
 		this.map_container.scale = .2;
 		this.map_container.alpha = 0;
