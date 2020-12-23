@@ -20,11 +20,10 @@ class Numbers_Lego_9 extends Numbers_Lego {
         super(NUMBERS_LEGO_9);
 	}
 
-    nextSceneKey() {
-    	// TODO: implement the boss level
-        return MAIN_HALL;
+    // nextSceneKey() {
+    // 	// TODO: implement the boss level
     //     return NUMBERS_LEGO_BOSS;
-    }
+    // }
 
 	preload() {
 		super.preload();

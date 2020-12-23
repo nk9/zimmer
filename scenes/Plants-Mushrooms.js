@@ -32,10 +32,6 @@ class Plants_Mushrooms extends Plants_Base {
 		this.total_mushrooms = 10;
 	}
 
-    nextSceneKey() {
-        return MAIN_HALL;
-    }
-
 	init() {
 		super.init();
 

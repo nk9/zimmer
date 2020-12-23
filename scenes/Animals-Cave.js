@@ -25,10 +25,6 @@ class Animals_Cave extends Animals_Base {
 		this.scan_limit = 5;
 	}
 
-    nextSceneKey() {
-        return MAIN_HALL;
-    }
-
 	preload() {
 		super.preload();
 
