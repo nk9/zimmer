@@ -4,7 +4,6 @@ import BaseScene, { SceneProgress, Layers } from './base-scene'
 import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config'
 import { nearestPointOnRect } from '../utilities/geom_utils'
 
-import OutlinePlant from '../components/outline_plant'
 import LightboxAlert from '../components/lightbox_alert'
 import OutlinePlantObject from '../components/outline_plant_object';
 

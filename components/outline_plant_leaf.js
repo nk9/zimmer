@@ -1,8 +1,8 @@
-import OutlinePlant from './outline_plant';
+import StoredOutlineImage from './stored_outline_Image';
 
 import { get } from 'lodash-es';
 
-class OutlinePlantLeaf extends OutlinePlant {
+class OutlinePlantLeaf extends StoredOutlineImage {
 	constructor(scene, name, info) {
 		super(scene, name, info);
 
