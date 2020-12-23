@@ -70,6 +70,20 @@
       "x": 1000,
       "y": 600
     },
+    "cherry": {
+      "shape": "round",
+      "color": "pink",
+      "scale": 0.3,
+      "x": 150,
+      "y": 50  
+    },
+    "cherry2": {
+      "shape": "round",
+      "color": "pink",
+      "scale": 0.2,
+      "x": 80,
+      "y": 170
+    },
     "clover": {
       "shape": "ball",
       "color": "white",
@@ -92,7 +106,7 @@
       "y": 410
     },
     "magnolia": {
-      "shape": "cup",
+      "shape": "pointed",
       "color": "pink",
       "scale": 0.5,
       "x": 807,
