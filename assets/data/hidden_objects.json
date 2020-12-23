@@ -37,6 +37,26 @@
     }
   },
   "Plants-Leaves": {
+    "birdhouse": {
+      "scale": 1,
+      "x": 630,
+      "y": 350
+    },
+    "flowerpot": {
+      "scale": 1,
+      "x": 470,
+      "y": 380
+    },
+    "lantern": {
+      "scale": 1,
+      "x": 430,
+      "y": 110
+    },
+    "mailbox": {
+      "scale": 1,
+      "x": 810,
+      "y": 540
+    }  
   },
   "Plants-Flowers": {
   }
