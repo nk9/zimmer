@@ -60,7 +60,7 @@ class Main_Hall extends BaseScene {
 	createBackground() {
 		this.background = this.add.image(0, 0, 'entryhall');
 		this.background.setOrigin(0, 0);
-		this.background_sound = this.sound.add('entry_background', {loop: true});
+		this.background_sound = this.sound.add('entry_background', {volume: .4, loop: true});
 		this.background_sound.play();
 	}
 

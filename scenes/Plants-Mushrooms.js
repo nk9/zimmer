@@ -315,6 +315,8 @@ class Plants_Mushrooms extends Plants_Base {
 		this.party.scale = 1.3;
 		this.party.angle = 10;
 		this.party.visible = false;
+
+		this.tavern_audio = this.sound.add('tavern', {volume: .4});
 	}
 
 	chooseMagnifyingGlass() {
@@ -445,7 +447,7 @@ class Plants_Mushrooms extends Plants_Base {
 		this.stopAlert(SUCCESS_ALERT);
 		this.party.visible = true;
 		this.overlay.visible = true;
-		this.sound.play('tavern', {volume: 1});
+		this.tavern_audio.play();
 
 	    var timeline = this.tweens.timeline({
 	    	tweens: [{
@@ -459,7 +461,7 @@ class Plants_Mushrooms extends Plants_Base {
 	    		duration: 2500,
 	    	}]
 	    });
-	    this.sound.stop('tavern');
+	    
 	    this.time.delayedCall(9500, this.startNextScene, [], this);
 	}
 

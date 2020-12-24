@@ -13,22 +13,12 @@
     "book": {
       "scale": 1,
       "x": 1015,
-      "y": 172,
-      "alert": {
-        "title": "My title",
-        "content": "Some clever text",
-        "button_title": "Short!"
-      }
+      "y": 172
     },
     "basket": {
       "scale": 1,
       "x": 550,
-      "y": 360,
-      "alert": {
-        "title": "My title",
-        "content": "Some clever text",
-        "button_title": "Short!"
-      }
+      "y": 360
     },
     "pillow": {
       "scale": 1,
@@ -95,7 +85,7 @@
   },
   "Plants-Flowers": {
     "peacock": {
-      "scale": .75,
+      "scale": 0.75,
       "x": 620,
       "y": 500,
       "alert": {
