@@ -125,7 +125,7 @@ class Numbers_Lego_9 extends Numbers_Lego {
 	}
 
 	keyZoneRect() {
-		return {x: 550, y: 330, width: 110, height: 110};
+		return {x: 560, y: 100, width: 150, height: 50};
 	}
 
 	pouchOpenPosition() {

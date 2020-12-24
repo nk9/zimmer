@@ -173,9 +173,9 @@ class Numbers_Lego_First extends Numbers_Lego {
 				context: this
 			},
 			[INTRO2_ALERT]: {
-				title: "Just try and stop me",
-				content: "You can't even find the pouch of keys OR the keyhole to get through this door!",
-				buttonText: "…keys?",
+				title: "You won't find the key!",
+				content: "And how will you know what shape of key you need? By clicking on the keyhole? Hahahaha! ",
+				buttonText: "By clicking?",
 				buttonAction: this.clickIntro2Alert,
 				context: this
 			},

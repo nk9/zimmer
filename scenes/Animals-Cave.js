@@ -115,14 +115,14 @@ createCallToAction() {
 	createAlerts() {
 		let alerts = {
 			[INTRO1_ALERT]: {
-				title: "It's so wet in here!",
+				title: "Careful!",
 				content: "All the water dripping through the ceiling is making it really slippery!",
 				buttonText: "Hi again!",
 				buttonAction: this.intro1AlertClicked,
 				context: this
 			},
 			[INTRO2_ALERT]: {
-				title: "How did you get here?",
+				title: "What are you doing here Bryson?",
 				content: "You are trying to open that door? Martin and I might have some tools which can help!",
 				buttonText: "Great!",
 				buttonAction: this.intro2AlertClicked,
@@ -130,7 +130,7 @@ createCallToAction() {
 			},
 			[INTRO3_ALERT]: {
 				title: "While you are waiting.",
-				content: "Could you help us find invertebrates? They don't have bones, but they often have a hard shell called an exoskeleton.",
+				content: "Could you help us find INVERTEBRATES? They don't have bones, but they often have a hard shell called an exoskeleton.",
 				buttonText: "Sure!",
 				buttonAction: this.intro3AlertClicked,
 				context: this
@@ -151,7 +151,7 @@ createCallToAction() {
 			},
 			[SUCCESS_ALERT]: {
 				title: "Great work!",
-				content: `You found all ${this.success_count} of the invertebrates. We managed to get the door open for you! Thanks for your help!`,
+				content: `Thanks for your help Bryson! While you were working we managed to get the door open for you!`,
 				buttonText: "Thank you!",
 				buttonAction: this.successAlertClicked,
 				context: this
