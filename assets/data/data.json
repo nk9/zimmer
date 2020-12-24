@@ -82,8 +82,8 @@
         "y": 410,
         "alert": {
           "title": "My title",
-          "content": "Some clever text",
-          "button_title": "Short!"
+          "content": "Hmm... Just an empty box.",
+          "button_title": "..."
         }
       },
     "doorblock": {
@@ -92,9 +92,9 @@
         "x": 971,
         "y": 424,
         "alert": {
-          "title": "My title",
-          "content": "Some clever text",
-          "button_title": "Short!"
+          "title": "It's locked.",
+          "content": "There's no keyhole. There must be some other way to unlock it.",
+          "button_title": "Keep searching"
         }
       },
     "grate": {
@@ -103,9 +103,9 @@
         "x": 818,
         "y": 378,
         "alert": {
-          "title": "My title",
-          "content": "Some clever text",
-          "button_title": "Short!"
+          "title": "Hmm...",
+          "content": "There's something behind here.",
+          "button_title": "Remove grate"
         }
       },
     "mobile": {
@@ -114,9 +114,9 @@
         "x": 1137,
         "y": 139,
         "alert": {
-          "title": "My title",
-          "content": "Some clever text",
-          "button_title": "Short!"
+          "title": "A planet",
+          "content": "I don't recognize the other planets here.",
+          "button_title": "..."
         }
       },
     "trunk": {
@@ -125,9 +125,9 @@
         "x": 444,
         "y": 225,
         "alert": {
-          "title": "My title",
-          "content": "Some clever text",
-          "button_title": "Short!"
+          "title": "Hmm...",
+          "content": "Looks like a suitcase for travelling.",
+          "button_title": "Put it back"
         }
       },
       "box": {
