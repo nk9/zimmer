@@ -1,4 +1,4 @@
-import {groupBy, sampleSize, random, pull} from 'lodash-es';
+import {groupBy, sampleSize, random, pull, find} from 'lodash-es';
 
 import { SceneProgress, Layers } from './base-scene';
 import { MAIN_HALL, PLANTS_MUSHROOMS } from '../constants/scenes';
@@ -19,6 +19,7 @@ let INTRO2_ALERT = 'Intro2_Alert';
 let INTRO3_ALERT = 'Intro3_Alert';
 let INTRO4_ALERT = 'Intro4_Alert';
 
+let NOT_ENOUGH_ALERT = 'Not_Enough_Alert';
 let FAIL_ALERT   = 'Fail_Alert';
 let SUCCESS_ALERT = 'Success_Alert';
 
@@ -35,6 +36,7 @@ class Plants_Mushrooms extends Plants_Base {
 		super.init();
 
 		this.basket_open = false;
+		this.plant_drops = [];
 	}
 
 	preload() {
@@ -188,9 +190,26 @@ class Plants_Mushrooms extends Plants_Base {
 	}
 
 	checkSuccess() {
-		if (this.successful_drops.length == this.success_count) {
-			this.succeed();
+		// Have we done enough drops?
+		if (this.plant_drops.length == this.success_count) {
+			// Have all of them been successful?
+			if (this.successful_drops.length == this.success_count) {
+				this.succeed();
+			}
+			// Whoops
+			else {
+				// Poisonous alert
+				this.runAlert(FAIL_ALERT);
+				this.fail();
+			}
+		} else {
+			// Not enough alert
+			this.runAlert(NOT_ENOUGH_ALERT);
 		}
+	}
+
+	notEnoughAlertClicked() {
+		this.stopAlert(NOT_ENOUGH_ALERT);
 	}
 
 	createAlerts() {
@@ -224,6 +243,13 @@ class Plants_Mushrooms extends Plants_Base {
 				buttonAction: this.intro4AlertClicked,
 				context: this
 			},
+			[NOT_ENOUGH_ALERT]: {
+				title: "Hold your horses",
+				content: `There aren't enough mushrooms yet. I need the three edible mushrooms so my stew tastes perfect!`,
+				buttonText: "Okay",
+				buttonAction: this.notEnoughAlertClicked,
+				context: this
+			},
 			[SUCCESS_ALERT]: {
 				title: "Great work!",
 				content: `You found all of the right mushrooms. Thanks for your help! Now what do you think is behind this door?`,
@@ -255,11 +281,11 @@ class Plants_Mushrooms extends Plants_Base {
 
 		// Create basket close button
 		let bounds = this.big_basket.getBounds();
-		let basket_close = this.add.image(bounds.right*.7, bounds.top*.7, 'close_button')
+		this.basket_container.close = this.add.image(bounds.right*.7, bounds.top*.7, 'close_button')
 			.setInteractive({useHandCursor: true})
 			.on('pointerup', () => { this.basket_container.visible = false; });
 
-		this.basket_container.add([this.big_basket, basket_close]);
+		this.basket_container.add([this.big_basket, this.basket_container.close]);
 
 		// Make pot a drop target
 		for (const obj of this.hidden_objects) {
@@ -274,7 +300,7 @@ class Plants_Mushrooms extends Plants_Base {
 		this.edibles_menu.setOrigin(0, 0);
 
 		let menu_bounds = this.edibles_menu.getBounds();
-		let edibles_menu_close = this.add.image(menu_bounds.right, menu_bounds.top, 'close_button')
+		this.edibles_menu.close = this.add.image(menu_bounds.right, menu_bounds.top, 'close_button')
 			.setOrigin(1, 0)
 			.setInteractive({useHandCursor: true})
 			.on('pointerup', () => {
@@ -282,7 +308,7 @@ class Plants_Mushrooms extends Plants_Base {
 				this.edibles_menu_container.alpha = 0;
 			});
 		// this.input.enableDebug(this.edibles_menu);
-		this.edibles_menu_container.add([this.edibles_menu, edibles_menu_close])
+		this.edibles_menu_container.add([this.edibles_menu, this.edibles_menu.close])
 		this.edibles_menu_container.alpha = 0;
 		this.edibles_menu_container.visible = false;
 
@@ -314,7 +340,7 @@ class Plants_Mushrooms extends Plants_Base {
 	}
 
 	setObjectsInput(inputEnabled) {
-		let to_disable = [...this.plants, ...this.hidden_objects, this.edibles_menu];
+		let to_disable = [...this.plants, ...this.hidden_objects, this.edibles_menu.close];
 		pull(to_disable, this.pot);
 
 		for (const o of to_disable) {
@@ -344,16 +370,30 @@ class Plants_Mushrooms extends Plants_Base {
 		// this.input.enableDebug(this.big_basket);
 		// this.basket_container.add(zone);
 
-		// iterate shrooms
-		for (const m of shrooms) {
-			//  - find random point
-			let rxy = Phaser.Geom.Ellipse.Random(ellipse);
+		// let alpha = this.basket_container.visible ? 0 : 1;
 
-			//  - assign to shroom x,y
-			m.x = rxy.x;
-			m.y = rxy.y;
-			m.angle = random(0, 360);
-			m.visible = true;
+		// iterate shrooms
+		for (const m of this.plants) {
+			if (find(shrooms, m)) {
+				let rxy = Phaser.Geom.Ellipse.Random(ellipse);
+
+				//  - assign to shroom x,y
+				m.x = rxy.x;
+				m.y = rxy.y;
+				m.angle = random(0, 360);
+				m.alpha = !this.basket_container.visible;
+				m.visible = true;
+			} else {
+				m.visible = false;
+			}
+		}
+
+		if (this.basket_container.visible) {
+			this.tweens.add({
+				targets: shrooms,
+				alpha: 1,
+				duration: 750
+			})
 		}
 	}
 
@@ -395,6 +435,8 @@ class Plants_Mushrooms extends Plants_Base {
 		this.sound.play('potbubble');
 		plant.visible = false;
 
+		this.plant_drops.push(plant);
+
 		if (plant.edible) {
 			this.successful_drops.push(plant);
 		}
@@ -428,52 +470,43 @@ class Plants_Mushrooms extends Plants_Base {
 
 	failAlertClicked() {
 		this.stopAlert(FAIL_ALERT);
-		this.resetS();
 		this.beginFailureTransition();
 	}
 
 	beginFailureTransition() {
 		this.setPlantsInput(false);
 
-		// reset mushrooms!!
+		if (this.basket_container.visible) {
+			this.setObjectsInput(false);
 
-// 		this.factText.visible = false;
-// 		this.disperseAnimals();
-// 
-// 		var reset_cta_tween = this.resetCallToActionTween();
-// 
-// 		let tweens = [
-// 			reset_cta_tween,
-// 			{
-// 				targets: this.scan_charge_bar,
-// 				x: -90,
-// 				ease: 'Sine',
-// 				duration: 1500,
-// 				onYoyo: (tween, sprite) => { this.updateScanChargeBar(); },
-// 				yoyo: true,
-// 				hold: 2000,
-// 				offset: 0
-// 			},{
-// 				targets: this.scanner,
-// 				x: -100,
-// 				ease: 'Sine',
-// 				duration: 1500,
-// 				yoyo: true,
-// 				hold: 2000,
-// 				offset: 0
-// 			}];
-// 
-// 	    var timeline = this.tweens.timeline({
-// 	    	tweens: tweens,
-// 	    	onComplete: this.finishFailureTransition,
-// 	    	onCompleteScope: this
-// 	    });
-// 
-// 		this.scanned_animals = [];
+			var visible_index = 0;
+			this.shrooms_fall_tween = this.tweens.add({
+				targets: this.plants,
+				ease:'Power2',
+				duration: 2000,
+				y: "+="+GAME_HEIGHT,
+				delay: function(target, targetKey, value, targetIndex, totalTargets, tween) {
+					if (target.visible) {
+						visible_index++;
+						return visible_index * Phaser.Math.Between(0, 150);
+					} else {
+						return 0;
+					}
+				},
+		    	onComplete: this.finishFailureTransition,
+		    	onCompleteScope: this
+			});
+		} else {
+			this.finishFailureTransition();
+		}
 	}
 
 	finishFailureTransition() {
+		this.addRandomMushrooms();
 		this.setPlantsInput(true);
+		this.setObjectsInput(true);
+		this.plant_drops = [];
+		this.successful_drops = [];
 	}
 
 }
