@@ -46,6 +46,12 @@ class Plants_Flowers extends Plants_Base {
 		for (const key in this.plants_data) {
 	        this.loadOutlineImage(key);
 
+	        // Get the flower if needed
+	        const pd = this.plants_data[key];
+	        const drag_image_key = key+'_drag_image';
+			if (!this.textures.exists(drag_image_key)) {
+				this.load.image(drag_image_key, dragPicPng[key]);
+			}
 	    }
 
         // Audio
@@ -133,7 +139,7 @@ class Plants_Flowers extends Plants_Base {
 			[INTRO2_ALERT]: {
 				title: "Uh oh!",
 				content: `That peacock is blocking the portal.`,
-				buttonText: "I'll go talk to it.",
+				buttonText: "I’ll talk to it",
 				buttonAction: this.intro2AlertClicked,
 				context: this
 			},
@@ -146,7 +152,7 @@ class Plants_Flowers extends Plants_Base {
 			},
 			[INTRO4_ALERT]: {
 				title: "Flowers!",
-				content: `I'll give you a list of the ones to find. Bring them to me and I'll open the portal for you.`,
+				content: `I’ll give you a list of the ones to find. Bring them to me and I’ll open the portal for you.`,
 				buttonText: "Okay",
 				buttonAction: this.intro4AlertClicked,
 				context: this

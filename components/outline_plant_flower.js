@@ -8,7 +8,7 @@ class OutlinePlantFlower extends StoredOutlineImage {
 
 		this.colour = get(info, 'colour');
 		this.shape = get(info, 'shape');
-		this.drag_image = scene.add.image(0, 0, name);
+		this.drag_image = scene.add.image(0, 0, name+"_drag_image");
 		this.drag_image.visible = false;
 	}
 }
