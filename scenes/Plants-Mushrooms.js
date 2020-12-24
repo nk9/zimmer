@@ -143,7 +143,6 @@ class Plants_Mushrooms extends Plants_Base {
 			case 'basket':	this.clickBasket(hidden_object); break;
 			case 'pot': 	this.clickPot(hidden_object); break;
 			case 'book': 	this.clickBook(hidden_object); break;
-			case 'jug': 	break;
 			case 'vial':	this.chooseVial(); break;
 			default:
 		}

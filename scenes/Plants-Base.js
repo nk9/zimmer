@@ -5,7 +5,8 @@ import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config'
 import { nearestPointOnRect } from '../utilities/geom_utils'
 
 import LightboxAlert from '../components/lightbox_alert'
-import PointerOutlineImage from '../components/pointer_outline_image';
+import PointerOutlineImage from '../components/pointer_outline_image'
+import Alert from '../components/alert'
 
 import plantsPicPng from '../assets/pics/plants/*.png'
 import audioMp3 from '../assets/audio/*.mp3'
@@ -20,6 +21,7 @@ export const SelectionMode = {
 }
 
 const LIGHTBOX_ALERT = 'Lightbox_Alert';
+const ITEM_ALERT = 'Item_Alert';
 
 class Plants_Base extends BaseScene {
 	// constructor(key) {
@@ -100,9 +102,33 @@ class Plants_Base extends BaseScene {
 		for (const name in this.hidden_objects_data) {
 			let od = this.hidden_objects_data[name];
 			let hidden_object = new PointerOutlineImage(this, name, od);
-			hidden_object.on('pointerup', this.clickHiddenObject.bind(this, hidden_object));
+			hidden_object.on('pointerup', this.handleHiddenObjectClicked.bind(this, hidden_object));
 			this.hidden_objects.push(hidden_object);
 		}
+	}
+
+	handleHiddenObjectClicked(hidden_object) {
+		if (hidden_object.info.hasOwnProperty('alert')) {
+			console.log(hidden_object.info.alert);
+			let alert_data = hidden_object.info.alert;
+			let data = {
+				title: alert_data.title,
+				content: alert_data.content,
+				buttonText: alert_data.button_title,
+				buttonAction: this.genericItemAlertClicked,
+				context: this
+			}
+
+            this.scene.add(ITEM_ALERT, new Alert(ITEM_ALERT), false, data);
+			this.runAlert(ITEM_ALERT);
+		} else {
+			this.clickHiddenObject(hidden_object);
+		}
+	}
+
+	genericItemAlertClicked() {
+		this.stopAlert(ITEM_ALERT);
+		this.scene.remove(ITEM_ALERT);
 	}
 
 	pointerDownPlant(plant) {
