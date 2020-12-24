@@ -302,31 +302,31 @@ class Plants_Flowers extends Plants_Base {
 	}
 
 	willBeginSuccessTransition() {
-		// This alert needs to be created at runtime because success_animals
-		// isn't populated until after createAlerts() is already run.
 		this.runAlert(SUCCESS_ALERT);
 	}
 
 	plantDropped(plant, drop_target) {
-		console.log(`dropped ${plant.name}`);
-
 		let target = this.flower_targets[this.flower_target_index];
 
 		if (plant.color == target.color && plant.shape == target.shape) {
-			console.log("success!");
 			this.flower_target_index++;
 
 			if (this.flower_target_index == this.success_count) {
-				console.log("All done!");
 				this.link.setFrame('peacock');
-				this.runAlert(SUCCESS_ALERT);
+				this.succeed();
 			} else {
 				this.link.setFrame('peacock');
 				this.runAlert(`Flower${this.flower_target_index+1}_Alert`);
 			}
 		} else {
 			this.link.setFrame('peacock');
-			this.runAlert(FLOWER_FAIL_ALERT);
+			this.runAlert(FLOWER_FAIL_ALERT, {
+				title: "Not that one",
+				content: `I’m looking for a ${target.color} flower with ${target.shape} petals.`,
+				buttonText: "Alright",
+				buttonAction: this.flowerFailAlertClicked,
+				context: this
+			});
 		}
 	}
 
@@ -334,16 +334,6 @@ class Plants_Flowers extends Plants_Base {
 		this.stopAlert(SUCCESS_ALERT);
 		this.beginSuccessTransition();
 	}
-
-
-// 	fail() {
-// 		this.runAlert(FAIL_ALERT);
-// 	}
-// 
-// 	failAlertClicked() {
-// 		this.stopAlert(FAIL_ALERT);
-// 		this.beginFailureTransition();
-// 	}
 }
 
 export default Plants_Flowers;
