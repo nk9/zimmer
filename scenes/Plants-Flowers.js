@@ -1,3 +1,5 @@
+import { groupBy, sampleSize, shuffle, pull } from 'lodash-es';
+
 import { SceneProgress, Layers } from './base-scene';
 import { PLANTS_FLOWERS, PLANTS_LEAVES } from '../constants/scenes';
 import { GAME_WIDTH, GAME_HEIGHT, DRAG_THRESHOLD } from '../constants/config';
@@ -16,7 +18,9 @@ let INTRO1_ALERT = 'Intro1_Alert';
 let INTRO2_ALERT = 'Intro2_Alert';
 let INTRO3_ALERT = 'Intro3_Alert';
 let INTRO4_ALERT = 'Intro4_Alert';
-let FAIL_ALERT   = 'Fail_Alert';
+let FLOWER2_ALERT = 'Flower2_Alert';
+let FLOWER3_ALERT = 'Flower3_Alert';
+let FLOWER_FAIL_ALERT = 'Flower_Fail_Alert';
 let SUCCESS_ALERT = 'Success_Alert';
 
 class Plants_Flowers extends Plants_Base {
@@ -53,6 +57,7 @@ class Plants_Flowers extends Plants_Base {
 				this.load.image(drag_image_key, dragPicPng[key]);
 			}
 	    }
+	    this.chooseTargetFlowers();
 
         // Audio
         this.load.audio('woosh', audioMp3.woosh);
@@ -66,6 +71,17 @@ class Plants_Flowers extends Plants_Base {
 
 	create() {
 		super.create();
+	}
+
+	chooseTargetFlowers() {
+		let grouped_flowers = groupBy(this.plants_data, (item) => {
+			return `${item.shape}-${item.color}`
+		});
+		let target_groups   = sampleSize(Object.keys(grouped_flowers), this.success_count);
+		this.flower_targets = shuffle(target_groups.map((key) => { return grouped_flowers[key][0]; }));
+		this.flower_target_index = 0;
+
+		console.log(this.flower_targets);
 	}
 
 	createPlant(key, pd) {
@@ -124,10 +140,11 @@ class Plants_Flowers extends Plants_Base {
 	}
 
 	clickHiddenObject(object) {
-		
+		console.log(`clicked ${object.name}`);
 	}
 
 	createAlerts() {
+		let ft = this.flower_targets;
 		let alerts = {
 			[INTRO1_ALERT]: {
 				title: "Not sure where you are?",
@@ -145,29 +162,43 @@ class Plants_Flowers extends Plants_Base {
 			},
 			[INTRO3_ALERT]: {
 				title: "What do you want?",
-				content: `You need to go through the portal? I can open it for you but I need four flowers for the spell.`,
+				content: `You need to go through the portal? I can open it for you but I need ${this.success_count} flowers for the spell.`,
 				buttonText: "Flowers?",
 				buttonAction: this.intro3AlertClicked,
 				context: this
 			},
 			[INTRO4_ALERT]: {
 				title: "Flowers!",
-				content: `I’ll give you a list of the ones to find. Bring them to me and I’ll open the portal for you.`,
+				content: `Bring them to me and I’ll open the portal for you. Let’s start with a ${ft[0].color} flower with ${ft[0].shape} petals.`,
 				buttonText: "Okay",
 				buttonAction: this.intro4AlertClicked,
 				context: this
 			},
-			// [FAIL_ALERT]: {
-			// 	title: "Time to recharge",
-			// 	content: `We think there are ${this.success_count} invertebrates out there, but we are out of juice. We will be right back!`,
-			// 	buttonText: "OK :(",
-			// 	buttonAction: this.failAlertClicked,
-			// 	context: this
-			// },
+			[FLOWER2_ALERT]: {
+				title: "That’s good",
+				content: `Alright, the next one is a ${ft[1].color} flower with ${ft[1].shape} petals.`,
+				buttonText: "On it",
+				buttonAction: this.flower2AlertClicked,
+				context: this
+			},
+			[FLOWER3_ALERT]: {
+				title: "Last one",
+				content: `OK, but can you find a ${ft[2].color} flower with ${ft[2].shape} petals?`,
+				buttonText: "Think so",
+				buttonAction: this.flower3AlertClicked,
+				context: this
+			},
+			[FLOWER_FAIL_ALERT]: {
+				title: "Not that one",
+				content: `Maybe try again?`,
+				buttonText: "Alright",
+				buttonAction: this.flowerFailAlertClicked,
+				context: this
+			},
 			[SUCCESS_ALERT]: {
 				title: "Great work!",
-				content: `right flowers. Thanks for your help! Now what do you think is behind this door?`,
-				buttonText: "I Dunno",
+				content: `You found all the right flowers. Thanks for your help! I can cast the spell to open the portal now.`,
+				buttonText: "Thanks!",
 				buttonAction: this.successAlertClicked,
 				context: this
 			},
@@ -179,7 +210,13 @@ class Plants_Flowers extends Plants_Base {
 	createTools() {
 		super.createTools();
 
-
+		// Make peacock a drop target
+		for (const obj of this.hidden_objects) {
+			if (obj.name == 'peacock') {
+				obj.input.dropZone = true;
+				this.peacock = obj;
+			}
+		}
 	}
 
 // 	createTriangleEmitter(triangle, zone) {
@@ -248,6 +285,22 @@ class Plants_Flowers extends Plants_Base {
 		}
 	}
 
+	flower2AlertClicked() {
+		this.link.setFrame('thumbsup');
+		this.stopAlert(FLOWER2_ALERT);
+	}
+
+	flower3AlertClicked() {
+		this.link.setFrame('cool');
+		this.stopAlert(FLOWER3_ALERT);
+		
+	}
+
+	flowerFailAlertClicked() {
+		this.link.setFrame('notimpressed');
+		this.stopAlert(FLOWER_FAIL_ALERT);
+	}
+
 	willBeginSuccessTransition() {
 		// This alert needs to be created at runtime because success_animals
 		// isn't populated until after createAlerts() is already run.
@@ -255,18 +308,25 @@ class Plants_Flowers extends Plants_Base {
 	}
 
 	plantDropped(plant, drop_target) {
-		if (plant.leaf_type == drop_target.name) {
-			drop_target.lock_image.visible = true;
-			drop_target.particle.emitters.list[0].explode(50);
+		console.log(`dropped ${plant.name}`);
 
-			drop_target.input.enabled = false;
-			this.successful_drops.push(drop_target);
+		let target = this.flower_targets[this.flower_target_index];
 
-			if (this.successful_drops.length == this.success_count) {
-				this.succeed();
+		if (plant.color == target.color && plant.shape == target.shape) {
+			console.log("success!");
+			this.flower_target_index++;
+
+			if (this.flower_target_index == this.success_count) {
+				console.log("All done!");
+				this.link.setFrame('peacock');
+				this.runAlert(SUCCESS_ALERT);
+			} else {
+				this.link.setFrame('peacock');
+				this.runAlert(`Flower${this.flower_target_index+1}_Alert`);
 			}
 		} else {
-			console.log("too bad");
+			this.link.setFrame('peacock');
+			this.runAlert(FLOWER_FAIL_ALERT);
 		}
 	}
 

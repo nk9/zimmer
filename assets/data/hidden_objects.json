@@ -94,5 +94,15 @@
     }  
   },
   "Plants-Flowers": {
+    "peacock": {
+      "scale": .75,
+      "x": 620,
+      "y": 500,
+      "alert": {
+        "title": "Hmmm...",
+        "content": "Something shiny in here.",
+        "button_title": "Pick it up."
+      }
+    }
   }
 }
