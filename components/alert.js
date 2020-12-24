@@ -57,8 +57,9 @@ export default class Alert extends Phaser.Scene {
 				this.buttonRect.setFillStyle(0x000000, 1);
 				this.buttonText.setColor('#fff');
 			})
-			.on('pointerup', () => {
+			.on('pointerup', (pointer, localX, localY, event) => {
 				const bound = data.buttonAction.bind(data.context);
+				event.stopPropagation(); // Doesn't work?? Probably a Phaser bug.
 				bound();
 			});
 	}
