@@ -7,6 +7,7 @@ import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
 
 import entryPicPng from '../assets/pics/entry/*.png';
 import entryPicJpg from '../assets/pics/entry/*.jpg';
+import audioMp3 from '../assets/audio/*.mp3'
 
 class Main_Hall extends BaseScene {
 	constructor() {
@@ -32,6 +33,8 @@ class Main_Hall extends BaseScene {
 		for (const key of keys) {
 	        this.loadOutlineImage(key);
 		}
+
+        this.load.audio('entry_background', audioMp3.entry_background);
 	}
 
 	loadOutlineImage(name) {
@@ -57,6 +60,8 @@ class Main_Hall extends BaseScene {
 	createBackground() {
 		this.background = this.add.image(0, 0, 'entryhall');
 		this.background.setOrigin(0, 0);
+		this.background_sound = this.sound.add('entry_background', {loop: true});
+		this.background_sound.play();
 	}
 
 	createMap() {
@@ -134,6 +139,7 @@ class Main_Hall extends BaseScene {
 	doSceneTransition(key) {
 		this.setLevelsInput(false);
 		this.sound.play('poof');
+		this.background_sound.stop();
 		this.overlay.visible = true;
 
 	    this.tweens.timeline({
