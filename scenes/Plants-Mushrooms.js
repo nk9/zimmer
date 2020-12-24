@@ -167,15 +167,11 @@ class Plants_Mushrooms extends Plants_Base {
 		this.basket_open = true;
 	}
 
-	closeBasket() {
-		this.basket_container.visible = false;
-	}
-
 	clickBook(book) {
 		// Show edible mushrooms image
-		this.ediblesMenu.visible = true;
+		this.edibles_menu_container.visible = true;
 		this.tweens.add({
-			targets: this.ediblesMenu,
+			targets: this.edibles_menu_container,
 			alpha: 1,
 			duration: 500
 		});
@@ -251,18 +247,18 @@ class Plants_Mushrooms extends Plants_Base {
 
 		this.basket_container = this.add.container((GAME_WIDTH/2)+50, GAME_HEIGHT*.5);
 		this.basket_container.visible = false;
-		this.bigbasket = this.add.image(0, 0, 'bigbasket');
-		this.bigbasket.scale = 1.5;
-		this.bigbasket.setOrigin(.5, .5);
-		this.bigbasket.setDepth(Layers.BASKET);
+		this.big_basket = this.add.image(0, 0, 'bigbasket');
+		this.big_basket.scale = 1.5;
+		this.big_basket.setOrigin(.5, .5);
+		this.big_basket.setDepth(Layers.BASKET);
 
-		// Create close button
-		let bounds = this.bigbasket.getBounds();
-		let close = this.add.image(bounds.right*.7, bounds.top*.7, 'close_button')
-						.setInteractive({useHandCursor: true})
-						.on('pointerup', () => { this.closeBasket(); });
+		// Create basket close button
+		let bounds = this.big_basket.getBounds();
+		let basket_close = this.add.image(bounds.right*.7, bounds.top*.7, 'close_button')
+			.setInteractive({useHandCursor: true})
+			.on('pointerup', () => { this.basket_container.visible = false; });
 
-		this.basket_container.add([this.bigbasket, close]);
+		this.basket_container.add([this.big_basket, basket_close]);
 
 		// Make pot a drop target
 		for (const obj of this.hidden_objects) {
@@ -270,17 +266,24 @@ class Plants_Mushrooms extends Plants_Base {
 				obj.input.dropZone = true;
 				this.pot = obj;
 			}
-		}
+		} 
 
-		this.ediblesMenu = this.add.image(0, 0, 'edible');
-		this.ediblesMenu.setOrigin(0, 0);
-		this.ediblesMenu.alpha = 0;
-		this.ediblesMenu.setInteractive({useHandCursor: true})
+		this.edibles_menu_container = this.add.container(0, 0);
+		this.edibles_menu = this.add.image(0, 0, 'edible');
+		this.edibles_menu.setOrigin(0, 0);
+
+		let menu_bounds = this.edibles_menu.getBounds();
+		let edibles_menu_close = this.add.image(menu_bounds.right, menu_bounds.top, 'close_button')
+			.setOrigin(1, 0)
+			.setInteractive({useHandCursor: true})
 			.on('pointerup', () => {
-				this.ediblesMenu.alpha = 0;
-				this.ediblesMenu.visible = false;
+				this.edibles_menu_container.visible = false;
+				this.edibles_menu_container.alpha = 0;
 			});
-		// this.input.enableDebug(this.ediblesMenu);
+		// this.input.enableDebug(this.edibles_menu);
+		this.edibles_menu_container.add([this.edibles_menu, edibles_menu_close])
+		this.edibles_menu_container.alpha = 0;
+		this.edibles_menu_container.visible = false;
 
 		this.party = this.add.image(GAME_WIDTH/2, GAME_HEIGHT/2, 'party');
 		this.party.scale = 1.3;
@@ -310,7 +313,7 @@ class Plants_Mushrooms extends Plants_Base {
 	}
 
 	setObjectsInput(inputEnabled) {
-		let to_disable = [...this.plants, ...this.hidden_objects, this.ediblesMenu];
+		let to_disable = [...this.plants, ...this.hidden_objects, this.edibles_menu];
 		pull(to_disable, this.pot);
 
 		for (const o of to_disable) {
@@ -325,7 +328,7 @@ class Plants_Mushrooms extends Plants_Base {
 		let shrooms = [...edibles, ...inedibles];
 
 		// Create ellipse
-		let basket_bounds = this.bigbasket.getBounds();
+		let basket_bounds = this.big_basket.getBounds();
 		let ellipse = new Phaser.Geom.Ellipse(5, 5, 370, 370);
 
 		// Highlight hitArea
@@ -336,8 +339,8 @@ class Plants_Mushrooms extends Plants_Base {
 			// useHandCursor: true
 		// });
 		// this.input.enableDebug(zone);
-		// this.bigbasket.setInteractive();
-		// this.input.enableDebug(this.bigbasket);
+		// this.big_basket.setInteractive();
+		// this.input.enableDebug(this.big_basket);
 		// this.basket_container.add(zone);
 
 		// iterate shrooms
