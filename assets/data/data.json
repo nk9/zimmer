@@ -64,7 +64,18 @@
       }
     },
   "entry": {
-    "box": {
+    "cat": {
+        "enabled": false,
+        "scale": 1,
+        "x": 300,
+        "y": 500,
+        "alert": {
+          "title": "My title",
+          "content": "Some clever text",
+          "button_title": "Short!"
+        }
+      },
+      "box": {
       "scale": 1,
       "x": 1052,
       "y": 564
