@@ -57,6 +57,7 @@ class Plants_Mushrooms extends Plants_Base {
         this.load.audio('woosh', audioMp3.woosh);
         this.load.audio('kitchen', audioMp3.kitchen);
         this.load.audio('potbubble', audioMp3.potbubble);
+        this.load.audio('tavern', audioMp3.tavern);
 	}
 
 	loadOutlineImage(name) {
@@ -403,6 +404,7 @@ class Plants_Mushrooms extends Plants_Base {
 		this.stopAlert(SUCCESS_ALERT);
 		this.party.visible = true;
 		this.overlay.visible = true;
+		this.sound.play('tavern', {volume: 1});
 
 	    var timeline = this.tweens.timeline({
 	    	tweens: [{
@@ -416,7 +418,7 @@ class Plants_Mushrooms extends Plants_Base {
 	    		duration: 2500,
 	    	}]
 	    });
-
+	    this.sound.stop('tavern');
 	    this.time.delayedCall(9500, this.startNextScene, [], this);
 	}
 

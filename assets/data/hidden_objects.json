@@ -45,16 +45,6 @@
       "x": 1100,
       "y": 530
     },
-    "rag": {
-      "scale": 1,
-      "x": 780,
-      "y": 353,
-      "alert": {
-        "title": "A rag",
-        "content": "You can use this to wipe and soil from the mushrooms.",
-        "button_title": "Okay"
-      }
-    },
     "vial": {
       "scale": 1,
       "x": 1160,
