@@ -65,10 +65,65 @@
     },
   "entry": {
     "cat": {
-        "enabled": false,
+        "enabled": true,
         "scale": 1,
-        "x": 300,
-        "y": 500,
+        "x": 331,
+        "y": 495,
+        "alert": {
+          "title": "My title",
+          "content": "Some clever text",
+          "button_title": "Short!"
+        }
+      },
+    "cardboardbox": {
+        "enabled": true,
+        "scale": 1,
+        "x": 75,
+        "y": 410,
+        "alert": {
+          "title": "My title",
+          "content": "Some clever text",
+          "button_title": "Short!"
+        }
+      },
+    "doorblock": {
+        "enabled": true,
+        "scale": 1,
+        "x": 971,
+        "y": 424,
+        "alert": {
+          "title": "My title",
+          "content": "Some clever text",
+          "button_title": "Short!"
+        }
+      },
+    "grate": {
+        "enabled": true,
+        "scale": 1,
+        "x": 818,
+        "y": 378,
+        "alert": {
+          "title": "My title",
+          "content": "Some clever text",
+          "button_title": "Short!"
+        }
+      },
+    "mobile": {
+        "enabled": true,
+        "scale": 1,
+        "x": 1137,
+        "y": 139,
+        "alert": {
+          "title": "My title",
+          "content": "Some clever text",
+          "button_title": "Short!"
+        }
+      },
+    "trunk": {
+        "enabled": true,
+        "scale": 1,
+        "x": 444,
+        "y": 225,
         "alert": {
           "title": "My title",
           "content": "Some clever text",
