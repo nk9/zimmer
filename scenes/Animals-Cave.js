@@ -31,7 +31,7 @@ class Animals_Cave extends Animals_Base {
 		// Images
 		this.load.image('cave_door_closed', cavePicJpg.cave_door_closed);
 		this.load.image('cave_door_open', cavePicPng.cave_door_open);
-		this.loadOutlineImage('amphisub');
+		this.load.image('cave_party', cavePicPng.kratts_christmas);
 
 		// Animals
 		let animals_data = this.cache.json.get('animals_data')[this.key];
@@ -43,6 +43,7 @@ class Animals_Cave extends Animals_Base {
 		// Audio
 		this.load.audio('cave', audioMp3.cave);
 		this.load.audio('steps_cave', audioMp3.steps_cave);
+		this.load.audio('kratts_christmas', audioMp3.kratts_christmas);
 	}
 
 	loadOutlineImage(name) {
@@ -57,6 +58,8 @@ class Animals_Cave extends Animals_Base {
 
 	create() {
 		super.create();
+
+		this.kratts_christmas = this.sound.add('kratts_christmas');
 	}
 
 	createBackground() {
@@ -74,7 +77,7 @@ class Animals_Cave extends Animals_Base {
 		this.background_sound = this.sound.add('cave', {volume: .4, loop: true});
 	}
 
-createCallToAction() {
+	createCallToAction() {
 		this.sound.play('steps_cave');
 
 		this.kratts = this.add.sprite(0-300, GAME_HEIGHT, 'kratts', 'scared');
@@ -102,6 +105,16 @@ createCallToAction() {
 		});
 
 	    var timeline = this.tweens.timeline({ tweens: tweens });
+	}
+
+	createTools() {
+		super.createTools();
+
+		this.party = this.add.image(GAME_WIDTH/2, GAME_HEIGHT/2, 'cave_party');
+		this.party.scale = 1.3;
+		this.party.angle = 15;
+		this.party.visible = false;
+		this.party.setDepth(Layers.TRANSITION);
 	}
 
 	clickKratts() {
@@ -223,9 +236,30 @@ createCallToAction() {
 		});
 	}
 
+	doSuccessTransition() {
+	}
+
+
 	successAlertClicked() {
+		this.kratts_christmas.play();
 		this.stopAlert(SUCCESS_ALERT);
-		this.beginSuccessTransition();
+		this.party.visible = true;
+		this.overlay.visible = true;
+
+	    var timeline = this.tweens.timeline({
+	    	tweens: [{
+				targets: this.party,
+				scale: 1,
+				angle: 0,
+				duration: 12000,
+			},{
+	    		targets: this.overlay,
+	    		alpha: 1,
+	    		duration: 2500,
+	    	}]
+	    });
+
+	    this.time.delayedCall(14500, this.startNextScene, [], this);
 	}
 
 	fail() {
