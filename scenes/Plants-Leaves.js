@@ -135,7 +135,7 @@ class Plants_Leaves extends Plants_Base {
 
 		this.harp_lock_outline.visible = false;
 
-	    this.harp_lock_container.scale = .7;
+	    this.harp_lock_container.scale = 1;
 
 	    this.harp_lock_container.setInteractive({useHandCursor: true})
 	    	.on('pointerover', () => {
