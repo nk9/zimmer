@@ -129,6 +129,7 @@ class Main_Hall extends BaseScene {
 	}
 
 	clickedBox(box) {
+		this.setItemsInput(false);
 		this.setLevelsInput(false);
 
 		let open_basket_tween = {
@@ -169,8 +170,15 @@ class Main_Hall extends BaseScene {
 		}
 	}
 
+	setItemsInput(handleInput) {
+		for (const l of this.items) {
+			l.input.enabled = handleInput;
+		}
+	}
+
 	closeMap() {
 		this.map_container.visible = false;
+		this.setItemsInput(true);
 	}
 
 	doSceneTransition(key) {
