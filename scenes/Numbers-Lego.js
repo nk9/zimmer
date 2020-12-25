@@ -11,11 +11,18 @@ import numbersPicPng from '../assets/pics/numbers/*.png';
 // Abstract class!
 class Numbers_Lego extends BaseScene {
 	preload() {
+		super.preload();
+
         this.load.image('pouch_open', numbersPicPng.pouch_open)
         this.load.image('pouch_closed', numbersPicPng.pouch_closed_small)
         this.load.image('pouch_closed_outlined', numbersPicPng.pouch_closed_small_outlined)
         this.load.image('garmadon', numbersPicPng.garmadon)
         this.load.image('masterwu', numbersPicPng.masterwu)
+
+		let keys = Object.keys(this.stored_data.items);
+		for (const key of keys) {
+	        this.loadOutlineImage(key);
+		}
 	}
 
 	create() {
@@ -33,6 +40,7 @@ class Numbers_Lego extends BaseScene {
 	    this.brick_store = this.createBricks();
 	    this.setupBricks();
 		this.createBackground();
+		this.createItems();
 		this.createRectangles();
 
 		let [cta_closed, cta_closed_outlined, cta_closed_zone] = this.createCallToAction();

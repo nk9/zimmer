@@ -39,7 +39,7 @@ export default class Alert extends Phaser.Scene {
 		content.x = inset.x;
 		content.y = titleBottomLeft.y+20;
 
-		this.buttonRect = this.add.rectangle(inset.right, inset.bottom, 140, 36, 0x000000, .5);
+		this.buttonRect = this.add.rectangle(inset.right, inset.bottom, 200, 36, 0x000000, .5);
 		this.buttonRect.setStrokeStyle(2, 0xffffff);
 		this.buttonRect.setOrigin(1, 1);
 

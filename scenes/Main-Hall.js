@@ -6,10 +6,11 @@ import { MAIN_HALL,
 import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
 import { UNLOCKED_SCENES } from '../constants/storage';
 
-
 import entryPicPng from '../assets/pics/entry/*.png';
 import entryPicJpg from '../assets/pics/entry/*.jpg';
 import audioMp3 from '../assets/audio/*.mp3'
+
+const CAT_ALERT = "Cat-Alert";
 
 class Main_Hall extends BaseScene {
 	constructor() {
@@ -29,6 +30,7 @@ class Main_Hall extends BaseScene {
 
 		this.load.image('entryhall', entryPicJpg.entryhall);
 		this.load.image('map', entryPicPng.map);
+		this.load.image('cat_big', entryPicPng.cat_big)
 
 		let keys = [...Object.keys(this.stored_data.items),
 					...Object.keys(this.stored_data.map)];
@@ -51,12 +53,23 @@ class Main_Hall extends BaseScene {
 		this.createBackground();
 		this.createItems();
 		this.createMap();
+		this.createSceneElements();
 
 		this.home.visible = false;
 	}
 
 	createAlerts() {
-		return []
+		let alerts = {
+			[CAT_ALERT]: {
+				title: "Meow!",
+				content: "Something about the box",
+				buttonText: "Thanks",
+				buttonAction: this.clickCatAlert,
+				context: this
+			},
+		};
+
+		return alerts;
 	}
 
 	createBackground() {
@@ -94,6 +107,12 @@ class Main_Hall extends BaseScene {
 		this.map_container.visible = false;
 	}
 
+	createSceneElements() {
+		this.cat_big = this.add.image(0, GAME_HEIGHT, 'cat_big');
+		this.cat_big.setOrigin(0, 1);
+		this.cat_big.visible = false;
+	}
+
 	clickedLevel(level) {
 		console.log(`clicked ${level.info.level_key}`);
 		this.doSceneTransition(level.info.level_key);
@@ -103,6 +122,7 @@ class Main_Hall extends BaseScene {
 		console.log(`clicked ${item.name}`);
 		
 		switch(item.name) {
+			case 'cat':	this.clickedCat(item); break;
 			case 'box':	this.clickedBox(item); break;
 			default:
 		}
@@ -131,6 +151,16 @@ class Main_Hall extends BaseScene {
 
 		this.tweens.add(open_basket_tween);
 		this.basket_open = true;
+	}
+
+	clickedCat(item) {
+		this.cat_big.visible = true;
+		this.runAlert(CAT_ALERT);
+	}
+
+	clickCatAlert() {
+		this.stopAlert(CAT_ALERT);
+		this.cat_big.visible = false;
 	}
 
 	setLevelsInput(handleInput) {

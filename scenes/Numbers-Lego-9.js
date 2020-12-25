@@ -32,6 +32,11 @@ class Numbers_Lego_9 extends Numbers_Lego {
 		this.load.image('bookcase_open', numbersPicPng.bookcase_open);
 	}
 
+	loadOutlineImage(name) {
+		this.load.image(name, numbersPicPng[name]);
+		this.load.image(name+"_outline", numbersPicPng[name+"_outline"]);
+	}
+
 	create() {
 		super.create();
 		this.createGarmadon();
@@ -53,6 +58,7 @@ class Numbers_Lego_9 extends Numbers_Lego {
 		this.background_closed.setOrigin(0.5, 0.5);	
 
 	}
+
 	createGarmadon() {
 		// The man himself
 		this.garmadon = this.add.image(GAME_WIDTH/2, GAME_HEIGHT, 'garmadon');
@@ -97,6 +103,7 @@ class Numbers_Lego_9 extends Numbers_Lego {
 	clickGarmadon() {
 		this.runAlert(INTRO1_ALERT);
 	}
+
 	clickIntro1Alert() {
 		this.stopAlert(INTRO1_ALERT);
 		this.runAlert(INTRO2_ALERT);
@@ -110,7 +117,17 @@ class Numbers_Lego_9 extends Numbers_Lego {
 			alpha: 0,
 			duration: 750
 		})
-	}	
+	}
+
+	clickedItem(item) {
+		console.log(`clicked ${item.name}`);
+		
+		switch(item.name) {
+			// case 'box':	this.clickedBox(item); break;
+			default:
+		}
+	}
+
 	createBricks() {
 		let brick_store = new BrickStore(this, 29, 6);
 

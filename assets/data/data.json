@@ -68,12 +68,7 @@
         "enabled": true,
         "scale": 1,
         "x": 331,
-        "y": 495,
-        "alert": {
-          "title": "My title",
-          "content": "Some clever text",
-          "button_title": "Short!"
-        }
+        "y": 495
       },
     "cardboardbox": {
         "enabled": true,
@@ -98,7 +93,7 @@
         }
       },
     "grate": {
-        "enabled": true,
+        "enabled": false,
         "scale": 1,
         "x": 818,
         "y": 378,
@@ -136,5 +131,41 @@
       "y": 564
     }
   }
-}
+},
+  "Numbers-Lego-9": {
+    "items": {
+      "bust": {
+        "scale": 1,
+        "x": 77,
+        "y": 227,
+        "alert": {
+          "title": "Hmmm...",
+          "content": "Something shiny in here.",
+          "button_title": "Pick it up."
+        }
+      },
+      "screen": {
+        "scale": 1,
+        "x": 1000,
+        "y": 400
+      },
+      "bucket": {
+        "scale": 1,
+        "x": 800,
+        "y": 500
+      }
+    }
+  },
+  "Numbers-Lego-10": {
+    "items": {
+    }
+  },
+  "Numbers-Lego-First": {
+    "items": {
+    }
+  },
+  "Numbers-Lego-Second": {
+    "items": {
+    }
+  }
 }
