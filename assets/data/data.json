@@ -63,7 +63,7 @@
         "enabled": false
       }
     },
-  "entry": {
+  "items": {
     "cat": {
         "enabled": true,
         "scale": 1,

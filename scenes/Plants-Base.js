@@ -102,7 +102,7 @@ class Plants_Base extends BaseScene {
 		for (const name in this.hidden_objects_data) {
 			let od = this.hidden_objects_data[name];
 			let hidden_object = new PointerOutlineImage(this, name, od);
-			hidden_object.on('pointerup', this.handleHiddenObjectClicked.bind(this, hidden_object));
+			hidden_object.on('pointerdown', this.handleHiddenObjectClicked.bind(this, hidden_object));
 			this.hidden_objects.push(hidden_object);
 		}
 	}
@@ -115,7 +115,7 @@ class Plants_Base extends BaseScene {
 				title: alert_data.title,
 				content: alert_data.content,
 				buttonText: alert_data.button_title,
-				buttonAction: this.genericItemAlertClicked,
+				buttonAction: this.hiddenObjectAlertClicked,
 				context: this
 			}
 
@@ -126,7 +126,7 @@ class Plants_Base extends BaseScene {
 		}
 	}
 
-	genericItemAlertClicked() {
+	hiddenObjectAlertClicked() {
 		this.stopAlert(ITEM_ALERT);
 		this.scene.remove(ITEM_ALERT);
 	}

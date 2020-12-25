@@ -30,7 +30,7 @@ class Main_Hall extends BaseScene {
 		this.load.image('entryhall', entryPicJpg.entryhall);
 		this.load.image('map', entryPicPng.map);
 
-		let keys = [...Object.keys(this.stored_data.entry),
+		let keys = [...Object.keys(this.stored_data.items),
 					...Object.keys(this.stored_data.map)];
 		for (const key of keys) {
 	        this.loadOutlineImage(key);
@@ -92,10 +92,6 @@ class Main_Hall extends BaseScene {
 
 		this.map_container.add([this.map, ...this.levels, close]);
 		this.map_container.visible = false;
-	}
-
-	createItems() {
-		this.items = this.addImagesFromStoredData('entry', this.clickedItem);
 	}
 
 	clickedLevel(level) {

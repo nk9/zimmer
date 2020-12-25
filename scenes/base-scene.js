@@ -37,6 +37,8 @@ export const Layers = {
     OVERLAY: 300
 }
 
+const ITEM_ALERT = 'Item_Alert';
+
 class BaseScene extends Scene {
     constructor(key) {
         super({ key });
@@ -80,6 +82,10 @@ class BaseScene extends Scene {
 
         this.createOverlay();
 	}
+    
+    createItems() {
+        this.items = this.addImagesFromStoredData('items', this.handleGenericItemClicked);
+    }
 
     createOverlay() {
         this.overlay = this.add.rectangle(0, 0, GAME_WIDTH, GAME_HEIGHT, 0x000000);
@@ -106,6 +112,32 @@ class BaseScene extends Scene {
 
         return images;
     }
+
+    handleGenericItemClicked(item) {
+        if (item.info.hasOwnProperty('alert')) {
+            console.log(item.info.alert);
+            let alert_data = item.info.alert;
+            let data = {
+                title: alert_data.title,
+                content: alert_data.content,
+                buttonText: alert_data.button_title,
+                buttonAction: this.genericItemAlertClicked,
+                context: this
+            }
+
+            this.scene.add(ITEM_ALERT, new Alert(ITEM_ALERT), false, data);
+            this.runAlert(ITEM_ALERT);
+        } else {
+            this.clickedItem(item);
+        }
+    }
+
+    genericItemAlertClicked() {
+        this.stopAlert(ITEM_ALERT);
+        this.scene.remove(ITEM_ALERT);
+    }
+
+
 
     update() {
     }
