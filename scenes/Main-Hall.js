@@ -4,6 +4,8 @@ import { MAIN_HALL,
 		 ANIMALS_OCEAN, ANIMALS_CAVE, ANIMALS_FOREST,
 		 PLANTS_LEAVES, PLANTS_FLOWERS, PLANTS_MUSHROOMS } from '../constants/scenes';
 import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
+import { UNLOCKED_SCENES } from '../constants/storage';
+
 
 import entryPicPng from '../assets/pics/entry/*.png';
 import entryPicJpg from '../assets/pics/entry/*.jpg';
@@ -69,6 +71,15 @@ class Main_Hall extends BaseScene {
 		this.map = this.add.image(0, 0, 'map');
 
 		this.levels = this.addImagesFromStoredData('map', this.clickedLevel);
+
+		// Exclude levels that aren't unlocked
+		let unlocked_scenes = this.fetch(UNLOCKED_SCENES);
+
+		for (const level of this.levels) {
+			if (!unlocked_scenes.includes(level.info.level_key)) {
+				level.visible = false;
+			}
+		}
 
 		// Create close button
 		let bounds = this.map.getBounds();

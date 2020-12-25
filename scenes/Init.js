@@ -1,5 +1,6 @@
 import { Scene } from 'phaser';
-import { INIT, MAIN_HALL, ANIMALS_OCEAN } from '../constants/scenes';
+import { INIT, MAIN_HALL, NUMBERS_LEGO_FIRST, ANIMALS_OCEAN, PLANTS_FLOWERS } from '../constants/scenes';
+import { UNLOCKED_SCENES } from '../constants/storage';
 
 
 import swirlsJpg from '../assets/pics/swirls/*.jpg';
@@ -60,9 +61,21 @@ class Init extends Scene {
     }
 
     create() {
-
+        this.bootstrapUnlockedScenes();
     }
-    
+
+    bootstrapUnlockedScenes() {
+        var unlocked_scenes = this.game.config.storage.get(UNLOCKED_SCENES);
+
+        if (unlocked_scenes === undefined) {
+            this.game.config.storage.set(UNLOCKED_SCENES, [
+                MAIN_HALL,
+                NUMBERS_LEGO_FIRST,
+                ANIMALS_OCEAN,
+                PLANTS_FLOWERS,
+                ]);
+        }
+    }
     createProgressBar() {
         let Rectangle = Phaser.Geom.Rectangle;
         let main = Rectangle.Clone(this.cameras.main);

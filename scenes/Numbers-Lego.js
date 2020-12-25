@@ -370,6 +370,7 @@ class Numbers_Lego extends BaseScene {
 	succeed() {
 		this.disableBrickDragging();
 		this.sound.play('door_opens_heavy');
+		this.unlockNextScene();
 
 		this.time.delayedCall(750, this.doSuccessTransition, [], this);
 	}

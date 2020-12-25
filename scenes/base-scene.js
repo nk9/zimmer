@@ -1,6 +1,6 @@
 import { Scene } from 'phaser';
 import { FADE_DURATION } from '../constants/config';
-import { LAST_SCENE } from '../constants/storage';
+import { LAST_SCENE, UNLOCKED_SCENES } from '../constants/storage';
 import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
 
 import { MAIN_HALL } from '../constants/scenes';
@@ -144,6 +144,16 @@ class BaseScene extends Scene {
 
     fetch(key) {
         return this.game.config.storage.get(key);
+    }
+
+    unlockNextScene() {
+        var unlocked_scenes = this.fetch(UNLOCKED_SCENES);
+        let next_scene_key = this.nextSceneKey();
+
+        if (!unlocked_scenes.includes(next_scene_key)) {
+            unlocked_scenes.push(next_scene_key);
+            this.store(UNLOCKED_SCENES, unlocked_scenes);
+        }
     }
 }
 

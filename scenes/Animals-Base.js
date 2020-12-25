@@ -312,7 +312,8 @@ class Animals_Base extends BaseScene {
 	succeed() {
 		this.input.enabled = false;
 		this.input.setDefaultCursor(`default`);
-
+		this.unlockNextScene();
+		
 		// Fade out background sound
 		this.tweens.add({
 			targets: this.background_sound,

@@ -258,6 +258,8 @@ class Plants_Base extends BaseScene {
 	succeed() {
 		this.input.enabled = false;
 		this.input.setDefaultCursor(`default`);
+		this.unlockNextScene();
+
 		this.willBeginSuccessTransition();
 	}
 
