@@ -23,6 +23,7 @@ let NOT_ENOUGH_ALERT = 'Not_Enough_Alert';
 let FAIL_ALERT   = 'Fail_Alert';
 let SUCCESS_ALERT = 'Success_Alert';
 let TEST_FAIL_ALERT = 'TEST_FAIL_ALERT';
+let THREE_DROPS_ALERT = 'THREE_DROPS_ALERT';
 
 class Plants_Mushrooms extends Plants_Base {
 	constructor() {
@@ -203,6 +204,7 @@ class Plants_Mushrooms extends Plants_Base {
 
 			this.checkSuccess();
 		} else {
+			this.link.setFrame('notimpressed');
 			this.runAlert(TEST_FAIL_ALERT);
 		}
 	}
@@ -259,7 +261,7 @@ class Plants_Mushrooms extends Plants_Base {
 			},
 			[INTRO4_ALERT]: {
 				title: "Mushrooms are tricky.",
-				content: `Once you've added three mushrooms use some of my poison checking potion on the pot. 
+				content: `Once you’ve added three mushrooms use some of my poison checking potion on the pot. 
 				We don’t want want to get everyone sick!`,
 				buttonText: "On it!",
 				buttonAction: this.intro4AlertClicked,
@@ -267,7 +269,7 @@ class Plants_Mushrooms extends Plants_Base {
 			},
 			[NOT_ENOUGH_ALERT]: {
 				title: "Hold your horses",
-				content: `There aren't enough mushrooms yet. I need the three edible mushrooms so my stew tastes perfect!`,
+				content: `There aren’t enough mushrooms yet. I need the three edible mushrooms so my stew tastes perfect!`,
 				buttonText: "Okay",
 				buttonAction: this.notEnoughAlertClicked,
 				context: this
@@ -284,6 +286,13 @@ class Plants_Mushrooms extends Plants_Base {
 				content: `You found all of the right mushrooms. Thanks for your help! Now what do you think is behind this door?`,
 				buttonText: "I Dunno",
 				buttonAction: this.doSuccessTransition,
+				context: this
+			},
+			[THREE_DROPS_ALERT]: {
+				title: "That’s three",
+				content: `Thanks. Now let’s use the potion to make sure we only put in edible ones.`,
+				buttonText: "OK",
+				buttonAction: this.threeDropsAlertClicked,
 				context: this
 			},
 			[FAIL_ALERT]: {
@@ -458,14 +467,25 @@ class Plants_Mushrooms extends Plants_Base {
 	}
 
 	plantDropped(plant, drop_target) {
-		this.sound.play('potbubble');
-		plant.visible = false;
+		if (drop_target == this.pot) {
+			this.sound.play('potbubble');
+			plant.visible = false;
 
-		this.plant_drops.push(plant);
+			this.plant_drops.push(plant);
 
-		if (plant.edible) {
-			this.successful_drops.push(plant);
+			if (plant.edible) {
+				this.successful_drops.push(plant);
+			}
+
+			if (this.plant_drops.length == this.success_count) {
+				this.link.setFrame('thumbsup');
+				this.runAlert(THREE_DROPS_ALERT);
+			}
 		}
+	}
+
+	threeDropsAlertClicked() {
+		this.stopAlert(THREE_DROPS_ALERT);
 	}
 
 	doSuccessTransition() {
