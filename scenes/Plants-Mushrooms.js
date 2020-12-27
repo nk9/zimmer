@@ -22,6 +22,7 @@ let INTRO4_ALERT = 'Intro4_Alert';
 let NOT_ENOUGH_ALERT = 'Not_Enough_Alert';
 let FAIL_ALERT   = 'Fail_Alert';
 let SUCCESS_ALERT = 'Success_Alert';
+let TEST_FAIL_ALERT = 'TEST_FAIL_ALERT';
 
 class Plants_Mushrooms extends Plants_Base {
 	constructor() {
@@ -49,6 +50,7 @@ class Plants_Mushrooms extends Plants_Base {
 		this.loadOutlineImage('bigbasket');
 		this.load.image('edible', plantPicJpg.edible);
 		this.load.image('party', plantPicJpg.zeldaparty);
+		this.load.image('pipette', plantPicPng.pipette);
         
         // Plants
 		for (const key in this.plants_data) {
@@ -73,9 +75,14 @@ class Plants_Mushrooms extends Plants_Base {
 		this.addRandomMushrooms();
 		this.setPlantsDraggable(true);
 		this.input.on('drag', (pointer, plant, dragX, dragY) => {
-			plant.x = dragX;
-			plant.y = dragY;
-		});
+				if (plant == this.vial) {
+					plant.drag_image.x = dragX;
+					plant.drag_image.y = dragY;
+				} else {
+					plant.x = dragX;
+					plant.y = dragY;
+				}
+			});
 	}
 
 	createPlant(key, pd) {
@@ -143,7 +150,6 @@ class Plants_Mushrooms extends Plants_Base {
 			case 'basket':	this.clickBasket(hidden_object); break;
 			case 'pot': 	this.clickPot(hidden_object); break;
 			case 'book': 	this.clickBook(hidden_object); break;
-			case 'vial':	this.chooseVial(); break;
 			default:
 		}
 	}
@@ -179,13 +185,30 @@ class Plants_Mushrooms extends Plants_Base {
 		});
 	}
 
-	clickPot(pot) {
-		this.sound.play('potbubble');
+	dragStartVial() {
+		let drag_image = this.vial.drag_image;
+		drag_image.x = this.vial.x;
+		drag_image.y = this.vial.y;
+		drag_image.visible = true;
+	}
 
-		if (this.selectionMode == SelectionMode.VIAL) {
-			this.unchooseVial();
+	dragEndVial() {
+		let drag_image = this.vial.drag_image;
+		drag_image.visible = false;
+	}
+
+	dropVial(target) {
+		if (target == this.pot) {
+			this.sound.play('potbubble');
+
 			this.checkSuccess();
+		} else {
+			this.runAlert(TEST_FAIL_ALERT);
 		}
+	}
+
+	testFailAlertClicked() {
+		this.stopAlert(TEST_FAIL_ALERT);
 	}
 
 	checkSuccess() {
@@ -249,6 +272,13 @@ class Plants_Mushrooms extends Plants_Base {
 				buttonAction: this.notEnoughAlertClicked,
 				context: this
 			},
+			[TEST_FAIL_ALERT]: {
+				title: "Hang on clever clogs",
+				content: `The soup is in the pot. Don’t go wasting my poison checking potion!`,
+				buttonText: "Oops, sorry!",
+				buttonAction: this.testFailAlertClicked,
+				context: this
+			},
 			[SUCCESS_ALERT]: {
 				title: "Great work!",
 				content: `You found all of the right mushrooms. Thanks for your help! Now what do you think is behind this door?`,
@@ -286,11 +316,23 @@ class Plants_Mushrooms extends Plants_Base {
 
 		this.basket_container.add([this.big_basket, this.basket_container.close]);
 
-		// Make pot a drop target
 		for (const obj of this.hidden_objects) {
 			if (obj.name == 'pot') {
 				obj.input.dropZone = true;
 				this.pot = obj;
+			} else if (obj.name == 'vial') {
+				this.vial = obj;
+				this.vial.input.draggable = true;
+				this.vial.drag_image = this.add.image(0, 0, 'pipette');
+				this.vial.on('dragstart', this.dragStartVial.bind(this))
+						 .on('dragend', this.dragEndVial.bind(this))
+						 .on('drop', (pointer, target) => {
+							const bound = this.dropVial.bind(this, target);
+							bound();
+						 });
+			} else {
+				// Everything else is droppable too
+				obj.input.dropZone = true;
 			}
 		} 
 
@@ -321,23 +363,6 @@ class Plants_Mushrooms extends Plants_Base {
 
 	chooseMagnifyingGlass() {
 		// No magnifying glass in this scene
-	}
-
-	chooseVial() {
-		this.selectionMode = SelectionMode.VIAL;
-		let cursor = `url(${plantPicPng.vial_tool}), pointer`;
-		this.input.setDefaultCursor(cursor);
-
-		// Remove pot's pointer cursor
-		this.pot.input.cursor = cursor;
-		this.setObjectsInput(false);
-	}
-
-	unchooseVial() {
-		this.selectionMode = SelectionMode.NONE;
-		this.input.setDefaultCursor('default');
-		this.pot.input.cursor = 'pointer';
-		this.setObjectsInput(true);
 	}
 
 	setObjectsInput(inputEnabled) {
