@@ -61,9 +61,9 @@ class Main_Hall extends BaseScene {
 	createAlerts() {
 		let alerts = {
 			[CAT_ALERT]: {
-				title: "Meow!",
-				content: "Something about the box",
-				buttonText: "Thanks",
+				title: "Meowwww!",
+				content: "Oh, you startled me! Have you looked in all the boxes yet?",
+				buttonText: "Sorry!",
 				buttonAction: this.clickCatAlert,
 				context: this
 			},
