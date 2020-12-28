@@ -4,13 +4,14 @@ import { MAIN_HALL,
 		 ANIMALS_OCEAN, ANIMALS_CAVE, ANIMALS_FOREST,
 		 PLANTS_LEAVES, PLANTS_FLOWERS, PLANTS_MUSHROOMS } from '../constants/scenes';
 import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
-import { UNLOCKED_SCENES } from '../constants/storage';
+import { UNLOCKED_SCENES, COLLECTED_GEMS } from '../constants/storage';
 
 import entryPicPng from '../assets/pics/entry/*.png';
 import entryPicJpg from '../assets/pics/entry/*.jpg';
 import audioMp3 from '../assets/audio/*.mp3'
 
 const CAT_ALERT = "Cat-Alert";
+const GRATE_ALERT = "GRATE_ALERT";
 
 class Main_Hall extends BaseScene {
 	constructor() {
@@ -30,7 +31,8 @@ class Main_Hall extends BaseScene {
 
 		this.load.image('entryhall', entryPicJpg.entryhall);
 		this.load.image('map', entryPicPng.map);
-		this.load.image('cat_big', entryPicPng.cat_big)
+		this.load.image('cat_big', entryPicPng.cat_big);
+		this.load.image('gem_board', entryPicPng.gem_board);
 
 		let keys = [...Object.keys(this.stored_data.items),
 					...Object.keys(this.stored_data.map)];
@@ -53,6 +55,7 @@ class Main_Hall extends BaseScene {
 		this.createBackground();
 		this.createItems();
 		this.createMap();
+		this.createGemBoard();
 		this.createSceneElements();
 
 		this.home.visible = false;
@@ -65,6 +68,13 @@ class Main_Hall extends BaseScene {
 				content: "Oh, you startled me! Have you looked in all the boxes yet?",
 				buttonText: "Sorry!",
 				buttonAction: this.clickCatAlert,
+				context: this
+			},
+			[GRATE_ALERT]: {
+				title: "Hmm…",
+				content: "This air vent doesn't look firmly attached to the wall. When you touch it, it begins to move. There’s something behind here…",
+				buttonText: "Remove grate",
+				buttonAction: this.clickGrateAlert,
 				context: this
 			},
 		};
@@ -107,6 +117,32 @@ class Main_Hall extends BaseScene {
 		this.map_container.visible = false;
 	}
 
+	createGemBoard() {
+		this.gems_container = this.add.container(GAME_WIDTH/2, GAME_HEIGHT/2);
+		this.gem_board = this.add.image(0, 0, 'gem_board');
+
+		let collected_gems = this.fetch(COLLECTED_GEMS);
+		var sprites = [];
+
+		for (const [scene_key, gem_data] of Object.entries(this.stored_data.gems)) {
+			if (collected_gems.includes(scene_key)) {
+				let gd = gem_data;
+
+				let sprite = this.add.sprite(gd.x, gd.y, 'gems', gd.gem+'_thumb');
+				sprites.push(sprite);
+			}
+		}
+
+		// Create close button
+		let bounds = this.gem_board.getBounds();
+		let close = this.add.image(bounds.right-40, bounds.top+40, 'close_button')
+						.setInteractive({useHandCursor: true})
+						.on('pointerup', () => { this.closeGemBoard(); });
+
+		this.gems_container.add([this.gem_board, close, ...sprites]);
+		this.gems_container.visible = false;
+	}
+
 	createSceneElements() {
 		this.cat_big = this.add.image(0, GAME_HEIGHT, 'cat_big');
 		this.cat_big.setOrigin(0, 1);
@@ -122,8 +158,9 @@ class Main_Hall extends BaseScene {
 		console.log(`clicked ${item.name}`);
 		
 		switch(item.name) {
-			case 'cat':	this.clickedCat(item); break;
-			case 'box':	this.clickedBox(item); break;
+			case 'cat':		this.clickedCat(item); break;
+			case 'box':		this.clickedBox(item); break;
+			case 'grate':	this.clickedGrate(item); break;
 			default:
 		}
 	}
@@ -159,9 +196,33 @@ class Main_Hall extends BaseScene {
 		this.runAlert(CAT_ALERT);
 	}
 
+	clickedGrate(item) {
+		if (this.showOnceScene(GRATE_ALERT)) {
+			this.runAlert(GRATE_ALERT);
+		} else {
+			this.openGems();
+		}
+	}
+
 	clickCatAlert() {
 		this.stopAlert(CAT_ALERT);
 		this.cat_big.visible = false;
+	}
+
+	clickGrateAlert() {
+		this.stopAlert(GRATE_ALERT);
+		this.openGems();
+	}
+
+	openGems() {
+		this.setItemsInput(false);
+		this.gems_container.visible = true;
+
+		this.tweens.add({
+			targets: this.gems_container,
+			alpha: 1,
+			duration: 750
+		});
 	}
 
 	setLevelsInput(handleInput) {
@@ -178,6 +239,12 @@ class Main_Hall extends BaseScene {
 
 	closeMap() {
 		this.map_container.visible = false;
+		this.setItemsInput(true);
+	}
+
+	closeGemBoard() {
+		this.gems_container.visible = false;
+		this.gems_container.alpha = 0;
 		this.setItemsInput(true);
 	}
 

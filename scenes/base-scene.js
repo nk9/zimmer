@@ -1,6 +1,6 @@
 import { Scene } from 'phaser';
 import { FADE_DURATION } from '../constants/config';
-import { LAST_SCENE, UNLOCKED_SCENES } from '../constants/storage';
+import { LAST_SCENE, UNLOCKED_SCENES, SCENE_PREFS } from '../constants/storage';
 import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
 
 import { MAIN_HALL } from '../constants/scenes';
@@ -82,7 +82,7 @@ class BaseScene extends Scene {
 
         this.createOverlay();
 	}
-    
+
     createItems() {
         this.items = this.addImagesFromStoredData('items', this.handleGenericItemClicked);
     }
@@ -176,6 +176,19 @@ class BaseScene extends Scene {
 
     fetch(key) {
         return this.game.config.storage.get(key);
+    }
+
+    showOnceScene(key) {
+        let scenePref = `${this.key}--${key}`;
+        let currentValue = this.fetch(scenePref);
+        var show = false;
+
+        if (currentValue != true) {
+            this.store(scenePref, true);
+            show = true;
+        }
+
+        return show;
     }
 
     unlockNextScene() {

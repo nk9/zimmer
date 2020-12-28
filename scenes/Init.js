@@ -1,6 +1,9 @@
 import { Scene } from 'phaser';
-import { INIT, MAIN_HALL, NUMBERS_LEGO_FIRST, ANIMALS_OCEAN, PLANTS_FLOWERS } from '../constants/scenes';
-import { UNLOCKED_SCENES } from '../constants/storage';
+import { INIT, MAIN_HALL,
+        NUMBERS_LEGO_FIRST, NUMBERS_LEGO_10, NUMBERS_LEGO_9,
+        ANIMALS_OCEAN,
+        PLANTS_FLOWERS } from '../constants/scenes';
+import { UNLOCKED_SCENES, COLLECTED_GEMS } from '../constants/storage';
 
 
 import swirlsJpg from '../assets/pics/swirls/*.jpg';
@@ -33,6 +36,7 @@ class Init extends Scene {
         this.load.atlas('link', spritesImg.link_spritesheet, spritesJson.link_spritesheet);
         this.load.atlas('kratts', spritesImg.kratts_spritesheet, spritesJson.kratts_spritesheet);
         this.load.audioSprite('hmm', spritesJson.hmm_spritesheet, spritesMp3.hmm);
+        this.load.atlas('gems', spritesImg.gems, spritesJson.gems);
 
         // Particles
         this.load.image('spark', particles.blue);
@@ -61,19 +65,26 @@ class Init extends Scene {
     }
 
     create() {
-        this.bootstrapUnlockedScenes();
+        this.bootstrapStrorage();
     }
 
-    bootstrapUnlockedScenes() {
-        var unlocked_scenes = this.game.config.storage.get(UNLOCKED_SCENES);
+    bootstrapStrorage() {
+        var storage = this.game.config.storage;
+        var unlocked_scenes = storage.get(UNLOCKED_SCENES);
 
         if (unlocked_scenes === undefined) {
-            this.game.config.storage.set(UNLOCKED_SCENES, [
+            storage.set(UNLOCKED_SCENES, [
                 MAIN_HALL,
                 NUMBERS_LEGO_FIRST,
                 ANIMALS_OCEAN,
                 PLANTS_FLOWERS,
                 ]);
+        }
+
+        var collected_gems = storage.get(COLLECTED_GEMS);
+
+        if (collected_gems === undefined) {
+            storage.set(COLLECTED_GEMS, [NUMBERS_LEGO_10, NUMBERS_LEGO_9]);
         }
     }
     createProgressBar() {

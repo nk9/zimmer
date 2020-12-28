@@ -1,5 +1,17 @@
 {
   "Main-Hall": {
+    "gems": {
+      "Numbers-Lego-9": {
+        "gem": "diamond",
+        "x": 40,
+        "y": 40
+      },
+      "Numbers-Lego-10": {
+        "gem": "diamond",
+        "x": -40,
+        "y": -40
+      }
+    },
     "map": {
     "animals_cave": {
       "scale": 1,
@@ -96,12 +108,7 @@
         "enabled": false,
         "scale": 1,
         "x": 818,
-        "y": 378,
-        "alert": {
-          "title": "Hmm...",
-          "content": "There's something behind here.",
-          "button_title": "Remove grate"
-        }
+        "y": 378
       },
     "mobile": {
         "enabled": true,
@@ -156,6 +163,7 @@
       },
       "bucket": {
         "scale": 1,
+        "gem": "diamond",
         "x": 700,
         "y": 510,
         "alert": {

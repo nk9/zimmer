@@ -22,6 +22,7 @@
     },
     "pillow": {
       "scale": 1,
+      "gem": "sapphire",
       "x": 187,
       "y": 447,
       "alert": {
@@ -54,6 +55,7 @@
     },
     "flowerpot": {
       "scale": 1,
+      "gem": "diamond",
       "x": 479,
       "y": 385,
       "alert": {
