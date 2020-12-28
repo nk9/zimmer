@@ -32,6 +32,8 @@ class Animals_Base extends BaseScene {
 	}
 
 	preload() {
+		super.preload();
+		
 		this.load.image('screen', animalPicPng.screen);
 		this.load.image('scanner', animalPicPng.scanning_chamber);
 		this.load.image('raygun', animalPicPng.raygun_small);
@@ -46,6 +48,11 @@ class Animals_Base extends BaseScene {
 
 		// Count success animals, needed for alerts
 		this.success_count = filter(Object.values(this.animals_data), 'success').length;
+
+		let keys = Object.keys(this.stored_data.items);
+		for (const key of keys) {
+	        this.loadOutlineImage(key);
+		}
 	}
 
 	create() {
@@ -58,6 +65,7 @@ class Animals_Base extends BaseScene {
 		this.swirl.visible = false;
 		this.background_sound.play();
 
+		this.createItems();
 		this.createTools();
 		this.createCallToAction();
 		this.createAnimals();
@@ -313,7 +321,7 @@ class Animals_Base extends BaseScene {
 		this.input.enabled = false;
 		this.input.setDefaultCursor(`default`);
 		this.unlockNextScene();
-		
+
 		// Fade out background sound
 		this.tweens.add({
 			targets: this.background_sound,

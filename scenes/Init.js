@@ -65,10 +65,10 @@ class Init extends Scene {
     }
 
     create() {
-        this.bootstrapStrorage();
+        this.bootstrapStorage();
     }
 
-    bootstrapStrorage() {
+    bootstrapStorage() {
         var storage = this.game.config.storage;
         var unlocked_scenes = storage.get(UNLOCKED_SCENES);
 

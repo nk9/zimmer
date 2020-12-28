@@ -31,8 +31,14 @@ class Numbers_Lego_10 extends Numbers_Lego {
 		this.load.image('great_hall_open', numbersPicPng.great_hall_open);
 	}
 
+	loadOutlineImage(name) {
+		this.load.image(name, numbersPicPng[name]);
+		this.load.image(name+"_outline", numbersPicPng[name+"_outline"]);
+	}
+
 	create() {
 		super.create();
+		
 		this.createGarmadon();
 		this.run_time = 20; // scene timer length
 	}
