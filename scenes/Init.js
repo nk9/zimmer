@@ -55,7 +55,6 @@ class Init extends Scene {
 
         // JSON data
         this.load.json('data', dataJson.data);
-        this.load.json('animals_data', dataJson.animals);
 
         this.load.on('progress', this.onLoadProgress, this);
         this.load.on('complete', this.onLoadComplete, this);
@@ -85,6 +84,7 @@ class Init extends Scene {
             storage.set(COLLECTED_GEMS, [NUMBERS_LEGO_10, NUMBERS_LEGO_9]);
         }
     }
+    
     createProgressBar() {
         let Rectangle = Phaser.Geom.Rectangle;
         let main = Rectangle.Clone(this.cameras.main);

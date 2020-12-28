@@ -33,7 +33,7 @@ class Animals_Base extends BaseScene {
 
 	preload() {
 		super.preload();
-		
+
 		this.load.image('screen', animalPicPng.screen);
 		this.load.image('scanner', animalPicPng.scanning_chamber);
 		this.load.image('raygun', animalPicPng.raygun_small);
@@ -44,7 +44,7 @@ class Animals_Base extends BaseScene {
 		this.load.audio('scan', audioMp3.scan);
 		// this.load.audio('portal', audioMp3.portal);
 
-		this.animals_data = this.cache.json.get('animals_data')[this.key];
+		this.animals_data = this.stored_data.animals;
 
 		// Count success animals, needed for alerts
 		this.success_count = filter(Object.values(this.animals_data), 'success').length;
