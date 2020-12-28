@@ -36,18 +36,21 @@ class Plants_Base extends BaseScene {
 	}
 
 	preload() {
+		super.preload();
+
 		this.load.image('magnifying_glass', plantsPicPng.magnifying_glass);
 		this.load.image('fingers', plantsPicPng.fingers);
 
 		this.load.audio('pick', audioMp3.pick);
 		this.load.audio('twinkle', audioMp3.twinkle);
 
-		this.plants_data = this.cache.json.get('plants_data')[this.key];
-		this.hidden_objects_data = this.cache.json.get('hidden_objects_data')[this.key];
+		this.plants_data = this.stored_data.plants;
+		this.hidden_objects_data = this.stored_data.items;
 		
-		for (const key in this.hidden_objects_data) {
+		let keys = Object.keys(this.stored_data.items);
+		for (const key of keys) {
 	        this.loadOutlineImage(key);
-	    }
+		}
 	}
 
 	create() {

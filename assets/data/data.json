@@ -197,5 +197,441 @@
   "Animals-Cave": {
     "items": {
     }
+  },
+  "Plants-Mushrooms": {
+    "plants": {
+      "agaric": {
+        "edible": false,
+        "scale": 1,
+        "x": 370,
+        "y": 580
+      },
+      "amethyst": {
+        "edible": false,
+        "color": "purple",
+        "scale": 1,
+        "x": 1000,
+        "y": 600
+      },
+      "amethyst2": {
+        "edible": false,
+        "color": "purple",
+        "scale": 2,
+        "x": 1000,
+        "y": 600
+      },
+      "blue": {
+        "edible": false,
+        "color": "purple",
+        "scale": 1,
+        "x": 1000,
+        "y": 600
+      },
+      "candlesnuff": {
+        "edible": false,
+        "color": "black",
+        "scale": 1.5,
+        "x": 1000,
+        "y": 600
+      },
+      "chanterelle": {
+        "edible": true,
+        "color": "white",
+        "scale": 1,
+        "x": 720,
+        "y": 660
+      },
+      "chanterelle2": {
+        "edible": true,
+        "color": "white",
+        "scale": 1,
+        "x": 720,
+        "y": 660
+      },
+      "coral": {
+        "edible": true,
+        "color": "red",
+        "scale": 1,
+        "x": 850,
+        "y": 530
+      },
+      "deathcap": {
+        "edible": false,
+        "color": "pink",
+        "scale": 0.8,
+        "x": 1150,
+        "y": 410
+      },
+      "deathcap2": {
+        "edible": false,
+        "color": "pink",
+        "scale": 1,
+        "x": 1150,
+        "y": 410
+      },
+      "earthstar": {
+        "edible": false,
+        "color": "yellow",
+        "scale": 1,
+        "x": 300,
+        "y": 650
+      },
+      "earthstar2": {
+        "edible": false,
+        "color": "yellow",
+        "scale": 1,
+        "x": 300,
+        "y": 650
+      },
+      "horse1": {
+        "edible": true,
+        "color": "purple",
+        "scale": 1,
+        "x": 450,
+        "y": 550
+      },
+      "horse2": {
+        "edible": true,
+        "color": "purple",
+        "scale": 1,
+        "x": 450,
+        "y": 550
+      },
+      "horse3": {
+        "edible": true,
+        "color": "purple",
+        "scale": 1,
+        "x": 450,
+        "y": 550
+      },
+      "inkcap": {
+        "edible": false,
+        "color": "grey",
+        "scale": 1,
+        "x": 450,
+        "y": 550
+      },
+      "morel": {
+        "edible": true,
+        "color": "purple",
+        "scale": 1,
+        "x": 1100,
+        "y": 650
+      },
+      "morel2": {
+        "edible": true,
+        "color": "purple",
+        "scale": 1,
+        "x": 1100,
+        "y": 650
+      },
+      "parrot1": {
+        "edible": false,
+        "color": "yellow",
+        "scale": 1,
+        "x": 70,
+        "y": 370
+      },
+      "parrot2": {
+        "edible": false,
+        "color": "yellow",
+        "scale": 1,
+        "x": 70,
+        "y": 370
+      },
+      "scaly": {
+        "edible": true,
+        "color": "white",
+        "scale": 1,
+        "x": 540,
+        "y": 570
+      },
+      "scaly2": {
+        "edible": true,
+        "color": "white",
+        "scale": 1,
+        "x": 540,
+        "y": 570
+      },
+      "truffle": {
+        "edible": true,
+        "color": "white",
+        "scale": 1,
+        "x": 300,
+        "y": 410
+      },
+      "truffle2": {
+        "edible": true,
+        "color": "white",
+        "scale": 0.7,
+        "x": 300,
+        "y": 410
+      },
+      "virosa": {
+        "edible": false,
+        "color": "white",
+        "scale": 0.7,
+        "x": 300,
+        "y": 410
+      }
+    },
+    "items": {
+      "jug": {
+        "scale": 1,
+        "x": 832,
+        "y": 213,
+        "alert": {
+          "title": "Hmmm...",
+          "content": "Just a jug.",
+          "button_title": "..."
+        }
+      },
+      "book": {
+        "scale": 1,
+        "x": 1015,
+        "y": 172
+      },
+      "basket": {
+        "scale": 1,
+        "x": 550,
+        "y": 360
+      },
+      "pillow": {
+        "scale": 1,
+        "gem": "sapphire",
+        "x": 187,
+        "y": 447,
+        "alert": {
+          "title": "Hmmm...",
+          "content": "Something shiny behind here.",
+          "button_title": "Pick up."
+        }
+      },
+      "pot": {
+        "scale": 1,
+        "x": 1100,
+        "y": 530
+      },
+      "vial": {
+        "scale": 1,
+        "x": 1160,
+        "y": 193
+      }
+    }
+  },
+  "Plants-Leaves": {
+    "plants": {
+      "bedstraw": {
+        "leaf_type": "spoon",
+        "scale": 0.5,
+        "x": 320,
+        "y": 650
+      },
+      "chickweed": {
+        "leaf_type": "oval",
+        "scale": 0.3,
+        "x": 160,
+        "y": 360
+      },
+      "dandelion": {
+        "leaf_type": "toothed",
+        "scale": 0.3,
+        "x": 920,
+        "y": 650
+      },
+      "dock": {
+        "leaf_type": "heart",
+        "scale": 0.3,
+        "x": 650,
+        "y": 430
+      },
+      "fleabane": {
+        "leaf_type": "tear",
+        "scale": 0.3,
+        "x": 920,
+        "y": 410
+      },
+      "garlic_mustard": {
+        "leaf_type": "tear",
+        "scale": 0.4,
+        "x": 650,
+        "y": 600
+      },
+      "pennywort": {
+        "leaf_type": "round",
+        "scale": 0.4,
+        "x": 450,
+        "y": 500
+      },
+      "plantain": {
+        "leaf_type": "oval",
+        "scale": 0.2,
+        "x": 1100,
+        "y": 600
+      },
+      "thistle": {
+        "leaf_type": "spikey",
+        "scale": 0.4,
+        "x": 70,
+        "y": 330
+      }
+    },
+    "items": {
+      "birdhouse": {
+        "scale": 1,
+        "x": 628,
+        "y": 344,
+        "alert": {
+          "title": "A birdhouse",
+          "content": "Better not disturb it, someone might be living inside.",
+          "button_title": "..."
+        }
+      },
+      "flowerpot": {
+        "scale": 1,
+        "gem": "diamond",
+        "x": 479,
+        "y": 385,
+        "alert": {
+          "title": "Hmmm...",
+          "content": "Something shiny in here.",
+          "button_title": "Pick it up."
+        }
+      },
+      "lantern": {
+        "scale": 1,
+        "x": 427,
+        "y": 126,
+        "alert": {
+          "title": "A lantern",
+          "content": "There's no wick inside. I wonder how it lights up?",
+          "button_title": "..."
+        }
+      },
+      "mailbox": {
+        "scale": 1,
+        "x": 829,
+        "y": 547,
+        "alert": {
+          "title": "Hmm...",
+          "content": "No mail today.",
+          "button_title": "Close"
+        }
+      }
+    }
+  },
+  "Plants-Flowers": {
+    "plants": {
+      "allium": {
+        "shape": "ball",
+        "color": "pink",
+        "scale": 0.4,
+        "x": 370,
+        "y": 580
+      },
+      "bluebell": {
+        "shape": "bell",
+        "color": "purple",
+        "scale": 0.3,
+        "x": 1000,
+        "y": 600
+      },
+      "cherry": {
+        "shape": "round",
+        "color": "pink",
+        "scale": 0.3,
+        "x": 150,
+        "y": 50
+      },
+      "cherry2": {
+        "shape": "round",
+        "color": "pink",
+        "scale": 0.2,
+        "x": 80,
+        "y": 170
+      },
+      "clover": {
+        "shape": "ball",
+        "color": "white",
+        "scale": 0.3,
+        "x": 720,
+        "y": 660
+      },
+      "cosmos": {
+        "shape": "blunt",
+        "color": "red",
+        "scale": 0.4,
+        "x": 850,
+        "y": 530
+      },
+      "echinacia": {
+        "shape": "long",
+        "color": "pink",
+        "scale": 0.4,
+        "x": 1150,
+        "y": 410
+      },
+      "magnolia": {
+        "shape": "pointed",
+        "color": "pink",
+        "scale": 0.5,
+        "x": 807,
+        "y": 218
+      },
+      "marigold": {
+        "shape": "blunt",
+        "color": "yellow",
+        "scale": 0.4,
+        "x": 300,
+        "y": 650
+      },
+      "michaelmas": {
+        "shape": "long",
+        "color": "purple",
+        "scale": 0.3,
+        "x": 450,
+        "y": 550
+      },
+      "purple": {
+        "shape": "tube",
+        "color": "purple",
+        "scale": 0.4,
+        "x": 1100,
+        "y": 650
+      },
+      "rudbekia": {
+        "shape": "pointed",
+        "color": "yellow",
+        "scale": 0.4,
+        "x": 70,
+        "y": 370
+      },
+      "sneezewort": {
+        "shape": "round",
+        "color": "white",
+        "scale": 0.5,
+        "x": 540,
+        "y": 570
+      },
+      "solomon": {
+        "shape": "bell",
+        "color": "white",
+        "scale": 0.4,
+        "x": 300,
+        "y": 410
+      }
+    },
+    "items": {
+      "peacock": {
+        "scale": 0.75,
+        "x": 620,
+        "y": 500,
+        "alert": {
+          "title": "Hmmm...",
+          "content": "Something shiny in here.",
+          "button_title": "Pick it up."
+        }
+      }
+    }
   }
 }
