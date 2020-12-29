@@ -1,6 +1,6 @@
 import { Scene } from 'phaser';
 import { FADE_DURATION } from '../constants/config';
-import { LAST_SCENE, UNLOCKED_SCENES, SCENE_PREFS } from '../constants/storage';
+import { LAST_SCENE, UNLOCKED_SCENES, SCENE_PREFS, COLLECTED_GEMS } from '../constants/storage';
 import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
 
 import { MAIN_HALL } from '../constants/scenes';
@@ -8,7 +8,7 @@ import { MAIN_HALL } from '../constants/scenes';
 import Alert from '../components/alert';
 import PointerOutlineImage from '../components/pointer_outline_image';
 
-import { get } from 'lodash-es';
+import { get, union } from 'lodash-es';
 
 export const SceneProgress = {
 	BEGIN:   1,
@@ -38,6 +38,8 @@ export const Layers = {
 }
 
 const ITEM_ALERT = 'Item_Alert';
+const GEM_X = 1120;
+const GEM_Y = 10;
 
 class BaseScene extends Scene {
     constructor(key) {
@@ -67,6 +69,7 @@ class BaseScene extends Scene {
             this.scene.add(key, new Alert(key), false, data)
         }
 
+        // Dispose of alerts on shutdown to clear namespace
         this.events.once('shutdown', () => {
             for (const key of this.alert_keys) {
                 this.scene.remove(key);
@@ -95,12 +98,32 @@ class BaseScene extends Scene {
         this.overlay.visible = false;
     }
 
+    createGem(image_data) {
+        this.gem = this.add.sprite(GEM_X, GEM_Y, 'gems', image_data.gem);
+        this.gem.setOrigin(1, 0);
+        this.gem.scale = .25;
+
+        if (!this.fetch(COLLECTED_GEMS).includes(this.key)) {
+            this.gem.visible = false;
+        }
+    }
+
     addImagesFromStoredData(data_name, callback) {
         var images = [];
 
         for (const [key, image_data] of Object.entries(this.stored_data[data_name])) {
+            var createImage = get(image_data, 'enabled', true);
+
+            if (image_data.hasOwnProperty('gem')) {
+                this.createGem(image_data);
+
+                // If the gem for this room has already been collected,
+                // then don't show this item.
+                createImage = createImage && !this.gem.visible;
+            }
+
             if ('x' in image_data && 'y' in image_data) {
-                if (get(image_data, 'enabled', true)) {
+                if (createImage) {
                     let image = new PointerOutlineImage(this, key, image_data);
 
                     image.on('pointerdown', callback.bind(this, image));
@@ -113,6 +136,29 @@ class BaseScene extends Scene {
         return images;
     }
 
+    handleGemClicked(item) {
+        if (!this.gem.visible) {
+            let bounds = item.getBounds();
+            this.gem.x = bounds.right;
+            this.gem.y = bounds.top;
+            this.gem.scale = .6;
+            this.gem.visible = true;
+
+            this.tweens.add({
+                targets: this.gem,
+                x: GEM_X,
+                y: GEM_Y,
+                scale: .25,
+                duration: 1500
+            })
+
+            var collected_gems = union(this.fetch(COLLECTED_GEMS), [this.key]);
+            this.store(COLLECTED_GEMS, collected_gems);
+
+            item.input.enabled = false;
+        }
+    }
+
     handleGenericItemClicked(item) {
         if (item.info.hasOwnProperty('alert')) {
             console.log(item.info.alert);
@@ -121,7 +167,7 @@ class BaseScene extends Scene {
                 title: alert_data.title,
                 content: alert_data.content,
                 buttonText: alert_data.button_title,
-                buttonAction: this.genericItemAlertClicked,
+                buttonAction: this.genericItemAlertClicked.bind(this, item),
                 context: this
             }
 
@@ -132,7 +178,11 @@ class BaseScene extends Scene {
         }
     }
 
-    genericItemAlertClicked() {
+    genericItemAlertClicked(item) {
+        if (item.info.hasOwnProperty('gem')) {
+            this.handleGemClicked(item);
+        }
+
         this.stopAlert(ITEM_ALERT);
         this.scene.remove(ITEM_ALERT);
     }

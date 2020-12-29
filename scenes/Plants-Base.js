@@ -118,7 +118,7 @@ class Plants_Base extends BaseScene {
 				title: alert_data.title,
 				content: alert_data.content,
 				buttonText: alert_data.button_title,
-				buttonAction: this.hiddenObjectAlertClicked,
+				buttonAction: this.hiddenObjectAlertClicked.bind(this, hidden_object),
 				context: this
 			}
 
@@ -129,7 +129,11 @@ class Plants_Base extends BaseScene {
 		}
 	}
 
-	hiddenObjectAlertClicked() {
+	hiddenObjectAlertClicked(hidden_object) {
+		if (hidden_object.info.hasOwnProperty('gem')) {
+			this.handleGemClicked(hidden_object);
+		}
+
 		this.stopAlert(ITEM_ALERT);
 		this.scene.remove(ITEM_ALERT);
 	}

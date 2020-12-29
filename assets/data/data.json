@@ -11,17 +11,17 @@
         "x": -140,
         "y": 10
       },
-      "Animals_Cave": {
+      "Animals-Cave": {
         "gem": "emerald",
         "x": 0,
         "y": 0
       },
-      "animals_forest": {
+      "Animals-Forest": {
         "gem": "emerald",
         "x": -30,
         "y": -40
       },
-      "animals_ocean": {
+      "Animals-Ocean": {
         "gem": "sapphire",
         "x": -20,
         "y": -40
