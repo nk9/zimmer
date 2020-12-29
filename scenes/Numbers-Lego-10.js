@@ -28,7 +28,7 @@ class Numbers_Lego_10 extends Numbers_Lego {
 		super.preload();
 
 		this.load.image('tarnished_door', numbersPicJpg.tarnished_door);
-		this.load.image('tarnished_door_open', numbersPicPng.tarnished_door_open);
+		this.load.image('great_hall_open', numbersPicPng.great_hall_open);
 	}
 
 	create() {
@@ -46,7 +46,7 @@ class Numbers_Lego_10 extends Numbers_Lego {
 
 		// Shifted over slightly to line up with the lego grid rectangles
 		let bg_x = center_x + 10;
-		this.background_open = this.add.image(bg_x, center_y, 'tarnished_door_open');
+		this.background_open = this.add.image(bg_x, center_y, 'great_hall_open');
 		this.background_open.setOrigin(0.5, 0.5);
 
 		this.background_closed = this.add.image(bg_x, center_y, 'tarnished_door');

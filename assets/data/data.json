@@ -140,19 +140,29 @@
         "y": 227,
         "alert": {
           "title": "Hmmm...",
-          "content": "Something shiny in here.",
-          "button_title": "Pick it up."
+          "content": "I wonder who this is supposed to be?",
+          "button_title": "..."
         }
       },
       "screen": {
         "scale": 1,
-        "x": 1000,
-        "y": 400
+        "x": 1020,
+        "y": 405,
+        "alert": {
+          "title": "Hmmm...",
+          "content": "What's this screen for?",
+          "button_title": "..."
+        }
       },
       "bucket": {
         "scale": 1,
-        "x": 800,
-        "y": 500
+        "x": 700,
+        "y": 510,
+        "alert": {
+          "title": "Hmmm...",
+          "content": "Something shiny in here.",
+          "button_title": "Pick it up."
+        }
       }
     }
   },
