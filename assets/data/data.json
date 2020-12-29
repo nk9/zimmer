@@ -3,13 +3,43 @@
     "gems": {
       "Numbers-Lego-9": {
         "gem": "diamond",
-        "x": 40,
-        "y": 40
+        "x": 140,
+        "y": 10
       },
       "Numbers-Lego-10": {
         "gem": "diamond",
-        "x": -40,
+        "x": -140,
+        "y": 10
+      },
+      "Animals_Cave": {
+        "gem": "emerald",
+        "x": -0,
+        "y": -0
+      },
+      "animals_forest": {
+        "gem": "emerald",
+        "x": -30,
         "y": -40
+      },
+      "animals_ocean": {
+        "gem": "sapphire",
+        "x": -20,
+        "y": -40
+      },
+      "Plants-Flowers": {
+        "gem": "emerald",
+        "x": -0,
+        "y": -80
+      },
+      "Plants-Leaves": {
+        "gem": "emerald",
+        "x": -165,
+        "y": -55
+      },
+      "Plants-Mushrooms": {
+        "gem": "emerald",
+        "x": 165,
+        "y": -55
       }
     },
     "map": {
@@ -105,7 +135,7 @@
         }
       },
     "grate": {
-        "enabled": false,
+        "enabled": true,
         "scale": 1,
         "x": 818,
         "y": 378
