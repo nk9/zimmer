@@ -476,7 +476,29 @@
         "fact": "This isn’t an animal! It's a mushroom!"
       }
     },
-    "items": {}
+    "items": {
+      "moss": {
+        "scale": 1,
+        "x": 832,
+        "y": 213,
+        "alert": {
+          "title": "Hmmm...",
+          "content": "Moss can grow in dark places.",
+          "button_title": "Leave it"
+        }
+      },
+      "corner": {
+        "scale": 1,
+        "x": 832,
+        "y": 213,
+        "\"gem\"": "\"Sapphire\"",
+        "alert": {
+          "title": "Hmmm...",
+          "content": "Something shiny in here.",
+          "button_title": "Pick it up"
+        }
+      }
+    }
   },
   "Plants-Mushrooms": {
     "plants": {
