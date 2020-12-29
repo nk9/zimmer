@@ -27,7 +27,7 @@ class Numbers_Lego_10 extends Numbers_Lego {
 	preload() {
 		super.preload();
 
-		this.load.image('tarnished_door', numbersPicJpg.tarnished_door);
+		this.load.image('great_hall', numbersPicJpg.great_hall);
 		this.load.image('great_hall_open', numbersPicPng.great_hall_open);
 	}
 
@@ -55,7 +55,7 @@ class Numbers_Lego_10 extends Numbers_Lego {
 		this.background_open = this.add.image(bg_x, center_y, 'great_hall_open');
 		this.background_open.setOrigin(0.5, 0.5);
 
-		this.background_closed = this.add.image(bg_x, center_y, 'tarnished_door');
+		this.background_closed = this.add.image(bg_x, center_y, 'great_hall');
 		this.background_closed.setOrigin(0.5, 0.5);
 	}
 
