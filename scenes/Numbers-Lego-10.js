@@ -17,7 +17,6 @@ const FAIL_ALERT = 'FailAlert';
 class Numbers_Lego_10 extends Numbers_Lego {
 	constructor() {
         super(NUMBERS_LEGO_10);
-
 	}
 
     nextSceneKey() {
@@ -47,15 +46,13 @@ class Numbers_Lego_10 extends Numbers_Lego {
 		let center_x = GAME_WIDTH/2,
 			center_y = GAME_HEIGHT/2;
 
-		this.swirl = this.add.image(center_x, center_y, 'aqua_swirl');
-		this.swirl.scale += .1; // Aqua swirl isn't quite large enough to fill the space
+		let swirl_x = center_x + 25;
+		this.swirl = this.add.image(swirl_x, center_y, 'aqua_swirl');
 
-		// Shifted over slightly to line up with the lego grid rectangles
-		let bg_x = center_x + 10;
-		this.background_open = this.add.image(bg_x, center_y, 'great_hall_open');
+		this.background_open = this.add.image(center_x, center_y, 'great_hall_open');
 		this.background_open.setOrigin(0.5, 0.5);
 
-		this.background_closed = this.add.image(bg_x, center_y, 'great_hall');
+		this.background_closed = this.add.image(center_x, center_y, 'great_hall');
 		this.background_closed.setOrigin(0.5, 0.5);
 	}
 
