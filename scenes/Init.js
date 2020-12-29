@@ -1,8 +1,8 @@
 import { Scene } from 'phaser';
 import { INIT, MAIN_HALL,
         NUMBERS_LEGO_FIRST, NUMBERS_LEGO_10, NUMBERS_LEGO_9,
-        ANIMALS_OCEAN,
-        PLANTS_FLOWERS } from '../constants/scenes';
+        ANIMALS_OCEAN,ANIMALS_CAVE, ANIMALS_FOREST,
+        PLANTS_FLOWERS, PLANTS_LEAVES, PLANTS_MUSHROOMS } from '../constants/scenes';
 import { UNLOCKED_SCENES, COLLECTED_GEMS } from '../constants/storage';
 
 
@@ -81,10 +81,15 @@ class Init extends Scene {
         var collected_gems = storage.get(COLLECTED_GEMS);
 
         if (collected_gems === undefined) {
-            storage.set(COLLECTED_GEMS, [NUMBERS_LEGO_10, NUMBERS_LEGO_9]);
+            // TODO: return this to no collected gems to start with once development is complete
+            // storage.set(COLLECTED_GEMS, []);
+            storage.set(COLLECTED_GEMS, [
+                NUMBERS_LEGO_FIRST, NUMBERS_LEGO_10, NUMBERS_LEGO_9,
+                ANIMALS_OCEAN, ANIMALS_CAVE, ANIMALS_FOREST,
+                PLANTS_FLOWERS, PLANTS_LEAVES, PLANTS_MUSHROOMS]);
         }
     }
-    
+
     createProgressBar() {
         let Rectangle = Phaser.Geom.Rectangle;
         let main = Rectangle.Clone(this.cameras.main);
