@@ -13,8 +13,8 @@
       },
       "Animals_Cave": {
         "gem": "emerald",
-        "x": -0,
-        "y": -0
+        "x": 0,
+        "y": 0
       },
       "animals_forest": {
         "gem": "emerald",
@@ -28,7 +28,7 @@
       },
       "Plants-Flowers": {
         "gem": "emerald",
-        "x": -0,
+        "x": 0,
         "y": -80
       },
       "Plants-Leaves": {
@@ -43,11 +43,11 @@
       }
     },
     "map": {
-    "animals_cave": {
-      "scale": 1,
-      "level_key": "Animals-Cave",
-      "x": 220,
-      "y": -100
+      "animals_cave": {
+        "scale": 1,
+        "level_key": "Animals-Cave",
+        "x": 220,
+        "y": -100
       },
       "animals_forest": {
         "scale": 1,
@@ -105,14 +105,14 @@
         "enabled": false
       }
     },
-  "items": {
-    "cat": {
+    "items": {
+      "cat": {
         "enabled": true,
         "scale": 1,
         "x": 331,
         "y": 495
       },
-    "cardboardbox": {
+      "cardboardbox": {
         "enabled": true,
         "scale": 1,
         "x": 75,
@@ -123,7 +123,7 @@
           "button_title": "..."
         }
       },
-    "doorblock": {
+      "doorblock": {
         "enabled": true,
         "scale": 1,
         "x": 971,
@@ -134,13 +134,13 @@
           "button_title": "Keep searching"
         }
       },
-    "grate": {
+      "grate": {
         "enabled": true,
         "scale": 1,
         "x": 818,
         "y": 378
       },
-    "mobile": {
+      "mobile": {
         "enabled": true,
         "scale": 1,
         "x": 1137,
@@ -151,7 +151,7 @@
           "button_title": "..."
         }
       },
-    "trunk": {
+      "trunk": {
         "enabled": true,
         "scale": 1,
         "x": 444,
@@ -163,12 +163,12 @@
         }
       },
       "box": {
-      "scale": 1,
-      "x": 1052,
-      "y": 564
+        "scale": 1,
+        "x": 1052,
+        "y": 564
+      }
     }
-  }
-},
+  },
   "Numbers-Lego-9": {
     "items": {
       "bust": {
@@ -205,16 +205,13 @@
     }
   },
   "Numbers-Lego-10": {
-    "items": {
-    }
+    "items": {}
   },
   "Numbers-Lego-First": {
-    "items": {
-    }
+    "items": {}
   },
   "Numbers-Lego-Second": {
-    "items": {
-    }
+    "items": {}
   },
   "Animals-Ocean": {
     "animals": {
@@ -276,6 +273,37 @@
       }
     },
     "items": {
+      "seaweed1": {
+        "scale": 1,
+        "targetX": 500,
+        "targetY": 600,
+        "gem": "sapphire",
+        "alert": {
+          "title": "Hmmm...",
+          "content": "Something shiny in here.",
+          "button_title": "Pick it up."
+        }
+      },
+      "seaweed2": {
+        "scale": 1,
+        "targetX": 500,
+        "targetY": 600,
+        "alert": {
+          "title": "Hmmm...",
+          "content": "Just some seaweed.",
+          "button_title": "Leave it"
+        }
+      },
+      "urn": {
+        "scale": 1,
+        "targetX": 1000,
+        "targetY": 400,
+        "alert": {
+          "title": "Hmmm...",
+          "content": "An ancient urn",
+          "button_title": "Leave it"
+        }
+      }
     }
   },
   "Animals-Forest": {
@@ -359,6 +387,27 @@
       }
     },
     "items": {
+      "hollow": {
+        "scale": 1,
+        "targetX": 500,
+        "targetY": 600,
+        "gem": "sapphire",
+        "alert": {
+          "title": "Hmmm...",
+          "content": "Something shiny in here.",
+          "button_title": "Pick it up."
+        }
+      },
+      "hole": {
+        "scale": 1,
+        "targetX": 500,
+        "targetY": 600,
+        "alert": {
+          "title": "Hmmm...",
+          "content": "Its dark in there...",
+          "button_title": "..."
+        }
+      }
     }
   },
   "Animals-Cave": {
@@ -427,8 +476,7 @@
         "fact": "This isn’t an animal! It's a mushroom!"
       }
     },
-    "items": {
-    }
+    "items": {}
   },
   "Plants-Mushrooms": {
     "plants": {
@@ -854,14 +902,25 @@
       }
     },
     "items": {
-      "peacock": {
-        "scale": 0.75,
+      "rock": {
+        "scale": 1,
+        "x": 620,
+        "y": 500,
+        "\"gem\"": "\"sapphire\"",
+        "alert": {
+          "title": "Hmmm...",
+          "content": "Something shiny behind this rock.",
+          "button_title": "Pick it up."
+        }
+      },
+      "bush": {
+        "scale": 1,
         "x": 620,
         "y": 500,
         "alert": {
           "title": "Hmmm...",
-          "content": "Something shiny in here.",
-          "button_title": "Pick it up."
+          "content": "So many flowers on this shrub!",
+          "button_title": "..."
         }
       }
     }
