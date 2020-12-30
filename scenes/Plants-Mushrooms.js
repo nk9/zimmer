@@ -283,8 +283,8 @@ class Plants_Mushrooms extends Plants_Base {
 			},
 			[SUCCESS_ALERT]: {
 				title: "Great work!",
-				content: `You found all of the right mushrooms. Thanks for your help! Now what do you think is behind this door?`,
-				buttonText: "I Dunno",
+				content: `This look delicious! Now let's get to that party.`,
+				buttonText: "Let's go!",
 				buttonAction: this.doSuccessTransition,
 				context: this
 			},
