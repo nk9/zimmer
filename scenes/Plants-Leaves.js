@@ -174,7 +174,7 @@ class Plants_Leaves extends Plants_Base {
 		});
 	}
 
-	clickHiddenObject(object) {
+	clickedItem(object) {
 		
 	}
 

@@ -100,42 +100,8 @@ class Plants_Base extends BaseScene {
 	}
 
 	createHiddenObjects() {
-		this.hidden_objects = [];
-
-		for (const name in this.hidden_objects_data) {
-			let od = this.hidden_objects_data[name];
-			let hidden_object = new PointerOutlineImage(this, name, od);
-			hidden_object.on('pointerdown', this.handleHiddenObjectClicked.bind(this, hidden_object));
-			this.hidden_objects.push(hidden_object);
-		}
-	}
-
-	handleHiddenObjectClicked(hidden_object) {
-		if (hidden_object.info.hasOwnProperty('alert')) {
-			console.log(hidden_object.info.alert);
-			let alert_data = hidden_object.info.alert;
-			let data = {
-				title: alert_data.title,
-				content: alert_data.content,
-				buttonText: alert_data.button_title,
-				buttonAction: this.hiddenObjectAlertClicked.bind(this, hidden_object),
-				context: this
-			}
-
-            this.scene.add(ITEM_ALERT, new Alert(ITEM_ALERT), false, data);
-			this.runAlert(ITEM_ALERT);
-		} else {
-			this.clickHiddenObject(hidden_object);
-		}
-	}
-
-	hiddenObjectAlertClicked(hidden_object) {
-		if (hidden_object.info.hasOwnProperty('gem')) {
-			this.handleGemClicked(hidden_object);
-		}
-
-		this.stopAlert(ITEM_ALERT);
-		this.scene.remove(ITEM_ALERT);
+		this.createItems();
+		this.hidden_objects = this.items;
 	}
 
 	pointerDownPlant(plant) {

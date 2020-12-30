@@ -924,11 +924,16 @@
       }
     },
     "items": {
-      "rock": {
+      "peacock": {
         "scale": 1,
         "x": 620,
-        "y": 500,
-        "\"gem\"": "\"sapphire\"",
+        "y": 500
+      },
+      "rock": {
+        "scale": 1,
+        "x": 250,
+        "y": 300,
+        "gem": "sapphire",
         "alert": {
           "title": "Hmmm...",
           "content": "Something shiny behind this rock.",
@@ -937,7 +942,7 @@
       },
       "bush": {
         "scale": 1,
-        "x": 620,
+        "x": 900,
         "y": 500,
         "alert": {
           "title": "Hmmm...",

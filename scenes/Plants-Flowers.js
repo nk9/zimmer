@@ -139,7 +139,7 @@ class Plants_Flowers extends Plants_Base {
 		this.runAlert(INTRO1_ALERT);
 	}
 
-	clickHiddenObject(object) {
+	clickedItem(object) {
 		console.log(`clicked ${object.name}`);
 	}
 

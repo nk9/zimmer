@@ -112,19 +112,20 @@ class BaseScene extends Scene {
         var images = [];
 
         for (const [key, image_data] of Object.entries(this.stored_data[data_name])) {
-            var createImage = get(image_data, 'enabled', true);
+            var input_enabled = true;
 
             if (image_data.hasOwnProperty('gem')) {
                 this.createGem(image_data);
 
                 // If the gem for this room has already been collected,
-                // then don't show this item.
-                createImage = createImage && !this.gem.visible;
+                // then don't let the user click it again
+                input_enabled = !this.gem.visible;
             }
 
             if ('x' in image_data && 'y' in image_data) {
-                if (createImage) {
+                if (get(image_data, 'enabled', true)) {
                     let image = new PointerOutlineImage(this, key, image_data);
+                    image.input.enabled = input_enabled;
 
                     image.on('pointerdown', callback.bind(this, image));
                     

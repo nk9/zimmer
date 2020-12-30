@@ -144,7 +144,7 @@ class Plants_Mushrooms extends Plants_Base {
 	    var timeline = this.tweens.timeline({ tweens: tweens });
 	}
 
-	clickHiddenObject(hidden_object) {
+	clickedItem(hidden_object) {
 		console.log(`clicked ${hidden_object.name}`);
 		
 		switch(hidden_object.name) {
