@@ -107,7 +107,7 @@
         "level_key": "Numbers-Lego-Boss",
         "x": -210,
         "y": -90,
-        "enabled": false
+        "enabled": true
       }
     },
     "items": {
@@ -207,6 +207,10 @@
           "button_title": "Pick it up."
         }
       }
+    }
+  },
+  "Numbers-Lego-Boss": {
+    "items": {
     }
   },
   "Numbers-Lego-10": {

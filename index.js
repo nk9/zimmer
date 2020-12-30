@@ -10,6 +10,7 @@ import Numbers_Lego_First from './scenes/Numbers-Lego-First';
 import Numbers_Lego_Second from './scenes/Numbers-Lego-Second';
 import Numbers_Lego_10 from './scenes/Numbers-Lego-10';
 import Numbers_Lego_9 from './scenes/Numbers-Lego-9';
+import Numbers_Lego_Boss from './scenes/Numbers-Lego-Boss';
 
 // Animals
 import Animals_Ocean from './scenes/Animals-Ocean';
@@ -45,6 +46,7 @@ const config = {
 			Numbers_Lego_Second,
 			Numbers_Lego_10,
 			Numbers_Lego_9,
+			Numbers_Lego_Boss,
 
 			// Animals
 			Animals_Ocean,

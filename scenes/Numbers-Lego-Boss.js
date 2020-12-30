@@ -4,58 +4,58 @@ import Numbers_Lego from './Numbers-Lego'
 import Brick, { LEGO_GRID } from '../components/brick';
 import BrickStore, { BSBrick } from '../components/brick_store';
 
-import { NUMBERS_LEGO_9, NUMBERS_LEGO_BOSS } from '../constants/scenes';
+import { NUMBERS_LEGO_BOSS } from '../constants/scenes';
 import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
 
-import numbersPicJpg from '../assets/pics/numbers/lego_9/*.jpg'
-import numbersPicPng from '../assets/pics/numbers/lego_9/*.png'
+import numbersPics from '../assets/pics/numbers/lego_boss/*.*'
 
 const INTRO1_ALERT = 'Intro1_Alert';
 const INTRO2_ALERT = 'Intro2_Alert';
 const FAIL_ALERT = 'FailAlert';
 
 
-class Numbers_Lego_9 extends Numbers_Lego {
+class Numbers_Lego_Boss extends Numbers_Lego {
 	constructor() {
-        super(NUMBERS_LEGO_9);
+        super(NUMBERS_LEGO_BOSS);
 	}
-
-    nextSceneKey() {
-        return NUMBERS_LEGO_BOSS;
-    }
 
 	preload() {
 		super.preload();
 
-		this.load.image('bookcase', numbersPicPng.bookcase);
-		this.load.image('bookcase_open', numbersPicPng.bookcase_open);
-	}
-
-	loadOutlineImage(name) {
-		this.load.image(name, numbersPicPng[name]);
-		this.load.image(name+"_outline", numbersPicPng[name+"_outline"]);
+		console.log(numbersPics);
+		this.load.image('forge', numbersPics.forge);
 	}
 
 	create() {
 		super.create();
-		this.createGarmadon();
-		this.run_time = 25; // scene timer length
+
+		// this.createGarmadon();
+		this.createBoss();
+
+		this.run_time = 10; // scene timer length
 	}
 
 	createBackgroundImages() {
+		this.swirl = {};
+
 		let center_x = GAME_WIDTH/2,
 			center_y = GAME_HEIGHT/2;
 
-		this.swirl = this.add.image(640, 330, 'green_swirl');
-		
-		// Shifted over slightly to line up with the lego grid rectangles
-		let bg_x = center_x + 10;
-		this.background_open = this.add.image(bg_x, center_y, 'bookcase_open');
-		this.background_open.setOrigin(0.5, 0.5);
+		this.background_closed = this.add.image(center_x, center_y, 'forge');
+		this.background_closed.setOrigin(0.5, 0.5);
+	}
 
-		this.background_closed = this.add.image(bg_x, center_y, 'bookcase');
-		this.background_closed.setOrigin(0.5, 0.5);	
+	createBoss() {
+		let boss = this.add.sprite(GAME_WIDTH/2, GAME_HEIGHT/2, 'vangelis_boss');
 
+		this.anims.create({
+			key: 'idle',
+			frames: this.anims.generateFrameNumbers('vangelis_boss'),
+			frameRate: 10,
+			repeat: -1
+		});
+
+		boss.play('idle');
 	}
 
 	clearSmoke() {
@@ -82,30 +82,16 @@ class Numbers_Lego_9 extends Numbers_Lego {
 		})
 	}
 
-	clickedItem(item) {
-		console.log(`clicked ${item.name}`);
-		
-		switch(item.name) {
-			// case 'box':	this.clickedBox(item); break;
-			default:
-		}
-	}
-
 	createBricks() {
-		let brick_store = new BrickStore(this, 29, 6);
+		let brick_store = new BrickStore(this, 32, 12);
 
-		brick_store.addRow(BSBrick.B1x2, BSBrick.B1x3);
-		brick_store.addRow(BSBrick.B1x6, BSBrick.B1x4);
-		brick_store.addRow(BSBrick.B1x1, BSBrick.B1x2, BSBrick.B1x6);
-		brick_store.addRow(BSBrick.B1x4, BSBrick.B1x7);
-		brick_store.addRow(BSBrick.B1x8);
-		brick_store.addRow(BSBrick.B1x5, BSBrick.B1x2);
+		brick_store.addRow(BSBrick.B2x3);
 
 		return brick_store;
 	}
 
 	keyZoneRect() {
-		return {x: 560, y: 100, width: 150, height: 50};
+		return {x: 550, y: 380, width: 110, height: 110};
 	}
 
 	pouchOpenPosition() {
@@ -115,17 +101,14 @@ class Numbers_Lego_9 extends Numbers_Lego {
 	createRectangles() {
 		this.rects_background = this.add.graphics();
 		this.rects_background.fillStyle(0x000000, .6);
-		this.rects_background.fillRoundedRect(13 * LEGO_GRID,
-										 3  * LEGO_GRID,
-										 11  * LEGO_GRID,
-										 14 * LEGO_GRID);
+		this.rects_background.fillRoundedRect(18 * LEGO_GRID,
+										 10  * LEGO_GRID,
+										 6  * LEGO_GRID,
+										 10 * LEGO_GRID);
 		this.rects_background.setDepth(Layers.OVER_DOOR);
 		this.rects_background.setAlpha(0);
 
-		this.addRectangle(9, 1, 14, 5);
-		this.addRectangle(9, 1, 14, 8);
-		this.addRectangle(9, 1, 14, 11);
-		this.addRectangle(9, 1, 14, 14);
+		this.addRectangle(2, 3, 20, 14, 1);
 	}
 
 	callToActionRect() {
@@ -149,16 +132,16 @@ class Numbers_Lego_9 extends Numbers_Lego {
 	createAlerts() {
 		let alerts = {
 			[INTRO1_ALERT]: {
-				title: "No!",
-				content: "The power of the skull will be mine! These locks will definelty put a stop to you!",
-				buttonText: "...",
+				title: "Hahaha!",
+				content: "I will have the power of the Skull of Hazza D’ur!",
+				buttonText: "As If!",
 				buttonAction: this.clickIntro1Alert,
 				context: this
 			},
 			[INTRO2_ALERT]: {
-				title: "Mwa ha ha!",
-				content: "And this time I've made it a secret hidden door.",
-				buttonText: "Hidden?",
+				title: "You won't find the key!",
+				content: "And how will you know what shape of key you need? By clicking on the keyhole? Hahahaha! ",
+				buttonText: "By clicking?",
 				buttonAction: this.clickIntro2Alert,
 				context: this
 			},
@@ -181,4 +164,4 @@ class Numbers_Lego_9 extends Numbers_Lego {
 	}
 }
 
-export default Numbers_Lego_9;
+export default Numbers_Lego_Boss;

@@ -3,10 +3,11 @@ export const INIT = 'Init';
 export const MAIN_HALL = 'Main-Hall';
 
 // Numbers
-export const NUMBERS_LEGO_10 = 'Numbers-Lego-10';
-export const NUMBERS_LEGO_9 = 'Numbers-Lego-9';
 export const NUMBERS_LEGO_FIRST = 'Numbers-Lego-First';
 export const NUMBERS_LEGO_SECOND = 'Numbers-Lego-Second';
+export const NUMBERS_LEGO_10 = 'Numbers-Lego-10';
+export const NUMBERS_LEGO_9 = 'Numbers-Lego-9';
+export const NUMBERS_LEGO_BOSS = 'Numbers-Lego-Boss';
 
 // Animals
 export const ANIMALS_OCEAN = 'Animals-Ocean';
