@@ -189,6 +189,44 @@ class Numbers_Lego extends BaseScene {
 		}
 	}
 
+	createGarmadon() {
+		this.sound.play('woosh_long');
+		
+		// The man himself
+		this.garmadon = this.add.image(GAME_WIDTH/2, GAME_HEIGHT, 'garmadon');
+		this.garmadon.scale = .5;
+		this.garmadon.setOrigin(.5, 1);
+		this.garmadon.setTint(0xaaaaaa);
+		this.garmadon.visible = false;
+
+		this.garmadon.setInteractive({useHandCursor: true})
+			.on('pointerover', () => { this.garmadon.clearTint() })
+			.on('pointerout', () => {
+				if (this.garmadon.input.enabled) {
+					this.garmadon.setTint(0xaaaaaa);
+				}
+			})
+			.on('pointerup', pointer => { this.clickGarmadon() });
+
+		let bounds = this.garmadon.getBounds();
+	    let particle = this.add.particles('smoke_purple');
+	    this.emitter = particle.createEmitter({
+	        blendMode: 'SCREEN',
+	        scale: { start: 1, end: 2 },
+	        speed: { min: -100, max: 100 },
+	        quantity: 5,
+	        emitZone: {
+		        source: new Phaser.Geom.Triangle(bounds.left, bounds.top, bounds.right, bounds.top, bounds.centerX, bounds.bottom),
+		        type: 'random',
+		        quantity: 20
+	        },
+	        lifespan: 300
+	    });
+		// particle.setDepth(Layers.OVER_DOOR);
+
+		this.time.delayedCall(1500, this.clearSmoke, [], this);
+	}
+
 	setupBricks() {
 		this.brick_store.shuffle();
 

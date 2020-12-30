@@ -48,6 +48,7 @@ class Init extends Scene {
         this.load.audio('door_opens_heavy', audioMp3.door_opens_heavy);
         this.load.audio('portal', audioMp3.portal);
         this.load.audio('poof', audioMp3.portal2);
+        this.load.audio('woosh_long', audioMp3.woosh_long);
 
         // UI Components
         this.load.image('door', imagesPng.door);
