@@ -11,20 +11,25 @@
         "x": -140,
         "y": 10
       },
+      "Numbers-Lego-Boss": {
+        "gem": "diamond",
+        "x": 34,
+        "y": -33
+      },
       "Animals-Cave": {
-        "gem": "emerald",
-        "x": 0,
-        "y": 0
+        "gem": "sapphire",
+        "x": 42,
+        "y": 127
       },
       "Animals-Forest": {
-        "gem": "emerald",
-        "x": -30,
-        "y": -40
+        "gem": "sapphire",
+        "x": -44,
+        "y": 127
       },
       "Animals-Ocean": {
         "gem": "sapphire",
-        "x": -20,
-        "y": -40
+        "x": -34,
+        "y": -33
       },
       "Plants-Flowers": {
         "gem": "emerald",
