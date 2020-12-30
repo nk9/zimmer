@@ -6,15 +6,12 @@ import { INIT, MAIN_HALL,
 import { UNLOCKED_SCENES, COLLECTED_GEMS } from '../constants/storage';
 
 
+import assets from '../assets/**/*.*';
 import swirlsJpg from '../assets/pics/swirls/*.jpg';
-import imagesJpg from '../assets/pics/*.jpg';
 import imagesPng from '../assets/pics/*.png';
 import audioMp3 from '../assets/audio/*.mp3';
 import particles from '../assets/particles/*.png';
-import spritesImg from '../assets/sprites/*.png';
-import spritesMp3 from '../assets/sprites/*.mp3';
-import spritesJson from '../assets/sprites/*.json';
-import dataJson from '../assets/data/*.json';
+import spritesF from '../assets/sprites/*.*';
 
 class Init extends Scene {
     constructor() {
@@ -32,11 +29,11 @@ class Init extends Scene {
         this.load.image('navy_swirl', swirlsJpg.navy_swirl);
 
         // Sprites
-        this.load.atlas('yellow-bricks', spritesImg.yellow_bricks_spritesheet, spritesJson.yellow_bricks_spritesheet);
-        this.load.atlas('link', spritesImg.link_spritesheet, spritesJson.link_spritesheet);
-        this.load.atlas('kratts', spritesImg.kratts_spritesheet, spritesJson.kratts_spritesheet);
-        this.load.audioSprite('hmm', spritesJson.hmm_spritesheet, spritesMp3.hmm);
-        this.load.atlas('gems', spritesImg.gems, spritesJson.gems);
+        this.load.atlas('yellow-bricks', spritesF.yellow_bricks.png, spritesF.yellow_bricks.json);
+        this.load.atlas('link', spritesF.link.png, spritesF.link.json);
+        this.load.atlas('kratts', spritesF.kratts.png, spritesF.kratts.json);
+        this.load.audioSprite('hmm', spritesF.hmm.json, spritesF.hmm.mp3);
+        this.load.atlas('gems', spritesF.gems.png, spritesF.gems.json);
 
         // Particles
         this.load.image('spark', particles.blue);
@@ -55,7 +52,7 @@ class Init extends Scene {
         this.load.image('close_button', imagesPng.close_button);
 
         // JSON data
-        this.load.json('data', dataJson.data);
+        this.load.json('data', assets.data.data.json);
 
         this.load.on('progress', this.onLoadProgress, this);
         this.load.on('complete', this.onLoadComplete, this);
