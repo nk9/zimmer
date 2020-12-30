@@ -205,7 +205,39 @@
     }
   },
   "Numbers-Lego-10": {
-    "items": {}
+    "items": {
+      "tree": {
+        "scale": 1,
+        "x": 65,
+        "y": 291,
+        "alert": {
+          "title": "Hmmm...",
+          "content": "Such nice decorations!",
+          "button_title": "..."
+        }
+      },
+      "pudding": {
+        "scale": 1,
+        "gem": "diamond",
+        "x": 263,
+        "y": 436,
+        "alert": {
+          "title": "Christmas pudding!",
+          "content": "Something hard in here!",
+          "button_title": "Spit it out."
+        }
+      },
+      "scale": {
+        "scale": 1,
+        "x": 1085,
+        "y": 281,
+        "alert": {
+          "title": "Hmmm...",
+          "content": "Just for decoration.",
+          "button_title": "Leave it."
+        }
+      }
+    }
   },
   "Numbers-Lego-First": {
     "items": {}
@@ -479,8 +511,8 @@
     "items": {
       "moss": {
         "scale": 1,
-        "x": 832,
-        "y": 213,
+        "x": 957,
+        "y": 370,
         "alert": {
           "title": "Hmmm...",
           "content": "Moss can grow in dark places.",
@@ -489,8 +521,8 @@
       },
       "corner": {
         "scale": 1,
-        "x": 832,
-        "y": 213,
+        "x": 533,
+        "y": 367,
         "gem": "sapphire",
         "alert": {
           "title": "Hmmm...",
