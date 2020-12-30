@@ -95,7 +95,7 @@ class Plants_Flowers extends Plants_Base {
 		let center_x = GAME_WIDTH/2,
 			center_y = GAME_HEIGHT/2;
 
-		this.swirl = this.add.image(360, 300, 'blue_swirl');
+		this.swirl = this.add.image(420, 300, 'blue_swirl');
 
 		this.background_open = this.add.image(0, 0, 'flower_open');
 		this.background_open.setOrigin(0, 0);
