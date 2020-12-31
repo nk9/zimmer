@@ -18,18 +18,19 @@ export const BSBrick = {
 
 class BrickStore {
 
-	constructor(_scene, xL, yL) {
+	constructor(_scene, xL, yL, rotatable=true) {
 		[this.x, this.y] = [xL, yL].map(n => n * LEGO_GRID);
 		this.bricks = [];
 		this.brickRows = [];
 		this.scene = _scene;
+		this.rotatable = rotatable;
 	}
 
 	addRow(...args) {
 		var newRow = [];
 
 		for (const obj of args) {
-			let brick = new Brick(this.scene, obj.wL, obj.hL, 0, 0);
+			let brick = new Brick(this.scene, obj.wL, obj.hL, 0, 0, this.rotatable);
 			newRow.push(brick);
 		}
 

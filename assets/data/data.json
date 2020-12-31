@@ -211,6 +211,14 @@
   },
   "Numbers-Lego-Boss": {
     "items": {
+      "problem_1": {
+        "x": 30,
+        "y": 110
+      },
+      "problem_2": {
+        "x": 30,
+        "y": 150
+      }
     }
   },
   "Numbers-Lego-10": {
