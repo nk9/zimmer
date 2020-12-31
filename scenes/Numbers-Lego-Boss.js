@@ -104,7 +104,7 @@ class Numbers_Lego_Boss extends BaseScene {
 	}
 
 	createBoss() {
-		let boss = this.add.sprite(GAME_WIDTH/2, GAME_HEIGHT/2, 'vangelis_boss');
+		let boss = this.add.sprite(900, 200, 'vangelis_boss');
 
 		this.anims.create({
 			key: 'idle',
@@ -119,7 +119,12 @@ class Numbers_Lego_Boss extends BaseScene {
 	createWeapons() {
 		this.weapons = [];
 
-
+		this.weapons.push(
+			this.add.sprite(450, 100, 'weapons', 'shuriken'),
+			this.add.sprite(550, 300, 'weapons', 'scythe'),
+			this.add.sprite(750, 420, 'weapons', 'nunchucks'),
+			this.add.sprite(1100, 420, 'weapons', 'sword'),
+			);
 	}
 
 	createCallToAction() {
