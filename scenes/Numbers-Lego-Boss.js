@@ -108,7 +108,7 @@ class Numbers_Lego_Boss extends BaseScene {
 
 		this.anims.create({
 			key: 'idle',
-			frames: this.anims.generateFrameNumbers('vangelis_boss'),
+			frames: this.anims.generateFrameNames('vangelis_boss', {prefix: 'vangelis_', start:10, end:31}),
 			frameRate: 10,
 			repeat: -1
 		});
@@ -181,29 +181,17 @@ class Numbers_Lego_Boss extends BaseScene {
 		this.brick_store.layoutBricks();
 
 		for (var brick of this.brick_store.bricks) {
-			brick.on('pointerdown', this.dragBrick.bind(this, brick))
-				 .on('dragstart', this.dragStartBrick.bind(this, brick))
+			brick.on('dragstart', this.dragStartBrick.bind(this, brick))
 				 .on('dragend', this.dragEndBrick.bind(this, brick))
 
 			// Make sure bricks don't respond to input until they enter the scene
 			// brick.input.enabled = false;
 		}
 
-	    // Allow dragging of the bricks, but snap to grid
 	    this.input.on('drag', function (pointer, gameObject, dragX, dragY) {
-	        gameObject.drag_image.x = Phaser.Math.Snap.To(dragX, LEGO_GRID);
-	        gameObject.drag_image.y = Phaser.Math.Snap.To(dragY, LEGO_GRID);
+	        gameObject.drag_image.x = dragX;
+	        gameObject.drag_image.y = dragY;
 	    });
-	}
-
-	dragBrick(dragged_brick) {
-		for (const brick of this.brick_store.bricks) {
-			if (brick == dragged_brick) {
-				brick.setDepth(Layers.DRAGGING);
-			} else {
-				brick.setDepth(Layers.OVER_POUCH);
-			}
-		}
 	}
 
 	dragStartBrick(dragged_brick) {
