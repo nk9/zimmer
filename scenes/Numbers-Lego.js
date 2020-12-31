@@ -89,6 +89,9 @@ class Numbers_Lego extends BaseScene {
 			});
 	}
 
+	callToActionRect() {
+		return {x: 800, y: 600, width: 40, height: 64}
+	}
 
 	resetAfterFail() {
 		// Clear any alerts

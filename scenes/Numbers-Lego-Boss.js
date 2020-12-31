@@ -36,6 +36,10 @@ class Numbers_Lego_Boss extends Numbers_Lego {
 		this.run_time = 10; // scene timer length
 	}
 
+	update() {
+		// To this differently from all the other Numbers levels
+	}
+
 	createBackgroundImages() {
 		this.swirl = {};
 
@@ -70,10 +74,25 @@ class Numbers_Lego_Boss extends Numbers_Lego {
 	}
 
 	createCallToAction() {
-		// Do our own on this level
 	}
 
 	createTools() {
+		this.createToolbar();
+
+		for (const brick of this.brick_store.bricks) {
+			brick.setDepth(Layers.OVER_POUCH);
+		}
+	}
+
+	createToolbar() {
+		this.toolbar = this.add.container(LEGO_GRID*9, LEGO_GRID*18);
+		this.toolbar.setSize(LEGO_GRID*25, LEGO_GRID*5);
+
+		let rectangle = this.add.rectangle(0, 0, LEGO_GRID*25, LEGO_GRID*5, 0x000000);
+		rectangle.setOrigin(0, 0);
+		rectangle.setStrokeStyle(2, 0xFFD700, 1);
+
+		this.toolbar.add(rectangle);
 	}
 
 	clearSmoke() {
@@ -101,11 +120,29 @@ class Numbers_Lego_Boss extends Numbers_Lego {
 	}
 
 	createBricks() {
-		let brick_store = new BrickStore(this, 32, 12);
+		let brick_store = new BrickStore(this, 10, 19);
 
-		brick_store.addRow(BSBrick.B2x3);
+		brick_store.addRow(BSBrick.B1x1, BSBrick.B1x2, BSBrick.B1x3, BSBrick.B1x4, BSBrick.B1x5);
+		brick_store.addRow(BSBrick.B1x6, BSBrick.B1x7, BSBrick.B1x8);
 
 		return brick_store;
+	}
+
+	setupBricks() {
+		this.brick_store.layoutBricks();
+
+		for (var brick of this.brick_store.bricks) {
+			brick.on('pointerdown', this.dragBrick.bind(this, brick));
+
+			// Make sure bricks don't respond to input until they enter the scene
+			brick.input.enabled = false;
+		}
+
+	    // Allow dragging of the bricks, but snap to grid
+	    this.input.on('drag', function (pointer, gameObject, dragX, dragY) {
+	        gameObject.x = Phaser.Math.Snap.To(dragX, LEGO_GRID);
+	        gameObject.y = Phaser.Math.Snap.To(dragY, LEGO_GRID);
+	    });
 	}
 
 	keyZoneRect() {
@@ -117,20 +154,6 @@ class Numbers_Lego_Boss extends Numbers_Lego {
 	}
 
 	createRectangles() {
-		this.rects_background = this.add.graphics();
-		this.rects_background.fillStyle(0x000000, .6);
-		this.rects_background.fillRoundedRect(18 * LEGO_GRID,
-										 10  * LEGO_GRID,
-										 6  * LEGO_GRID,
-										 10 * LEGO_GRID);
-		this.rects_background.setDepth(Layers.OVER_DOOR);
-		this.rects_background.setAlpha(0);
-
-		this.addRectangle(2, 3, 20, 14, 1);
-	}
-
-	callToActionRect() {
-		return {x: 800, y: 600, width: 40, height: 64}
 	}
 
 	createAlerts() {

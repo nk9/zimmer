@@ -110,10 +110,6 @@ export default class Numbers_Lego_Second extends Numbers_Lego {
 		this.addRectangle(2, 3, 19, 11);
 	}
 
-	callToActionRect() {
-		return {x: 800, y: 600, width: 40, height: 64}
-	}
-
 	createAlerts() {
 		let alerts = {
 			[INTRO1_ALERT]: {

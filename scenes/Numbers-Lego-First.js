@@ -109,10 +109,6 @@ class Numbers_Lego_First extends Numbers_Lego {
 		this.addRectangle(2, 3, 20, 14, 1);
 	}
 
-	callToActionRect() {
-		return {x: 800, y: 600, width: 40, height: 64}
-	}
-
 	createAlerts() {
 		let alerts = {
 			[INTRO1_ALERT]: {
