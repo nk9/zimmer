@@ -42,8 +42,24 @@ class Numbers_Lego extends BaseScene {
 		this.createBackground();
 		this.createItems();
 		this.createRectangles();
+		this.createCallToAction();
 
-		let [cta_closed, cta_closed_outlined, cta_closed_zone] = this.createCallToAction();
+		this.createKeyZone();
+		this.createCountdownTimer();
+
+		this.portal_sound = this.sound.add('portal');
+	}
+
+	createCallToAction() {
+		let cta_rect = this.callToActionRect();
+	    let cta_closed = this.add.image(cta_rect.x, cta_rect.y, 'pouch_closed');
+	    let cta_closed_outlined = this.add.image(cta_rect.x, cta_rect.y, 'pouch_closed_outlined');
+	    let cta_closed_zone = this.add.zone(cta_rect.x, cta_rect.y, cta_rect.width, cta_rect.height)
+
+	    cta_closed.scale = .2;
+	    cta_closed_outlined.scale = .2;
+	    cta_closed.setVisible(true);
+	    cta_closed_outlined.setVisible(false);
 
 	    this.pouch_open = this.add.image(cta_closed_zone.x, cta_closed_zone.y, 'pouch_open');
 	    this.pouch_open.scale = 0.1;
@@ -71,12 +87,8 @@ class Numbers_Lego extends BaseScene {
 					cta_closed_zone.destroy();
 				}
 			});
-
-		this.createKeyZone();
-		this.createCountdownTimer();
-
-		this.portal_sound = this.sound.add('portal');
 	}
+
 
 	resetAfterFail() {
 		// Clear any alerts

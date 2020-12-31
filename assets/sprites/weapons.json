@@ -1,0 +1,95 @@
+{
+	"frames": {
+		"nunchucks": {
+			"frame": {
+				"x": 1,
+				"y": 1,
+				"w": 156,
+				"h": 150
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 156,
+				"h": 150
+			},
+			"sourceSize": {
+				"w": 156,
+				"h": 150
+			}
+		},
+		"scythe": {
+			"frame": {
+				"x": 159,
+				"y": 1,
+				"w": 100,
+				"h": 150
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 100,
+				"h": 150
+			},
+			"sourceSize": {
+				"w": 100,
+				"h": 150
+			}
+		},
+		"shuriken": {
+			"frame": {
+				"x": 261,
+				"y": 1,
+				"w": 143,
+				"h": 150
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 143,
+				"h": 150
+			},
+			"sourceSize": {
+				"w": 143,
+				"h": 150
+			}
+		},
+		"sword": {
+			"frame": {
+				"x": 1,
+				"y": 153,
+				"w": 110,
+				"h": 150
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 110,
+				"h": 150
+			},
+			"sourceSize": {
+				"w": 110,
+				"h": 150
+			}
+		}
+	},
+	"meta": {
+		"app": "http://www.codeandweb.com/texturepacker",
+		"version": "1.0",
+		"image": "weapons.png",
+		"format": "RGBA8888",
+		"size": {
+			"w": 405,
+			"h": 304
+		},
+		"scale": "1"
+	}
+}

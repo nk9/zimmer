@@ -120,20 +120,6 @@ class Numbers_Lego_10 extends Numbers_Lego {
 		return {x: 800, y: 600, width: 40, height: 64};
 	}
 
-	createCallToAction() {
-		let cta_rect = this.callToActionRect();
-	    let cta_closed = this.add.image(cta_rect.x, cta_rect.y, 'pouch_closed');
-	    let cta_closed_outlined = this.add.image(cta_rect.x, cta_rect.y, 'pouch_closed_outlined');
-	    let cta_closed_zone = this.add.zone(cta_rect.x, cta_rect.y, cta_rect.width, cta_rect.height)
-
-	    cta_closed.scale = .2;
-	    cta_closed_outlined.scale = .2;
-	    cta_closed.setVisible(true);
-	    cta_closed_outlined.setVisible(false);
-
-	    return [cta_closed, cta_closed_outlined, cta_closed_zone];
-	}
-
 	createAlerts() {
 		let alerts = {
 			[INTRO1_ALERT]: {
