@@ -439,6 +439,26 @@
 				"w": 300,
 				"h": 300
 			}
+		},
+		"vangelis_32": {
+			"frame": {
+				"x": 605,
+				"y": 1209,
+				"w": 300,
+				"h": 300
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 300,
+				"h": 300
+			},
+			"sourceSize": {
+				"w": 300,
+				"h": 300
+			}
 		}
 	},
 	"meta": {
