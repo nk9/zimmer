@@ -22,14 +22,13 @@ class Numbers_Lego_Boss extends Numbers_Lego {
 	preload() {
 		super.preload();
 
-		console.log(numbersPics);
-		this.load.image('forge', numbersPics.forge);
+		this.load.image('forge', numbersPics.forge.jpg);
 	}
 
 	create() {
 		super.create();
 
-		// this.createGarmadon();
+		this.createGarmadon();
 		this.createBoss();
 
 		this.run_time = 10; // scene timer length
@@ -43,6 +42,10 @@ class Numbers_Lego_Boss extends Numbers_Lego {
 
 		this.background_closed = this.add.image(center_x, center_y, 'forge');
 		this.background_closed.setOrigin(0.5, 0.5);
+	}
+
+	garmadonPosition() {
+		return {x: 150, y: 400};
 	}
 
 	createBoss() {

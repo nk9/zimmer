@@ -193,7 +193,8 @@ class Numbers_Lego extends BaseScene {
 		this.sound.play('woosh_long');
 		
 		// The man himself
-		this.garmadon = this.add.image(GAME_WIDTH/2, GAME_HEIGHT, 'garmadon');
+		let gpos = this.garmadonPosition();
+		this.garmadon = this.add.image(gpos.x, gpos.y, 'garmadon');
 		this.garmadon.scale = .5;
 		this.garmadon.setOrigin(.5, 1);
 		this.garmadon.setTint(0xaaaaaa);
@@ -225,6 +226,10 @@ class Numbers_Lego extends BaseScene {
 		// particle.setDepth(Layers.OVER_DOOR);
 
 		this.time.delayedCall(1500, this.clearSmoke, [], this);
+	}
+
+	garmadonPosition() {
+		return {x: GAME_WIDTH/2, y: GAME_HEIGHT};
 	}
 
 	setupBricks() {
