@@ -1,3 +1,5 @@
+import { shuffle } from 'lodash-es';
+
 import BaseScene, { SceneProgress, Layers } from './base-scene';
 
 import Numbers_Lego from './Numbers-Lego'
@@ -72,9 +74,13 @@ class Numbers_Lego_Boss extends BaseScene {
     }
 
 	setupItems() {
-		for (const item of this.items) {
+		var y = 30;
+
+		for (const item of shuffle(this.items)) {
 			item.alpha = 0;
 			item.input.dropZone = true;
+			item.y = y;
+			y += 70;
 		}
 	}
 
