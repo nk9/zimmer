@@ -60,6 +60,10 @@ class BaseScene extends Scene {
         console.log("Stored data:", this.game.config.storage.cache);
 
         this.stored_data = get(this.cache.json.get('data'), this.key);
+
+        this.load.on('progress', this.onLoadProgress, this);
+        this.load.on('complete', this.onLoadComplete, this);
+        this.createProgressBar();
     }
 
 	create() {
@@ -256,6 +260,34 @@ class BaseScene extends Scene {
             unlocked_scenes.push(next_scene_key);
             this.store(UNLOCKED_SCENES, unlocked_scenes);
         }
+    }
+
+    createProgressBar() {
+        let Rectangle = Phaser.Geom.Rectangle;
+        let main = Rectangle.Clone(this.cameras.main);
+
+        this.progressRect = new Rectangle(0, 0, main.width / 2, 50);
+        Rectangle.CenterOn(this.progressRect, main.centerX, main.centerY);
+
+        this.progressCompleteRect = Phaser.Geom.Rectangle.Clone(this.progressRect);
+
+        this.progressBar = this.add.graphics();
+    }
+
+    onLoadComplete(loader) {
+        this.progressBar.visible = false;
+    }
+
+    onLoadProgress(progress) {
+        let color = (0xffffff);
+
+        this.progressRect.width = progress * this.progressCompleteRect.width;
+        this.progressBar
+            .clear()
+            .fillStyle(0x222222)
+            .fillRectShape(this.progressCompleteRect)
+            .fillStyle(color)
+            .fillRectShape(this.progressRect);
     }
 }
 
