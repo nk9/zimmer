@@ -493,7 +493,6 @@ class Numbers_Lego_Boss extends BaseScene {
 	}
 
 	fail() {
-		console.log("FAILED");
 		this.fail_overlay.visible = true;
 
 		let tweens = [{
@@ -522,8 +521,6 @@ class Numbers_Lego_Boss extends BaseScene {
     	}
 
 		this.resetItems(true);
-
-		// this.progress = SceneProgress.BEGIN;
 	}
 
 	completeFailReset() {
