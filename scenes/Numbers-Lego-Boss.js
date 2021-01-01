@@ -104,7 +104,7 @@ class Numbers_Lego_Boss extends BaseScene {
 	}
 
 	createBoss() {
-		let boss = this.add.sprite(900, 200, 'vangelis_boss');
+		this.boss = this.add.sprite(900, 200, 'vangelis_boss');
 
 		this.anims.create({
 			key: 'idle',
@@ -113,18 +113,41 @@ class Numbers_Lego_Boss extends BaseScene {
 			repeat: -1
 		});
 
-		boss.play('idle');
+		this.boss.play('idle');
 	}
 
 	createWeapons() {
 		this.weapons = [];
 
 		this.weapons.push(
-			this.add.sprite(450, 100, 'weapons', 'shuriken'),
+			this.add.sprite(500, 100, 'weapons', 'shuriken'),
 			this.add.sprite(550, 300, 'weapons', 'scythe'),
 			this.add.sprite(750, 420, 'weapons', 'nunchucks'),
 			this.add.sprite(1100, 420, 'weapons', 'sword'),
 			);
+
+		var particles = this.add.particles('spark');
+		for (const w of this.weapons) {
+		    var line = new Phaser.Geom.Line(w.x, w.y, this.boss.x, this.boss.y);
+
+		    w.emitter = particles.createEmitter({
+		    	on: false,
+		    	speed: 50,
+		        scale: { start: 0.6, end: 0.1 },
+		        blendMode: 'ADD',
+		        emitZone: { type: 'edge', source: line, quantity: 60 },
+		    	emitCallback: this.emitParticle,
+		    	emitCallbackScope: this
+		    });
+   		}
+	}
+
+	emitParticle(particle, emitter) {
+		let ez = emitter.emitZone;
+
+		if (ez.counter == ez.quantity - 1) {
+			emitter.stop();
+		}
 	}
 
 	createCallToAction() {
@@ -135,6 +158,7 @@ class Numbers_Lego_Boss extends BaseScene {
 
 		for (const brick of this.brick_store.bricks) {
 			brick.setDepth(Layers.OVER_POUCH);
+			this.toolbar.add(brick);
 		}
 	}
 
@@ -174,7 +198,7 @@ class Numbers_Lego_Boss extends BaseScene {
 	}
 
 	createBricks() {
-		let brick_store = new BrickStore(this, 10, 19, false);
+		let brick_store = new BrickStore(this, 1, 1, false);
 
 		brick_store.addRow(BSBrick.B1x1, BSBrick.B1x2, BSBrick.B1x3, BSBrick.B1x4, BSBrick.B1x5);
 		brick_store.addRow(BSBrick.B1x6, BSBrick.B1x7, BSBrick.B1x8);
@@ -194,16 +218,21 @@ class Numbers_Lego_Boss extends BaseScene {
 		}
 
 	    this.input.on('drag', function (pointer, gameObject, dragX, dragY) {
-	        gameObject.drag_image.x = dragX;
-	        gameObject.drag_image.y = dragY;
+	        gameObject.drag_image.x = dragX + gameObject.scene.toolbar.x;
+	        gameObject.drag_image.y = dragY + gameObject.scene.toolbar.y;
 	    });
 	}
 
 	dragStartBrick(dragged_brick) {
+		let toolbar = dragged_brick.scene.toolbar;
 		let drag_image = dragged_brick.drag_image;
-		drag_image.x = dragged_brick.x;
-		drag_image.y = dragged_brick.y;
+		
+		drag_image.x = dragged_brick.x + toolbar.x;
+		drag_image.y = dragged_brick.y + toolbar.y;
 		drag_image.visible = true;
+
+		let e = this.weapons[1].emitter
+		e.start();
 	}
 
 	dragEndBrick(dragged_brick) {
