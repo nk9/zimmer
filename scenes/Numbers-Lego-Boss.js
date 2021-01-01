@@ -44,6 +44,7 @@ class Numbers_Lego_Boss extends BaseScene {
 		this.load.audio('sorcerer_whodares', audioMp3.sorcerer_whodares);
 		this.load.audio('sorcerer_taunt', audioMp3.sorcerer_taunt);
 		this.load.audio('sorcerer_defeated', audioMp3.sorcerer_defeated);
+		this.load.audio('sorcerer_lostcause', audioMp3.sorcerer_lostcause);
 
 		let keys = Object.keys(this.stored_data.items);
 		for (const key of keys) {
@@ -435,6 +436,7 @@ class Numbers_Lego_Boss extends BaseScene {
 
 	destroyBoss() {
 		this.sound.play('sorcerer_defeated');
+		this.timer.remove();
 		this.boss.destroyEmitter.start();
 		this.time.delayedCall(2000, this.finishDestroyBoss, [], this);
 	}
@@ -493,12 +495,13 @@ class Numbers_Lego_Boss extends BaseScene {
 	}
 
 	fail() {
+		this.sound.play('sorcerer_lostcause');
 		this.fail_overlay.visible = true;
 
 		let tweens = [{
 			targets: this.fail_overlay,
 			alpha: 1,
-			duration: 500,
+			duration: 1500,
 			yoyo: true,
 			onYoyo: this.resetAfterFail,
 			onYoyoScope: this,
@@ -519,6 +522,8 @@ class Numbers_Lego_Boss extends BaseScene {
     	for (const t of this.ongoingFadeTweens) {
     		t.stop();
     	}
+
+    	this.correct_answers = [];
 
 		this.resetItems(true);
 	}
