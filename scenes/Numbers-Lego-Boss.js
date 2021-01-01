@@ -24,6 +24,10 @@ class Numbers_Lego_Boss extends BaseScene {
         super(NUMBERS_LEGO_BOSS);
 	}
 
+	init() {
+		this.correct_answers = [];
+	}
+
 	preload() {
 		super.preload();
 
@@ -143,7 +147,7 @@ class Numbers_Lego_Boss extends BaseScene {
 	    var line = new Phaser.Geom.Line(this.boss.x, this.boss.y, gbounds.centerX, gbounds.centerY);
 
 		var particles = this.add.particles('flares');
-	    this.boss.emitter = particles.createEmitter({
+	    this.boss.weaponEmitter = particles.createEmitter({
 	    	frame: 'green',
 	    	on: false,
 	    	speed: 50,
@@ -152,6 +156,16 @@ class Numbers_Lego_Boss extends BaseScene {
 	        emitZone: { type: 'edge', source: line, quantity: 60 },
 	    	emitCallback: this.emitBossParticle,
 	    	emitCallbackScope: this
+	    });
+
+	    this.boss.destroyEmitter = particles.createEmitter({
+	    	on: false,
+	        frame: [ 'red', 'blue', 'green', 'yellow' ],
+	    	x: this.boss.x,
+	    	y: this.boss.y,
+	    	speed: 200,
+	    	lifespan: 2000,
+	    	blendMode: 'ADD'
 	    });
 	}
 
@@ -198,6 +212,11 @@ class Numbers_Lego_Boss extends BaseScene {
 
 		if (ez.counter == ez.quantity - 1) {
 			emitter.stop();
+
+			if (this.correct_answers.length == this.items.length) {
+				// All problems answered correctly
+				this.destroyBoss();
+			}
 		}
 	}
 
@@ -242,7 +261,7 @@ class Numbers_Lego_Boss extends BaseScene {
 		this.stopAlert(INTRO2_ALERT);
 
 		// Boss fires at Garmadon
-		this.boss.emitter.start();
+		this.boss.weaponEmitter.start();
 	}
 
 	fadeOutGarmadon() {
@@ -313,8 +332,17 @@ class Numbers_Lego_Boss extends BaseScene {
 
 	dropBrick(brick, target) {
 		if (brick.legoTotal == target.info.answer) {
+			this.correct_answers.push(target);
+
 			target.revealAnswer();
 			this.fireNextWeapon();
+
+			this.tweens.add({
+				targets: target,
+				alpha: 0,
+				duration: 500,
+				delay: 1000
+			});
 		}
 	}
 
@@ -323,6 +351,25 @@ class Numbers_Lego_Boss extends BaseScene {
 
 		let w = this.weapons[this.weapon_index];
 		w.emitter.start();
+	}
+
+	destroyBoss() {
+		this.boss.destroyEmitter.start();
+		this.time.delayedCall(2000, this.finishDestroyBoss, [], this);
+	}
+
+	finishDestroyBoss() {
+		this.boss.visible = false;
+		this.boss.destroyEmitter.stop();
+		this.overlay.visible = true;
+		
+		this.tweens.add({
+			targets: this.overlay,
+			alpha: 1,
+			duration: 2000,
+			onComplete: () => { this.startNextScene() },
+			onCompleteScope: this
+		})
 	}
 
 	keyZoneRect() {
@@ -368,6 +415,11 @@ class Numbers_Lego_Boss extends BaseScene {
 		super.fail();
 
 		this.scene.run(FAIL_ALERT);
+	}
+
+	startNextScene() {
+        this.scene.start(this.nextSceneKey());
+        this.scene.shutdown();
 	}
 }
 
