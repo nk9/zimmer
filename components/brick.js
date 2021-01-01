@@ -54,7 +54,7 @@ class Brick extends Phaser.GameObjects.Container {
 		let brickCenter = brick.getCenter();
 
 		container.text = scene.add.text(brickCenter.x, brickCenter.y, `${wL*hL}`,
-			{fill: "#000", fontSize: "17pt", stoke: "#fff", strokeThickness: 5});
+			{fill: "#000", fontSize: "16pt", stoke: "#fff", strokeThickness: 5 });
 		container.text.setOrigin(0.5, 0.5);
 
 		let border = scene.add.rectangle(0, 0, w, h);
