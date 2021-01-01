@@ -212,12 +212,64 @@
   "Numbers-Lego-Boss": {
     "items": {
       "problem_1": {
-        "x": 30,
-        "y": 110
+        "scale": 1,
+        "answer": 7,
+        "x": 125,
+        "y": 30
       },
       "problem_2": {
-        "x": 30,
-        "y": 150
+        "scale": 1,
+        "answer": 4,
+        "x": 125,
+        "y": 100
+      },
+      "problem_3": {
+        "scale": 1,
+        "answer": 4,
+        "x": 125,
+        "y": 170
+      },
+      "problem_4": {
+        "scale": 1,
+        "answer": 2,
+        "x": 125,
+        "y": 240
+      },
+      "problem_5": {
+        "scale": 1,
+        "answer": 1,
+        "x": 125,
+        "y": 310
+      },
+      "problem_6": {
+        "scale": 1,
+        "answer": 7,
+        "x": 125,
+        "y": 380
+      },
+      "problem_7": {
+        "scale": 1,
+        "answer": 1,
+        "x": 125,
+        "y": 450
+      },
+      "problem_8": {
+        "scale": 1,
+        "answer": 2,
+        "x": 125,
+        "y": 520
+      },
+      "problem_9": {
+        "scale": 1,
+        "answer": 3,
+        "x": 125,
+        "y": 590
+      },
+      "problem_10": {
+        "scale": 1,
+        "answer": 7,
+        "x": 125,
+        "y": 660
       }
     }
   },

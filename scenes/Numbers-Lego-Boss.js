@@ -3,6 +3,7 @@ import BaseScene, { SceneProgress, Layers } from './base-scene';
 import Numbers_Lego from './Numbers-Lego'
 import Brick, { LEGO_GRID } from '../components/brick';
 import BrickStore, { BSBrick } from '../components/brick_store';
+import NumberSentenceImage from '../components/number_sentence_image';
 
 import { NUMBERS_LEGO_BOSS } from '../constants/scenes';
 import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
@@ -26,6 +27,11 @@ class Numbers_Lego_Boss extends BaseScene {
 
 		this.load.image('forge', bossPics.forge.jpg);
         this.load.image('garmadon', numbersPics.garmadon.png);
+
+		let keys = Object.keys(this.stored_data.items);
+		for (const key of keys) {
+	        this.loadOutlineImage(key);
+		}
 	}
 
 	loadOutlineImage(name) {
@@ -41,6 +47,7 @@ class Numbers_Lego_Boss extends BaseScene {
 	    this.setupBricks();
 		this.createBackground();
 		this.createItems();
+		this.setupItems();
 
 		this.createGarmadon();
 		this.createBoss();
@@ -58,6 +65,17 @@ class Numbers_Lego_Boss extends BaseScene {
 
 		this.background_closed = this.add.image(center_x, center_y, 'forge');
 		this.background_closed.setOrigin(0.5, 0.5);
+	}
+
+    outlineImage(key, image_data) {
+        return new NumberSentenceImage(this, key, image_data);
+    }
+
+	setupItems() {
+		for (const item of this.items) {
+			item.alpha = 0;
+			item.input.dropZone = true;
+		}
 	}
 
 	garmadonPosition() {
@@ -109,15 +127,31 @@ class Numbers_Lego_Boss extends BaseScene {
 		this.anims.create({
 			key: 'idle',
 			frames: this.anims.generateFrameNames('vangelis_boss', {prefix: 'vangelis_', start:10, end:31}),
-			frameRate: 10,
+			frameRate: 8,
 			repeat: -1
 		});
 
 		this.boss.play('idle');
+
+		let gbounds = this.garmadon.getBounds();
+	    var line = new Phaser.Geom.Line(this.boss.x, this.boss.y, gbounds.centerX, gbounds.centerY);
+
+		var particles = this.add.particles('flares');
+	    this.boss.emitter = particles.createEmitter({
+	    	frame: 'green',
+	    	on: false,
+	    	speed: 50,
+	        scale: { start: 1, end: 0.3 },
+	        blendMode: 'ADD',
+	        emitZone: { type: 'edge', source: line, quantity: 60 },
+	    	emitCallback: this.emitBossParticle,
+	    	emitCallbackScope: this
+	    });
 	}
 
 	createWeapons() {
 		this.weapons = [];
+		this.weapon_index = 0;
 
 		this.weapons.push(
 			this.add.sprite(500, 100, 'weapons', 'shuriken'),
@@ -128,6 +162,8 @@ class Numbers_Lego_Boss extends BaseScene {
 
 		var particles = this.add.particles('spark');
 		for (const w of this.weapons) {
+			w.alpha = 0;
+
 		    var line = new Phaser.Geom.Line(w.x, w.y, this.boss.x, this.boss.y);
 
 		    w.emitter = particles.createEmitter({
@@ -140,6 +176,15 @@ class Numbers_Lego_Boss extends BaseScene {
 		    	emitCallbackScope: this
 		    });
    		}
+	}
+
+	emitBossParticle(particle, emitter) {
+		let ez = emitter.emitZone;
+
+		if (ez.counter == ez.quantity - 1) {
+			emitter.stop();
+			this.fadeOutGarmadon();
+		}
 	}
 
 	emitParticle(particle, emitter) {
@@ -163,7 +208,7 @@ class Numbers_Lego_Boss extends BaseScene {
 	}
 
 	createToolbar() {
-		this.toolbar = this.add.container(LEGO_GRID*9, LEGO_GRID*18);
+		this.toolbar = this.add.container(LEGO_GRID*9, LEGO_GRID*25);
 		this.toolbar.setSize(LEGO_GRID*25, LEGO_GRID*5);
 
 		let rectangle = this.add.rectangle(0, 0, LEGO_GRID*25, LEGO_GRID*5, 0x000000);
@@ -190,11 +235,32 @@ class Numbers_Lego_Boss extends BaseScene {
 	clickIntro2Alert() {
 		this.stopAlert(INTRO2_ALERT);
 
-		this.tweens.add({
-			targets: this.garmadon,
-			alpha: 0,
-			duration: 750
-		})
+		// Boss fires at Garmadon
+		this.boss.emitter.start();
+	}
+
+	fadeOutGarmadon() {
+		var tweens = [
+			{ // Fade out Garmadon
+				targets: this.garmadon,
+				alpha: 0,
+				duration: 750
+			},
+			{ // Slide in toolbar
+				targets: this.toolbar,
+				y: GAME_HEIGHT - this.toolbar.height,
+				duration: 750,
+				offset: 0
+			},
+			{ // Fade in weapons
+				targets: [...this.weapons, ...this.items],
+				alpha: 1,
+				duration: 750,
+				offset: 750
+			}
+		];
+
+	    var timeline = this.tweens.timeline({ tweens: tweens });
 	}
 
 	createBricks() {
@@ -208,13 +274,15 @@ class Numbers_Lego_Boss extends BaseScene {
 
 	setupBricks() {
 		this.brick_store.layoutBricks();
+		this.brick_store.generateBricksArray();
 
-		for (var brick of this.brick_store.bricks) {
+		for (let brick of this.brick_store.bricks) {
 			brick.on('dragstart', this.dragStartBrick.bind(this, brick))
 				 .on('dragend', this.dragEndBrick.bind(this, brick))
-
-			// Make sure bricks don't respond to input until they enter the scene
-			// brick.input.enabled = false;
+				 .on('drop', (pointer, target) => {
+					const bound = this.dropBrick.bind(this, brick, target);
+					bound();
+				 });
 		}
 
 	    this.input.on('drag', function (pointer, gameObject, dragX, dragY) {
@@ -226,18 +294,29 @@ class Numbers_Lego_Boss extends BaseScene {
 	dragStartBrick(dragged_brick) {
 		let toolbar = dragged_brick.scene.toolbar;
 		let drag_image = dragged_brick.drag_image;
-		
+
 		drag_image.x = dragged_brick.x + toolbar.x;
 		drag_image.y = dragged_brick.y + toolbar.y;
 		drag_image.visible = true;
-
-		let e = this.weapons[1].emitter
-		e.start();
 	}
 
 	dragEndBrick(dragged_brick) {
 		let drag_image = dragged_brick.drag_image;
 		drag_image.visible = false;
+	}
+
+	dropBrick(brick, target) {
+		if (brick.legoTotal == target.info.answer) {
+			target.revealAnswer();
+			this.fireNextWeapon();
+		}
+	}
+
+	fireNextWeapon() {
+		this.weapon_index = (this.weapon_index + 1) % this.weapons.length;
+
+		let w = this.weapons[this.weapon_index];
+		w.emitter.start();
 	}
 
 	keyZoneRect() {
@@ -254,16 +333,16 @@ class Numbers_Lego_Boss extends BaseScene {
 	createAlerts() {
 		let alerts = {
 			[INTRO1_ALERT]: {
-				title: "Hahaha!",
-				content: "I will have the power of the Skull of Hazza D’ur!",
-				buttonText: "As If!",
+				title: "The Skull will be mine!",
+				content: "Haha",
+				buttonText: "Have at you!",
 				buttonAction: this.clickIntro1Alert,
 				context: this
 			},
 			[INTRO2_ALERT]: {
-				title: "You won't find the key!",
-				content: "And how will you know what shape of key you need? By clicking on the keyhole? Hahahaha! ",
-				buttonText: "By clicking?",
+				title: "NEVER, MY LORD",
+				content: "THE SKULL BLAH BLAH BLAH",
+				buttonText: "GOODBYE",
 				buttonAction: this.clickIntro2Alert,
 				context: this
 			},

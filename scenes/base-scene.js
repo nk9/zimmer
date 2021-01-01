@@ -124,7 +124,7 @@ class BaseScene extends Scene {
 
             if ('x' in image_data && 'y' in image_data) {
                 if (get(image_data, 'enabled', true)) {
-                    let image = new PointerOutlineImage(this, key, image_data);
+                    let image = this.outlineImage(key, image_data);
                     image.input.enabled = input_enabled;
 
                     image.on('pointerdown', callback.bind(this, image));
@@ -135,6 +135,10 @@ class BaseScene extends Scene {
         }
 
         return images;
+    }
+
+    outlineImage(key, image_data) {
+        return new PointerOutlineImage(this, key, image_data);
     }
 
     handleGemClicked(item) {
