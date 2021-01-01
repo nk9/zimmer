@@ -22,7 +22,7 @@ const FAIL_ALERT = 'FailAlert';
 
 class Numbers_Lego_Boss extends BaseScene {
 	constructor() {
-        super(NUMBERS_LEGO_BOSS);
+		super(NUMBERS_LEGO_BOSS);
 	}
 
 	init() {
@@ -33,17 +33,17 @@ class Numbers_Lego_Boss extends BaseScene {
 		super.preload();
 
 		this.load.image('forge', bossPics.forge.jpg);
-        this.load.image('garmadon', numbersPics.garmadon.png);
+		this.load.image('garmadon', numbersPics.garmadon.png);
 
-        // Audio
-        this.load.audio('bossfight', audioMp3.bossfight);
-        this.load.audio('sorcerer_whodares', audioMp3.sorcerer_whodares);
-        this.load.audio('sorcerer_taunt', audioMp3.sorcerer_taunt);
-        this.load.audio('sorcerer_defeated', audioMp3.sorcerer_defeated);
+		// Audio
+		this.load.audio('bossfight', audioMp3.bossfight);
+		this.load.audio('sorcerer_whodares', audioMp3.sorcerer_whodares);
+		this.load.audio('sorcerer_taunt', audioMp3.sorcerer_taunt);
+		this.load.audio('sorcerer_defeated', audioMp3.sorcerer_defeated);
 
 		let keys = Object.keys(this.stored_data.items);
 		for (const key of keys) {
-	        this.loadOutlineImage(key);
+			this.loadOutlineImage(key);
 		}
 	}
 
@@ -56,8 +56,8 @@ class Numbers_Lego_Boss extends BaseScene {
 	create() {
 		super.create();
 
-	    this.brick_store = this.createBricks();
-	    this.setupBricks();
+		this.brick_store = this.createBricks();
+		this.setupBricks();
 		this.createBackground();
 		this.createItems();
 		this.setupItems();
@@ -94,9 +94,9 @@ class Numbers_Lego_Boss extends BaseScene {
 		this.background_closed.setOrigin(0.5, 0.5);
 	}
 
-    outlineImage(key, image_data) {
-        return new NumberSentenceImage(this, key, image_data);
-    }
+	outlineImage(key, image_data) {
+		return new NumberSentenceImage(this, key, image_data);
+	}
 
 	setupItems() {
 		var y = 30;
@@ -125,20 +125,20 @@ class Numbers_Lego_Boss extends BaseScene {
 		this.garmadon.visible = false;
 
 		let bounds = this.garmadon.getBounds();
-	    let particle = this.add.particles('smoke_purple');
-	    this.garmadon_emitter = particle.createEmitter({
-	    	on: false,
-	        blendMode: 'SCREEN',
-	        scale: { start: 1, end: 2 },
-	        speed: { min: -100, max: 100 },
-	        quantity: 5,
-	        emitZone: {
-		        source: new Phaser.Geom.Triangle(bounds.left, bounds.top, bounds.right, bounds.top, bounds.centerX, bounds.bottom),
-		        type: 'random',
-		        quantity: 20
-	        },
-	        lifespan: 300
-	    });
+		let particle = this.add.particles('smoke_purple');
+		this.garmadon_emitter = particle.createEmitter({
+			on: false,
+			blendMode: 'SCREEN',
+			scale: { start: 1, end: 2 },
+			speed: { min: -100, max: 100 },
+			quantity: 5,
+			emitZone: {
+				source: new Phaser.Geom.Triangle(bounds.left, bounds.top, bounds.right, bounds.top, bounds.centerX, bounds.bottom),
+				type: 'random',
+				quantity: 20
+			},
+			lifespan: 300
+		});
 	}
 
 	finishIntroGarmadon() {
@@ -161,29 +161,29 @@ class Numbers_Lego_Boss extends BaseScene {
 		this.boss.play('idle');
 
 		let gbounds = this.garmadon.getBounds();
-	    var line = new Phaser.Geom.Line(this.boss.x, this.boss.y, gbounds.centerX, gbounds.centerY);
+		var line = new Phaser.Geom.Line(this.boss.x, this.boss.y, gbounds.centerX, gbounds.centerY);
 
 		var particles = this.add.particles('flares');
-	    this.boss.weaponEmitter = particles.createEmitter({
-	    	frame: 'green',
-	    	on: false,
-	    	speed: 50,
-	        scale: { start: 1, end: 0.3 },
-	        blendMode: 'ADD',
-	        emitZone: { type: 'edge', source: line, quantity: 60 },
-	    	emitCallback: this.emitBossParticle,
-	    	emitCallbackScope: this
-	    });
+		this.boss.weaponEmitter = particles.createEmitter({
+			frame: 'green',
+			on: false,
+			speed: 50,
+			scale: { start: 1, end: 0.3 },
+			blendMode: 'ADD',
+			emitZone: { type: 'edge', source: line, quantity: 60 },
+			emitCallback: this.emitBossParticle,
+			emitCallbackScope: this
+		});
 
-	    this.boss.destroyEmitter = particles.createEmitter({
-	    	on: false,
-	        frame: [ 'red', 'blue', 'green', 'yellow' ],
-	    	x: this.boss.x,
-	    	y: this.boss.y,
-	    	speed: 200,
-	    	lifespan: 2000,
-	    	blendMode: 'ADD'
-	    });
+		this.boss.destroyEmitter = particles.createEmitter({
+			on: false,
+			frame: [ 'red', 'blue', 'green', 'yellow' ],
+			x: this.boss.x,
+			y: this.boss.y,
+			speed: 200,
+			lifespan: 2000,
+			blendMode: 'ADD'
+		});
 	}
 
 	createWeapons() {
@@ -201,18 +201,18 @@ class Numbers_Lego_Boss extends BaseScene {
 		for (const w of this.weapons) {
 			w.alpha = 0;
 
-		    var line = new Phaser.Geom.Line(w.x, w.y, this.boss.x, this.boss.y);
+			var line = new Phaser.Geom.Line(w.x, w.y, this.boss.x, this.boss.y);
 
-		    w.emitter = particles.createEmitter({
-		    	on: false,
-		    	speed: 50,
-		        scale: { start: 0.6, end: 0.1 },
-		        blendMode: 'ADD',
-		        emitZone: { type: 'edge', source: line, quantity: 60 },
-		    	emitCallback: this.emitParticle,
-		    	emitCallbackScope: this
-		    });
-   		}
+			w.emitter = particles.createEmitter({
+				on: false,
+				speed: 50,
+				scale: { start: 0.6, end: 0.1 },
+				blendMode: 'ADD',
+				emitZone: { type: 'edge', source: line, quantity: 60 },
+				emitCallback: this.emitParticle,
+				emitCallbackScope: this
+			});
+		}
 	}
 
 	emitBossParticle(particle, emitter) {
@@ -263,9 +263,9 @@ class Numbers_Lego_Boss extends BaseScene {
 	clickIntro1Alert() {
 		this.stopAlert(INTRO1_ALERT);
 
-        this.sound.play('sorcerer_taunt');
+		this.sound.play('sorcerer_taunt');
 
-        this.time.delayedCall(12000, this.finishTaunt, [], this);
+		this.time.delayedCall(12000, this.finishTaunt, [], this);
 	}
 
 	finishTaunt() {
@@ -274,7 +274,7 @@ class Numbers_Lego_Boss extends BaseScene {
 	}
 
 	fadeOutGarmadon() {
-        this.background_sound.play();
+		this.background_sound.play();
 
 		var tweens = [
 			{ // Fade out Garmadon
@@ -296,7 +296,7 @@ class Numbers_Lego_Boss extends BaseScene {
 			}
 		];
 
-	    var timeline = this.tweens.timeline({ tweens: tweens });
+		var timeline = this.tweens.timeline({ tweens: tweens });
 	}
 
 	createBricks() {
@@ -321,10 +321,10 @@ class Numbers_Lego_Boss extends BaseScene {
 				 });
 		}
 
-	    this.input.on('drag', function (pointer, gameObject, dragX, dragY) {
-	        gameObject.drag_image.x = dragX + gameObject.scene.toolbar.x;
-	        gameObject.drag_image.y = dragY + gameObject.scene.toolbar.y;
-	    });
+		this.input.on('drag', function (pointer, gameObject, dragX, dragY) {
+			gameObject.drag_image.x = dragX + gameObject.scene.toolbar.x;
+			gameObject.drag_image.y = dragY + gameObject.scene.toolbar.y;
+		});
 	}
 
 	dragStartBrick(dragged_brick) {
@@ -388,7 +388,7 @@ class Numbers_Lego_Boss extends BaseScene {
 			offset: 0
 		}]
 
-	    var timeline = this.tweens.timeline({ tweens: tweens });
+		var timeline = this.tweens.timeline({ tweens: tweens });
 	}
 
 	keyZoneRect() {
@@ -432,8 +432,8 @@ class Numbers_Lego_Boss extends BaseScene {
 	startNextScene() {
 		this.background_sound.stop();
 
-        this.scene.start(this.nextSceneKey());
-        this.scene.shutdown();
+		this.scene.start(this.nextSceneKey());
+		this.scene.shutdown();
 	}
 }
 
