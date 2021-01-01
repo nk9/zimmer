@@ -1,4 +1,4 @@
-import { shuffle } from 'lodash-es';
+import { shuffle, remove } from 'lodash-es';
 
 import BaseScene, { SceneProgress, Layers } from './base-scene';
 
@@ -29,6 +29,7 @@ class Numbers_Lego_Boss extends BaseScene {
 	init() {
 		this.timer;
 		this.correct_answers = [];
+		this.ongoingFadeTweens = [];
 	}
 
 	preload() {
@@ -63,13 +64,14 @@ class Numbers_Lego_Boss extends BaseScene {
 		this.setupBricks();
 		this.createBackground();
 		this.createItems();
-		this.setupItems();
+		this.resetItems();
 
 		this.createGarmadon();
 		this.createBoss();
 		this.createWeapons();
 		this.createTools();
 		this.createCountdownTimer();
+		this.createFailOverlay();
 
 		this.createAudio();
 
@@ -102,16 +104,24 @@ class Numbers_Lego_Boss extends BaseScene {
 		this.thanks_image.visible = false;
 	}
 
+    createFailOverlay() {
+        this.fail_overlay = this.add.rectangle(0, 0, GAME_WIDTH, GAME_HEIGHT, 0xffffff);
+        this.fail_overlay.setOrigin(0, 0);
+        this.fail_overlay.setDepth(Layers.OVERLAY);
+        this.fail_overlay.alpha = 0;
+        this.fail_overlay.visible = false;
+    }
+
 	outlineImage(key, image_data) {
 		return new NumberSentenceImage(this, key, image_data);
 	}
 
-	setupItems() {
+	resetItems(showItems=false) {
 		var y = 30;
 
 		for (const item of shuffle(this.items)) {
-			item.alpha = 0;
-			item.input.dropZone = true;
+			item.reset();
+			item.alpha = showItems ? 1 : 0;
 			item.y = y;
 			y += 70;
 		}
@@ -289,14 +299,15 @@ class Numbers_Lego_Boss extends BaseScene {
 		this.pie_meter.text.visible = true;
 		this.timer = this.time.addEvent({
 			delay: this.run_time*1000,
-			repeat: 0
+			repeat: 0,
+			callback: this.fail,
+			callbackScope: this
 		});
 	}
 
 	updatePieTimer() {
 		if (this.timer !== undefined) {
 			let progress_deg = this.timer.getProgress() * 360;
-			// console.log(progress_deg);
 			this.pie_meter.drawPie(progress_deg);
 
 			let num = this.run_time - (this.timer.getElapsed() / 1000);
@@ -399,13 +410,20 @@ class Numbers_Lego_Boss extends BaseScene {
 			target.revealAnswer();
 			this.fireNextWeapon();
 
-			this.tweens.add({
+			let t = this.tweens.add({
 				targets: target,
 				alpha: 0,
 				duration: 500,
-				delay: 1000
+				delay: 1000,
+				onComplete: this.finishDropBrickTween,
+				onCompleteScope: this
 			});
+			this.ongoingFadeTweens.push(t);
 		}
+	}
+
+	finishDropBrickTween(tween) {
+		remove(this.ongoingFadeTweens, tween);
 	}
 
 	fireNextWeapon() {
@@ -475,9 +493,22 @@ class Numbers_Lego_Boss extends BaseScene {
 	}
 
 	fail() {
-		super.fail();
+		console.log("FAILED");
+		this.fail_overlay.visible = true;
 
-		this.scene.run(FAIL_ALERT);
+		let tweens = [{
+			targets: this.fail_overlay,
+			alpha: 1,
+			duration: 500,
+			yoyo: true,
+			onYoyo: this.resetAfterFail,
+			onYoyoScope: this,
+			onComplete: this.completeFailReset,
+			onCompleteScope: this
+		}]
+
+		var timeline = this.tweens.timeline({ tweens: tweens });
+
 	}
 
 	resetAfterFail() {
@@ -486,11 +517,18 @@ class Numbers_Lego_Boss extends BaseScene {
         	this.scene.stop(key);
     	}
 
-		this.pie_meter.visible = false;
-		this.pie_meter.text.visible = false;
-		this.timer = undefined;
+    	for (const t of this.ongoingFadeTweens) {
+    		t.stop();
+    	}
 
-		this.progress = SceneProgress.BEGIN;
+		this.resetItems(true);
+
+		// this.progress = SceneProgress.BEGIN;
+	}
+
+	completeFailReset() {
+		this.beginPieTimer();
+		this.fail_overlay.visible = false;
 	}
 
 
