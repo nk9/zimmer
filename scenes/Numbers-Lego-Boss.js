@@ -13,6 +13,7 @@ import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
 import numbersPics from '../assets/pics/numbers/*.*'
 import bossPics from '../assets/pics/numbers/lego_boss/*.*'
 import problemsPics from '../assets/pics/numbers/lego_boss/problems/*.jpg'
+import audioMp3 from '../assets/audio/*.mp3';
 
 const INTRO1_ALERT = 'Intro1_Alert';
 const INTRO2_ALERT = 'Intro2_Alert';
@@ -33,6 +34,12 @@ class Numbers_Lego_Boss extends BaseScene {
 
 		this.load.image('forge', bossPics.forge.jpg);
         this.load.image('garmadon', numbersPics.garmadon.png);
+
+        // Audio
+        this.load.audio('bossfight', audioMp3.bossfight);
+        this.load.audio('sorcerer_whodares', audioMp3.sorcerer_whodares);
+        this.load.audio('sorcerer_taunt', audioMp3.sorcerer_taunt);
+        this.load.audio('sorcerer_defeated', audioMp3.sorcerer_defeated);
 
 		let keys = Object.keys(this.stored_data.items);
 		for (const key of keys) {
@@ -60,7 +67,21 @@ class Numbers_Lego_Boss extends BaseScene {
 		this.createWeapons();
 		this.createTools();
 
+		this.createAudio();
+
+		this.time.delayedCall(4000, this.introGarmadon, [], this);
+
 		this.run_time = 10; // scene timer length
+	}
+
+	createAudio() {
+		this.background_sound = this.sound.add('bossfight', {volume: .3, loop: true});
+	}
+
+	introGarmadon() {
+		this.garmadon_emitter.start();
+
+		this.time.delayedCall(1500, this.finishIntroGarmadon, [], this);
 	}
 
 	createBackground() {
@@ -103,18 +124,10 @@ class Numbers_Lego_Boss extends BaseScene {
 		this.garmadon.setTint(0xaaaaaa);
 		this.garmadon.visible = false;
 
-		this.garmadon.setInteractive({useHandCursor: true})
-			.on('pointerover', () => { this.garmadon.clearTint() })
-			.on('pointerout', () => {
-				if (this.garmadon.input.enabled) {
-					this.garmadon.setTint(0xaaaaaa);
-				}
-			})
-			.on('pointerup', pointer => { this.clickGarmadon() });
-
 		let bounds = this.garmadon.getBounds();
 	    let particle = this.add.particles('smoke_purple');
-	    this.emitter = particle.createEmitter({
+	    this.garmadon_emitter = particle.createEmitter({
+	    	on: false,
 	        blendMode: 'SCREEN',
 	        scale: { start: 1, end: 2 },
 	        speed: { min: -100, max: 100 },
@@ -126,12 +139,16 @@ class Numbers_Lego_Boss extends BaseScene {
 	        },
 	        lifespan: 300
 	    });
-		// particle.setDepth(Layers.OVER_DOOR);
+	}
 
-		this.time.delayedCall(1500, this.clearSmoke, [], this);
+	finishIntroGarmadon() {
+		this.garmadon_emitter.stop();
+		this.garmadon.visible = true;
+		this.runAlert(INTRO1_ALERT);
 	}
 
 	createBoss() {
+		this.sound.play('sorcerer_whodares');
 		this.boss = this.add.sprite(900, 200, 'vangelis_boss');
 
 		this.anims.create({
@@ -243,28 +260,22 @@ class Numbers_Lego_Boss extends BaseScene {
 		this.toolbar.add(rectangle);
 	}
 
-	clearSmoke() {
-		this.emitter.stop();
-		this.garmadon.visible = true;
-	}
-
-	clickGarmadon() {
-		this.runAlert(INTRO1_ALERT);
-	}
-
 	clickIntro1Alert() {
 		this.stopAlert(INTRO1_ALERT);
-		this.runAlert(INTRO2_ALERT);
+
+        this.sound.play('sorcerer_taunt');
+
+        this.time.delayedCall(12000, this.finishTaunt, [], this);
 	}
 
-	clickIntro2Alert() {
-		this.stopAlert(INTRO2_ALERT);
-
+	finishTaunt() {
 		// Boss fires at Garmadon
 		this.boss.weaponEmitter.start();
 	}
 
 	fadeOutGarmadon() {
+        this.background_sound.play();
+
 		var tweens = [
 			{ // Fade out Garmadon
 				targets: this.garmadon,
@@ -354,6 +365,7 @@ class Numbers_Lego_Boss extends BaseScene {
 	}
 
 	destroyBoss() {
+		this.sound.play('sorcerer_defeated');
 		this.boss.destroyEmitter.start();
 		this.time.delayedCall(2000, this.finishDestroyBoss, [], this);
 	}
@@ -363,13 +375,20 @@ class Numbers_Lego_Boss extends BaseScene {
 		this.boss.destroyEmitter.stop();
 		this.overlay.visible = true;
 		
-		this.tweens.add({
+		let tweens = [{
 			targets: this.overlay,
 			alpha: 1,
 			duration: 2000,
 			onComplete: () => { this.startNextScene() },
 			onCompleteScope: this
-		})
+		},{
+			targets: this.background_sound,
+			volume: 0,
+			duration: 2000,
+			offset: 0
+		}]
+
+	    var timeline = this.tweens.timeline({ tweens: tweens });
 	}
 
 	keyZoneRect() {
@@ -386,17 +405,10 @@ class Numbers_Lego_Boss extends BaseScene {
 	createAlerts() {
 		let alerts = {
 			[INTRO1_ALERT]: {
-				title: "The Skull will be mine!",
-				content: "Haha",
+				title: "Give me the Skull!",
+				content: "",
 				buttonText: "Have at you!",
 				buttonAction: this.clickIntro1Alert,
-				context: this
-			},
-			[INTRO2_ALERT]: {
-				title: "NEVER, MY LORD",
-				content: "THE SKULL BLAH BLAH BLAH",
-				buttonText: "GOODBYE",
-				buttonAction: this.clickIntro2Alert,
 				context: this
 			},
 			[FAIL_ALERT]: {
@@ -418,6 +430,8 @@ class Numbers_Lego_Boss extends BaseScene {
 	}
 
 	startNextScene() {
+		this.background_sound.stop();
+
         this.scene.start(this.nextSceneKey());
         this.scene.shutdown();
 	}
