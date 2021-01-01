@@ -32,8 +32,8 @@ export const Layers = {
 
     // All
     DRAGGING: 100,
+    TRANSITION: 150,
     HOME: 200,
-    TRANSITION: 250,
     OVERLAY: 300
 }
 

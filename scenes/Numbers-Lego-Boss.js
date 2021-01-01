@@ -6,6 +6,7 @@ import Numbers_Lego from './Numbers-Lego'
 import Brick, { LEGO_GRID } from '../components/brick';
 import BrickStore, { BSBrick } from '../components/brick_store';
 import NumberSentenceImage from '../components/number_sentence_image';
+import PieMeter from '../components/pie-meter';
 
 import { NUMBERS_LEGO_BOSS } from '../constants/scenes';
 import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
@@ -26,6 +27,7 @@ class Numbers_Lego_Boss extends BaseScene {
 	}
 
 	init() {
+		this.timer;
 		this.correct_answers = [];
 	}
 
@@ -34,6 +36,7 @@ class Numbers_Lego_Boss extends BaseScene {
 
 		this.load.image('forge', bossPics.forge.jpg);
 		this.load.image('garmadon', numbersPics.garmadon.png);
+		this.load.image('thanks', bossPics.boss_win.jpg);
 
 		// Audio
 		this.load.audio('bossfight', audioMp3.bossfight);
@@ -66,12 +69,13 @@ class Numbers_Lego_Boss extends BaseScene {
 		this.createBoss();
 		this.createWeapons();
 		this.createTools();
+		this.createCountdownTimer();
 
 		this.createAudio();
 
 		this.time.delayedCall(4000, this.introGarmadon, [], this);
 
-		this.run_time = 10; // scene timer length
+		this.run_time = 30; // scene timer length
 	}
 
 	createAudio() {
@@ -92,6 +96,10 @@ class Numbers_Lego_Boss extends BaseScene {
 
 		this.background_closed = this.add.image(center_x, center_y, 'forge');
 		this.background_closed.setOrigin(0.5, 0.5);
+
+		this.thanks_image = this.add.image(center_x, center_y, 'thanks');
+		this.thanks_image.depth = Layers.TRANSITION;
+		this.thanks_image.visible = false;
 	}
 
 	outlineImage(key, image_data) {
@@ -260,6 +268,47 @@ class Numbers_Lego_Boss extends BaseScene {
 		this.toolbar.add(rectangle);
 	}
 
+	createCountdownTimer() {
+		let diameter = 30;
+
+	    this.pie_meter = new PieMeter(this, GAME_WIDTH-100, GAME_HEIGHT-90, diameter, 0, 1);
+	    this.pie_meter.visible = false;
+
+	    this.pie_meter.text = this.add.text(this.pie_meter.x, this.pie_meter.y+diameter+10, `0.00`,
+	    	{fill: "#fff", fontSize: `20pt`});
+	    this.pie_meter.text.visible = false;
+	    this.pie_meter.text.setOrigin(0.5, 0);
+	}
+
+	update() {
+		this.updatePieTimer();
+	}
+
+	beginPieTimer() {
+		this.pie_meter.visible = true;
+		this.pie_meter.text.visible = true;
+		this.timer = this.time.addEvent({
+			delay: this.run_time*1000,
+			repeat: 0
+		});
+	}
+
+	updatePieTimer() {
+		if (this.timer !== undefined) {
+			let progress_deg = this.timer.getProgress() * 360;
+			// console.log(progress_deg);
+			this.pie_meter.drawPie(progress_deg);
+
+			let num = this.run_time - (this.timer.getElapsed() / 1000);
+			let trimmed_num = num.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 });
+			this.pie_meter.text.setText(`${trimmed_num}`);
+
+			return (progress_deg == 360);
+		}
+
+		return false;
+	}
+
 	clickIntro1Alert() {
 		this.stopAlert(INTRO1_ALERT);
 
@@ -292,7 +341,9 @@ class Numbers_Lego_Boss extends BaseScene {
 				targets: [...this.weapons, ...this.items],
 				alpha: 1,
 				duration: 750,
-				offset: 750
+				offset: 750,
+				onComplete: () => { this.beginPieTimer() },
+				onCompleteScope: this
 			}
 		];
 
@@ -379,7 +430,7 @@ class Numbers_Lego_Boss extends BaseScene {
 			targets: this.overlay,
 			alpha: 1,
 			duration: 2000,
-			onComplete: () => { this.startNextScene() },
+			onComplete: () => { this.showThanks() },
 			onCompleteScope: this
 		},{
 			targets: this.background_sound,
@@ -406,7 +457,7 @@ class Numbers_Lego_Boss extends BaseScene {
 		let alerts = {
 			[INTRO1_ALERT]: {
 				title: "Give me the Skull!",
-				content: "",
+				content: "I’ve finally found you. I will have its power!",
 				buttonText: "Have at you!",
 				buttonAction: this.clickIntro1Alert,
 				context: this
@@ -429,9 +480,28 @@ class Numbers_Lego_Boss extends BaseScene {
 		this.scene.run(FAIL_ALERT);
 	}
 
-	startNextScene() {
+	resetAfterFail() {
+		// Clear any alerts
+    	for (const key of this.alert_keys) {
+        	this.scene.stop(key);
+    	}
+
+		this.pie_meter.visible = false;
+		this.pie_meter.text.visible = false;
+		this.timer = undefined;
+
+		this.progress = SceneProgress.BEGIN;
+	}
+
+
+	showThanks() {
 		this.background_sound.stop();
 
+		this.overlay.visible = false;
+		this.thanks_image.visible = true;
+	}
+
+	startNextScene() {
 		this.scene.start(this.nextSceneKey());
 		this.scene.shutdown();
 	}
