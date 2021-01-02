@@ -13,8 +13,8 @@
       },
       "Numbers-Lego-Boss": {
         "gem": "diamond",
-        "x": 34,
-        "y": -33
+        "x": 0,
+        "y": -80
       },
       "Animals-Cave": {
         "gem": "sapphire",
@@ -33,8 +33,8 @@
       },
       "Plants-Flowers": {
         "gem": "emerald",
-        "x": 0,
-        "y": -80
+        "x": 34,
+        "y": -33
       },
       "Plants-Leaves": {
         "gem": "emerald",
