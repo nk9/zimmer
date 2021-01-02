@@ -34,7 +34,7 @@ class Animals_Base extends BaseScene {
 	preload() {
 		super.preload();
 
-		this.load.image('screen', animalPicPng.screen);
+		this.load.image('xray_screen', animalPicPng.screen);
 		this.load.image('scanner', animalPicPng.scanning_chamber);
 		this.load.image('raygun', animalPicPng.raygun_small);
 		this.load.image('grabber', animalPicPng.grabber_small);
@@ -113,7 +113,7 @@ class Animals_Base extends BaseScene {
 	}
 
 	createTools() {
-		this.screen = this.add.image(GAME_WIDTH, GAME_HEIGHT, 'screen');
+		this.screen = this.add.image(GAME_WIDTH, GAME_HEIGHT, 'xray_screen');
 		this.screen.setOrigin(1, 0);
 
 		let screenBounds = this.screen.getBounds();

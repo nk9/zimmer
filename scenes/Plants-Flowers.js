@@ -148,7 +148,7 @@ class Plants_Flowers extends Plants_Base {
 		let alerts = {
 			[INTRO1_ALERT]: {
 				title: "Not sure where you are?",
-				content: "This is Hyrule! I need to get home fast so I have time to get ready for the party! Why don't you come with me? ",
+				content: "This is Hyrule! I need to get home fast so I have time to get ready for the party! Why don’t you come with me? ",
 				buttonText: "Okay!",
 				buttonAction: this.intro1AlertClicked,
 				context: this

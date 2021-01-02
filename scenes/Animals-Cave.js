@@ -133,14 +133,14 @@ class Animals_Cave extends Animals_Base {
 				context: this
 			},
 			[INTRO2_ALERT]: {
-				title: "What are you doing here Bryson?",
+				title: "What do you need Bryson?",
 				content: "You are trying to open that door? Martin and I might have some tools which can help!",
 				buttonText: "Great!",
 				buttonAction: this.intro2AlertClicked,
 				context: this
 			},
 			[INTRO3_ALERT]: {
-				title: "While you are waiting.",
+				title: "While you are waiting",
 				content: "Could you help us find INVERTEBRATES? They don't have bones, but they often have a hard shell called an exoskeleton.",
 				buttonText: "Sure!",
 				buttonAction: this.intro3AlertClicked,
