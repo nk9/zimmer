@@ -13,7 +13,7 @@ export default class Alert extends Scene {
 			fontSize: '24px',
 			fontFamily: 'sans-serif',
 			align: "left",
-			wordWrap: { width: width-30, usetAdvancedWrap: true } // width minus 2*inset
+			wordWrap: { width: width-30, useAdvancedWrap: true } // width minus 2*inset
 		};
 		let content = this.add.text(0, 0, data.content, contentStyle);
 		let contentBounds = content.getBounds();
