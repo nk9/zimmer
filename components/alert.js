@@ -1,6 +1,6 @@
-import Phaser from 'phaser';
+import { Scene } from 'phaser';
 
-export default class Alert extends Phaser.Scene {
+export default class Alert extends Scene {
 	create() {
 		let data = this.scene.settings.data;
 
