@@ -217,7 +217,7 @@ class Numbers_Lego_Boss extends BaseScene {
 			this.add.sprite(1100, 420, 'weapons', 'sword'),
 			);
 
-		var particles = this.add.particles('spark');
+		var particles = this.add.particles('stone');
 		for (const w of this.weapons) {
 			w.alpha = 0;
 
