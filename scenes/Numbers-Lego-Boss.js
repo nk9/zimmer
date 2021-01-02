@@ -39,8 +39,18 @@ class Numbers_Lego_Boss extends BaseScene {
 		this.load.image('garmadon', numbersPics.garmadon.png);
 		this.load.image('thanks', bossPics.boss_win.jpg);
 
+		//
 		// Audio
+		//
 		this.load.audio('bossfight', audioMp3.bossfight);
+
+		// Weapons
+		this.load.audio('fireball', audioMp3.fireball);
+		this.load.audio('rocksmash', audioMp3.rocksmash);
+		this.load.audio('iceattack', audioMp3.iceattack);
+		this.load.audio('zap', audioMp3.zap);
+
+		// Boss speaking
 		this.load.audio('sorcerer_whodares', audioMp3.sorcerer_whodares);
 		this.load.audio('sorcerer_taunt', audioMp3.sorcerer_taunt);
 		this.load.audio('sorcerer_defeated', audioMp3.sorcerer_defeated);
@@ -210,29 +220,105 @@ class Numbers_Lego_Boss extends BaseScene {
 		this.weapons = [];
 		this.weapon_index = 0;
 
-		this.weapons.push(
-			this.add.sprite(500, 100, 'weapons', 'shuriken'),
-			this.add.sprite(550, 300, 'weapons', 'scythe'),
-			this.add.sprite(750, 420, 'weapons', 'nunchucks'),
-			this.add.sprite(1100, 420, 'weapons', 'sword'),
-			);
+		this.weapons = [
+			this.createShuriken(),
+			this.createScythe(),
+			this.createNunchucks(),
+			this.createSword(),
+		];
 
-		var particles = this.add.particles('stone');
 		for (const w of this.weapons) {
 			w.alpha = 0;
-
-			var line = new Phaser.Geom.Line(w.x, w.y, this.boss.x, this.boss.y);
-
-			w.emitter = particles.createEmitter({
-				on: false,
-				speed: 50,
-				scale: { start: 0.6, end: 0.1 },
-				blendMode: 'ADD',
-				emitZone: { type: 'edge', source: line, quantity: 60 },
-				emitCallback: this.emitParticle,
-				emitCallbackScope: this
-			});
 		}
+	}
+
+	// Shuriken of ice
+	createShuriken() {
+		let w = this.add.sprite(500, 100, 'weapons', 'shuriken');
+
+		var particles = this.add.particles('flares');
+		var line = new Phaser.Geom.Line(w.x, w.y, this.boss.x, this.boss.y);
+
+		w.emitter = particles.createEmitter({
+			frame: 'blue',
+			on: false,
+			speed: 50,
+			scale: { start: 1, end: 0.3 },
+			blendMode: 'ADD',
+			emitZone: { type: 'edge', source: line, quantity: 20 },
+			emitCallback: this.emitParticle,
+			emitCallbackScope: this
+		});
+		w.sound = this.sound.add('iceattack');
+
+		return w;
+	}
+
+	// Scythe of quakes
+	createScythe() {
+		let w = this.add.sprite(550, 300, 'weapons', 'scythe');
+		this.weapons.push(w);
+
+		let particles = this.add.particles('stone');
+		let line = new Phaser.Geom.Line(w.x, w.y, this.boss.x, this.boss.y);
+
+		w.emitter = particles.createEmitter({
+			on: false,
+			speed: { min: 30, max: 60 },
+			alpha: { start: 1, end: 0 },
+			scale: { start: 0.5, end: 0.1 },
+			// rotate: { start: 0, end: 360, ease: 'Back.easeOut' },
+			emitZone: { type: 'edge', source: line, quantity: 20 },
+			emitCallback: this.emitParticle,
+			emitCallbackScope: this
+		});
+		w.sound = this.sound.add('rocksmash');
+
+		return w;
+	}
+
+	// Nunchucks of lightning
+	createNunchucks() {
+		let w = this.add.sprite(750, 420, 'weapons', 'nunchucks');
+
+		let particles = this.add.particles('flares');
+		let line = new Phaser.Geom.Line(w.x, w.y, this.boss.x, this.boss.y);
+
+		w.emitter = particles.createEmitter({
+			frame: 'white',
+			on: false,
+			speed: 50,
+			scale: { start: 1, end: 0.3 },
+			blendMode: 'ADD',
+			emitZone: { type: 'edge', source: line, quantity: 20 },
+			emitCallback: this.emitParticle,
+			emitCallbackScope: this
+		});
+		w.sound = this.sound.add('zap');
+
+		return w;
+	}
+
+	// Sword of fire
+	createSword() {
+		let w = this.add.sprite(1100, 420, 'weapons', 'sword');
+
+		let particles = this.add.particles('flares');
+		var line = new Phaser.Geom.Line(w.x, w.y, this.boss.x, this.boss.y);
+
+		w.emitter = particles.createEmitter({
+			frame: 'red',
+			on: false,
+			speed: 50,
+			scale: { start: 1, end: 0.3 },
+			blendMode: 'ADD',
+			emitZone: { type: 'edge', source: line, quantity: 20 },
+			emitCallback: this.emitParticle,
+			emitCallbackScope: this
+		});
+		w.sound = this.sound.add('fireball');
+
+		return w;
 	}
 
 	emitBossParticle(particle, emitter) {
@@ -429,10 +515,11 @@ class Numbers_Lego_Boss extends BaseScene {
 	}
 
 	fireNextWeapon() {
-		this.weapon_index = (this.weapon_index + 1) % this.weapons.length;
-
 		let w = this.weapons[this.weapon_index];
 		w.emitter.start();
+		w.sound.play();
+
+		this.weapon_index = (this.weapon_index + 1) % this.weapons.length;
 	}
 
 	destroyBoss() {
