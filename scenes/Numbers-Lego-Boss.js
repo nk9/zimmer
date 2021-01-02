@@ -541,8 +541,14 @@ class Numbers_Lego_Boss extends BaseScene {
 		this.thanks_image.visible = true;
 	}
 
-	startNextScene() {
-		this.scene.start(this.nextSceneKey());
+	startNextScene(key=null) {
+		if (!key) {
+			key = this.nextSceneKey();
+		}
+
+		this.background_sound.stop();
+
+		this.scene.start(key);
 		this.scene.shutdown();
 	}
 }
