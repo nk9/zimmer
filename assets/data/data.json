@@ -801,7 +801,7 @@
       },
       "pillow": {
         "scale": 1,
-        "gem": "sapphire",
+        "gem": "emerald",
         "x": 187,
         "y": 447,
         "alert": {
@@ -902,7 +902,7 @@
       },
       "flowerpot": {
         "scale": 1,
-        "gem": "diamond",
+        "gem": "emerald",
         "x": 479,
         "y": 385,
         "alert": {
@@ -1044,7 +1044,7 @@
         "scale": 1,
         "x": 310,
         "y": 465,
-        "gem": "sapphire",
+        "gem": "emerald",
         "alert": {
           "title": "Hmmm...",
           "content": "Something shiny behind this rock.",

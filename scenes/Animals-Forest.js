@@ -125,22 +125,22 @@ class Animals_Forest extends Animals_Base {
 	createAlerts() {
 		let alerts = {
 			[INTRO1_ALERT]: {
-				title: "Oh hi again!",
-				content: "You are looking for a door? Martin and I are looking for vertebrates. Those are animals with skeletons. Can you help us find them? While you are looking, we will check our map for your door.",
+				title: "Oh hi!",
+				content: "You are looking for a door? Martin and I are looking for VERTEBRATES. Those are animals with skeletons. Can you help us find them? While you are looking, we will check our map for your door.",
 				buttonText: "Sure!",
 				buttonAction: this.intro1AlertClicked,
 				context: this
 			},
 			[INTRO2_ALERT]: {
 				title: "Thank You!",
-				content: `Use the X-ray gun to have a look at the animals first. Then drag all the vertebrates over to the scanner. But be careful! The scanner only has charge for ${this.scan_limit} scans.`,
+				content: `Use the X-ray gun to have a look at the animals first. Then drag all the vertebrates over to the scanner tube. But be careful! The scanner only has charge for ${this.scan_limit} scans.`,
 				buttonText: "Got it",
 				buttonAction: this.intro2AlertClicked,
 				context: this
 			},
 			[FAIL_ALERT]: {
 				title: "Time to recharge",
-				content: `We think there are ${this.success_count} invertebrates out there, but we are out of juice. We will be right back!`,
+				content: `We think there are ${this.success_count} vertebrates out there, but we are out of juice. We will be right back!`,
 				buttonText: "OK :(",
 				buttonAction: this.failAlertClicked,
 				context: this

@@ -126,7 +126,7 @@ class Animals_Ocean extends Animals_Base {
 				context: this
 			},
 			[INTRO2_ALERT]: {
-				title: "Thank You!",
+				title: "Thank You Bryson!",
 				content: `Use the X-ray gun to have a look at the animals first. Then drag all the invertebrates over to the scanner. But be careful! The scanner only has charge for ${this.scan_limit} scans.`,
 				buttonText: "Got it",
 				buttonAction: this.intro2AlertClicked,
