@@ -122,7 +122,7 @@ class Animals_Base extends BaseScene {
 			fontSize: '18px',
 			fontFamily: 'sans-serif',
 			align: "left",
-			wordWrap: { width: insetBounds.width, usetAdvancedWrap: true }};
+			wordWrap: { width: insetBounds.width, useAdvancedWrap: true }};
 
 		this.factText = this.add.text(screenBounds.x, screenBounds.y, '', factStyle);
 		this.factText.visible = false;
