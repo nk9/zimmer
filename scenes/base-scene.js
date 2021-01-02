@@ -154,6 +154,7 @@ class BaseScene extends Scene {
             this.gem.y = bounds.top;
             this.gem.scale = .6;
             this.gem.visible = true;
+            this.gem.depth = Layers.HOME;
 
             this.tweens.add({
                 targets: this.gem,
@@ -166,13 +167,15 @@ class BaseScene extends Scene {
             var collected_gems = union(this.fetch(COLLECTED_GEMS), [this.key]);
             this.store(COLLECTED_GEMS, collected_gems);
 
-            item.input.enabled = false;
+            if (item.hasOwnProperty('input') && item.input != null) {
+                item.input.enabled = false;
+            }
         }
     }
 
     handleGenericItemClicked(item) {
         if (item.info.hasOwnProperty('alert')) {
-            console.log(item.info.alert);
+            // console.log(item.info.alert);
             let alert_data = item.info.alert;
             let data = {
                 title: alert_data.title,

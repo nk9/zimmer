@@ -74,6 +74,7 @@ class Numbers_Lego_Boss extends BaseScene {
 		this.createCountdownTimer();
 		this.createFailOverlay();
 
+		this.createGem({gem: 'diamond'});
 		this.createAudio();
 
 		this.time.delayedCall(4000, this.introGarmadon, [], this);
@@ -435,6 +436,7 @@ class Numbers_Lego_Boss extends BaseScene {
 	}
 
 	destroyBoss() {
+		this.handleGemClicked(this.boss);
 		this.sound.play('sorcerer_defeated');
 		this.timer.remove();
 		this.boss.destroyEmitter.start();
@@ -457,7 +459,7 @@ class Numbers_Lego_Boss extends BaseScene {
 			volume: 0,
 			duration: 2000,
 			offset: 0
-		}]
+		}];
 
 		var timeline = this.tweens.timeline({ tweens: tweens });
 	}
@@ -510,7 +512,6 @@ class Numbers_Lego_Boss extends BaseScene {
 		}]
 
 		var timeline = this.tweens.timeline({ tweens: tweens });
-
 	}
 
 	resetAfterFail() {
@@ -523,6 +524,7 @@ class Numbers_Lego_Boss extends BaseScene {
     		t.stop();
     	}
 
+    	this.ongoingFadeTweens = [];
     	this.correct_answers = [];
 
 		this.resetItems(true);
@@ -537,8 +539,15 @@ class Numbers_Lego_Boss extends BaseScene {
 	showThanks() {
 		this.background_sound.stop();
 
-		this.overlay.visible = false;
 		this.thanks_image.visible = true;
+
+		this.tweens.add({
+			targets: this.overlay,
+			alpha: 0,
+			duration: 750,
+			onComplete: () => { this.overlay.visible = false },
+			onCompleteScope: this
+		})
 	}
 
 	startNextScene(key=null) {
