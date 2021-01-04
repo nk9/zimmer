@@ -76,7 +76,9 @@ export default class Numbers_Lego_Second extends Numbers_Lego {
 		this.tweens.add({
 			targets: this.garmadon,
 			alpha: 0,
-			duration: 750
+			duration: 750,
+			onComplete: () => { this.cta_closed_zone.input.enabled = true; },
+			onCompleteScope: this
 		})
 	}	
 	createBricks() {

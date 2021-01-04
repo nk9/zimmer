@@ -54,18 +54,18 @@ class Numbers_Lego extends BaseScene {
 		let cta_rect = this.callToActionRect();
 	    let cta_closed = this.add.image(cta_rect.x, cta_rect.y, 'pouch_closed');
 	    let cta_closed_outlined = this.add.image(cta_rect.x, cta_rect.y, 'pouch_closed_outlined');
-	    let cta_closed_zone = this.add.zone(cta_rect.x, cta_rect.y, cta_rect.width, cta_rect.height)
+	    this.cta_closed_zone = this.add.zone(cta_rect.x, cta_rect.y, cta_rect.width, cta_rect.height)
 
 	    cta_closed.scale = .2;
 	    cta_closed_outlined.scale = .2;
 	    cta_closed.setVisible(true);
 	    cta_closed_outlined.setVisible(false);
 
-	    this.pouch_open = this.add.image(cta_closed_zone.x, cta_closed_zone.y, 'pouch_open');
+	    this.pouch_open = this.add.image(this.cta_closed_zone.x, this.cta_closed_zone.y, 'pouch_open');
 	    this.pouch_open.scale = 0.1;
 	    this.pouch_open.visible = false;
 
-	    cta_closed_zone.setInteractive({useHandCursor: true})
+	    this.cta_closed_zone.setInteractive({useHandCursor: true})
 	    	.on('pointerover', () => {
 	    		if (cta_closed.visible) {
 		    		cta_closed.setVisible(false);
@@ -84,9 +84,10 @@ class Numbers_Lego extends BaseScene {
 					cta_closed_outlined.destroy();
 
 					this.clickCallToAction()
-					cta_closed_zone.destroy();
+					this.cta_closed_zone.destroy();
 				}
 			});
+		this.cta_closed_zone.input.enabled = false;
 	}
 
 	callToActionRect() {
