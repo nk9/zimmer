@@ -106,6 +106,7 @@ export default class Numbers_Lego_Second extends Numbers_Lego {
 										 7 * LEGO_GRID);
 		this.rects_background.setDepth(Layers.OVER_DOOR);
 		this.rects_background.setAlpha(0);
+		this.rects_background.visible = false;
 
 		this.addRectangle(2, 3, 19, 11);
 	}

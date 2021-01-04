@@ -110,6 +110,7 @@ class Numbers_Lego_10 extends Numbers_Lego {
 										 17 * LEGO_GRID);
 		this.rects_background.setDepth(Layers.OVER_DOOR);
 		this.rects_background.setAlpha(0);
+		this.rects_background.visible = false;
 
 		this.addRectangle(2, 5, 20, 5);
 		this.addRectangle(2, 5, 18, 13);

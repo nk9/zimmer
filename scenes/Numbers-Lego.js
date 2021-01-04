@@ -118,41 +118,43 @@ class Numbers_Lego extends BaseScene {
 		if (this.progress != SceneProgress.FAILED &&
 			this.progress != SceneProgress.SUCCEEDED) {
 
-			for (var i = this.rects.length - 1; i >= 0; i--) {
-				let rect = this.rects[i];
-				let r = rect.getBounds();
-				var containedBricks = [];
-				
-				for (const brick of this.brick_store.bricks) {
-					let br = brick.getBounds();
+			if (this.rects_background.visible == true) {
+				for (var i = this.rects.length - 1; i >= 0; i--) {
+					let rect = this.rects[i];
+					let r = rect.getBounds();
+					var containedBricks = [];
+					
+					for (const brick of this.brick_store.bricks) {
+						let br = brick.getBounds();
 
-					let intersection = Phaser.Geom.Rectangle.Intersection(r, br);
+						let intersection = Phaser.Geom.Rectangle.Intersection(r, br);
 
-					if (Phaser.Geom.Rectangle.Equals(intersection, br)) {
-						// console.log(`brick (${brick.legoTotal}) is inside rect ${i}`);
-						containedBricks.push(brick);
+						if (Phaser.Geom.Rectangle.Equals(intersection, br)) {
+							// console.log(`brick (${brick.legoTotal}) is inside rect ${i}`);
+							containedBricks.push(brick);
+						}
 					}
-				}
 
-				var emit = false;
-				if (containedBricks.length == 2 && rect.brick_count == 2) {
-					let brick1 = containedBricks[0],
-						brick2 = containedBricks[1];
-					let intersection = Phaser.Geom.Rectangle.Intersection(brick1.getBounds(),
-																		  brick2.getBounds());
-					if (intersection.isEmpty() && (brick1.legoTotal + brick2.legoTotal) == rect.legoTotal) {
+					var emit = false;
+					if (containedBricks.length == 2 && rect.brick_count == 2) {
+						let brick1 = containedBricks[0],
+							brick2 = containedBricks[1];
+						let intersection = Phaser.Geom.Rectangle.Intersection(brick1.getBounds(),
+																			  brick2.getBounds());
+						if (intersection.isEmpty() && (brick1.legoTotal + brick2.legoTotal) == rect.legoTotal) {
+							emit = true;
+							completedRects.push(rect);
+						}
+					} else if (containedBricks.length == 1 && rect.brick_count == 1) {
 						emit = true;
 						completedRects.push(rect);
 					}
-				} else if (containedBricks.length == 1 && rect.brick_count == 1) {
-					emit = true;
-					completedRects.push(rect);
-				}
-				
-				if (emit && !this.emitters[i].on) {
-					this.emitters[i].start();
-				} else if (!emit && this.emitters[i].on) {
-					this.emitters[i].stop();
+					
+					if (emit && !this.emitters[i].on) {
+						this.emitters[i].start();
+					} else if (!emit && this.emitters[i].on) {
+						this.emitters[i].stop();
+					}
 				}
 			}
 
@@ -395,6 +397,7 @@ class Numbers_Lego extends BaseScene {
 
 	clickKeyZone() {
 		this.key_zone.destroy();
+		this.rects_background.visible = true;
 		this.tweens.add({
 			targets: this.rects.concat([this.rects_background]).concat(this.rects.map(o => o.text)),
 			ease: 'Sine.easeIn',

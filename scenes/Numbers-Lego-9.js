@@ -121,6 +121,7 @@ class Numbers_Lego_9 extends Numbers_Lego {
 										 14 * LEGO_GRID);
 		this.rects_background.setDepth(Layers.OVER_DOOR);
 		this.rects_background.setAlpha(0);
+		this.rects_background.visible = false;
 
 		this.addRectangle(9, 1, 14, 5);
 		this.addRectangle(9, 1, 14, 8);
