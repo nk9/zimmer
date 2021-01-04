@@ -1,6 +1,7 @@
 export const INIT = 'Init';
 
 export const MAIN_HALL = 'Main-Hall';
+export const CREDITS = 'Credits';
 
 // Numbers
 export const NUMBERS_LEGO_FIRST = 'Numbers-Lego-First';

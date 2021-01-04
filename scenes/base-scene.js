@@ -206,17 +206,6 @@ class BaseScene extends Scene {
     update() {
     }
 
-    onChangeScene() {
-        this.transition = true;
-        // this.player.stop();
-        this.cameras.main.fade(FADE_DURATION);
-    }
-
-    changeScene() {
-        this.player.socket.disconnect();
-        this.scene.start(this.nextSceneKey, this.prevSceneKey);
-    }
-
     nextSceneKey() {
         return MAIN_HALL;
     }

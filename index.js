@@ -4,6 +4,7 @@ import JSONStorage from './components/json_storage';
 
 import Init from './scenes/Init';
 import Main_Hall from './scenes/Main-Hall';
+import Credits from './scenes/Credits';
 
 // Numbers
 import Numbers_Lego_First from './scenes/Numbers-Lego-First';
@@ -39,7 +40,7 @@ const config = {
 	// 	width: GAME_WIDTH,
 	// 	height: GAME_HEIGHT
 	// },
-	scene: [Init, Main_Hall,
+	scene: [Init, Main_Hall, Credits,
 
 			// Numbers
 			Numbers_Lego_First,
@@ -57,8 +58,6 @@ const config = {
 			Plants_Leaves,
 			Plants_Flowers,
 			Plants_Mushrooms,
-
-			//Time
 			],
 	// plugins: {
 	// 	global: [{

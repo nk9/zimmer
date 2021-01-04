@@ -1,5 +1,5 @@
 import BaseScene, { SceneProgress, Layers } from './base-scene';
-import { MAIN_HALL,
+import { MAIN_HALL, CREDITS,
 		 NUMBERS_LEGO_10, NUMBERS_LEGO_9, NUMBERS_LEGO_FIRST, NUMBERS_LEGO_SECOND,
 		 ANIMALS_OCEAN, ANIMALS_CAVE, ANIMALS_FOREST,
 		 PLANTS_LEAVES, PLANTS_FLOWERS, PLANTS_MUSHROOMS } from '../constants/scenes';
@@ -246,6 +246,7 @@ class Main_Hall extends BaseScene {
 
 	loadCredits() {
 		console.log("load credits");
+		this.scene.start(CREDITS)
 	}
 
 	setLevelsInput(handleInput) {
