@@ -132,12 +132,7 @@
         "enabled": true,
         "scale": 1,
         "x": 971,
-        "y": 424,
-        "alert": {
-          "title": "It's locked.",
-          "content": "There's no keyhole. There must be some other way to unlock it.",
-          "button_title": "Keep searching"
-        }
+        "y": 424
       },
       "grate": {
         "enabled": true,

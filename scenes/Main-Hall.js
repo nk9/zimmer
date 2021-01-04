@@ -12,6 +12,9 @@ import audioMp3 from '../assets/audio/*.mp3'
 
 const CAT_ALERT = "Cat-Alert";
 const GRATE_ALERT = "GRATE_ALERT";
+const DOOR_BLOCKED_ALERT = "DOOR_BLOCKED_ALERT";
+
+const TOTAL_GEMS = 9;
 
 class Main_Hall extends BaseScene {
 	constructor() {
@@ -77,6 +80,13 @@ class Main_Hall extends BaseScene {
 				buttonAction: this.clickGrateAlert,
 				context: this
 			},
+			[DOOR_BLOCKED_ALERT]: {
+				title: "It's locked.",
+				content: "There's no keyhole. There must be some other way to unlock it.",
+				buttonText: "Keep searching",
+				buttonAction: this.clickDoorBlockedAlert,
+				context: this
+			},
 		};
 
 		return alerts;
@@ -121,11 +131,11 @@ class Main_Hall extends BaseScene {
 		this.gems_container = this.add.container(GAME_WIDTH/2, GAME_HEIGHT/2);
 		this.gem_board = this.add.image(0, 0, 'gem_board');
 
-		let collected_gems = this.fetch(COLLECTED_GEMS);
+		this.collected_gems = this.fetch(COLLECTED_GEMS);
 		var sprites = [];
 
 		for (const [scene_key, gem_data] of Object.entries(this.stored_data.gems)) {
-			if (collected_gems.includes(scene_key)) {
+			if (this.collected_gems.includes(scene_key)) {
 				let gd = gem_data;
 
 				let sprite = this.add.sprite(gd.x, gd.y, 'gems', gd.gem+'_thumb');
@@ -158,9 +168,10 @@ class Main_Hall extends BaseScene {
 		console.log(`clicked ${item.name}`);
 		
 		switch(item.name) {
-			case 'cat':		this.clickedCat(item); break;
-			case 'box':		this.clickedBox(item); break;
-			case 'grate':	this.clickedGrate(item); break;
+			case 'cat':			this.clickedCat(item); break;
+			case 'box':			this.clickedBox(item); break;
+			case 'grate':		this.clickedGrate(item); break;
+			case 'doorblock':	this.clickedDoor(item); break;
 			default:
 		}
 	}
@@ -204,6 +215,14 @@ class Main_Hall extends BaseScene {
 		}
 	}
 
+	clickedDoor(item) {
+		if (this.collected_gems.length < TOTAL_GEMS) {
+			this.runAlert(DOOR_BLOCKED_ALERT);
+		} else {
+			this.loadCredits();
+		}
+	}
+
 	clickCatAlert() {
 		this.stopAlert(CAT_ALERT);
 		this.cat_big.visible = false;
@@ -223,6 +242,10 @@ class Main_Hall extends BaseScene {
 			alpha: 1,
 			duration: 750
 		});
+	}
+
+	loadCredits() {
+		console.log("load credits");
 	}
 
 	setLevelsInput(handleInput) {
@@ -281,7 +304,7 @@ class Main_Hall extends BaseScene {
 		this.addButton(100, 120, 'Lego Second', NUMBERS_LEGO_SECOND);
 		this.addButton(100, 140, 'Lego 10', NUMBERS_LEGO_10);
 		this.addButton(100, 160, 'Lego 9', NUMBERS_LEGO_9);
-		// this.addButton(100, 120, 'Lego Boss', NUMBERS_LEGO_BOSS);
+		this.addButton(100, 180, 'Lego Boss', NUMBERS_LEGO_BOSS);
 
 
 		this.addButton(250, 100, 'Animals Ocean', ANIMALS_OCEAN);
@@ -291,7 +314,6 @@ class Main_Hall extends BaseScene {
 		this.addButton(450, 100, 'Plants Flowers', PLANTS_FLOWERS);
 		this.addButton(450, 120, 'Plants Leaves', PLANTS_LEAVES);
 		this.addButton(450, 140, 'Plants Mushrooms', PLANTS_MUSHROOMS);
-		// this.addButton(450, 160, 'Plants Party', PLANTS_PARTY);
 	}
 
 	addButton(x, y, title, key) {
