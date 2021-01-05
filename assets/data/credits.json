@@ -18,20 +18,26 @@
     "Leave Main Hall (466424)": "theneedle",
     "Link Whoosh (521999)": "melilaura",
     "Animals Forest (475376)": "thom-cookes",
-    "Hmm (401339)": "ckvoiceover",
+    "Hmm (401339)": "ckvoiceover"
+  },
+  "Other Audio": {
     "New item - 9": "BBC",
     "Main Hall theme": "Wintergatan",
     "Credits theme": "Wintergatan"
   },
-  "Images": {
-    "Image 1": "Rob Garlington",
+  "Backgrounds": {
+    "Entry room (The Studio)": "Ananda Aran",
+    "Lego First (3144351)": "Tama66 (Pixabay)",
+    "Plants Leaves (Bag End)": "Rob Garlington",
     "2": "Santiana",
-    "3": "Ananda Aran",
-    "4": "Chromel",
-    "5": "Zeloco",
+    "Lego Boss (454617848)": "soulfrost86 (Devant Art)",
+    "Link expressions (586154341)": "Chromel (Deviant Art)",
+    "Zelda meal": "Zeloco on Weibo.com",
     "Kratt Brothers characters": "The Kratt Brothers Company",
     "Lego characters": "The LEGO group",
-    "Many X-ray animals": "Oregon Zoo"
+    "Some X-ray animals": "Oregon Zoo",
+    "The Study at Belton House": "NT images/Andreas von Einsiedel",
+    "Harry Potter World Great Hall": "The Houses (thehouses1.blogspot.com)"
   },
   "Icons": {
     "Pipette": "https://freeiconspng.com/downloadimg/31436"
