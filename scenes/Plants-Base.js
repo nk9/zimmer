@@ -262,6 +262,11 @@ class Plants_Base extends BaseScene {
 	    		duration: 2500,
 	    		alpha: 1,
 	    		offset: 7000
+	    	},{
+	    		targets: this.background_sound,
+	    		volume: 0,
+	    		duration: 2500,
+	    		offset: 7000
 	    	}]
 	    });
 
@@ -274,7 +279,7 @@ class Plants_Base extends BaseScene {
 		}
 
 		this.portal_sound.stop();
-		// this.background_sound.stop();
+		this.background_sound.stop();
 		this.willStartNextScene();
 		this.scene.remove(LIGHTBOX_ALERT);
 		

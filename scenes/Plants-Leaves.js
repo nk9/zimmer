@@ -60,6 +60,7 @@ class Plants_Leaves extends Plants_Base {
         // Audio
         this.load.audio('woosh', audioMp3.woosh);
         this.load.audio('twinkle', audioMp3.twinkle);
+        this.load.audio('forest', audioMp3.forest);
 	}
 
 	loadOutlineImage(name) {
@@ -89,6 +90,9 @@ class Plants_Leaves extends Plants_Base {
 
 		this.background_closed = this.add.image(0, 0, 'hobbit_closed');
 		this.background_closed.setOrigin(0, 0);
+
+		this.background_sound = this.sound.add('forest', {volume: .4, loop: true});
+		this.background_sound.play();
 	}
 
 	createCallToAction() {

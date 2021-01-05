@@ -112,6 +112,9 @@ class Plants_Mushrooms extends Plants_Base {
 
 		this.background_open = this.add.image(0, 0, 'kitchen');
 		this.background_open.setOrigin(0, 0);
+
+		this.background_sound = this.sound.add('kitchen', {volume: .4, loop: true});
+		this.background_sound.play();
 	}
 
 	createCallToAction() {

@@ -62,6 +62,7 @@ class Plants_Flowers extends Plants_Base {
         // Audio
         this.load.audio('woosh', audioMp3.woosh);
         this.load.audio('twinkle', audioMp3.twinkle);
+        this.load.audio('garden', audioMp3.garden);
 	}
 
 	loadOutlineImage(name) {
@@ -102,6 +103,9 @@ class Plants_Flowers extends Plants_Base {
 
 		this.background_closed = this.add.image(0, 0, 'flower_closed');
 		this.background_closed.setOrigin(0, 0);
+
+		this.background_sound = this.sound.add('garden', {volume: .4, loop: true});
+		this.background_sound.play();
 	}
 
 	createCallToAction() {
