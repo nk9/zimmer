@@ -19,18 +19,19 @@ Assets listed roughly in order of first appearance.
 |---|------|--------|--------|
 |🖼️| [Door](assets/pics/numbers/lego_first/abbey_closed.jpg) | Tama66 | [pixabay](https://pixabay.com/fr/photos/objectif-portail-porte-entr%C3%A9e-3144351/) |
 |🖼️| [Garmadon](assets/pics/numbers/garmadon.png) | Zaratthustra | [Fandom](https://vsbattles.fandom.com/wiki/Lord_Garmadon?file=Emperor_Gamerdon_Render.png#Reborn) |
+|🔈| [Whoosh_long](assets/audio/woosh_long.mp3) | ?? | [??]() |
 |🔈| [Door opening](assets/audio/door_opens_heavy.mp3) | Oliver Gatan | [OG Sound FX]() |
 
 ## Lego Second
 |   | Work | Artist | Source |
 |---|------|--------|--------|
-|🖼️| Ancient Door | Manel Camps | [500px](https://500px.com/photo/3089724/ancient-door-by-Manel-Camps/) |
+|🖼️| [Ancient Door](assets/pics/numbers/lego_second/wood_door_closed.jpg) | Manel Camps | [500px](https://500px.com/photo/3089724/ancient-door-by-Manel-Camps/) |
 
 
 ## Lego 10
 |   | Work | Artist | Source |
 |---|------|--------|--------|
-|🖼️| The Great Hall at Harry Potter World | The Houses | [The Houses Blog](https://thehouses1.blogspot.com/2013/02/harry-potter-studio-tour.html) |
+|🖼️| [The Great Hall at Harry Potter World](assets/pics/numbers/lego_10/great_hall.jpg) | The Houses | [The Houses Blog](https://thehouses1.blogspot.com/2013/02/harry-potter-studio-tour.html) |
 
 
 ## Lego 9
@@ -58,8 +59,9 @@ Assets listed roughly in order of first appearance.
 |🖼️| [Secret Garden](assets/pics/plants/flowers/flower_closed.jpg) | Reinmar84 | [DeviantArt](https://www.deviantart.com/reinmar84/art/secret-garden-627529991) |
 |🖼️| ["Christmas Penguin"](assets/pics/plants/flowers/peacock_close.png) | Babasaro | [CleanPNG](https://www.cleanpng.com/png-watercolor-painting-peafowl-drawing-art-watercolor-357791/) |
 |🖼️| [Link expressions](assets/sprites/link.png) | Chromel | [DeviantArt](https://www.deviantart.com/chromel/art/Toon-Link-Telegram-Stickers-586154341) |
-|🔈| [Hmm](assetes/audio/hmm.mp3) | ckvoiceover | [Freesound](https://freesound.org/people/ckvoiceover/sounds/401339/) |
-|🔈| [Sweep explode](assetes/audio/pick.mp3) | f4ngy | [Freesound](https://freesound.org/people/f4ngy/sounds/240784/) |
+|🔈| [Hmm](assetes/sprites/hmm.mp3) | ckvoiceover | [Freesound](https://freesound.org/people/ckvoiceover/sounds/401339/) |
+|🔈| [Picking flower](assetes/audio/pick.mp3) | f4ngy | [Freesound](https://freesound.org/people/f4ngy/sounds/240784/) |
+|🔈| [Whoosh/Dash](assetes/audio/woosh.mp3) | Kastenfrosch | [Freesound](https://freesound.org/people/Kastenfrosch/sounds/521999/) |
 
 ## Plants Leaves
 |   | Work | Artist | Source |
@@ -75,6 +77,7 @@ Center](https://lgnc.org/project/common-weeds-invasive-plants-lehigh-valley/) |
 |---|------|--------|--------|
 |🖼️| [Cinders concept art. Home](assets/pics/plants/mushrooms/kitchen.jpg) | vinegar | [DeviantArt](https://www.deviantart.com/vinegar/art/Cinders-concept-art-Home-204482409) |
 |🔈| [Fire in Fireplace](assets/audio/kitchen.mp3) | Silencyo | [Freesound](https://freesound.org/people/silencyo/sounds/81801/) |
+|🔈| [Lid](assets/audio/potbubble.mp3) | Melilaura | [Freesound](https://freesound.org/people/Melilaura/sounds/533372/) |
 |🖼️| [Pipette](assets/pics/plants/mushrooms/pipette.png) | - | [Free Icons PNG](https://www.freeiconspng.com/downloadimg/31436) |
 |🖼️| [Link, Princess Zelda, & The Champions](assets/pics/plants/mushrooms/zeldaparty.jpg) | zeloco | [Pinterest](https://www.pinterest.com/pin/864268984722905409/) |
 |🔈| [Crowd with violin playing](assets/audio/tavern.mp3) | alukahn | [Freesound](https://freesound.org/people/alukahn/sounds/144139/) |
@@ -93,41 +96,24 @@ Center](https://lgnc.org/project/common-weeds-invasive-plants-lehigh-valley/) |
 |---|------|--------|--------|
 |🖼️| [Ancient Gate](assets/pics/animals/forest/forest_door_closed.jpg) | Cosmin Hrincu | [Art Station](https://www.artstation.com/artwork/XVZe0) |
 |🖼️| Animal X-Ray Pics | Oregon Zoo | [TIME](https://time.com/5429223/oregon-zoo-animal-x-rays/) |
+|🔈| [night_forest_owl](assets/audio/forest_night.mp3) | thom_cookes | [Freesound](https://freesound.org/people/thom_cookes/sounds/475376/) |
+|🔈| [Footsteps walking through undergrowth](assets/audio/steps_forest.mp3) | BBC | [BBC Sound Effects](https://sound-effects.bbcrewind.co.uk/search?q=07002321) |
 
 
 ## Animals Cave
 |   | Work | Artist | Source |
 |---|------|--------|--------|
 |🖼️| Concept Art | klaiko | [Fiverr](https://www.fiverr.com/klaiko/create-a-unique-environment-illustration-or-concept-art-for-you) |
+|🔈| [Footsteps, two people walking in mud](assets/audio/steps_cave.mp3) | BBC | [BBC Sound Effects](https://sound-effects.bbcrewind.co.uk/search?q=07041185) |
+|🔈| [Wild Kratts Christmas](assets/audio/kratts_christmas.mp3) | Wild Kratts | [YouTube](https://youtu.be/FgRNRm7jOxQ?t=1182) |
 
-Santiana - 
-
-## Icons
-| Work | Artist | Source |
-|------|--------|--------|
 
 ## Credits
 | Work | Artist | Source |
 |------|--------|--------|
 | [Star Machine 2000](assets/audio/ending.mp3) | Wintergatan | [Wintergatan.com](https://wintergatan.net/collections/download) |
 
+Santiana - 
 
 ## Sounds
-skyklan47 - sweep explode
-richwise - garden sounds
-theneedle - portal login
-kastenfrosch - woosh dash
-melilaura - lid
-thom-cookes - night forest
-ckvoiceover - Hmm
-
-BBC sound effects - footstepts
 The LEGO Group - Ninjago sound clips
-The Kratt Brothers Company - Wild Kratts sound clips
-Wintergatan - Music
-
-
-
-
-
-https://wintergatan.net/collections/download
