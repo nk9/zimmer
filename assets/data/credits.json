@@ -1,0 +1,39 @@
+{
+  "R&D": {
+    "Story & Gameplay": "Uncle Victor",
+    "Design": "Uncle Nick & Uncle Victor",
+    "Audio wrangling": "Uncle Victor",
+    "Photoshop": "Uncle Victor",
+    "Phaser coding": "Uncle Nick"
+  },
+  "Audio": {
+    "sound 1": "skyklan47",
+    "sound 2": "sirkoto5",
+    "sound 3": "silverillusionist",
+    "sound 4": "robinhood76",
+    "sound 5": "magnuswaker",
+    "New item - 2": "joelaudio",
+    "New item - 3": "alukahn",
+    "New item - 4": "richwise",
+    "New item - 5": "theneedle",
+    "New item - 6": "melilaura",
+    "New item - 7": "thom-cookes",
+    "New item - 8": "ckvoiceover",
+    "New item - 9": "BBC",
+    "Main Hall theme": "Wintergatan",
+    "Credits theme": "Wintergatan"
+  },
+  "Images": {
+    "Image 1": "Rob Garlington",
+    "2": "Santiana",
+    "3": "Ananda Aran",
+    "4": "Chromel",
+    "5": "Zeloco",
+    "Kratt Brothers characters": "The Kratt Brothers Company",
+    "Lego characters": "The LEGO group",
+    "Many X-ray animals": "Oregon Zoo"
+  },
+  "Icons": {
+    "Pipette": "https://freeiconspng.com/downloadimg/31436"
+  }
+}

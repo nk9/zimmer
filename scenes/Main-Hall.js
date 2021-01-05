@@ -250,7 +250,7 @@ class Main_Hall extends BaseScene {
 
 	loadCredits() {
 		console.log("load credits");
-		this.scene.start(CREDITS)
+		this.doSceneTransition(CREDITS);
 	}
 
 	setLevelsInput(handleInput) {
