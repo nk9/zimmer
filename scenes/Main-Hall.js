@@ -233,6 +233,10 @@ class Main_Hall extends BaseScene {
 		this.openGems();
 	}
 
+	clickDoorBlockedAlert() {
+		this.stopAlert(DOOR_BLOCKED_ALERT);
+	}
+
 	openGems() {
 		this.setItemsInput(false);
 		this.gems_container.visible = true;

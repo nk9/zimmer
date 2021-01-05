@@ -42,24 +42,19 @@ const GEM_X = 1120;
 const GEM_Y = 10;
 
 class BaseScene extends Scene {
-    constructor(key) {
-        super({ key });
-        this.key = key;
-        this.progress = SceneProgress.BEGIN;
-    }
-
     init() {
+        this.progress = SceneProgress.BEGIN;
         this.storeLastScene();
     }
 
     storeLastScene() {
-        this.store(LAST_SCENE, this.key);
+        this.store(LAST_SCENE, this.scene.key);
     }
 
     preload() {
         console.log("Stored data:", this.game.config.storage.cache);
 
-        this.stored_data = get(this.cache.json.get('data'), this.key);
+        this.stored_data = get(this.cache.json.get('data'), this.scene.key);
 
         this.load.on('progress', this.onLoadProgress, this);
         this.load.on('complete', this.onLoadComplete, this);
@@ -109,7 +104,7 @@ class BaseScene extends Scene {
         this.gem.setOrigin(1, 0);
         this.gem.scale = .25;
 
-        if (!this.fetch(COLLECTED_GEMS).includes(this.key)) {
+        if (!this.fetch(COLLECTED_GEMS).includes(this.scene.key)) {
             this.gem.visible = false;
         }
     }
@@ -164,7 +159,7 @@ class BaseScene extends Scene {
                 duration: 1500
             })
 
-            var collected_gems = union(this.fetch(COLLECTED_GEMS), [this.key]);
+            var collected_gems = union(this.fetch(COLLECTED_GEMS), [this.scene.key]);
             this.store(COLLECTED_GEMS, collected_gems);
 
             if (item.hasOwnProperty('input') && item.input != null) {
@@ -232,7 +227,7 @@ class BaseScene extends Scene {
     }
 
     showOnceScene(key) {
-        let scenePref = `${this.key}--${key}`;
+        let scenePref = `${this.scene.key}--${key}`;
         let currentValue = this.fetch(scenePref);
         var show = false;
 
