@@ -18,6 +18,8 @@ Assets listed roughly in order of first appearance.
 |   | Work | Artist | Source |
 |---|------|--------|--------|
 |🖼️| [Door](assets/pics/numbers/lego_first/abbey_closed.jpg) | Tama66 | [pixabay](https://pixabay.com/fr/photos/objectif-portail-porte-entr%C3%A9e-3144351/) |
+|🖼️| [times-circle](assets/pics/close_button.png) | FontAwesome | [FontAwesome](https://fontawesome.com/icons/times-circle?style=solid) |
+|🖼️| [door-open](assets/pics/door.png) | FontAwesome | [FontAwesome](https://fontawesome.com/icons/door-open?style=solid) |
 |🖼️| [Garmadon](assets/pics/numbers/garmadon.png) | Zaratthustra | [Fandom](https://vsbattles.fandom.com/wiki/Lord_Garmadon?file=Emperor_Gamerdon_Render.png#Reborn) |
 |🔈| [Whoosh_long](assets/audio/woosh_long.mp3) | ?? | [??]() |
 |🔈| [Door opening](assets/audio/door_opens_heavy.mp3) | Oliver Gatan | [OG Sound FX]() |
@@ -67,8 +69,7 @@ Assets listed roughly in order of first appearance.
 |   | Work | Artist | Source |
 |---|------|--------|--------|
 |🖼️| [Bag End](assets/pics/plants/leaves/hobbit_closed.jpg) | Rob Garlington | [ArtStation](https://www.artstation.com/artwork/r2NlG) |
-|🖼️| Common Weeds and Invasive Plants | Maxfield Design | [Lehigh Gap Nature 
-Center](https://lgnc.org/project/common-weeds-invasive-plants-lehigh-valley/) |
+|🖼️| Common Weeds and Invasive Plants | Maxfield Design | [Lehigh Gap Nature Center](https://lgnc.org/project/common-weeds-invasive-plants-lehigh-valley/) |
 |🔈| [Garden](assetes/audio/garden.mp3) | richwise | [Freesound](https://freesound.org/people/richwise/sounds/497422/) |
 
 
@@ -87,6 +88,8 @@ Center](https://lgnc.org/project/common-weeds-invasive-plants-lehigh-valley/) |
 |---|------|--------|--------|
 |🖼️| [Academy Ruins](assets/pics/animals/ocean/underwater_door_closed.jpg) | Zoltan Boros/Gabor Szikszai | [OMA Store](https://www.originalmagicart.store/products/academy-ruins-print) |
 |🖼️| Wild Kratts | The Kratt Brothers Company | |
+|🔈| [Laser Classic Shot 3](assets/audio/laser.mp3) | bubaproducer | [Freesound](https://freesound.org/people/bubaproducer/sounds/151012/) |
+|🔈| [Squelch_3](assets/audio/squish.mp3) | Adam_N | [Freesound](https://freesound.org/people/Adam_N/sounds/148973/) |
 |🔈| [Magical portal open](assets/audio/portal.mp3) | alanmcki | [Freesound](https://freesound.org/people/alanmcki/sounds/401324/) |
 |🔈| [Underwater](assets/audio/underwater.mp3) |  | [Freesound]() |
 
@@ -103,15 +106,15 @@ Center](https://lgnc.org/project/common-weeds-invasive-plants-lehigh-valley/) |
 ## Animals Cave
 |   | Work | Artist | Source |
 |---|------|--------|--------|
-|🖼️| Concept Art | klaiko | [Fiverr](https://www.fiverr.com/klaiko/create-a-unique-environment-illustration-or-concept-art-for-you) |
+|🖼️| [Concept Art](assets/pics/animals/cave/cave_door_closed.jpg) | klaiko | [Fiverr](https://www.fiverr.com/klaiko/create-a-unique-environment-illustration-or-concept-art-for-you) |
 |🔈| [Footsteps, two people walking in mud](assets/audio/steps_cave.mp3) | BBC | [BBC Sound Effects](https://sound-effects.bbcrewind.co.uk/search?q=07041185) |
 |🔈| [Wild Kratts Christmas](assets/audio/kratts_christmas.mp3) | Wild Kratts | [YouTube](https://youtu.be/FgRNRm7jOxQ?t=1182) |
 
 
 ## Credits
-| Work | Artist | Source |
-|------|--------|--------|
-| [Star Machine 2000](assets/audio/ending.mp3) | Wintergatan | [Wintergatan.com](https://wintergatan.net/collections/download) |
+|   | Work | Artist | Source |
+|---|------|--------|--------|
+|🔈| [Star Machine 2000](assets/audio/ending.mp3) | Wintergatan | [Wintergatan.com](https://wintergatan.net/collections/download) |
 
 Santiana - 
 
