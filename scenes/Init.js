@@ -36,6 +36,7 @@ class Init extends Scene {
         this.load.atlas('gems', spritesF.gems.png, spritesF.gems.json);
         this.load.atlas('vangelis_boss', spritesF.vangelis_boss.png, spritesF.vangelis_boss.json);
         this.load.atlas('weapons', spritesF.weapons.png, spritesF.weapons.json);
+        this.load.audioSprite('fireworks', spritesF.fireworks.json, spritesF.fireworks.mp3);
 
         // Particles
         this.load.image('spark', particles.blue);

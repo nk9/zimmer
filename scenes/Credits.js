@@ -1,3 +1,4 @@
+import { random } from 'lodash-es';
 import { Scene } from 'phaser';
 
 import { CREDITS, MAIN_HALL } from '../constants/scenes';
@@ -85,6 +86,9 @@ class Credits extends Scene {
     }
 
     doFirework(pointer) {
+        let hmm_num = random(0, 5);
+        this.sound.playAudioSprite('fireworks', `${hmm_num}`);
+
         for (const emitter of this.emitters) {
             let scrollY = this.cameras.main.scrollY;
             emitter.setPosition(pointer.x,

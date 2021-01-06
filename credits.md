@@ -118,8 +118,4 @@ Assets listed roughly in order of first appearance.
 |   | Work | Artist | Source |
 |---|------|--------|--------|
 |🔈| [Star Machine 2000](assets/audio/ending.mp3) | Wintergatan | [Wintergatan.com](https://wintergatan.net/collections/download) |
-
-Santiana - 
-
-## Sounds
-The LEGO Group - Ninjago sound clips
+|🔈| [Fireworks big1 Montreal, Canada](assets/sprites/fireworks.mp3) | kyles | [Freesound](https://freesound.org/people/kyles/sounds/453108/) |
