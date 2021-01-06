@@ -7,39 +7,43 @@
     "Phaser coding": "Uncle Nick"
   },
   "Audio from freesound.org": {
-    "Sweep explode (193475)": "skyklan47",
-    "Boss fight theme (443128)": "Sirkoto51",
-    "Fire burst (472688)": "silverillusionist",
-    "Fireball whoosh (248116)": "robinhood76",
-    "Concrete smash 2 (522099)": "magnuswaker",
-    "Electric Zap (136542)": "JoelAudio",
-    "Party ambiance (144139)": "alukahn",
-    "Leaves background (497422)": "richwise",
-    "Leave Main Hall (466424)": "theneedle",
-    "Link Whoosh (521999)": "melilaura",
-    "Animals Forest (475376)": "thom-cookes",
-    "Hmm (401339)": "ckvoiceover"
+    "Sweep explode": "skyklan47",
+    "Boss fight theme": "Sirkoto51",
+    "Fire burst": "SilverIllusionist",
+    "Concrete smash 2": "magnuswaker",
+    "Electric Zap": "JoelAudio",
+    "Party ambiance": "alukahn",
+    "Leaves background": "richwise",
+    "Leave Main Hall": "theneedle.tv",
+    "Link Whoosh": "melilaura",
+    "Animals Forest": "thom-cookes",
+    "Hmm": "ckvoiceover"
   },
   "Other Audio": {
-    "New item - 9": "BBC",
+    "Footsteps": "BBC",
     "Main Hall theme": "Wintergatan",
     "Credits theme": "Wintergatan"
   },
-  "Backgrounds": {
-    "Entry room (The Studio)": "Ananda Aran",
-    "Lego First (3144351)": "Tama66 (Pixabay)",
-    "Plants Leaves (Bag End)": "Rob Garlington",
-    "2": "Santiana",
-    "Lego Boss (454617848)": "soulfrost86 (Devant Art)",
-    "Link expressions (586154341)": "Chromel (Deviant Art)",
+  "Images": {
+    "Entry room": "Ananda Aran",
+    "Lego First": "Tama66 (Pixabay)",
+    "Lego Second": "Manel Camps (500px)",
+    "Lego 10": "The Houses",
+    "Lego 9": "NT images/Andreas von Einsiedel",
+    "Lego Boss": "soulfrost86 (DeviantArt)",
+    "Lego characters": "Fandom",
+    "Plants Flowers": "Reinmar84 (DeviantArt)",
+    "Link expressions": "Chromel (DeviantArt)",
+    "Plants Leaves": "Rob Garlington (ArtStation)",
+    "Plants Mushrooms": "vinegar (DeviantArt)",
     "Zelda meal": "Zeloco on Weibo.com",
+    "Animals Ocean": "Boros/Szikszai",
+    "Animals Forest": "Cosmin Hrincu (ArtStation)",
+    "Animals Cave": "klaiko (Fiverr)",
     "Kratt Brothers characters": "The Kratt Brothers Company",
-    "Lego characters": "The LEGO group",
-    "Some X-ray animals": "Oregon Zoo",
-    "The Study at Belton House": "NT images/Andreas von Einsiedel",
-    "Harry Potter World Great Hall": "The Houses (thehouses1.blogspot.com)"
+    "Some X-ray animals": "Oregon Zoo"
   },
-  "Icons": {
-    "Pipette": "https://freeiconspng.com/downloadimg/31436"
+  "More": {
+    "A more detailed accounting of the sounds and images are available at https://github.com/nk9/zimmer": ""
   }
 }
