@@ -10,6 +10,7 @@ Assets listed roughly in order of first appearance.
 |   | Work | Artist | Source |
 |---|------|--------|--------|
 |🖼️| [Steampunk Studio](assets/pics/entry/entryhall.jpg) | Ananda Aran | [anandaaran.com](http://www.anandaaran.com/portfolio/steampunk-studio/) |
+|🖼️| [Gracie Mae Cat Painting](assets/pics/entry/cat_big.jpg) | Dora Hathazi Mendes | [fineartamerica.com](https://fineartamerica.com/featured/gracie-mae-cat-painting-dora-hathazi-mendes.html) |
 |🔈| [Biking is Better](assets/audio/entry_background.mp3) | Wintergatan | [Wintergatan.com](https://wintergatan.net/collections/download) |
 |🔈| [Portal Log In](assets/audio/portal2.mp3) | theneedle.tv | [Freesound](https://freesound.org/people/theneedle.tv/sounds/466424/) |
 
@@ -21,8 +22,8 @@ Assets listed roughly in order of first appearance.
 |🖼️| [times-circle](assets/pics/close_button.png) | FontAwesome | [FontAwesome](https://fontawesome.com/icons/times-circle?style=solid) |
 |🖼️| [door-open](assets/pics/door.png) | FontAwesome | [FontAwesome](https://fontawesome.com/icons/door-open?style=solid) |
 |🖼️| [Garmadon](assets/pics/numbers/garmadon.png) | Zaratthustra | [Fandom](https://vsbattles.fandom.com/wiki/Lord_Garmadon?file=Emperor_Gamerdon_Render.png#Reborn) |
-|🔈| [Whoosh_long](assets/audio/woosh_long.mp3) | ?? | [??]() |
 |🔈| [Door opening](assets/audio/door_opens_heavy.mp3) | Oliver Gatan | [OG Sound FX]() |
+|🖼️| [Fractal Blue Swirl Vortext Abstract](assets/pics/swirls/blue_swirl.jpg) | John Pumpkin | [Pixy](https://pixy.org/65776/) |
 
 ## Lego Second
 |   | Work | Artist | Source |
@@ -91,7 +92,7 @@ Assets listed roughly in order of first appearance.
 |🔈| [Laser Classic Shot 3](assets/audio/laser.mp3) | bubaproducer | [Freesound](https://freesound.org/people/bubaproducer/sounds/151012/) |
 |🔈| [Squelch_3](assets/audio/squish.mp3) | Adam_N | [Freesound](https://freesound.org/people/Adam_N/sounds/148973/) |
 |🔈| [Magical portal open](assets/audio/portal.mp3) | alanmcki | [Freesound](https://freesound.org/people/alanmcki/sounds/401324/) |
-|🔈| [Underwater](assets/audio/underwater.mp3) |  | [Freesound]() |
+|🔈| [Underwater](assets/audio/underwater.mp3) | DCSFX | [Freesound](https://freesound.org/people/DCSFX/sounds/366159/) |
 
 
 ## Animals Forest
@@ -101,12 +102,14 @@ Assets listed roughly in order of first appearance.
 |🖼️| Animal X-Ray Pics | Oregon Zoo | [TIME](https://time.com/5429223/oregon-zoo-animal-x-rays/) |
 |🔈| [night_forest_owl](assets/audio/forest_night.mp3) | thom_cookes | [Freesound](https://freesound.org/people/thom_cookes/sounds/475376/) |
 |🔈| [Footsteps walking through undergrowth](assets/audio/steps_forest.mp3) | BBC | [BBC Sound Effects](https://sound-effects.bbcrewind.co.uk/search?q=07002321) |
+|🖼️| [Blue Swirl](assets/pics/swirls/aqua_swirl.jpg) | Meggymoo71 | [DeviantArt](https://www.deviantart.com/meggymoo71/art/Blue-Swirl-311349863) |
 
 
 ## Animals Cave
 |   | Work | Artist | Source |
 |---|------|--------|--------|
 |🖼️| [Concept Art](assets/pics/animals/cave/cave_door_closed.jpg) | klaiko | [Fiverr](https://www.fiverr.com/klaiko/create-a-unique-environment-illustration-or-concept-art-for-you) |
+|🖼️| [Travel by time tunnel](assets/pics/swirls/navy_swirl.jpg) | skorzewiak | [123rf](https://www.123rf.com/stock-photo/portal.html?sti=nv7nx7pij2fzsfiht5%7C&mediapopup=114002518) |
 |🔈| [Footsteps, two people walking in mud](assets/audio/steps_cave.mp3) | BBC | [BBC Sound Effects](https://sound-effects.bbcrewind.co.uk/search?q=07041185) |
 |🔈| [Wild Kratts Christmas](assets/audio/kratts_christmas.mp3) | Wild Kratts | [YouTube](https://youtu.be/FgRNRm7jOxQ?t=1182) |
 
