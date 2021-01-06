@@ -9,6 +9,7 @@ import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
 
 import numbersPicJpg from '../assets/pics/numbers/lego_first/*.jpg'
 import numbersPicPng from '../assets/pics/numbers/lego_first/*.png'
+import audioMp3 from '../assets/audio/*.mp3';
 
 const INTRO1_ALERT = 'Intro1_Alert';
 const INTRO2_ALERT = 'Intro2_Alert';
@@ -29,12 +30,15 @@ class Numbers_Lego_First extends Numbers_Lego {
 
 		this.load.image('abbey_closed', numbersPicJpg.abbey_closed);
 		this.load.image('abbey_open', numbersPicPng.abbey_open);
+
+        this.load.audio('ninja_nerds', audioMp3.ninja_nerds);
 	}
 
 	create() {
 		super.create();
 
 		this.createGarmadon();
+		this.time.delayedCall(1900, this.playIntro, [], this);
 
 		this.run_time = 10; // scene timer length
 	}
@@ -54,6 +58,10 @@ class Numbers_Lego_First extends Numbers_Lego {
 		this.background_closed = this.add.image(bg_x, center_y, 'abbey_closed');
 		this.background_closed.setOrigin(0.5, 0.5);
 		this.background_closed.scale = 1.6;
+	}
+
+	playIntro() {
+		this.sound.play('ninja_nerds');
 	}
 
 	clearSmoke() {
