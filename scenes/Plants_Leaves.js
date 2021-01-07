@@ -4,11 +4,6 @@ import { GAME_WIDTH, GAME_HEIGHT, DRAG_THRESHOLD } from '../constants/config';
 
 import OutlinePlantLeaf from '../components/outline_plant_leaf';
 
-import plantPicJpg from '../assets/pics/plants/leaves/*.jpg'
-import plantPicPng from '../assets/pics/plants/leaves/*.png'
-import dragPicPng  from '../assets/pics/plants/leaves/drag_images/*.png'
-import audioMp3 from '../assets/audio/*.mp3'
-
 import Plants_Base, { SelectionMode } from './Plants_Base';
 
 let INTRO1_ALERT = 'Intro1_Alert';
@@ -32,12 +27,12 @@ export default class Plants_Leaves extends Plants_Base {
 		super.preload();
 
 		// Doors
-		this.load.image('hobbit_closed', plantPicJpg.hobbit_closed);
-		this.load.image('hobbit_open', plantPicPng.hobbit_open);
+		this.load.image('hobbit_closed', this.assets.hobbit_closed.jpg);
+		this.load.image('hobbit_open', this.assets.hobbit_open.png);
 
 		// Lock
-		this.load.image('harp_lock', plantPicPng.harp_lock);
-		this.load.image('harp_lock_outline', plantPicPng.harp_lock_outline);
+		this.load.image('harp_lock', this.assets.harp_lock.png);
+		this.load.image('harp_lock_outline', this.assets.harp_lock_outline.png);
         
         // Plants
 		for (const key in this.plants_data) {
@@ -46,20 +41,18 @@ export default class Plants_Leaves extends Plants_Base {
 	        // Get the leaf if needed
 	        const pd = this.plants_data[key];
 			if (!this.textures.exists(pd.leaf_type)) {
-				this.load.image(pd.leaf_type, dragPicPng[pd.leaf_type]);
+				this.load.image(pd.leaf_type, this.assets.drag_images[pd.leaf_type].png);
 			}
 	    }
 
 	    // Triquetra
-	    this.load.image('leaf_lock', plantPicPng.leaf_lock);
-	    this.load.image('leaf_lock_bottom_left', plantPicPng.leaf_lock_bottom_left);
-	    this.load.image('leaf_lock_bottom_right', plantPicPng.leaf_lock_bottom_right);
-	    this.load.image('leaf_lock_top', plantPicPng.leaf_lock_top);
+	    this.load.image('leaf_lock', this.assets.leaf_lock.png);
+	    this.load.image('leaf_lock_bottom_left', this.assets.leaf_lock_bottom_left.png);
+	    this.load.image('leaf_lock_bottom_right', this.assets.leaf_lock_bottom_right.png);
+	    this.load.image('leaf_lock_top', this.assets.leaf_lock_top.png);
 
         // Audio
-        this.load.audio('woosh', audioMp3.woosh);
-        this.load.audio('twinkle', audioMp3.twinkle);
-        this.load.audio('forest', audioMp3.forest);
+        this.load.audio('forest', this.assets.forest.mp3);
 	}
 
 	create() {
