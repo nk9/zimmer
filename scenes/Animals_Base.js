@@ -7,9 +7,6 @@ import { nearestPointOnRect } from '../utilities/geom_utils'
 import XrayAnimal from '../components/xray_animal';
 import ScanChargeBar from '../components/scan_charge_bar'
 
-import animalPicPng from '../assets/pics/animals/*.png'
-import audioMp3 from '../assets/audio/*.mp3'
-
 export const SelectionMode = {
 	NONE:    "none", 
 	RAYGUN:  "raygun",
@@ -24,6 +21,10 @@ export default class Animals_Base extends Base_Scene {
 		this.scan_limit;
 	}
 
+	get category() {
+		return "Animals";
+	}
+
 	init() {
 		this.selectionMode = SelectionMode.NONE;
 		this.animals_have_entered = false;
@@ -34,15 +35,14 @@ export default class Animals_Base extends Base_Scene {
 	preload() {
 		super.preload();
 
-		this.load.image('xray_screen', animalPicPng.screen);
-		this.load.image('scanner', animalPicPng.scanning_chamber);
-		this.load.image('raygun', animalPicPng.raygun_small);
-		this.load.image('grabber', animalPicPng.grabber_small);
+		this.load.image('xray_screen', this.categoryAssets.screen.png);
+		this.load.image('scanner', this.categoryAssets.scanning_chamber.png);
+		this.load.image('raygun', this.categoryAssets.raygun.png);
+		this.load.image('grabber', this.categoryAssets.grabber.png);
 
-		this.load.audio('xray', audioMp3.laser);
-		this.load.audio('grab', audioMp3.squish);
-		this.load.audio('scan', audioMp3.scan);
-		// this.load.audio('portal', audioMp3.portal);
+		this.load.audio('xray', this.categoryAssets.laser.mp3);
+		this.load.audio('grab', this.categoryAssets.squish.mp3);
+		this.load.audio('scan', this.categoryAssets.scan.mp3);
 
 		this.animals_data = this.stored_data.animals;
 
@@ -198,14 +198,14 @@ export default class Animals_Base extends Base_Scene {
 
 	chooseGrabber() {
 		this.selectionMode = SelectionMode.GRABBER;
-		this.input.setDefaultCursor(`url(${animalPicPng.grabber_small}), pointer`);
+		this.input.setDefaultCursor(`url(${this.categoryAssets.grabber.png}), pointer`);
 		this.clickedXrayAnimal(null);
 		this.setAnimalsDraggable(true);
 	}
 
 	chooseRaygun() {
 		this.selectionMode = SelectionMode.RAYGUN;
-		this.input.setDefaultCursor(`url(${animalPicPng.raygun_small}), pointer`);
+		this.input.setDefaultCursor(`url(${this.categoryAssets.raygun.png}), pointer`);
 		this.setAnimalsDraggable(false);
 		this.factText.visible = false;
 	}

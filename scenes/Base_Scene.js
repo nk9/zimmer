@@ -8,6 +8,8 @@ import { MAIN_HALL } from '../constants/scenes';
 import Alert from '../components/alert';
 import PointerOutlineImage from '../components/pointer_outline_image';
 
+import assets from '../assets/**/*.*';
+
 import { get, union } from 'lodash-es';
 
 export const SceneProgress = {
@@ -59,7 +61,6 @@ class Base_Scene extends Scene {
         this.load.on('progress', this.onLoadProgress, this);
         this.load.on('complete', this.onLoadComplete, this);
         this.createProgressBar();
-        
     }
 
 	create() {
@@ -87,6 +88,30 @@ class Base_Scene extends Scene {
 
         this.createOverlay();
 	}
+
+    //
+    // Assets
+    //
+
+    get assets() {
+        if (this.category) {
+            return assets[this.category][this.scene.key]
+        }
+
+        return assets[this.scene.key]
+    }
+
+    get category() {
+        return null
+    }
+
+    get categoryAssets() {
+        if (this.category) {
+            return assets[this.category]
+        }
+
+        return {}
+    }
 
     createItems() {
         this.items = this.addImagesFromStoredData('items', this.handleGenericItemClicked);
