@@ -29,11 +29,6 @@ export default class Animals_Cave extends Animals_Base {
 		this.load.image('cave_door_open', this.assets.cave_door_open.png);
 		this.load.image('cave_party', this.assets.kratts_christmas.png);
 
-		// Animals
-		for (const key in this.animals_data) {
-			this.loadXrayOutlineImage(key);
-		}
-
 		// Audio
 		this.load.audio('cave', this.assets.cave.mp3);
 		this.load.audio('steps_cave', this.assets.steps_cave.mp3);

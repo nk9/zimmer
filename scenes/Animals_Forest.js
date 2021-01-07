@@ -30,11 +30,6 @@ export default class Animals_Forest extends Animals_Base {
 		this.load.image('forest_door_closed', this.assets.forest_door_closed.jpg);
 		this.load.image('forest_door_open', this.assets.forest_door_open.png);
 
-        // Animals
-		for (const key in this.animals_data) {
-	        this.loadXrayOutlineImage(key);
-	    }
-
         // Audio
         this.load.audio('forest_night', this.assets.forest_night.mp3);
         this.load.audio('steps_forest', this.assets.steps_forest.mp3);

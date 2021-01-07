@@ -31,11 +31,6 @@ export default class Animals_Ocean extends Animals_Base {
 		this.load.image('underwater_door_open', this.assets.underwater_door_open.png);
         this.loadOutlineImage('amphisub');
 
-        // Animals
-		for (const key in this.animals_data) {
-	        this.loadXrayOutlineImage(key);
-	    }
-
         // Audio
         this.load.audio('splash_bubble', this.assets.splash_bubble.mp3);
         this.load.audio('underwater', this.assets.underwater.mp3);
