@@ -43,7 +43,9 @@
     "Kratt Brothers characters": "The Kratt Brothers Company",
     "Some X-ray animals": "Oregon Zoo"
   },
-  "More": {
-    "A more detailed accounting of the sounds and images are available at https://github.com/nk9/zimmer": ""
+  "For full credits, visit https://github.com/nk9/zimmer": {
+  },
+  "Congratulations": {
+    "We hope you enjoyed playing!": ""
   }
 }
