@@ -19,8 +19,8 @@ export const SelectionMode = {
 	VIAL:	 "vial", 
 }
 
-const LIGHTBOX_ALERT = 'Lightbox_Alert';
-const ITEM_ALERT = 'Item_Alert';
+const LIGHTBOX_ALERT = 'LIGHTBOX_ALERT';
+const ITEM_ALERT = 'ITEM_ALERT';
 
 export default class Plants_Base extends Base_Scene {
 	get category() {

@@ -6,12 +6,12 @@ import OutlineImage from '../components/outline_image';
 
 import Animals_Base, { SelectionMode } from './Animals_Base';
 
-let INTRO1_ALERT = 'Intro1_Alert';
-let INTRO2_ALERT = 'Intro2_Alert';
-let INTRO3_ALERT = 'Intro3_Alert';
-let INTRO4_ALERT = 'Intro4_Alert';
-let SUCCESS_ALERT = 'Success_Alert';
-let FAIL_ALERT = 'Fail_Alert';
+let INTRO1_ALERT = 'INTRO1_ALERT';
+let INTRO2_ALERT = 'INTRO2_ALERT';
+let INTRO3_ALERT = 'INTRO3_ALERT';
+let INTRO4_ALERT = 'INTRO4_ALERT';
+let SUCCESS_ALERT = 'SUCCESS_ALERT';
+let FAIL_ALERT = 'FAIL_ALERT';
 
 export default class Animals_Cave extends Animals_Base {
 	constructor() {

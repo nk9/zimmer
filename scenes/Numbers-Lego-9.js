@@ -10,9 +10,9 @@ import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
 import numbersPicJpg from '../assets/pics/numbers/lego_9/*.jpg'
 import numbersPicPng from '../assets/pics/numbers/lego_9/*.png'
 
-const INTRO1_ALERT = 'Intro1_Alert';
-const INTRO2_ALERT = 'Intro2_Alert';
-const FAIL_ALERT = 'FailAlert';
+const INTRO1_ALERT = 'INTRO1_ALERT';
+const INTRO2_ALERT = 'INTRO2_ALERT';
+const FAIL_ALERT = 'FAIL_ALERT';
 
 
 class Numbers_Lego_9 extends Numbers_Lego {

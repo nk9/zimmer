@@ -16,9 +16,9 @@ import bossPics from '../assets/pics/numbers/lego_boss/*.*'
 import problemsPics from '../assets/pics/numbers/lego_boss/problems/*.jpg'
 import audioMp3 from '../assets/audio/*.mp3';
 
-const INTRO1_ALERT = 'Intro1_Alert';
-const INTRO2_ALERT = 'Intro2_Alert';
-const FAIL_ALERT = 'FailAlert';
+const INTRO1_ALERT = 'INTRO1_ALERT';
+const INTRO2_ALERT = 'INTRO2_ALERT';
+const FAIL_ALERT = 'FAIL_ALERT';
 
 
 class Numbers_Lego_Boss extends Base_Scene {

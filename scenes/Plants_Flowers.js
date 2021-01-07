@@ -8,14 +8,14 @@ import OutlinePlantFlower from '../components/outline_plant_flower';
 
 import Plants_Base, { SelectionMode } from './Plants_Base';
 
-let INTRO1_ALERT = 'Intro1_Alert';
-let INTRO2_ALERT = 'Intro2_Alert';
-let INTRO3_ALERT = 'Intro3_Alert';
-let INTRO4_ALERT = 'Intro4_Alert';
-let FLOWER2_ALERT = 'Flower2_Alert';
-let FLOWER3_ALERT = 'Flower3_Alert';
-let FLOWER_FAIL_ALERT = 'Flower_Fail_Alert';
-let SUCCESS_ALERT = 'Success_Alert';
+let INTRO1_ALERT = 'INTRO1_ALERT';
+let INTRO2_ALERT = 'INTRO2_ALERT';
+let INTRO3_ALERT = 'INTRO3_ALERT';
+let INTRO4_ALERT = 'INTRO4_ALERT';
+let FLOWER2_ALERT = 'FLOWER2_ALERT';
+let FLOWER3_ALERT = 'FLOWER3_ALERT';
+let FLOWER_FAIL_ALERT = 'FLOWER_FAIL_ALERT';
+let SUCCESS_ALERT = 'SUCCESS_ALERT';
 
 export default class Plants_Flowers extends Plants_Base {
 	constructor() {

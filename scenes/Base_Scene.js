@@ -39,7 +39,7 @@ export const Layers = {
     OVERLAY: 300
 }
 
-const ITEM_ALERT = 'Item_Alert';
+const ITEM_ALERT = 'ITEM_ALERT';
 const GEM_X = 1120;
 const GEM_Y = 10;
 

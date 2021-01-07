@@ -11,9 +11,9 @@ import numbersPicJpg from '../assets/pics/numbers/lego_first/*.jpg'
 import numbersPicPng from '../assets/pics/numbers/lego_first/*.png'
 import audioMp3 from '../assets/audio/*.mp3';
 
-const INTRO1_ALERT = 'Intro1_Alert';
-const INTRO2_ALERT = 'Intro2_Alert';
-const FAIL_ALERT = 'FailAlert';
+const INTRO1_ALERT = 'INTRO1_ALERT';
+const INTRO2_ALERT = 'INTRO2_ALERT';
+const FAIL_ALERT = 'FAIL_ALERT';
 
 
 class Numbers_Lego_First extends Numbers_Lego {

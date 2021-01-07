@@ -6,10 +6,10 @@ import OutlinePlantLeaf from '../components/outline_plant_leaf';
 
 import Plants_Base, { SelectionMode } from './Plants_Base';
 
-let INTRO1_ALERT = 'Intro1_Alert';
-let INTRO2_ALERT = 'Intro2_Alert';
-let FAIL_ALERT   = 'Fail_Alert';
-let SUCCESS_ALERT = 'Success_Alert';
+let INTRO1_ALERT = 'INTRO1_ALERT';
+let INTRO2_ALERT = 'INTRO2_ALERT';
+let FAIL_ALERT   = 'FAIL_ALERT';
+let SUCCESS_ALERT = 'SUCCESS_ALERT';
 
 export default class Plants_Leaves extends Plants_Base {
 	constructor() {

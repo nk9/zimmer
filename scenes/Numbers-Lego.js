@@ -7,8 +7,6 @@ import PieMeter from '../components/pie-meter';
 
 import numbersPicPng from '../assets/pics/numbers/*.png';
 
-
-// Abstract class!
 class Numbers_Lego extends Base_Scene {
 	preload() {
 		super.preload();

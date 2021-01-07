@@ -6,7 +6,7 @@ import { MAIN_HALL, CREDITS,
 import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
 import { UNLOCKED_SCENES, COLLECTED_GEMS } from '../constants/storage';
 
-const CAT_ALERT = "Cat-Alert";
+const CAT_ALERT = "CAT-ALERT";
 const GRATE_ALERT = "GRATE_ALERT";
 const DOOR_BLOCKED_ALERT = "DOOR_BLOCKED_ALERT";
 

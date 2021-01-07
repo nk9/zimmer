@@ -8,14 +8,14 @@ import OutlinePlantMushroom from '../components/outline_plant_mushroom';
 
 import Plants_Base, { SelectionMode } from './Plants_Base';
 
-let INTRO1_ALERT = 'Intro1_Alert';
-let INTRO2_ALERT = 'Intro2_Alert';
-let INTRO3_ALERT = 'Intro3_Alert';
-let INTRO4_ALERT = 'Intro4_Alert';
+let INTRO1_ALERT = 'INTRO1_ALERT';
+let INTRO2_ALERT = 'INTRO2_ALERT';
+let INTRO3_ALERT = 'INTRO3_ALERT';
+let INTRO4_ALERT = 'INTRO4_ALERT';
 
-let NOT_ENOUGH_ALERT = 'Not_Enough_Alert';
-let FAIL_ALERT   = 'Fail_Alert';
-let SUCCESS_ALERT = 'Success_Alert';
+let NOT_ENOUGH_ALERT = 'NOT_ENOUGH_ALERT';
+let FAIL_ALERT   = 'FAIL_ALERT';
+let SUCCESS_ALERT = 'SUCCESS_ALERT';
 let TEST_FAIL_ALERT = 'TEST_FAIL_ALERT';
 let THREE_DROPS_ALERT = 'THREE_DROPS_ALERT';
 

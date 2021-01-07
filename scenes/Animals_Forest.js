@@ -6,10 +6,10 @@ import OutlineImage from '../components/outline_image';
 
 import Animals_Base, { SelectionMode } from './Animals_Base';
 
-let INTRO1_ALERT = 'Intro1_Alert';
-let INTRO2_ALERT = 'Intro2_Alert';
-let FAIL_ALERT   = 'Fail_Alert';
-let SUCCESS_ALERT = 'Success_Alert';
+let INTRO1_ALERT = 'INTRO1_ALERT';
+let INTRO2_ALERT = 'INTRO2_ALERT';
+let FAIL_ALERT   = 'FAIL_ALERT';
+let SUCCESS_ALERT = 'SUCCESS_ALERT';
 
 export default class Animals_Forest extends Animals_Base {
 	constructor() {
