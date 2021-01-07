@@ -11,7 +11,7 @@ let INTRO2_ALERT = 'Intro2_Alert';
 let FAIL_ALERT   = 'Fail_Alert';
 let SUCCESS_ALERT = 'Success_Alert';
 
-class Animals_Ocean extends Animals_Base {
+export default class Animals_Ocean extends Animals_Base {
 	constructor() {
         super(ANIMALS_OCEAN);
 
@@ -39,16 +39,6 @@ class Animals_Ocean extends Animals_Base {
         // Audio
         this.load.audio('splash_bubble', this.assets.splash_bubble.mp3);
         this.load.audio('underwater', this.assets.underwater.mp3);
-	}
-
-	loadOutlineImage(name) {
-		this.load.image(name, this.assets[name].png);
-		this.load.image(name+"_outline", this.assets[name+"_outline"].png);
-	}
-
-	loadXrayOutlineImage(name) {
-		this.loadOutlineImage(name)
-		this.load.image(name+"_xray", this.assets[name+"_xray"].jpg);
 	}
 
 	create() {
@@ -198,5 +188,3 @@ class Animals_Ocean extends Animals_Base {
 		this.beginFailureTransition();
 	}
 }
-
-export default Animals_Ocean;

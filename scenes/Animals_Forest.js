@@ -4,10 +4,6 @@ import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
 
 import OutlineImage from '../components/outline_image';
 
-import forestPicJpg from '../assets/pics/animals/forest/*.jpg'
-import forestPicPng from '../assets/pics/animals/forest/*.png'
-import audioMp3 from '../assets/audio/*.mp3'
-
 import Animals_Base, { SelectionMode } from './Animals_Base';
 
 let INTRO1_ALERT = 'Intro1_Alert';
@@ -15,7 +11,7 @@ let INTRO2_ALERT = 'Intro2_Alert';
 let FAIL_ALERT   = 'Fail_Alert';
 let SUCCESS_ALERT = 'Success_Alert';
 
-class Animals_Forest extends Animals_Base {
+export default class Animals_Forest extends Animals_Base {
 	constructor() {
         super(ANIMALS_FOREST);
 
@@ -31,9 +27,8 @@ class Animals_Forest extends Animals_Base {
 		super.preload();
 
 		// Images
-		this.load.image('forest_door_closed', forestPicJpg.forest_door_closed);
-		this.load.image('forest_door_open', forestPicPng.forest_door_open);
-        this.loadOutlineImage('amphisub');
+		this.load.image('forest_door_closed', this.assets.forest_door_closed.jpg);
+		this.load.image('forest_door_open', this.assets.forest_door_open.png);
 
         // Animals
 		for (const key in this.animals_data) {
@@ -41,18 +36,8 @@ class Animals_Forest extends Animals_Base {
 	    }
 
         // Audio
-        this.load.audio('forest_night', audioMp3.forest_night);
-        this.load.audio('steps_forest', audioMp3.steps_forest);
-	}
-
-	loadOutlineImage(name) {
-		this.load.image(name, forestPicPng[name]);
-		this.load.image(name+"_outline", forestPicPng[name+"_outline"]);
-	}
-
-	loadXrayOutlineImage(name) {
-		this.loadOutlineImage(name)
-		this.load.image(name+"_xray", forestPicJpg[name+"_xray"]);
+        this.load.audio('forest_night', this.assets.forest_night.mp3);
+        this.load.audio('steps_forest', this.assets.steps_forest.mp3);
 	}
 
 	create() {
@@ -222,5 +207,3 @@ class Animals_Forest extends Animals_Base {
 		this.beginFailureTransition();
 	}
 }
-
-export default Animals_Forest;
