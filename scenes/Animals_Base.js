@@ -16,7 +16,7 @@ export const SelectionMode = {
 	GRABBER: "grabber"
 }
 
-class Animals_Base extends Base_Scene {
+export default class Animals_Base extends Base_Scene {
 	constructor(key) {
 		super(key);
 
@@ -424,5 +424,3 @@ class Animals_Base extends Base_Scene {
 	willStartNextScene() {
 	}
 }
-
-export default Animals_Base;

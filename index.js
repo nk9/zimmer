@@ -14,9 +14,9 @@ import Numbers_Lego_9 from './scenes/Numbers-Lego-9';
 import Numbers_Lego_Boss from './scenes/Numbers-Lego-Boss';
 
 // Animals
-import Animals_Ocean from './scenes/Animals-Ocean';
-import Animals_Cave from './scenes/Animals-Cave';
-import Animals_Forest from './scenes/Animals-Forest';
+import Animals_Ocean from './scenes/Animals_Ocean';
+import Animals_Cave from './scenes/Animals_Cave';
+import Animals_Forest from './scenes/Animals_Forest';
 
 
 // Plants

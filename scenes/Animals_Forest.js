@@ -8,7 +8,7 @@ import forestPicJpg from '../assets/pics/animals/forest/*.jpg'
 import forestPicPng from '../assets/pics/animals/forest/*.png'
 import audioMp3 from '../assets/audio/*.mp3'
 
-import Animals_Base, { SelectionMode } from './Animals-Base';
+import Animals_Base, { SelectionMode } from './Animals_Base';
 
 let INTRO1_ALERT = 'Intro1_Alert';
 let INTRO2_ALERT = 'Intro2_Alert';
