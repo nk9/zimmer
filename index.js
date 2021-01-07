@@ -3,7 +3,7 @@ import { GAME_WIDTH, GAME_HEIGHT } from './constants/config';
 import JSONStorage from './components/json_storage';
 
 import Init from './scenes/Init';
-import Main_Hall from './scenes/Main-Hall';
+import Main_Hall from './scenes/Main_Hall';
 import Credits from './scenes/Credits';
 
 // Numbers

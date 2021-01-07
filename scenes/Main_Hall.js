@@ -6,17 +6,13 @@ import { MAIN_HALL, CREDITS,
 import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
 import { UNLOCKED_SCENES, COLLECTED_GEMS } from '../constants/storage';
 
-import entryPicPng from '../assets/pics/entry/*.png';
-import entryPicJpg from '../assets/pics/entry/*.jpg';
-import audioMp3 from '../assets/audio/*.mp3'
-
 const CAT_ALERT = "Cat-Alert";
 const GRATE_ALERT = "GRATE_ALERT";
 const DOOR_BLOCKED_ALERT = "DOOR_BLOCKED_ALERT";
 
 const TOTAL_GEMS = 9;
 
-class Main_Hall extends Base_Scene {
+export default class Main_Hall extends Base_Scene {
 	constructor() {
         super(MAIN_HALL);
 	}
@@ -32,10 +28,10 @@ class Main_Hall extends Base_Scene {
 	preload() {
 		super.preload();
 
-		this.load.image('entryhall', entryPicJpg.entryhall);
-		this.load.image('map', entryPicPng.map);
-		this.load.image('cat_big', entryPicPng.cat_big);
-		this.load.image('gem_board', entryPicPng.gem_board);
+		this.load.image('entryhall', this.assets.entryhall.jpg);
+		this.load.image('map', this.assets.map.png);
+		this.load.image('cat_big', this.assets.cat_big.png);
+		this.load.image('gem_board', this.assets.gem_board.png);
 
 		let keys = [...Object.keys(this.stored_data.items),
 					...Object.keys(this.stored_data.map)];
@@ -43,12 +39,12 @@ class Main_Hall extends Base_Scene {
 	        this.loadOutlineImage(key);
 		}
 
-        this.load.audio('entry_background', audioMp3.entry_background);
+        this.load.audio('entry_background', this.assets.entry_background.mp3);
 	}
 
 	loadOutlineImage(name) {
-		this.load.image(name, entryPicPng[name]);
-		this.load.image(name+"_outline", entryPicPng[name+"_outline"]);
+		this.load.image(name, this.assets[name].png);
+		this.load.image(name+"_outline", this.assets[name+"_outline"].png);
 	}
 
 	create() {
@@ -327,5 +323,3 @@ class Main_Hall extends Base_Scene {
 			.on('pointerup', pointer => { this.startScene(key) });
 	}
 }
-
-export default Main_Hall;

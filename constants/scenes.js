@@ -1,6 +1,6 @@
 export const INIT = 'Init';
 
-export const MAIN_HALL = 'Main-Hall';
+export const MAIN_HALL = 'Main_Hall';
 export const CREDITS = 'Credits';
 
 // Numbers
