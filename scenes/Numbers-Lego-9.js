@@ -114,6 +114,10 @@ class Numbers_Lego_9 extends Numbers_Lego {
 		return {x: 36 * LEGO_GRID, y: 13 * LEGO_GRID};
 	}
 
+	callToActionRect() {
+		return {x: 500, y: 400, width: 40, height: 64}
+	}
+
 	createRectangles() {
 		this.rects_background = this.add.graphics();
 		this.rects_background.fillStyle(0x000000, .6);
