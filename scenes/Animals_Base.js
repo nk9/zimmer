@@ -51,6 +51,7 @@ export default class Animals_Base extends Base_Scene {
 
 		let keys = Object.keys(this.stored_data.items);
 		for (const key of keys) {
+			console.log(this.assets);
 	        this.loadOutlineImage(key);
 		}
 	}

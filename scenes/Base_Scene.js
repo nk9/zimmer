@@ -8,7 +8,7 @@ import { MAIN_HALL } from '../constants/scenes';
 import Alert from '../components/alert';
 import PointerOutlineImage from '../components/pointer_outline_image';
 
-import assets from '../assets/**/*.*';
+import all_assets from '../assets/**/*.*';
 
 import { get, union } from 'lodash-es';
 
@@ -95,10 +95,12 @@ class Base_Scene extends Scene {
 
     get assets() {
         if (this.category) {
-            return assets[this.category][this.scene.key]
+            console.log(this.scene.key);
+            console.log("assets", all_assets[this.category][this.scene.key]);
+            return all_assets[this.category][this.scene.key]
         }
 
-        return assets[this.scene.key]
+        return all_assets[this.scene.key]
     }
 
     get category() {
@@ -107,7 +109,7 @@ class Base_Scene extends Scene {
 
     get categoryAssets() {
         if (this.category) {
-            return assets[this.category]
+            return all_assets[this.category]
         }
 
         return {}

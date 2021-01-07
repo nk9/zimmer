@@ -4,10 +4,6 @@ import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
 
 import OutlineTargetImage from '../components/outline_target_image';
 
-import oceanPicJpg from '../assets/pics/animals/ocean/*.jpg'
-import oceanPicPng from '../assets/pics/animals/ocean/*.png'
-import audioMp3 from '../assets/audio/*.mp3'
-
 import Animals_Base, { SelectionMode } from './Animals_Base';
 
 let INTRO1_ALERT = 'Intro1_Alert';
@@ -31,8 +27,8 @@ class Animals_Ocean extends Animals_Base {
 		super.preload();
 
 		// Images
-		this.load.image('underwater_door_closed', oceanPicJpg.underwater_door_closed);
-		this.load.image('underwater_door_open', oceanPicPng.underwater_door_open);
+		this.load.image('underwater_door_closed', this.assets.underwater_door_closed.jpg);
+		this.load.image('underwater_door_open', this.assets.underwater_door_open.png);
         this.loadOutlineImage('amphisub');
 
         // Animals
@@ -41,18 +37,18 @@ class Animals_Ocean extends Animals_Base {
 	    }
 
         // Audio
-        this.load.audio('splash_bubble', audioMp3.splash_bubble);
-        this.load.audio('underwater', audioMp3.underwater);
+        this.load.audio('splash_bubble', this.assets.splash_bubble.mp3);
+        this.load.audio('underwater', this.assets.underwater.mp3);
 	}
 
 	loadOutlineImage(name) {
-		this.load.image(name, oceanPicPng[name]);
-		this.load.image(name+"_outline", oceanPicPng[name+"_outline"]);
+		this.load.image(name, this.assets[name].png);
+		this.load.image(name+"_outline", this.assets[name+"_outline"].png);
 	}
 
 	loadXrayOutlineImage(name) {
 		this.loadOutlineImage(name)
-		this.load.image(name+"_xray", oceanPicJpg[name+"_xray"]);
+		this.load.image(name+"_xray", this.assets[name+"_xray"].jpg);
 	}
 
 	create() {

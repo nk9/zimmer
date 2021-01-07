@@ -11,9 +11,9 @@ export const NUMBERS_LEGO_9 = 'Numbers-Lego-9';
 export const NUMBERS_LEGO_BOSS = 'Numbers-Lego-Boss';
 
 // Animals
-export const ANIMALS_OCEAN = 'Animals-Ocean';
-export const ANIMALS_CAVE = 'Animals-Cave';
-export const ANIMALS_FOREST = 'Animals-Forest';
+export const ANIMALS_OCEAN = 'Animals_Ocean';
+export const ANIMALS_CAVE = 'Animals_Cave';
+export const ANIMALS_FOREST = 'Animals_Forest';
 
 // Plants
 export const PLANTS_FLOWERS = 'Plants-Flowers';

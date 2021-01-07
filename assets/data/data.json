@@ -16,17 +16,17 @@
         "x": 0,
         "y": -80
       },
-      "Animals-Cave": {
+      "Animals_Cave": {
         "gem": "sapphire",
         "x": 42,
         "y": 127
       },
-      "Animals-Forest": {
+      "Animals_Forest": {
         "gem": "sapphire",
         "x": -44,
         "y": 127
       },
-      "Animals-Ocean": {
+      "Animals_Ocean": {
         "gem": "sapphire",
         "x": -34,
         "y": -33
@@ -50,19 +50,19 @@
     "map": {
       "animals_cave": {
         "scale": 1,
-        "level_key": "Animals-Cave",
+        "level_key": "Animals_Cave",
         "x": 220,
         "y": -100
       },
       "animals_forest": {
         "scale": 1,
-        "level_key": "Animals-Forest",
+        "level_key": "Animals_Forest",
         "x": 218,
         "y": 15
       },
       "animals_ocean": {
         "scale": 1,
-        "level_key": "Animals-Ocean",
+        "level_key": "Animals_Ocean",
         "x": 212,
         "y": 100
       },
@@ -309,7 +309,7 @@
   "Numbers-Lego-Second": {
     "items": {}
   },
-  "Animals-Ocean": {
+  "Animals_Ocean": {
     "animals": {
       "eel": {
         "scale": 0.5,
@@ -402,7 +402,7 @@
       }
     }
   },
-  "Animals-Forest": {
+  "Animals_Forest": {
     "animals": {
       "bat": {
         "scale": 0.6,
@@ -506,7 +506,7 @@
       }
     }
   },
-  "Animals-Cave": {
+  "Animals_Cave": {
     "animals": {
       "bat2": {
         "scale": 0.8,
