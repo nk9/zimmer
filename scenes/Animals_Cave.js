@@ -4,10 +4,6 @@ import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
 
 import OutlineImage from '../components/outline_image';
 
-import cavePicJpg from '../assets/pics/animals/cave/*.jpg'
-import cavePicPng from '../assets/pics/animals/cave/*.png'
-import audioMp3 from '../assets/audio/*.mp3'
-
 import Animals_Base, { SelectionMode } from './Animals_Base';
 
 let INTRO1_ALERT = 'Intro1_Alert';
@@ -17,7 +13,7 @@ let INTRO4_ALERT = 'Intro4_Alert';
 let SUCCESS_ALERT = 'Success_Alert';
 let FAIL_ALERT = 'Fail_Alert';
 
-class Animals_Cave extends Animals_Base {
+export default class Animals_Cave extends Animals_Base {
 	constructor() {
 		super(ANIMALS_CAVE);
 
@@ -29,9 +25,9 @@ class Animals_Cave extends Animals_Base {
 		super.preload();
 
 		// Images
-		this.load.image('cave_door_closed', cavePicJpg.cave_door_closed);
-		this.load.image('cave_door_open', cavePicPng.cave_door_open);
-		this.load.image('cave_party', cavePicPng.kratts_christmas);
+		this.load.image('cave_door_closed', this.assets.cave_door_closed.jpg);
+		this.load.image('cave_door_open', this.assets.cave_door_open.png);
+		this.load.image('cave_party', this.assets.kratts_christmas.png);
 
 		// Animals
 		for (const key in this.animals_data) {
@@ -39,19 +35,9 @@ class Animals_Cave extends Animals_Base {
 		}
 
 		// Audio
-		this.load.audio('cave', audioMp3.cave);
-		this.load.audio('steps_cave', audioMp3.steps_cave);
-		this.load.audio('kratts_christmas', audioMp3.kratts_christmas);
-	}
-
-	loadOutlineImage(name) {
-		this.load.image(name, cavePicPng[name]);
-		this.load.image(name+"_outline", cavePicPng[name+"_outline"]);
-	}
-
-	loadXrayOutlineImage(name) {
-		this.loadOutlineImage(name)
-		this.load.image(name+"_xray", cavePicJpg[name+"_xray"]);
+		this.load.audio('cave', this.assets.cave.mp3);
+		this.load.audio('steps_cave', this.assets.steps_cave.mp3);
+		this.load.audio('kratts_christmas', this.assets.kratts_christmas.mp3);
 	}
 
 	create() {
@@ -269,5 +255,3 @@ class Animals_Cave extends Animals_Base {
 		this.beginFailureTransition();
 	}
 }
-
-export default Animals_Cave;
