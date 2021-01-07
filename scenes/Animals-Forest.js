@@ -1,4 +1,4 @@
-import { SceneProgress, Layers } from './base-scene';
+import { SceneProgress, Layers } from './Base_Scene';
 import { ANIMALS_FOREST, ANIMALS_CAVE } from '../constants/scenes';
 import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
 

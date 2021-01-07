@@ -1,4 +1,4 @@
-import BaseScene, { SceneProgress, Layers } from './base-scene';
+import Base_Scene, { SceneProgress, Layers } from './Base_Scene';
 
 import Numbers_Lego from './Numbers-Lego'
 import Brick, { LEGO_GRID } from '../components/brick';

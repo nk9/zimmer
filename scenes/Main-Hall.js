@@ -1,4 +1,4 @@
-import BaseScene, { SceneProgress, Layers } from './base-scene';
+import Base_Scene, { SceneProgress, Layers } from './Base_Scene';
 import { MAIN_HALL, CREDITS,
 		 NUMBERS_LEGO_10, NUMBERS_LEGO_9, NUMBERS_LEGO_FIRST, NUMBERS_LEGO_SECOND,
 		 ANIMALS_OCEAN, ANIMALS_CAVE, ANIMALS_FOREST,
@@ -16,7 +16,7 @@ const DOOR_BLOCKED_ALERT = "DOOR_BLOCKED_ALERT";
 
 const TOTAL_GEMS = 9;
 
-class Main_Hall extends BaseScene {
+class Main_Hall extends Base_Scene {
 	constructor() {
         super(MAIN_HALL);
 	}

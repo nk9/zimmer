@@ -1,5 +1,5 @@
 import { DRAG_THRESHOLD } from '../constants/config';
-import { Layers } from '../scenes/base-scene';
+import { Layers } from '../scenes/Base_Scene';
 
 export const LEGO_GRID = 29;
 

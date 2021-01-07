@@ -1,6 +1,6 @@
 import { shuffle, remove } from 'lodash-es';
 
-import BaseScene, { SceneProgress, Layers } from './base-scene';
+import Base_Scene, { SceneProgress, Layers } from './Base_Scene';
 
 import Numbers_Lego from './Numbers-Lego'
 import Brick, { LEGO_GRID } from '../components/brick';
@@ -21,7 +21,7 @@ const INTRO2_ALERT = 'Intro2_Alert';
 const FAIL_ALERT = 'FailAlert';
 
 
-class Numbers_Lego_Boss extends BaseScene {
+class Numbers_Lego_Boss extends Base_Scene {
 	constructor() {
 		super(NUMBERS_LEGO_BOSS);
 	}

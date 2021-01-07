@@ -1,6 +1,6 @@
 import { filter } from 'lodash-es'
 
-import BaseScene, { SceneProgress, Layers } from './base-scene'
+import Base_Scene, { SceneProgress, Layers } from './Base_Scene'
 import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config'
 import { nearestPointOnRect } from '../utilities/geom_utils'
 
@@ -16,7 +16,7 @@ export const SelectionMode = {
 	GRABBER: "grabber"
 }
 
-class Animals_Base extends BaseScene {
+class Animals_Base extends Base_Scene {
 	constructor(key) {
 		super(key);
 

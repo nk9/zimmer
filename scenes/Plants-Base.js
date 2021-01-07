@@ -1,6 +1,6 @@
 import { random } from 'lodash-es';
 
-import BaseScene, { SceneProgress, Layers } from './base-scene'
+import Base_Scene, { SceneProgress, Layers } from './Base_Scene'
 import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config'
 import { nearestPointOnRect } from '../utilities/geom_utils'
 
@@ -23,7 +23,7 @@ export const SelectionMode = {
 const LIGHTBOX_ALERT = 'Lightbox_Alert';
 const ITEM_ALERT = 'Item_Alert';
 
-class Plants_Base extends BaseScene {
+class Plants_Base extends Base_Scene {
 	// constructor(key) {
 	// 	super(key);
 	// }

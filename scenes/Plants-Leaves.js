@@ -1,4 +1,4 @@
-import { SceneProgress, Layers } from './base-scene';
+import { SceneProgress, Layers } from './Base_Scene';
 import { PLANTS_LEAVES, PLANTS_MUSHROOMS } from '../constants/scenes';
 import { GAME_WIDTH, GAME_HEIGHT, DRAG_THRESHOLD } from '../constants/config';
 

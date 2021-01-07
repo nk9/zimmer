@@ -41,7 +41,7 @@ const ITEM_ALERT = 'Item_Alert';
 const GEM_X = 1120;
 const GEM_Y = 10;
 
-class BaseScene extends Scene {
+class Base_Scene extends Scene {
     init() {
         this.progress = SceneProgress.BEGIN;
         this.storeLastScene();
@@ -59,6 +59,7 @@ class BaseScene extends Scene {
         this.load.on('progress', this.onLoadProgress, this);
         this.load.on('complete', this.onLoadComplete, this);
         this.createProgressBar();
+        
     }
 
 	create() {
@@ -278,4 +279,4 @@ class BaseScene extends Scene {
     }
 }
 
-export default BaseScene;
+export default Base_Scene;

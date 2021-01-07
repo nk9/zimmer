@@ -1,6 +1,6 @@
 import {groupBy, sampleSize, random, pull, find} from 'lodash-es';
 
-import { SceneProgress, Layers } from './base-scene';
+import { SceneProgress, Layers } from './Base_Scene';
 import { MAIN_HALL, PLANTS_MUSHROOMS } from '../constants/scenes';
 import { GAME_WIDTH, GAME_HEIGHT, DRAG_THRESHOLD } from '../constants/config';
 

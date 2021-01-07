@@ -1,4 +1,4 @@
-import BaseScene, { SceneProgress, Layers } from './base-scene';
+import Base_Scene, { SceneProgress, Layers } from './Base_Scene';
 import { DRAG_THRESHOLD, GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
 
 import Brick, { LEGO_GRID } from '../components/brick';
@@ -9,7 +9,7 @@ import numbersPicPng from '../assets/pics/numbers/*.png';
 
 
 // Abstract class!
-class Numbers_Lego extends BaseScene {
+class Numbers_Lego extends Base_Scene {
 	preload() {
 		super.preload();
 
