@@ -1,5 +1,5 @@
 {
-  "R&D": {
+  "Development": {
     "Story & Design": "Uncle Victor",
     "Gameplay": "Uncle Nick & Uncle Victor",
     "Audio wrangling": "Uncle Victor",
@@ -20,7 +20,7 @@
     "Hmm": "ckvoiceover"
   },
   "Other Audio": {
-    "Footsteps": "BBC",
+    "Footsteps": "BBC Sound Effects archive",
     "Main Hall theme": "Wintergatan",
     "Credits theme": "Wintergatan"
   },
@@ -40,7 +40,7 @@
     "Animals Ocean": "Boros/Szikszai",
     "Animals Forest": "Cosmin Hrincu (ArtStation)",
     "Animals Cave": "klaiko (Fiverr)",
-    "Kratt Brothers characters": "The Kratt Brothers Company",
+    "Kratt Brothers": "The Kratt Brothers Company",
     "Some X-ray animals": "Oregon Zoo"
   },
   "For full credits, visit https://github.com/nk9/zimmer": {
