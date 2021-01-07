@@ -6,11 +6,6 @@ import { GAME_WIDTH, GAME_HEIGHT, DRAG_THRESHOLD } from '../constants/config';
 
 import OutlinePlantMushroom from '../components/outline_plant_mushroom';
 
-import plantPicJpg from '../assets/pics/plants/mushrooms/*.jpg'
-import plantPicPng from '../assets/pics/plants/mushrooms/*.png'
-import dragPicPng  from '../assets/pics/plants/mushrooms/drag_images/*.png'
-import audioMp3 from '../assets/audio/*.mp3'
-
 import Plants_Base, { SelectionMode } from './Plants_Base';
 
 let INTRO1_ALERT = 'Intro1_Alert';
@@ -44,13 +39,13 @@ export default class Plants_Mushrooms extends Plants_Base {
 		super.preload();
 
 		// Background
-		this.load.image('kitchen', plantPicJpg.kitchen);
+		this.load.image('kitchen', this.assets.kitchen.jpg);
 
 		// Tools
-		this.loadOutlineImage('bigbasket');
-		this.load.image('edible', plantPicJpg.edible);
-		this.load.image('party', plantPicJpg.zeldaparty);
-		this.load.image('pipette', plantPicPng.pipette);
+		this.load.image('bigbasket', this.assets.bigbasket.png);
+		this.load.image('edible', this.assets.edible.jpg);
+		this.load.image('party', this.assets.zeldaparty.jpg);
+		this.load.image('pipette', this.assets.pipette.png);
         
         // Plants
 		for (const key in this.plants_data) {
@@ -58,10 +53,9 @@ export default class Plants_Mushrooms extends Plants_Base {
 	    }
 
         // Audio
-        this.load.audio('woosh', audioMp3.woosh);
-        this.load.audio('kitchen', audioMp3.kitchen);
-        this.load.audio('potbubble', audioMp3.potbubble);
-        this.load.audio('tavern', audioMp3.tavern);
+        this.load.audio('kitchen', this.assets.kitchen.mp3);
+        this.load.audio('potbubble', this.assets.potbubble.mp3);
+        this.load.audio('tavern', this.assets.tavern.mp3);
 	}
 
 	create() {
