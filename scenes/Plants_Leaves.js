@@ -7,7 +7,6 @@ import OutlinePlantLeaf from '../components/outline_plant_leaf';
 import plantPicJpg from '../assets/pics/plants/leaves/*.jpg'
 import plantPicPng from '../assets/pics/plants/leaves/*.png'
 import dragPicPng  from '../assets/pics/plants/leaves/drag_images/*.png'
-import linkPicPng  from '../assets/pics/sprites/*.png'
 import audioMp3 from '../assets/audio/*.mp3'
 
 import Plants_Base, { SelectionMode } from './Plants_Base';
@@ -17,7 +16,7 @@ let INTRO2_ALERT = 'Intro2_Alert';
 let FAIL_ALERT   = 'Fail_Alert';
 let SUCCESS_ALERT = 'Success_Alert';
 
-class Plants_Leaves extends Plants_Base {
+export default class Plants_Leaves extends Plants_Base {
 	constructor() {
         super(PLANTS_LEAVES);
 
@@ -349,15 +348,4 @@ class Plants_Leaves extends Plants_Base {
 		this.stopAlert(SUCCESS_ALERT);
 		this.beginSuccessTransition();
 	}
-
-// 	fail() {
-// 		this.runAlert(FAIL_ALERT);
-// 	}
-// 
-// 	failAlertClicked() {
-// 		this.stopAlert(FAIL_ALERT);
-// 		this.beginFailureTransition();
-// 	}
 }
-
-export default Plants_Leaves;

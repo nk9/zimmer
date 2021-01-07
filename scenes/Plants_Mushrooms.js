@@ -9,7 +9,6 @@ import OutlinePlantMushroom from '../components/outline_plant_mushroom';
 import plantPicJpg from '../assets/pics/plants/mushrooms/*.jpg'
 import plantPicPng from '../assets/pics/plants/mushrooms/*.png'
 import dragPicPng  from '../assets/pics/plants/mushrooms/drag_images/*.png'
-import linkPicPng  from '../assets/pics/sprites/*.png'
 import audioMp3 from '../assets/audio/*.mp3'
 
 import Plants_Base, { SelectionMode } from './Plants_Base';
@@ -25,7 +24,7 @@ let SUCCESS_ALERT = 'Success_Alert';
 let TEST_FAIL_ALERT = 'TEST_FAIL_ALERT';
 let THREE_DROPS_ALERT = 'THREE_DROPS_ALERT';
 
-class Plants_Mushrooms extends Plants_Base {
+export default class Plants_Mushrooms extends Plants_Base {
 	constructor() {
         super(PLANTS_MUSHROOMS);
 
@@ -554,5 +553,3 @@ class Plants_Mushrooms extends Plants_Base {
 	}
 
 }
-
-export default Plants_Mushrooms;

@@ -43,7 +43,7 @@ const ITEM_ALERT = 'Item_Alert';
 const GEM_X = 1120;
 const GEM_Y = 10;
 
-class Base_Scene extends Scene {
+export default class Base_Scene extends Scene {
     init() {
         this.progress = SceneProgress.BEGIN;
         this.storeLastScene();
@@ -303,5 +303,3 @@ class Base_Scene extends Scene {
             .fillRectShape(this.progressRect);
     }
 }
-
-export default Base_Scene;

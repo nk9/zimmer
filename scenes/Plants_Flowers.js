@@ -17,7 +17,7 @@ let FLOWER3_ALERT = 'Flower3_Alert';
 let FLOWER_FAIL_ALERT = 'Flower_Fail_Alert';
 let SUCCESS_ALERT = 'Success_Alert';
 
-class Plants_Flowers extends Plants_Base {
+export default class Plants_Flowers extends Plants_Base {
 	constructor() {
         super(PLANTS_FLOWERS);
 
@@ -326,5 +326,3 @@ class Plants_Flowers extends Plants_Base {
 		this.beginSuccessTransition();
 	}
 }
-
-export default Plants_Flowers;
