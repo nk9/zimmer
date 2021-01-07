@@ -10,7 +10,7 @@ import dragPicPng  from '../assets/pics/plants/leaves/drag_images/*.png'
 import linkPicPng  from '../assets/pics/sprites/*.png'
 import audioMp3 from '../assets/audio/*.mp3'
 
-import Plants_Base, { SelectionMode } from './Plants-Base';
+import Plants_Base, { SelectionMode } from './Plants_Base';
 
 let INTRO1_ALERT = 'Intro1_Alert';
 let INTRO2_ALERT = 'Intro2_Alert';
@@ -61,11 +61,6 @@ class Plants_Leaves extends Plants_Base {
         this.load.audio('woosh', audioMp3.woosh);
         this.load.audio('twinkle', audioMp3.twinkle);
         this.load.audio('forest', audioMp3.forest);
-	}
-
-	loadOutlineImage(name) {
-		this.load.image(name, plantPicPng[name]);
-		this.load.image(name+"_outline", plantPicPng[name+"_outline"]);
 	}
 
 	create() {

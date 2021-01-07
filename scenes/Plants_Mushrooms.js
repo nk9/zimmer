@@ -12,7 +12,7 @@ import dragPicPng  from '../assets/pics/plants/mushrooms/drag_images/*.png'
 import linkPicPng  from '../assets/pics/sprites/*.png'
 import audioMp3 from '../assets/audio/*.mp3'
 
-import Plants_Base, { SelectionMode } from './Plants-Base';
+import Plants_Base, { SelectionMode } from './Plants_Base';
 
 let INTRO1_ALERT = 'Intro1_Alert';
 let INTRO2_ALERT = 'Intro2_Alert';
@@ -63,11 +63,6 @@ class Plants_Mushrooms extends Plants_Base {
         this.load.audio('kitchen', audioMp3.kitchen);
         this.load.audio('potbubble', audioMp3.potbubble);
         this.load.audio('tavern', audioMp3.tavern);
-	}
-
-	loadOutlineImage(name) {
-		this.load.image(name, plantPicPng[name]);
-		this.load.image(name+"_outline", plantPicPng[name+"_outline"]);
 	}
 
 	create() {

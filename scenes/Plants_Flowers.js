@@ -6,13 +6,7 @@ import { GAME_WIDTH, GAME_HEIGHT, DRAG_THRESHOLD } from '../constants/config';
 
 import OutlinePlantFlower from '../components/outline_plant_flower';
 
-import plantPicJpg from '../assets/pics/plants/flowers/*.jpg'
-import plantPicPng from '../assets/pics/plants/flowers/*.png'
-import dragPicPng  from '../assets/pics/plants/flowers/drag_images/*.png'
-import linkPicPng  from '../assets/pics/sprites/*.png'
-import audioMp3 from '../assets/audio/*.mp3'
-
-import Plants_Base, { SelectionMode } from './Plants-Base';
+import Plants_Base, { SelectionMode } from './Plants_Base';
 
 let INTRO1_ALERT = 'Intro1_Alert';
 let INTRO2_ALERT = 'Intro2_Alert';
@@ -39,12 +33,12 @@ class Plants_Flowers extends Plants_Base {
 		super.preload();
 
 		// Doors
-		this.load.image('flower_closed', plantPicJpg.flower_closed);
-		this.load.image('flower_open', plantPicPng.flower_open);
+		this.load.image('flower_closed', this.assets.flower_closed.jpg);
+		this.load.image('flower_open', this.assets.flower_open.png);
 
 		// Lock
-		this.load.image('peacock', plantPicPng.peacock);
-		this.load.image('peacock_outline', plantPicPng.peacock_outline);
+		this.load.image('peacock', this.assets.peacock.png);
+		this.load.image('peacock_outline', this.assets.peacock_outline.png);
         
         // Plants
 		for (const key in this.plants_data) {
@@ -54,20 +48,13 @@ class Plants_Flowers extends Plants_Base {
 	        const pd = this.plants_data[key];
 	        const drag_image_key = key+'_drag_image';
 			if (!this.textures.exists(drag_image_key)) {
-				this.load.image(drag_image_key, dragPicPng[key]);
+				this.load.image(drag_image_key, this.assets.drag_images[key].png);
 			}
 	    }
 	    this.chooseTargetFlowers();
 
         // Audio
-        this.load.audio('woosh', audioMp3.woosh);
-        this.load.audio('twinkle', audioMp3.twinkle);
-        this.load.audio('garden', audioMp3.garden);
-	}
-
-	loadOutlineImage(name) {
-		this.load.image(name, plantPicPng[name]);
-		this.load.image(name+"_outline", plantPicPng[name+"_outline"]);
+        this.load.audio('garden', this.assets.garden.mp3);
 	}
 
 	create() {

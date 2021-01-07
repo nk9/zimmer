@@ -31,17 +31,17 @@
         "x": -34,
         "y": -33
       },
-      "Plants-Flowers": {
+      "Plants_Flowers": {
         "gem": "emerald",
         "x": 34,
         "y": -33
       },
-      "Plants-Leaves": {
+      "Plants_Leaves": {
         "gem": "emerald",
         "x": -165,
         "y": -55
       },
-      "Plants-Mushrooms": {
+      "Plants_Mushrooms": {
         "gem": "emerald",
         "x": 165,
         "y": -55
@@ -68,19 +68,19 @@
       },
       "plants1": {
         "scale": 1,
-        "level_key": "Plants-Flowers",
+        "level_key": "Plants_Flowers",
         "x": -15,
         "y": 20
       },
       "plants2": {
         "scale": 1,
-        "level_key": "Plants-Leaves",
+        "level_key": "Plants_Leaves",
         "x": 0,
         "y": -70
       },
       "plants3": {
         "scale": 1,
-        "level_key": "Plants-Mushrooms",
+        "level_key": "Plants_Mushrooms",
         "x": 0,
         "y": -135
       },
@@ -596,7 +596,7 @@
       }
     }
   },
-  "Plants-Mushrooms": {
+  "Plants_Mushrooms": {
     "plants": {
       "agaric": {
         "edible": false,
@@ -827,7 +827,7 @@
       }
     }
   },
-  "Plants-Leaves": {
+  "Plants_Leaves": {
     "plants": {
       "bedstraw": {
         "leaf_type": "spoon",
@@ -928,7 +928,7 @@
       }
     }
   },
-  "Plants-Flowers": {
+  "Plants_Flowers": {
     "plants": {
       "allium": {
         "shape": "ball",

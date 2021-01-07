@@ -95,8 +95,6 @@ class Base_Scene extends Scene {
 
     get assets() {
         if (this.category) {
-            console.log(this.scene.key);
-            console.log("assets", all_assets[this.category][this.scene.key]);
             return all_assets[this.category][this.scene.key]
         }
 

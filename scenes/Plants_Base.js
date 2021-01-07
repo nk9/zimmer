@@ -8,7 +8,6 @@ import LightboxAlert from '../components/lightbox_alert'
 import PointerOutlineImage from '../components/pointer_outline_image'
 import Alert from '../components/alert'
 
-import plantsPicPng from '../assets/pics/plants/*.png'
 import audioMp3 from '../assets/audio/*.mp3'
 
 const hmm_count = 7;
@@ -23,10 +22,10 @@ export const SelectionMode = {
 const LIGHTBOX_ALERT = 'Lightbox_Alert';
 const ITEM_ALERT = 'Item_Alert';
 
-class Plants_Base extends Base_Scene {
-	// constructor(key) {
-	// 	super(key);
-	// }
+export default class Plants_Base extends Base_Scene {
+	get category() {
+		return "Plants";
+	}
 
 	init() {
 		this.selectionMode = SelectionMode.NONE;
@@ -38,11 +37,12 @@ class Plants_Base extends Base_Scene {
 	preload() {
 		super.preload();
 
-		this.load.image('magnifying_glass', plantsPicPng.magnifying_glass);
-		this.load.image('fingers', plantsPicPng.fingers);
+		this.load.image('magnifying_glass', this.categoryAssets.magnifying_glass.png);
+		this.load.image('fingers', this.categoryAssets.fingers.png);
 
-		this.load.audio('pick', audioMp3.pick);
-		this.load.audio('twinkle', audioMp3.twinkle);
+		this.load.audio('pick', this.categoryAssets.pick.mp3);
+		this.load.audio('twinkle', this.categoryAssets.twinkle.mp3);
+        this.load.audio('woosh', this.categoryAssets.woosh.mp3);
 
 		this.plants_data = this.stored_data.plants;
 		this.hidden_objects_data = this.stored_data.items;
@@ -51,6 +51,11 @@ class Plants_Base extends Base_Scene {
 		for (const key of keys) {
 	        this.loadOutlineImage(key);
 		}
+	}
+
+	loadOutlineImage(name) {
+		this.load.image(name, this.assets[name].png);
+		this.load.image(name+"_outline", this.assets[name+"_outline"].png);
 	}
 
 	create() {
@@ -114,7 +119,7 @@ class Plants_Base extends Base_Scene {
 		}
 		else if (this.selectionMode == SelectionMode.PICK) {
 			this.sound.play('pick');
-			this.input.setDefaultCursor(`url(${plantsPicPng.fingers_pinch}), pointer`);
+			this.input.setDefaultCursor(`url(${this.categoryAssets.fingers_pinch.png}), pointer`);
 		}
 	}
 
@@ -145,7 +150,7 @@ class Plants_Base extends Base_Scene {
 			})
 			.on('pointerup', () => {
 				if (this.selectionMode == SelectionMode.PICK) {
-					this.input.setDefaultCursor(`url(${plantsPicPng.fingers}), pointer`);
+					this.input.setDefaultCursor(`url(${this.categoryAssets.fingers.png}), pointer`);
 				}
 			});
 	}
@@ -187,14 +192,14 @@ class Plants_Base extends Base_Scene {
 
 	chooseFingers() {
 		this.selectionMode = SelectionMode.PICK;
-		this.input.setDefaultCursor(`url(${plantsPicPng.fingers}), pointer`);
+		this.input.setDefaultCursor(`url(${this.categoryAssets.fingers.png}), pointer`);
 		// this.clickedPlant(null);
 		this.setPlantsDraggable(true);
 	}
 
 	chooseMagnifyingGlass() {
 		this.selectionMode = SelectionMode.MAGNIFY;
-		this.input.setDefaultCursor(`url(${plantsPicPng.magnifying_glass}), pointer`);
+		this.input.setDefaultCursor(`url(${this.categoryAssets.magnifying_glass.png}), pointer`);
 		this.setPlantsDraggable(false);
 		// this.factText.visible = false;
 	}
@@ -213,7 +218,7 @@ class Plants_Base extends Base_Scene {
 
 	closeLightbox(key) {
 		this.stopAlert(key);
-		this.input.setDefaultCursor(`url(${plantsPicPng.magnifying_glass}), pointer`);
+		this.input.setDefaultCursor(`url(${this.categoryAssets.magnifying_glass.png}), pointer`);
 	}
 
 	setPlantsDraggable(canDrag) {
@@ -291,5 +296,3 @@ class Plants_Base extends Base_Scene {
 	willStartNextScene() {
 	}
 }
-
-export default Plants_Base;

@@ -20,9 +20,9 @@ import Animals_Forest from './scenes/Animals_Forest';
 
 
 // Plants
-import Plants_Leaves from './scenes/Plants-Leaves';
-import Plants_Flowers from './scenes/Plants-Flowers';
-import Plants_Mushrooms from './scenes/Plants-Mushrooms';
+import Plants_Leaves from './scenes/Plants_Leaves';
+import Plants_Flowers from './scenes/Plants_Flowers';
+import Plants_Mushrooms from './scenes/Plants_Mushrooms';
 
 
 const config = {

@@ -16,6 +16,6 @@ export const ANIMALS_CAVE = 'Animals_Cave';
 export const ANIMALS_FOREST = 'Animals_Forest';
 
 // Plants
-export const PLANTS_FLOWERS = 'Plants-Flowers';
-export const PLANTS_LEAVES = 'Plants-Leaves';
-export const PLANTS_MUSHROOMS = 'Plants-Mushrooms';
+export const PLANTS_FLOWERS = 'Plants_Flowers';
+export const PLANTS_LEAVES = 'Plants_Leaves';
+export const PLANTS_MUSHROOMS = 'Plants_Mushrooms';
