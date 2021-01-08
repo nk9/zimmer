@@ -1,67 +1,59 @@
 import Base_Scene, { SceneProgress, Layers } from './Base_Scene';
 
-import Numbers_Lego from './Numbers-Lego'
+import Numbers_Base from './Numbers_Base'
 import Brick, { LEGO_GRID } from '../components/brick';
 import BrickStore, { BSBrick } from '../components/brick_store';
 
-import { NUMBERS_LEGO_FIRST, NUMBERS_LEGO_SECOND } from '../constants/scenes';
+import { NUMBERS_10, NUMBERS_9 } from '../constants/scenes';
 import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
 
-import numbersPicJpg from '../assets/pics/numbers/lego_first/*.jpg'
-import numbersPicPng from '../assets/pics/numbers/lego_first/*.png'
-import audioMp3 from '../assets/audio/*.mp3';
+import numbersPicJpg from '../assets/pics/numbers/lego_10/*.jpg'
+import numbersPicPng from '../assets/pics/numbers/lego_10/*.png'
 
 const INTRO1_ALERT = 'INTRO1_ALERT';
 const INTRO2_ALERT = 'INTRO2_ALERT';
 const FAIL_ALERT = 'FAIL_ALERT';
 
-
-class Numbers_Lego_First extends Numbers_Lego {
+export default class Numbers_10 extends Numbers_Base {
 	constructor() {
-        super(NUMBERS_LEGO_FIRST);
+        super(NUMBERS_10);
 	}
 
     nextSceneKey() {
-        return NUMBERS_LEGO_SECOND;
+        return NUMBERS_9;
     }
 
 	preload() {
 		super.preload();
 
-		this.load.image('abbey_closed', numbersPicJpg.abbey_closed);
-		this.load.image('abbey_open', numbersPicPng.abbey_open);
+		this.load.image('great_hall', numbersPicJpg.great_hall);
+		this.load.image('great_hall_open', numbersPicPng.great_hall_open);
+	}
 
-        this.load.audio('ninja_nerds', audioMp3.ninja_nerds);
+	loadOutlineImage(name) {
+		this.load.image(name, numbersPicPng[name]);
+		this.load.image(name+"_outline", numbersPicPng[name+"_outline"]);
 	}
 
 	create() {
 		super.create();
-
+		
 		this.createGarmadon();
-		this.time.delayedCall(1900, this.playIntro, [], this);
-
-		this.run_time = 10; // scene timer length
+		this.run_time = 20; // scene timer length
 	}
 
 	createBackgroundImages() {
 		let center_x = GAME_WIDTH/2,
 			center_y = GAME_HEIGHT/2;
 
-		this.swirl = this.add.image(center_x, center_y+100, 'blue_swirl');
-		
-		// Shifted over slightly to line up with the lego grid rectangles
-		let bg_x = center_x + 10;
-		this.background_open = this.add.image(bg_x, center_y, 'abbey_open');
+		let swirl_x = center_x + 25;
+		this.swirl = this.add.image(swirl_x, center_y, 'aqua_swirl');
+
+		this.background_open = this.add.image(center_x, center_y, 'great_hall_open');
 		this.background_open.setOrigin(0.5, 0.5);
-		this.background_open.scale = 1.6;
 
-		this.background_closed = this.add.image(bg_x, center_y, 'abbey_closed');
+		this.background_closed = this.add.image(center_x, center_y, 'great_hall');
 		this.background_closed.setOrigin(0.5, 0.5);
-		this.background_closed.scale = 1.6;
-	}
-
-	playIntro() {
-		this.sound.play('ninja_nerds');
 	}
 
 	clearSmoke() {
@@ -91,51 +83,62 @@ class Numbers_Lego_First extends Numbers_Lego {
 	}
 
 	createBricks() {
-		let brick_store = new BrickStore(this, 32, 12);
+		let brick_store = new BrickStore(this, 29, 6);
 
-		brick_store.addRow(BSBrick.B2x3);
+		brick_store.addRow(BSBrick.B1x2, BSBrick.B1x3, BSBrick.B1x2);
+		brick_store.addRow(BSBrick.B2x4, BSBrick.B1x4);
+		brick_store.addRow(BSBrick.B2x2, BSBrick.B2x3, BSBrick.B1x2);
+		brick_store.addRow(BSBrick.B1x1, BSBrick.B1x1, BSBrick.B1x5);
+		brick_store.addRow(BSBrick.B1x2, BSBrick.B2x2, BSBrick.B1x3);
+		brick_store.addRow(BSBrick.B1x3, BSBrick.B1x5);
 
 		return brick_store;
 	}
 
 	keyZoneRect() {
-		return {x: 550, y: 380, width: 110, height: 110};
+		return {x: 550, y: 330, width: 60, height: 120};
 	}
 
 	pouchOpenPosition() {
 		return {x: 36 * LEGO_GRID, y: 13 * LEGO_GRID};
 	}
 
+	callToActionRect() {
+		return {x: 1100, y: 480, width: 40, height: 64}
+	}
+
 	createRectangles() {
 		this.rects_background = this.add.graphics();
 		this.rects_background.fillStyle(0x000000, .6);
-		this.rects_background.fillRoundedRect(18 * LEGO_GRID,
-										 10  * LEGO_GRID,
-										 6  * LEGO_GRID,
-										 10 * LEGO_GRID);
+		this.rects_background.fillRoundedRect(17 * LEGO_GRID,
+										 3  * LEGO_GRID,
+										 8  * LEGO_GRID,
+										 17 * LEGO_GRID);
 		this.rects_background.setDepth(Layers.OVER_DOOR);
 		this.rects_background.setAlpha(0);
 		this.rects_background.visible = false;
 
-		this.addRectangle(2, 3, 20, 14, 1);
+		this.addRectangle(2, 5, 20, 5);
+		this.addRectangle(2, 5, 18, 13);
+		this.addRectangle(2, 5, 22, 13);
 	}
 
 	createAlerts() {
 		let alerts = {
 			[INTRO1_ALERT]: {
-				title: "Hahaha!",
-				content: "I will have the power of the Skull of Hazza D’ur!",
-				buttonText: "As If!",
+				title: "Arrgh!",
+				content: "Let's see you get past this door! Each lock needs a different key.",
+				buttonText: "...",
 				buttonAction: this.clickIntro1Alert,
 				context: this
 			},
 			[INTRO2_ALERT]: {
-				title: "You won't find the key!",
-				content: "And how will you know what shape of key you need? By clicking on the keyhole? Hahahaha! ",
-				buttonText: "By clicking?",
+				title: "Mwa ha ha!",
+				content: "And each key is broken into 2 pieces!",
+				buttonText: "Easy!",
 				buttonAction: this.clickIntro2Alert,
 				context: this
-			},
+		},
 			[FAIL_ALERT]: {
 				title: "Whoops",
 				content: "I need to find the right pieces faster next time!",
@@ -153,6 +156,5 @@ class Numbers_Lego_First extends Numbers_Lego {
 
 		this.scene.run(FAIL_ALERT);
 	}
-}
 
-export default Numbers_Lego_First;
+}

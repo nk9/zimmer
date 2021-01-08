@@ -2,13 +2,12 @@ import { shuffle, remove } from 'lodash-es';
 
 import Base_Scene, { SceneProgress, Layers } from './Base_Scene';
 
-import Numbers_Lego from './Numbers-Lego'
 import Brick, { LEGO_GRID } from '../components/brick';
 import BrickStore, { BSBrick } from '../components/brick_store';
 import NumberSentenceImage from '../components/number_sentence_image';
 import PieMeter from '../components/pie-meter';
 
-import { NUMBERS_LEGO_BOSS } from '../constants/scenes';
+import { NUMBERS_BOSS } from '../constants/scenes';
 import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
 
 import numbersPics from '../assets/pics/numbers/*.*'
@@ -21,9 +20,9 @@ const INTRO2_ALERT = 'INTRO2_ALERT';
 const FAIL_ALERT = 'FAIL_ALERT';
 
 
-class Numbers_Lego_Boss extends Base_Scene {
+export default class Numbers_Boss extends Base_Scene {
 	constructor() {
-		super(NUMBERS_LEGO_BOSS);
+		super(NUMBERS_BOSS);
 	}
 
 	init() {
@@ -648,5 +647,3 @@ class Numbers_Lego_Boss extends Base_Scene {
 		this.scene.shutdown();
 	}
 }
-
-export default Numbers_Lego_Boss;

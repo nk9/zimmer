@@ -1,6 +1,6 @@
 import { Scene } from 'phaser';
 import { INIT, MAIN_HALL,
-        NUMBERS_LEGO_FIRST, NUMBERS_LEGO_10, NUMBERS_LEGO_9, NUMBERS_LEGO_BOSS,
+        NUMBERS_FIRST, NUMBERS_10, NUMBERS_9, NUMBERS_BOSS,
         ANIMALS_OCEAN,ANIMALS_CAVE, ANIMALS_FOREST,
         PLANTS_FLOWERS, PLANTS_LEAVES, PLANTS_MUSHROOMS } from '../constants/scenes';
 import { UNLOCKED_SCENES, COLLECTED_GEMS } from '../constants/storage';
@@ -76,7 +76,7 @@ class Init extends Scene {
         if (unlocked_scenes === undefined) {
             storage.set(UNLOCKED_SCENES, [
                 MAIN_HALL,
-                NUMBERS_LEGO_FIRST,
+                NUMBERS_FIRST,
                 ANIMALS_OCEAN,
                 PLANTS_FLOWERS,
                 ]);
@@ -88,7 +88,7 @@ class Init extends Scene {
             // TODO: return this to no collected gems to start with once development is complete
             storage.set(COLLECTED_GEMS, []);
             // storage.set(COLLECTED_GEMS, [
-            //     NUMBERS_LEGO_10, NUMBERS_LEGO_9, NUMBERS_LEGO_BOSS,
+            //     NUMBERS_10, NUMBERS_9, NUMBERS_BOSS,
             //     ANIMALS_OCEAN, ANIMALS_CAVE, ANIMALS_FOREST,
             //     PLANTS_FLOWERS, PLANTS_LEAVES, PLANTS_MUSHROOMS]);
         }

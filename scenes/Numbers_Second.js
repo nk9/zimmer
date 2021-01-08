@@ -1,10 +1,10 @@
 import Base_Scene, { SceneProgress, Layers } from './Base_Scene';
 
-import Numbers_Lego from './Numbers-Lego'
+import Numbers_Base from './Numbers_Base'
 import Brick, { LEGO_GRID } from '../components/brick';
 import BrickStore, { BSBrick } from '../components/brick_store';
 
-import { NUMBERS_LEGO_SECOND, NUMBERS_LEGO_10 } from '../constants/scenes';
+import { NUMBERS_SECOND, NUMBERS_10 } from '../constants/scenes';
 import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
 
 import numbersPicJpg from '../assets/pics/numbers/lego_second/*.jpg'
@@ -15,14 +15,14 @@ const INTRO2_ALERT = 'INTRO2_ALERT';
 const FAIL_ALERT = 'FAIL_ALERT';
 
 
-export default class Numbers_Lego_Second extends Numbers_Lego {
+export default class Numbers_Second extends Numbers_Base {
 	constructor() {
-        super(NUMBERS_LEGO_SECOND);
+        super(NUMBERS_SECOND);
         
 	}
 
     nextSceneKey() {
-        return NUMBERS_LEGO_10;
+        return NUMBERS_10;
     }
 
 	preload() {

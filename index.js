@@ -7,11 +7,11 @@ import Main_Hall from './scenes/Main_Hall';
 import Credits from './scenes/Credits';
 
 // Numbers
-import Numbers_Lego_First from './scenes/Numbers-Lego-First';
-import Numbers_Lego_Second from './scenes/Numbers-Lego-Second';
-import Numbers_Lego_10 from './scenes/Numbers-Lego-10';
-import Numbers_Lego_9 from './scenes/Numbers-Lego-9';
-import Numbers_Lego_Boss from './scenes/Numbers-Lego-Boss';
+import Numbers_First from './scenes/Numbers_First';
+import Numbers_Second from './scenes/Numbers_Second';
+import Numbers_10 from './scenes/Numbers_10';
+import Numbers_9 from './scenes/Numbers_9';
+import Numbers_Boss from './scenes/Numbers_Boss';
 
 // Animals
 import Animals_Ocean from './scenes/Animals_Ocean';
@@ -43,11 +43,11 @@ const config = {
 	scene: [Init, Main_Hall, Credits,
 
 			// Numbers
-			Numbers_Lego_First,
-			Numbers_Lego_Second,
-			Numbers_Lego_10,
-			Numbers_Lego_9,
-			Numbers_Lego_Boss,
+			Numbers_First,
+			Numbers_Second,
+			Numbers_10,
+			Numbers_9,
+			Numbers_Boss,
 
 			// Animals
 			Animals_Ocean,

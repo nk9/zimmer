@@ -4,11 +4,11 @@ export const MAIN_HALL = 'Main_Hall';
 export const CREDITS = 'Credits';
 
 // Numbers
-export const NUMBERS_LEGO_FIRST = 'Numbers-Lego-First';
-export const NUMBERS_LEGO_SECOND = 'Numbers-Lego-Second';
-export const NUMBERS_LEGO_10 = 'Numbers-Lego-10';
-export const NUMBERS_LEGO_9 = 'Numbers-Lego-9';
-export const NUMBERS_LEGO_BOSS = 'Numbers-Lego-Boss';
+export const NUMBERS_FIRST = 'Numbers_First';
+export const NUMBERS_SECOND = 'Numbers_Second';
+export const NUMBERS_10 = 'Numbers_10';
+export const NUMBERS_9 = 'Numbers_9';
+export const NUMBERS_BOSS = 'Numbers_Boss';
 
 // Animals
 export const ANIMALS_OCEAN = 'Animals_Ocean';

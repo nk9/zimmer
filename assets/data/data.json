@@ -1,17 +1,17 @@
 {
   "Main_Hall": {
     "gems": {
-      "Numbers-Lego-9": {
+      "Numbers_9": {
         "gem": "diamond",
         "x": 140,
         "y": 10
       },
-      "Numbers-Lego-10": {
+      "Numbers_10": {
         "gem": "diamond",
         "x": -140,
         "y": 10
       },
-      "Numbers-Lego-Boss": {
+      "Numbers_Boss": {
         "gem": "diamond",
         "x": 0,
         "y": -80
@@ -86,25 +86,25 @@
       },
       "map_lego1": {
         "scale": 1,
-        "level_key": "Numbers-Lego-First",
+        "level_key": "Numbers_First",
         "x": -122,
         "y": 100
       },
       "map_lego2": {
         "scale": 1,
-        "level_key": "Numbers-Lego-10",
+        "level_key": "Numbers_10",
         "x": -250,
         "y": 100
       },
       "map_lego3": {
         "scale": 1,
-        "level_key": "Numbers-Lego-9",
+        "level_key": "Numbers_9",
         "x": -260,
         "y": 0
       },
       "map_lego_boss": {
         "scale": 1,
-        "level_key": "Numbers-Lego-Boss",
+        "level_key": "Numbers_Boss",
         "x": -210,
         "y": -90,
         "enabled": true
@@ -169,7 +169,7 @@
       }
     }
   },
-  "Numbers-Lego-9": {
+  "Numbers_9": {
     "items": {
       "bust": {
         "scale": 1,
@@ -204,7 +204,7 @@
       }
     }
   },
-  "Numbers-Lego-Boss": {
+  "Numbers_Boss": {
     "items": {
       "problem_1": {
         "scale": 1,
@@ -268,7 +268,7 @@
       }
     }
   },
-  "Numbers-Lego-10": {
+  "Numbers_10": {
     "items": {
       "tree": {
         "scale": 1,
@@ -303,10 +303,10 @@
       }
     }
   },
-  "Numbers-Lego-First": {
+  "Numbers_First": {
     "items": {}
   },
-  "Numbers-Lego-Second": {
+  "Numbers_Second": {
     "items": {}
   },
   "Animals_Ocean": {

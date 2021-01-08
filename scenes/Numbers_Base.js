@@ -7,7 +7,7 @@ import PieMeter from '../components/pie-meter';
 
 import numbersPicPng from '../assets/pics/numbers/*.png';
 
-class Numbers_Lego extends Base_Scene {
+export default class Numbers_Base extends Base_Scene {
 	preload() {
 		super.preload();
 
@@ -487,5 +487,3 @@ class Numbers_Lego extends Base_Scene {
 	willStartNextScene() {
 	}
 }
-
-export default Numbers_Lego;

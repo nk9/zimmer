@@ -1,6 +1,6 @@
 import Base_Scene, { SceneProgress, Layers } from './Base_Scene';
 import { MAIN_HALL, CREDITS,
-		 NUMBERS_LEGO_10, NUMBERS_LEGO_9, NUMBERS_LEGO_FIRST, NUMBERS_LEGO_SECOND,
+		 NUMBERS_10, NUMBERS_9, NUMBERS_FIRST, NUMBERS_SECOND,
 		 ANIMALS_OCEAN, ANIMALS_CAVE, ANIMALS_FOREST,
 		 PLANTS_LEAVES, PLANTS_FLOWERS, PLANTS_MUSHROOMS } from '../constants/scenes';
 import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
@@ -301,11 +301,11 @@ export default class Main_Hall extends Base_Scene {
 	////
 
 	createBareBones() {
-		this.addButton(100, 100, 'Lego First', NUMBERS_LEGO_FIRST);
-		this.addButton(100, 120, 'Lego Second', NUMBERS_LEGO_SECOND);
-		this.addButton(100, 140, 'Lego 10', NUMBERS_LEGO_10);
-		this.addButton(100, 160, 'Lego 9', NUMBERS_LEGO_9);
-		this.addButton(100, 180, 'Lego Boss', NUMBERS_LEGO_BOSS);
+		this.addButton(100, 100, 'Lego First', NUMBERS_FIRST);
+		this.addButton(100, 120, 'Lego Second', NUMBERS_SECOND);
+		this.addButton(100, 140, 'Lego 10', NUMBERS_10);
+		this.addButton(100, 160, 'Lego 9', NUMBERS_9);
+		this.addButton(100, 180, 'Lego Boss', NUMBERS_BOSS);
 
 
 		this.addButton(250, 100, 'Animals Ocean', ANIMALS_OCEAN);
