@@ -10,11 +10,6 @@ import PieMeter from '../components/pie-meter';
 import { NUMBERS_BOSS } from '../constants/scenes';
 import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
 
-import numbersPics from '../assets/pics/numbers/*.*'
-import bossPics from '../assets/pics/numbers/lego_boss/*.*'
-import problemsPics from '../assets/pics/numbers/lego_boss/problems/*.jpg'
-import audioMp3 from '../assets/audio/*.mp3';
-
 const INTRO1_ALERT = 'INTRO1_ALERT';
 const INTRO2_ALERT = 'INTRO2_ALERT';
 const FAIL_ALERT = 'FAIL_ALERT';
@@ -23,6 +18,10 @@ const FAIL_ALERT = 'FAIL_ALERT';
 export default class Numbers_Boss extends Base_Scene {
 	constructor() {
 		super(NUMBERS_BOSS);
+	}
+
+	get category() {
+		return "Numbers";
 	}
 
 	init() {
@@ -34,37 +33,37 @@ export default class Numbers_Boss extends Base_Scene {
 	preload() {
 		super.preload();
 
-		this.load.image('forge', bossPics.forge.jpg);
-		this.load.image('garmadon', numbersPics.garmadon.png);
-		this.load.image('thanks', bossPics.boss_win.jpg);
+        this.load.image('garmadon', this.categoryAssets.garmadon.png)
+		this.load.image('forge', this.assets.forge.jpg);
+		this.load.image('thanks', this.assets.boss_win.jpg);
 
 		//
 		// Audio
 		//
-		this.load.audio('bossfight', audioMp3.bossfight);
+		this.load.audio('bossfight', this.assets.bossfight.mp3);
 
 		// Weapons
-		this.load.audio('fireball', audioMp3.fireball);
-		this.load.audio('rocksmash', audioMp3.rocksmash);
-		this.load.audio('iceattack', audioMp3.iceattack);
-		this.load.audio('zap', audioMp3.zap);
+		this.load.audio('fireball', this.assets.fireball.mp3);
+		this.load.audio('rocksmash', this.assets.rocksmash.mp3);
+		this.load.audio('iceattack', this.assets.iceattack.mp3);
+		this.load.audio('zap', this.assets.zap.mp3);
 
 		// Boss speaking
-		this.load.audio('sorcerer_whodares', audioMp3.sorcerer_whodares);
-		this.load.audio('sorcerer_taunt', audioMp3.sorcerer_taunt);
-		this.load.audio('sorcerer_defeated', audioMp3.sorcerer_defeated);
-		this.load.audio('sorcerer_lostcause', audioMp3.sorcerer_lostcause);
+		this.load.audio('sorcerer_whodares', this.assets.sorcerer_whodares.mp3);
+		this.load.audio('sorcerer_taunt', this.assets.sorcerer_taunt.mp3);
+		this.load.audio('sorcerer_defeated', this.assets.sorcerer_defeated.mp3);
+		this.load.audio('sorcerer_lostcause', this.assets.sorcerer_lostcause.mp3);
 
 		let keys = Object.keys(this.stored_data.items);
 		for (const key of keys) {
-			this.loadOutlineImage(key);
+	        this.loadProblemOutlineImage(key);
 		}
 	}
 
-	loadOutlineImage(name) {
-		this.load.image(name, problemsPics[name]);
-		this.load.image(name+"_outline", problemsPics[name+"_outline"]);
-		this.load.image(name+"_answer", problemsPics[name+"_answer"]);
+	loadProblemOutlineImage(name) {
+        this.load.image(name, this.assets.problems[name].jpg);
+        this.load.image(name+"_outline", this.assets.problems[name+"_outline"].jpg);
+		this.load.image(name+"_answer", this.assets.problems[name+"_answer"].jpg);
 	}
 
 	create() {
