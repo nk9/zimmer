@@ -7,10 +7,6 @@ import BrickStore, { BSBrick } from '../components/brick_store';
 import { NUMBERS_FIRST, NUMBERS_SECOND } from '../constants/scenes';
 import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
 
-import numbersPicJpg from '../assets/pics/numbers/lego_first/*.jpg'
-import numbersPicPng from '../assets/pics/numbers/lego_first/*.png'
-import audioMp3 from '../assets/audio/*.mp3';
-
 const INTRO1_ALERT = 'INTRO1_ALERT';
 const INTRO2_ALERT = 'INTRO2_ALERT';
 const FAIL_ALERT = 'FAIL_ALERT';
@@ -28,10 +24,10 @@ export default class Numbers_First extends Numbers_Base {
 	preload() {
 		super.preload();
 
-		this.load.image('abbey_closed', numbersPicJpg.abbey_closed);
-		this.load.image('abbey_open', numbersPicPng.abbey_open);
+		this.load.image('abbey_closed', this.assets.abbey_closed.jpg);
+		this.load.image('abbey_open', this.assets.abbey_open.png);
 
-        this.load.audio('ninja_nerds', audioMp3.ninja_nerds);
+        this.load.audio('ninja_nerds', this.assets.ninja_nerds.mp3);
 	}
 
 	create() {
