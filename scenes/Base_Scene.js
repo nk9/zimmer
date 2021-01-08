@@ -63,6 +63,11 @@ export default class Base_Scene extends Scene {
         this.createProgressBar();
     }
 
+    loadOutlineImage(name) {
+        this.load.image(name, this.assets[name].png);
+        this.load.image(name+"_outline", this.assets[name+"_outline"].png);
+    }
+
 	create() {
         let alerts = this.createAlerts();
         this.alert_keys = [];

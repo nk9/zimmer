@@ -53,12 +53,6 @@ export default class Plants_Base extends Base_Scene {
 		}
 	}
 
-	loadOutlineImage(name) {
-		console.log(name);
-		this.load.image(name, this.assets[name].png);
-		this.load.image(name+"_outline", this.assets[name+"_outline"].png);
-	}
-
 	create() {
 		super.create();
 

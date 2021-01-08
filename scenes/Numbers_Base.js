@@ -5,17 +5,18 @@ import Brick, { LEGO_GRID } from '../components/brick';
 import BrickStore, { BSBrick } from '../components/brick_store';
 import PieMeter from '../components/pie-meter';
 
-import numbersPicPng from '../assets/pics/numbers/*.png';
-
 export default class Numbers_Base extends Base_Scene {
+	get category() {
+		return "Numbers";
+	}
+
 	preload() {
 		super.preload();
 
-        this.load.image('pouch_open', numbersPicPng.pouch_open)
-        this.load.image('pouch_closed', numbersPicPng.pouch_closed_small)
-        this.load.image('pouch_closed_outlined', numbersPicPng.pouch_closed_small_outlined)
-        this.load.image('garmadon', numbersPicPng.garmadon)
-        this.load.image('masterwu', numbersPicPng.masterwu)
+        this.load.image('pouch_open', this.categoryAssets.pouch_open.png)
+        this.load.image('pouch_closed', this.categoryAssets.pouch_closed_small.png)
+        this.load.image('pouch_closed_outlined', this.categoryAssets.pouch_closed_small_outlined.png)
+        this.load.image('garmadon', this.categoryAssets.garmadon.png)
 
 		let keys = Object.keys(this.stored_data.items);
 		for (const key of keys) {

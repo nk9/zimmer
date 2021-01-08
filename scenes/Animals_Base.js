@@ -61,11 +61,6 @@ export default class Animals_Base extends Base_Scene {
 
 	}
 
-	loadOutlineImage(name) {
-		this.load.image(name, this.assets[name].png);
-		this.load.image(name+"_outline", this.assets[name+"_outline"].png);
-	}
-
 	loadXrayOutlineImage(name) {
 		this.loadOutlineImage(name)
 		this.load.image(name+"_xray", this.assets[name+"_xray"].jpg);
