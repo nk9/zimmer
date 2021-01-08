@@ -7,9 +7,6 @@ import BrickStore, { BSBrick } from '../components/brick_store';
 import { NUMBERS_9, NUMBERS_BOSS } from '../constants/scenes';
 import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
 
-import numbersPicJpg from '../assets/pics/numbers/lego_9/*.jpg'
-import numbersPicPng from '../assets/pics/numbers/lego_9/*.png'
-
 const INTRO1_ALERT = 'INTRO1_ALERT';
 const INTRO2_ALERT = 'INTRO2_ALERT';
 const FAIL_ALERT = 'FAIL_ALERT';
@@ -27,13 +24,8 @@ export default class Numbers_9 extends Numbers_Base {
 	preload() {
 		super.preload();
 
-		this.load.image('bookcase', numbersPicPng.bookcase);
-		this.load.image('bookcase_open', numbersPicPng.bookcase_open);
-	}
-
-	loadOutlineImage(name) {
-		this.load.image(name, numbersPicPng[name]);
-		this.load.image(name+"_outline", numbersPicPng[name+"_outline"]);
+		this.load.image('bookcase', this.assets.bookcase.jpg);
+		this.load.image('bookcase_open', this.assets.bookcase_open.png);
 	}
 
 	create() {
