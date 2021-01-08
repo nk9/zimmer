@@ -7,9 +7,6 @@ import BrickStore, { BSBrick } from '../components/brick_store';
 import { NUMBERS_SECOND, NUMBERS_10 } from '../constants/scenes';
 import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
 
-import numbersPicJpg from '../assets/pics/numbers/lego_second/*.jpg'
-import numbersPicPng from '../assets/pics/numbers/lego_second/*.png'
-
 const INTRO1_ALERT = 'INTRO1_ALERT';
 const INTRO2_ALERT = 'INTRO2_ALERT';
 const FAIL_ALERT = 'FAIL_ALERT';
@@ -28,12 +25,11 @@ export default class Numbers_Second extends Numbers_Base {
 	preload() {
 		super.preload();
 
-		this.load.image('wood_door_closed', numbersPicJpg.wood_door_closed);
-		this.load.image('wood_door_open', numbersPicPng.wood_door_open);
+		this.load.image('wood_door_closed', this.assets.wood_door_closed.jpg);
+		this.load.image('wood_door_open', this.assets.wood_door_open.png);
 	}
 
 	create() {
-		console.log("create");
 		super.create();
 
 		this.createGarmadon();
@@ -42,17 +38,16 @@ export default class Numbers_Second extends Numbers_Base {
 	}
 
 	createBackgroundImages() {
-		let center_x = GAME_WIDTH/2,
+		// Shifted over slightly to line up with the lego grid rectangles
+		let center_x = GAME_WIDTH/2 + 15,
 			center_y = GAME_HEIGHT/2;
 
 		this.swirl = this.add.image(center_x, center_y, 'blue_swirl');
 		
-		// Shifted over slightly to line up with the lego grid rectangles
-		let bg_x = center_x + 10;
-		this.background_open = this.add.image(bg_x, center_y, 'wood_door_open');
+		this.background_open = this.add.image(center_x, center_y, 'wood_door_open');
 		this.background_open.setOrigin(0.5, 0.5);
 
-		this.background_closed = this.add.image(bg_x, center_y, 'wood_door_closed');
+		this.background_closed = this.add.image(center_x, center_y, 'wood_door_closed');
 		this.background_closed.setOrigin(0.5, 0.5);	
 
 	}
@@ -102,7 +97,7 @@ export default class Numbers_Second extends Numbers_Base {
 	createRectangles() {
 		this.rects_background = this.add.graphics();
 		this.rects_background.fillStyle(0x000000, .6);
-		this.rects_background.fillRoundedRect(18 * LEGO_GRID,
+		this.rects_background.fillRoundedRect(19 * LEGO_GRID,
 										 9  * LEGO_GRID,
 										 4  * LEGO_GRID,
 										 7 * LEGO_GRID);
@@ -110,7 +105,7 @@ export default class Numbers_Second extends Numbers_Base {
 		this.rects_background.setAlpha(0);
 		this.rects_background.visible = false;
 
-		this.addRectangle(2, 3, 19, 11);
+		this.addRectangle(2, 3, 20, 11);
 	}
 
 	createAlerts() {

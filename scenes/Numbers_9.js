@@ -31,6 +31,11 @@ export default class Numbers_9 extends Numbers_Base {
 		this.load.image('bookcase_open', numbersPicPng.bookcase_open);
 	}
 
+	loadOutlineImage(name) {
+		this.load.image(name, numbersPicPng[name]);
+		this.load.image(name+"_outline", numbersPicPng[name+"_outline"]);
+	}
+
 	create() {
 		super.create();
 		this.createGarmadon();
