@@ -68,8 +68,6 @@ export default class Plants_Flowers extends Plants_Base {
 		let target_groups   = sampleSize(Object.keys(grouped_flowers), this.success_count);
 		this.flower_targets = shuffle(target_groups.map((key) => { return grouped_flowers[key][0]; }));
 		this.flower_target_index = 0;
-
-		console.log(this.flower_targets);
 	}
 
 	createPlant(key, pd) {
@@ -307,7 +305,7 @@ export default class Plants_Flowers extends Plants_Base {
 				this.succeed();
 			} else {
 				this.link.setFrame('peacock');
-				this.runAlert(`Flower${this.flower_target_index+1}_Alert`);
+				this.runAlert(`FLOWER${this.flower_target_index+1}_ALERT`);
 			}
 		} else {
 			this.link.setFrame('peacock');
