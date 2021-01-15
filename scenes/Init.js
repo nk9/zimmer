@@ -11,11 +11,11 @@ import swirlsJpg from '../assets/pics/swirls/*.jpg';
 import imagesPng from '../assets/pics/*.png';
 import audioMp3 from '../assets/audio/*.mp3';
 import particles from '../assets/particles/*.png';
-import spritesF from '../assets/sprites/*.*';
+import spritesF from '../assets/Init/sprites/*.*';
 
 class Init extends Scene {
     constructor() {
-        super({ key: INIT });
+        super(INIT);
         this.progressBar = null;
         this.progressCompleteRect = null;
         this.progressRect = null;
