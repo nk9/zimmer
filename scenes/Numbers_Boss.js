@@ -634,15 +634,4 @@ export default class Numbers_Boss extends Base_Scene {
 			onCompleteScope: this
 		})
 	}
-
-	startNextScene(key=null) {
-		if (!key) {
-			key = this.nextSceneKey();
-		}
-
-		this.background_sound.stop();
-
-		this.scene.start(key);
-		this.scene.shutdown();
-	}
 }

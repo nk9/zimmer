@@ -418,20 +418,4 @@ export default class Animals_Base extends Base_Scene {
 		this.resetAnimals(this.animals);
 		this.setAnimalsInput(true);
 	}
-
-	startNextScene(key=null) {
-		if (!key) {
-			key = this.nextSceneKey();
-		}
-
-		this.portal_sound.stop();
-		this.background_sound.stop();
-		this.willStartNextScene();
-		
-        this.scene.start(key);
-        this.scene.shutdown();
-	}
-
-	willStartNextScene() {
-	}
 }

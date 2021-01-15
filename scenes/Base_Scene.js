@@ -236,6 +236,23 @@ export default class Base_Scene extends Scene {
         return MAIN_HALL;
     }
 
+
+    startNextScene(key=null) {
+        if (!key) {
+            key = this.nextSceneKey();
+        }
+
+        this.game.sound.stopAll();
+        this.willStartNextScene();
+        
+        this.scene.start(key);
+        this.scene.shutdown();
+    }
+
+    willStartNextScene() {
+        // To be overridden by subclasses
+    }
+
     // Disable the main scene's input while the alert scene is showing
     runAlert(scene_key, info=null) {
         // console.log(`runAlert: ${scene_key}`);

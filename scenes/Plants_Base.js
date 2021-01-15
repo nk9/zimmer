@@ -273,21 +273,7 @@ export default class Plants_Base extends Base_Scene {
 	    this.time.delayedCall(9500, this.startNextScene, [], this);
 	}
 
-	startNextScene(key=null) {
-		if (!key) {
-			key = this.nextSceneKey();
-		}
-
-		this.portal_sound.stop();
-		this.background_sound.stop();
-		this.willStartNextScene();
-		this.scene.remove(LIGHTBOX_ALERT);
-		
-        this.scene.start(key);
-        this.scene.shutdown();
-	}
-
-	// Overridden by subclasses to clean up before the next scene
 	willStartNextScene() {
+		this.scene.remove(LIGHTBOX_ALERT);
 	}
 }
