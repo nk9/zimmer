@@ -17,7 +17,7 @@ export default class Alert extends Scene {
 		};
 		let content = this.add.text(0, 0, data.content, contentStyle);
 		let contentBounds = content.getBounds();
-		console.log(content, contentBounds);
+		// console.log(content, contentBounds);
 
 		let bgHeight = 15  // inset
 					 + 40  // title

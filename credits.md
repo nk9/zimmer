@@ -11,6 +11,7 @@ Assets listed roughly in order of first appearance.
 |---|------|--------|--------|
 |🖼️| [Steampunk Studio](assets/pics/entry/entryhall.jpg) | Ananda Aran | [anandaaran.com](http://www.anandaaran.com/portfolio/steampunk-studio/) |
 |🖼️| [Gracie Mae Cat Painting](assets/pics/entry/cat_big.jpg) | Dora Hathazi Mendes | [fineartamerica.com](https://fineartamerica.com/featured/gracie-mae-cat-painting-dora-hathazi-mendes.html) |
+|🔈| [Cat Meowing](assets/Main_Hall/meow.mp3) | lextrack | [Freesound](https://freesound.org/people/lextrack/sounds/333916/) |
 |🔈| [Biking is Better](assets/audio/entry_background.mp3) | Wintergatan | [Wintergatan.com](https://wintergatan.net/collections/download) |
 |🔈| [Portal Log In](assets/audio/portal2.mp3) | theneedle.tv | [Freesound](https://freesound.org/people/theneedle.tv/sounds/466424/) |
 

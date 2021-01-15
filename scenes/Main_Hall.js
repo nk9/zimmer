@@ -39,6 +39,8 @@ export default class Main_Hall extends Base_Scene {
 	        this.loadOutlineImage(key);
 		}
 
+        this.load.audio('poof', this.assets.portal2.mp3);
+        this.load.audio('meow', this.assets.meow.mp3);
         this.load.audio('entry_background', this.assets.entry_background.mp3);
 	}
 
@@ -199,6 +201,7 @@ export default class Main_Hall extends Base_Scene {
 	}
 
 	clickedCat(item) {
+		this.sound.play('meow');
 		this.cat_big.visible = true;
 		this.runAlert(CAT_ALERT);
 	}

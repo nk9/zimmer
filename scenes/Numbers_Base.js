@@ -397,6 +397,10 @@ export default class Numbers_Base extends Base_Scene {
 
 	clickKeyZone() {
 		this.key_zone.destroy();
+		introPouch();
+	}
+
+	introPouch() {
 		this.rects_background.visible = true;
 		this.tweens.add({
 			targets: this.rects.concat([this.rects_background]).concat(this.rects.map(o => o.text)),

@@ -44,9 +44,11 @@ export default class Numbers_9 extends Numbers_Base {
 		let bg_x = center_x + 10;
 		this.background_open = this.add.image(bg_x, center_y, 'bookcase_open');
 		this.background_open.setOrigin(0.5, 0.5);
+		// this.background_open.visible = false;
 
 		this.background_closed = this.add.image(bg_x, center_y, 'bookcase');
-		this.background_closed.setOrigin(0.5, 0.5);	
+		this.background_closed.setOrigin(0.5, 0.5);
+		// this.background_closed.visible = false;
 
 	}
 
@@ -98,8 +100,28 @@ export default class Numbers_9 extends Numbers_Base {
 		return brick_store;
 	}
 
-	keyZoneRect() {
-		return {x: 560, y: 100, width: 150, height: 50};
+	createKeyZone() {
+		let rect = {x: 560, y: 100, width: 150, height: 50};
+
+		this.key_rect = this.add.rectangle(rect.x, rect.y, rect.width, rect.height, 0x000000, 0.1)
+			.setOrigin(0, 0);
+		this.key_rect.visible = false;
+
+		this.key_zone = this.make.zone(rect)
+			.setOrigin(0,0)
+			.setInteractive({useHandCursor: true})
+			.on('pointerover', () => { this.key_rect.visible = true; })
+			.on('pointerout', () => { this.key_rect.visible = false; })
+			.on('pointerup', pointer => {
+				this.clickKeyZone()
+			});
+		// this.input.enableDebug(this.key_zone, 0xff0000);
+	}
+
+	clickKeyZone() {
+		this.key_rect.destroy();
+		this.key_zone.destroy();
+		super.introPouch();
 	}
 
 	pouchOpenPosition() {
@@ -107,7 +129,7 @@ export default class Numbers_9 extends Numbers_Base {
 	}
 
 	callToActionRect() {
-		return {x: 500, y: 400, width: 40, height: 64}
+		return {x: 150, y: 240, width: 40, height: 64}
 	}
 
 	createRectangles() {

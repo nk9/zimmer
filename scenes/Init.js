@@ -7,11 +7,10 @@ import { UNLOCKED_SCENES, COLLECTED_GEMS } from '../constants/storage';
 
 
 import assets from '../assets/**/*.*';
-import swirlsJpg from '../assets/pics/swirls/*.jpg';
-import imagesPng from '../assets/pics/*.png';
-import audioMp3 from '../assets/audio/*.mp3';
-import particles from '../assets/particles/*.png';
-import spritesF from '../assets/Init/sprites/*.*';
+import swirlsJpg from '../assets/Init/swirls/*.jpg';
+import imagesPng from '../assets/Init/pics/*.png';
+import audioMp3 from '../assets/Init/audio/*.mp3';
+import particles from '../assets/Init/particles/*.png';
 
 class Init extends Scene {
     constructor() {
@@ -29,14 +28,15 @@ class Init extends Scene {
         this.load.image('navy_swirl', swirlsJpg.navy_swirl);
 
         // Sprites
-        this.load.atlas('yellow-bricks', spritesF.yellow_bricks.png, spritesF.yellow_bricks.json);
-        this.load.atlas('link', spritesF.link.png, spritesF.link.json);
-        this.load.atlas('kratts', spritesF.kratts.png, spritesF.kratts.json);
-        this.load.audioSprite('hmm', spritesF.hmm.json, spritesF.hmm.mp3);
-        this.load.atlas('gems', spritesF.gems.png, spritesF.gems.json);
-        this.load.atlas('vangelis_boss', spritesF.vangelis_boss.png, spritesF.vangelis_boss.json);
-        this.load.atlas('weapons', spritesF.weapons.png, spritesF.weapons.json);
-        this.load.audioSprite('fireworks', spritesF.fireworks.json, spritesF.fireworks.mp3);
+        let sprites = assets.Init.sprites;
+        this.load.atlas('yellow-bricks', sprites.yellow_bricks.png, sprites.yellow_bricks.json);
+        this.load.atlas('link', sprites.link.png, sprites.link.json);
+        this.load.atlas('kratts', sprites.kratts.png, sprites.kratts.json);
+        this.load.audioSprite('hmm', sprites.hmm.json, sprites.hmm.mp3);
+        this.load.atlas('gems', sprites.gems.png, sprites.gems.json);
+        this.load.atlas('vangelis_boss', sprites.vangelis_boss.png, sprites.vangelis_boss.json);
+        this.load.atlas('weapons', sprites.weapons.png, sprites.weapons.json);
+        this.load.audioSprite('fireworks', sprites.fireworks.json, sprites.fireworks.mp3);
 
         // Particles
         this.load.image('spark', particles.blue);
@@ -45,12 +45,11 @@ class Init extends Scene {
         this.load.image('smoke', particles.smoke_puff);
         this.load.image('smoke_purple', particles.smoke_puff_purple);
         this.load.image('stone', particles.stone);
-        this.load.atlas('flares', assets.particles.flares.png, assets.particles.flares.json);
+        this.load.atlas('flares', assets.Init.particles.flares.png, assets.Init.particles.flares.json);
 
         // Audio
         this.load.audio('door_opens_heavy', audioMp3.door_opens_heavy);
         this.load.audio('portal', audioMp3.portal);
-        this.load.audio('poof', audioMp3.portal2);
         this.load.audio('woosh_long', audioMp3.woosh_long);
 
         // UI Components
