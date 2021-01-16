@@ -397,7 +397,7 @@ export default class Numbers_Base extends Base_Scene {
 
 	clickKeyZone() {
 		this.key_zone.destroy();
-		introPouch();
+		this.introPouch();
 	}
 
 	introPouch() {
