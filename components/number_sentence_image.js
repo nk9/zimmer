@@ -2,7 +2,7 @@ import StoredOutlineImage from './stored_outline_image';
 
 import { get } from 'lodash-es';
 
-class NumberSentenceImage extends StoredOutlineImage {
+export default class NumberSentenceImage extends StoredOutlineImage {
 	constructor(scene, name, info) {
 		super(scene, name, info);
 
@@ -28,5 +28,3 @@ class NumberSentenceImage extends StoredOutlineImage {
 		this.input.enabled = false;
 	}
 }
-
-export default NumberSentenceImage;

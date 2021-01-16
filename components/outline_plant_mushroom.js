@@ -2,7 +2,7 @@ import StoredOutlineImage from './stored_outline_image';
 
 import { get } from 'lodash-es';
 
-class OutlinePlantMushroom extends StoredOutlineImage {
+export default class OutlinePlantMushroom extends StoredOutlineImage {
 	constructor(scene, name, info) {
 		super(scene, name, info);
 
@@ -11,5 +11,3 @@ class OutlinePlantMushroom extends StoredOutlineImage {
 		this.input.cursor = 'grab';
 	}
 }
-
-export default OutlinePlantMushroom;

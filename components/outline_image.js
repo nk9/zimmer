@@ -1,4 +1,4 @@
-class OutlineImage extends Phaser.GameObjects.Container {
+export default class OutlineImage extends Phaser.GameObjects.Container {
 	constructor(scene, name, x, y, scale=1) {
 		super(scene, x, y);
 
@@ -30,5 +30,3 @@ class OutlineImage extends Phaser.GameObjects.Container {
 		scene.add.existing(this);
 	}
 }
-
-export default OutlineImage;

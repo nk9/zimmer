@@ -2,7 +2,7 @@ import { get } from 'lodash-es'
 
 const DATA_KEY = 'zimmerData';
 
-class JSONStorage {
+export default class JSONStorage {
 	constructor() {
 		this.cache = this.loadFile();
 	}
@@ -35,5 +35,3 @@ class JSONStorage {
 		this.cache;
 	}
 }
-
-export default JSONStorage;

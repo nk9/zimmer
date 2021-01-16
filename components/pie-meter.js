@@ -1,6 +1,6 @@
 // Adapted from https://andradearts.com/quick-code-circle-pie-meter-class-for-phaser-3/
 
-class PieMeter extends Phaser.GameObjects.Graphics {
+export default class PieMeter extends Phaser.GameObjects.Graphics {
 
     myRadius;
     direction = 0;
@@ -47,5 +47,3 @@ class PieMeter extends Phaser.GameObjects.Graphics {
     }
 
 }
-
-export default PieMeter;

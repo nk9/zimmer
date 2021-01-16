@@ -2,7 +2,7 @@ import StoredOutlineImage from './stored_outline_image';
 
 import { get } from 'lodash-es';
 
-class OutlinePlantLeaf extends StoredOutlineImage {
+export default class OutlinePlantLeaf extends StoredOutlineImage {
 	constructor(scene, name, info) {
 		super(scene, name, info);
 
@@ -11,5 +11,3 @@ class OutlinePlantLeaf extends StoredOutlineImage {
 		this.drag_image.visible = false;
 	}
 }
-
-export default OutlinePlantLeaf;

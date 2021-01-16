@@ -12,7 +12,7 @@ import imagesPng from '../assets/Init/pics/*.png';
 import audioMp3 from '../assets/Init/audio/*.mp3';
 import particles from '../assets/Init/particles/*.png';
 
-class Init extends Scene {
+export default class Init extends Scene {
     constructor() {
         super(INIT);
         this.progressBar = null;
@@ -122,5 +122,3 @@ class Init extends Scene {
             .fillRectShape(this.progressRect);
     }
 }
-
-export default Init;

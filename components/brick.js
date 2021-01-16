@@ -3,7 +3,7 @@ import { Layers } from '../scenes/Base_Scene';
 
 export const LEGO_GRID = 29;
 
-class Brick extends Phaser.GameObjects.Container {
+export default class Brick extends Phaser.GameObjects.Container {
 	text;
 	initialPosition = {};
 
@@ -86,5 +86,3 @@ class Brick extends Phaser.GameObjects.Container {
     	this.text.angle = 0;
     }
 }
-
-export default Brick;

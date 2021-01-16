@@ -16,7 +16,7 @@ export const BSBrick = {
 	B2x4:		{hL: 2, wL: 4},
 }
 
-class BrickStore {
+export default class BrickStore {
 
 	constructor(_scene, xL, yL, rotatable=true) {
 		[this.x, this.y] = [xL, yL].map(n => n * LEGO_GRID);
@@ -92,5 +92,3 @@ class BrickStore {
 		return str;
 	}
 }
-
-export default BrickStore;

@@ -1,5 +1,5 @@
 
-class ScanChargeBar extends Phaser.GameObjects.Graphics {
+export default class ScanChargeBar extends Phaser.GameObjects.Graphics {
 	constructor(scene, x, y, width, height) {
 		super(scene, { x: x, y: y });
 
@@ -32,5 +32,3 @@ class ScanChargeBar extends Phaser.GameObjects.Graphics {
 		this.fillRect(remainingWidth, 0, expiredWidth, this.height);
 	}
 }
-
-export default ScanChargeBar;

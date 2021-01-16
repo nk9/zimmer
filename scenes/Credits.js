@@ -6,7 +6,7 @@ import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
 
 import assets from '../assets/Credits/*.*';
 
-class Credits extends Scene {
+export default class Credits extends Scene {
     constructor() {
         super(CREDITS);
         this.scroller;
@@ -133,5 +133,3 @@ class Credits extends Scene {
         }
     }
 }
-
-export default Credits;
