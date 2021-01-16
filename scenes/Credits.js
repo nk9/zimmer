@@ -4,17 +4,28 @@ import { Scene } from 'phaser';
 import { CREDITS, MAIN_HALL } from '../constants/scenes';
 import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
 
-import assets from '../assets/**/*.*';
+import assets from '../assets/Credits/*.*';
 
 class Credits extends Scene {
     constructor() {
-        super({ key: CREDITS });
+        super(CREDITS);
         this.scroller;
     }
 
     preload() {
-        this.load.audio('ending', assets.audio.ending.mp3);
-        this.load.json('credits', assets.data.credits.json);
+        this.load.audio('ending', assets.ending.mp3);
+        this.load.json('credits', assets.credits.json);
+
+        this.loadFont('ninjago', assets.Ninjago.ttf);
+    }
+
+    loadFont(name, url) {
+        var newFont = new FontFace(name, `url(${url})`);
+        newFont.load().then(function (loaded) {
+            document.fonts.add(loaded);
+        }).catch(function (error) {
+            return error;
+        });
     }
 
     create() {
@@ -46,6 +57,15 @@ class Credits extends Scene {
             left  += "\n\n";
             right += "\n\n";
         }
+
+        let congratsStyle = {
+            fontSize: '100px',
+            fontFamily: 'ninjago',
+            align: "center",
+            fill: '#fff'
+        };
+        this.congratsText = this.add.text(GAME_WIDTH/2, GAME_HEIGHT/2, "congratulations", congratsStyle);
+        this.congratsText.setOrigin(0.5, 0.5);
 
         let contentStyle = {
             fontSize: '40px',

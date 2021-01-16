@@ -118,5 +118,6 @@ Assets listed roughly in order of first appearance.
 ## Credits
 |   | Work | Artist | Source |
 |---|------|--------|--------|
+|🔠| [Ninjago](assets/Credits/Ninjago.ttf) | Freaky Fonts | [Fonts Magazine](https://thefontsmagazine.com/font/ninjago-font/) |
 |🔈| [Star Machine 2000](assets/audio/ending.mp3) | Wintergatan | [Wintergatan.com](https://wintergatan.net/collections/download) |
 |🔈| [Fireworks big1 Montreal, Canada](assets/sprites/fireworks.mp3) | kyles | [Freesound](https://freesound.org/people/kyles/sounds/453108/) |

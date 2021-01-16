@@ -1,5 +1,5 @@
 import { Scene } from 'phaser';
-import { INIT, MAIN_HALL,
+import { INIT, MAIN_HALL, CREDITS,
         NUMBERS_FIRST, NUMBERS_SECOND, NUMBERS_10, NUMBERS_9, NUMBERS_BOSS,
         ANIMALS_OCEAN,ANIMALS_CAVE, ANIMALS_FOREST,
         PLANTS_FLOWERS, PLANTS_LEAVES, PLANTS_MUSHROOMS } from '../constants/scenes';
@@ -57,7 +57,7 @@ class Init extends Scene {
         this.load.image('close_button', imagesPng.close_button);
 
         // JSON data
-        this.load.json('data', assets.data.data.json);
+        this.load.json('data', assets.Init.data.data.json);
 
         this.load.on('progress', this.onLoadProgress, this);
         this.load.on('complete', this.onLoadComplete, this);
