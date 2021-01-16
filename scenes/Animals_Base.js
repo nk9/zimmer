@@ -381,10 +381,7 @@ export default class Animals_Base extends Base_Scene {
 		this.factText.visible = false;
 		this.disperseAnimals();
 
-		var reset_cta_tween = this.resetCallToActionTween();
-
-		let tweens = [
-			reset_cta_tween,
+		var tweens = [
 			{
 				targets: this.scan_charge_bar,
 				x: -90,
@@ -403,6 +400,10 @@ export default class Animals_Base extends Base_Scene {
 				hold: 2000,
 				offset: 0
 			}];
+
+		if (typeof(this.resetCallToActionTween) === 'function') {
+			tweens.push(this.resetCallToActionTween());
+		}
 
 	    var timeline = this.tweens.timeline({
 	    	tweens: tweens,

@@ -88,20 +88,6 @@ export default class Animals_Forest extends Animals_Base {
 		this.runAlert(INTRO1_ALERT);
 	}
 
-	resetCallToActionTween() {
-		let submarine_reset_tween = {
-			targets: this.submarine,
-			y: -300,
-			ease: 'Sine',
-			duration: 1500,
-			yoyo: true,
-			hold: 2000,
-			offset: 0
-		}
-
-		return submarine_reset_tween
-	}
-
 	createAlerts() {
 		let alerts = {
 			[INTRO1_ALERT]: {
