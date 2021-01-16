@@ -3,13 +3,13 @@
     "gems": {
       "Numbers_9": {
         "gem": "diamond",
-        "x": 140,
-        "y": 10
+        "x": -34,
+        "y": -33
       },
       "Numbers_10": {
         "gem": "diamond",
-        "x": -140,
-        "y": 10
+        "x": 34,
+        "y": -33
       },
       "Numbers_Boss": {
         "gem": "diamond",
@@ -23,18 +23,18 @@
       },
       "Animals_Forest": {
         "gem": "sapphire",
-        "x": -44,
-        "y": 127
+        "x": 140,
+        "y": 10
       },
       "Animals_Ocean": {
         "gem": "sapphire",
-        "x": -34,
-        "y": -33
+        "x": 165,
+        "y": -55
       },
       "Plants_Flowers": {
         "gem": "emerald",
-        "x": 34,
-        "y": -33
+        "x": -140,
+        "y": 10
       },
       "Plants_Leaves": {
         "gem": "emerald",
@@ -43,8 +43,8 @@
       },
       "Plants_Mushrooms": {
         "gem": "emerald",
-        "x": 165,
-        "y": -55
+        "x": -44,
+        "y": 127
       }
     },
     "map": {
