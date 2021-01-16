@@ -35,7 +35,7 @@ class Credits extends Scene {
     }
 
     createAudio() {
-        this.background_sound = this.sound.add('ending', {volume: .4, loop: true});
+        this.background_sound = this.sound.add('ending', {volume: .4});
         this.background_sound.play();
     }
 
