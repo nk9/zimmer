@@ -152,12 +152,12 @@ There are a huge number of images and sounds which we used to make this free gam
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [contributors-shield]: https://img.shields.io/github/contributors/nk9/zimmer?style=for-the-badge
-[contributors-url]: https://github.com/nk9/repo/graphs/contributors
+[contributors-url]: https://github.com/nk9/zimmer/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/nk9/zimmer?style=for-the-badge
-[forks-url]: https://github.com/nk9/repo/network/members
+[forks-url]: https://github.com/nk9/zimmer/network/members
 [stars-shield]: https://img.shields.io/github/stars/nk9/zimmer?style=for-the-badge
-[stars-url]: https://github.com/nk9/repo/stargazers
+[stars-url]: https://github.com/nk9/zimmer/stargazers
 [issues-shield]: https://img.shields.io/github/issues/nk9/zimmer?style=for-the-badge
-[issues-url]: https://github.com/nk9/repo/issues
+[issues-url]: https://github.com/nk9/zimmer/issues
 [license-shield]: https://img.shields.io/github/license/nk9/zimmer?style=for-the-badge
-[license-url]: https://github.com/nk9/repo/blob/master/LICENSE.txt
+[license-url]: https://github.com/nk9/zimmer/blob/master/LICENSE.txt
