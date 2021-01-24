@@ -160,4 +160,4 @@ There are a huge number of images and sounds which we used to make this free gam
 [issues-shield]: https://img.shields.io/github/issues/nk9/zimmer?style=for-the-badge
 [issues-url]: https://github.com/nk9/zimmer/issues
 [license-shield]: https://img.shields.io/github/license/nk9/zimmer?style=for-the-badge
-[license-url]: https://github.com/nk9/zimmer/blob/master/LICENSE.txt
+[license-url]: https://github.com/nk9/zimmer/blob/main/LICENSE
