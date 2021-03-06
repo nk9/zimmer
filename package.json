@@ -20,7 +20,10 @@
     "lodash.sample": "^4.2.1",
     "lodash.samplesize": "^4.2.0",
     "lodash.shuffle": "^4.2.0",
-    "phaser": "^3.24.1"
+    "phaser": "^3.52.0"
+  },
+  "resolutions": {
+    "node-forge": "0.10.0"
   },
   "devDependencies": {
     "parcel-bundler": "^1.12.4"

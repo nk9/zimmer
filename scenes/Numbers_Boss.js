@@ -626,6 +626,18 @@ export default class Numbers_Boss extends Base_Scene {
 
 		this.thanks_image.visible = true;
 
+		let thanks_style = {
+            fontFamily: 'ninjago',
+            fill: '#fff',
+            fontSize: '45pt',
+            align: 'center',
+            lineSpacing: 18
+		};
+		let thanks_string = 'Thanks Bryson\nWe could not have done\nit without you';
+	    let thanks_text = this.add.text(GAME_WIDTH/2, GAME_HEIGHT-55, thanks_string, thanks_style);
+	    thanks_text.setOrigin(0.5, 1);
+	    thanks_text.setDepth(Layers.TRANSITION_TEXT);
+
 		this.tweens.add({
 			targets: this.overlay,
 			alpha: 0,

@@ -15,17 +15,6 @@ export default class Credits extends Scene {
     preload() {
         this.load.audio('ending', assets.ending.mp3);
         this.load.json('credits', assets.credits.json);
-
-        this.loadFont('ninjago', assets.Ninjago.ttf);
-    }
-
-    loadFont(name, url) {
-        var newFont = new FontFace(name, `url(${url})`);
-        newFont.load().then(function (loaded) {
-            document.fonts.add(loaded);
-        }).catch(function (error) {
-            return error;
-        });
     }
 
     create() {

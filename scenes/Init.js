@@ -59,9 +59,21 @@ export default class Init extends Scene {
         // JSON data
         this.load.json('data', assets.Init.data.data.json);
 
+        // Fonts
+        this.loadFont('ninjago', assets.Init.fonts.Ninjago.ttf);
+
         this.load.on('progress', this.onLoadProgress, this);
         this.load.on('complete', this.onLoadComplete, this);
         this.createProgressBar();
+    }
+
+    loadFont(name, url) {
+        var newFont = new FontFace(name, `url(${url})`);
+        newFont.load().then(function (loaded) {
+            document.fonts.add(loaded);
+        }).catch(function (error) {
+            return error;
+        });
     }
 
     create() {
