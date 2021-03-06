@@ -37,7 +37,7 @@
     A point-and-click, room-based educational game in Phaser 3. Built for my nephew’s 7th birthday.
     <br />
     <br />
-    <a href="https://brysonis7now.netlify.app">View Demo</a>
+    <a href="https://zimmer-game.netlify.app">View Demo</a>
     ·
     <a href="https://github.com/nk9/zimmer/issues">Report Bug</a>
   </p>
@@ -76,7 +76,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-A point-and-click, room-based educational game in Phaser 3. Built for my nephew’s 7th birthday. <a href="https://brysonis7now.netlify.app">Try it out!</a>
+A point-and-click, room-based educational game in Phaser 3. Built for my nephew’s 7th birthday. <a href="https://zimmer-game.netlify.app">Try it out!</a>
 
 
 
