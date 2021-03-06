@@ -9,6 +9,7 @@ import PieMeter from '../components/pie-meter';
 
 import { NUMBERS_BOSS } from '../constants/scenes';
 import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
+import { FLAVOR_NAME } from '../constants/storage';
 
 const INTRO1_ALERT = 'INTRO1_ALERT';
 const INTRO2_ALERT = 'INTRO2_ALERT';
@@ -633,7 +634,9 @@ export default class Numbers_Boss extends Base_Scene {
             align: 'center',
             lineSpacing: 18
 		};
-		let thanks_string = 'Thanks Bryson\nWe could not have done\nit without you';
+
+		let name = this.game.config.storage.get(FLAVOR_NAME);
+		let thanks_string = `Thanks ${name}\nWe could not have done\nit without you`;
 	    let thanks_text = this.add.text(GAME_WIDTH/2, GAME_HEIGHT-55, thanks_string, thanks_style);
 	    thanks_text.setOrigin(0.5, 1);
 	    thanks_text.setDepth(Layers.TRANSITION_TEXT);

@@ -1,6 +1,7 @@
 import { SceneProgress, Layers } from './Base_Scene';
 import { ANIMALS_OCEAN, ANIMALS_FOREST } from '../constants/scenes';
 import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
+import { FLAVOR_NAME } from '../constants/storage';
 
 import OutlineTargetImage from '../components/outline_target_image';
 
@@ -98,6 +99,8 @@ export default class Animals_Ocean extends Animals_Base {
 	}
 
 	createAlerts() {
+		let name = this.game.config.storage.get(FLAVOR_NAME);
+
 		let alerts = {
 			[INTRO1_ALERT]: {
 				title: "Hi Sea Explorer!",
@@ -107,7 +110,7 @@ export default class Animals_Ocean extends Animals_Base {
 				context: this
 			},
 			[INTRO2_ALERT]: {
-				title: "Thank You Bryson!",
+				title: `Thank you ${name}!`,
 				content: `Use the X-ray gun to have a look at the animals first. Then drag all the invertebrates over to the scanner. But be careful! The scanner only has charge for ${this.scan_limit} scans.`,
 				buttonText: "Got it",
 				buttonAction: this.intro2AlertClicked,

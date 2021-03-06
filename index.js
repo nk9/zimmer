@@ -70,3 +70,6 @@ const config = {
 
 const game = new Phaser.Game(config)
 game.config.storage = new JSONStorage();
+
+const params = new URLSearchParams(window.location.search);
+console.log(params);

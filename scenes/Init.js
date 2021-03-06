@@ -3,7 +3,7 @@ import { INIT, MAIN_HALL, CREDITS,
         NUMBERS_FIRST, NUMBERS_SECOND, NUMBERS_10, NUMBERS_9, NUMBERS_BOSS,
         ANIMALS_OCEAN,ANIMALS_CAVE, ANIMALS_FOREST,
         PLANTS_FLOWERS, PLANTS_LEAVES, PLANTS_MUSHROOMS } from '../constants/scenes';
-import { UNLOCKED_SCENES, COLLECTED_GEMS } from '../constants/storage';
+import { UNLOCKED_SCENES, COLLECTED_GEMS, FLAVOR_NAME } from '../constants/storage';
 
 
 import assets from '../assets/**/*.*';
@@ -102,6 +102,19 @@ export default class Init extends Scene {
             //     NUMBERS_10, NUMBERS_9, NUMBERS_BOSS,
             //     ANIMALS_OCEAN, ANIMALS_CAVE, ANIMALS_FOREST,
             //     PLANTS_FLOWERS, PLANTS_LEAVES, PLANTS_MUSHROOMS]);
+        }
+
+        // Set default name, or override if a new one is provided in the query string
+        const params = new URLSearchParams(window.location.search)
+
+        var flavor_name = storage.get(FLAVOR_NAME);
+
+        if (params.has('name')) {
+            name = params.get('name');
+            name = name.replace(/(\r\n|\n|\r)/gm, "").substr(0,12).trim(); // Make sure it's not too long, and no newlines
+            storage.set(FLAVOR_NAME, name);
+        } else if (flavor_name === undefined) {
+            storage.set(FLAVOR_NAME, 'Bryson');
         }
     }
 

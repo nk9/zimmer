@@ -1,6 +1,7 @@
 import { SceneProgress, Layers } from './Base_Scene';
 import { MAIN_HALL, ANIMALS_CAVE } from '../constants/scenes';
 import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
+import { FLAVOR_NAME } from '../constants/storage';
 
 import OutlineImage from '../components/outline_image';
 
@@ -105,6 +106,8 @@ export default class Animals_Cave extends Animals_Base {
 	}
 
 	createAlerts() {
+		let name = this.game.config.storage.get(FLAVOR_NAME);
+
 		let alerts = {
 			[INTRO1_ALERT]: {
 				title: "Careful!",
@@ -114,7 +117,7 @@ export default class Animals_Cave extends Animals_Base {
 				context: this
 			},
 			[INTRO2_ALERT]: {
-				title: "What do you need Bryson?",
+				title: `What do you need ${name}?`,
 				content: "You are trying to open that door? Martin and I might have some tools which can help!",
 				buttonText: "Great!",
 				buttonAction: this.intro2AlertClicked,
@@ -143,7 +146,7 @@ export default class Animals_Cave extends Animals_Base {
 			},
 			[SUCCESS_ALERT]: {
 				title: "Great work!",
-				content: `Thanks for your help Bryson! While you were working we managed to get the door open for you!`,
+				content: `Thanks for your help ${name}! While you were working we managed to get the door open for you!`,
 				buttonText: "Thank you!",
 				buttonAction: this.successAlertClicked,
 				context: this

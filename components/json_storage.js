@@ -32,6 +32,6 @@ export default class JSONStorage {
 	}
 
 	get data() {
-		this.cache;
+		return this.cache;
 	}
 }
