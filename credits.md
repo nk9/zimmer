@@ -16,7 +16,7 @@ Assets listed roughly in order of first appearance.
 |🔈| [Portal Log In](assets/Main_Hall/portal2.mp3) | theneedle.tv | [Freesound](https://freesound.org/people/theneedle.tv/sounds/466424/) |
 
 
-## Lego First
+## Numbers First
 |   | Work | Artist | Source |
 |---|------|--------|--------|
 |🖼️| [Door](assets/Numbers/Numbers_First/abbey_closed.jpg) | Tama66 | [pixabay](https://pixabay.com/fr/photos/objectif-portail-porte-entr%C3%A9e-3144351/) |
@@ -26,25 +26,25 @@ Assets listed roughly in order of first appearance.
 |🔈| [Door opening](assets/Init/audio/door_opens_heavy.mp3) | Oliver Gatan | [OG Sound FX]() |
 |🖼️| [Fractal Blue Swirl Vortext Abstract](assets/Init/swirls/blue_swirl.jpg) | John Pumpkin | [Pixy](https://pixy.org/65776/) |
 
-## Lego Second
+## Numbers Second
 |   | Work | Artist | Source |
 |---|------|--------|--------|
 |🖼️| [Ancient Door](assets/Numbers/Numbers_Second/wood_door_closed.jpg) | Manel Camps | [500px](https://500px.com/photo/3089724/ancient-door-by-Manel-Camps/) |
 
 
-## Lego 10
+## Numbers 10
 |   | Work | Artist | Source |
 |---|------|--------|--------|
 |🖼️| [The Great Hall at Harry Potter World](assets/Numbers/Numbers_10/great_hall.jpg) | The Houses | [The Houses Blog](https://thehouses1.blogspot.com/2013/02/harry-potter-studio-tour.html) |
 
 
-## Lego 9
+## Numbers 9
 |   | Work | Artist | Source |
 |---|------|--------|--------|
 |🖼️| [The Study at Belton House](assets/Numbers/Numbers_9/bookcase.jpg) | NT images/Andreas von Einsiedel | [House & Garden](https://www.houseandgarden.co.uk/gallery/country-house-library) |
 
 
-## Lego Boss
+## Numbers Boss
 |   | Work | Artist | Source |
 |---|------|--------|--------|
 |🖼️| [The Dwarven Forge](assets/Numbers/Numbers_Boss/forge.jpg) | Soulfrost86 | [DeviantArt](https://www.deviantart.com/soulfrost86/art/The-Dwarven-Forge-454617848) |
@@ -100,7 +100,7 @@ Assets listed roughly in order of first appearance.
 |   | Work | Artist | Source |
 |---|------|--------|--------|
 |🖼️| [Ancient Gate](assets/Animals/Animals_Forest/forest_door_closed.jpg) | Cosmin Hrincu | [Art Station](https://www.artstation.com/artwork/XVZe0) |
-|🖼️| Animal X-Ray Pics | Oregon Zoo | [TIME](https://time.com/5429223/oregon-zoo-animal-x-rays/) |
+|🖼️| Animal X-Ray Pics | Oregon Zoo | [TIME](https://time.com/5429223/oregon-zoo-animal-x-rays/), among others |
 |🔈| [night_forest_owl](assets/Animals/Animals_Forest/forest_night.mp3) | thom_cookes | [Freesound](https://freesound.org/people/thom_cookes/sounds/475376/) |
 |🔈| [Footsteps walking through undergrowth](assets/Animals/Animals_Forest/steps_forest.mp3) | BBC | [BBC Sound Effects](https://sound-effects.bbcrewind.co.uk/search?q=07002321) |
 |🖼️| [Blue Swirl](assets/Init/swirls/aqua_swirl.jpg) | Meggymoo71 | [DeviantArt](https://www.deviantart.com/meggymoo71/art/Blue-Swirl-311349863) |
@@ -118,6 +118,6 @@ Assets listed roughly in order of first appearance.
 ## Credits
 |   | Work | Artist | Source |
 |---|------|--------|--------|
-|🔠| [Ninjago](assets/Credits/Ninjago.ttf) | Freaky Fonts | [Fonts Magazine](https://thefontsmagazine.com/font/ninjago-font/) |
+|🔠| [Ninjago](assets/Init/fonts/Ninjago.ttf) | Freaky Fonts | [Fonts Magazine](https://thefontsmagazine.com/font/ninjago-font/) |
 |🔈| [Star Machine 2000](assets/Credits/ending.mp3) | Wintergatan | [Wintergatan.com](https://wintergatan.net/collections/download) |
 |🔈| [Fireworks big1 Montreal, Canada](assets/Init/sprites/fireworks.mp3) | kyles | [Freesound](https://freesound.org/people/kyles/sounds/453108/) |

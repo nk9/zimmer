@@ -78,7 +78,7 @@
 
 A point-and-click, room-based educational game in Phaser 3. Built for my nephew’s 7th birthday. <a href="https://zimmer-game.netlify.app">Try it out!</a>
 
-There are several prompts which use a name throughout the game. By default, the name is Bryson but you can customize that by adding e.g. `?name=Naomi` to the end of the URL. The specified name is stored in the local stite storage and will continue to be used whether or not it's included on future requests until either a new `name` parameter is passed in the query string, or the local storage is deleted. The name is truncated to 12 characters.
+There are several prompts which use a name throughout the game. By default, the name is "Bryson" but you can customize that by adding e.g. `?name=Naomi` to the end of the URL. The specified name is stored in the local stite storage and will continue to be used whether or not it's included on future requests until either a new `name` parameter is passed in the query string, or the local storage is deleted. The name is truncated to 12 characters.
 
 
 
