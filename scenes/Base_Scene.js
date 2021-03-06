@@ -55,7 +55,7 @@ export default class Base_Scene extends Scene {
     }
 
     preload() {
-        console.log("Stored data:", this.game.config.storage.cache);
+        // console.log("Stored data:", this.game.config.storage.cache);
 
         this.stored_data = get(this.cache.json.get('data'), this.scene.key);
 
