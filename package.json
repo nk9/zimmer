@@ -2,7 +2,6 @@
   "name": "zimmer",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "start": "parcel index.html",
     "clean": "rm -v dist/*",
@@ -12,20 +11,16 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "lodash": "^4.17.20",
-    "lodash-es": "^4.17.20",
-    "lodash.get": "^4.4.2",
-    "lodash.pull": "^4.1.0",
-    "lodash.random": "^3.2.0",
-    "lodash.sample": "^4.2.1",
-    "lodash.samplesize": "^4.2.0",
-    "lodash.shuffle": "^4.2.0",
-    "phaser": "^3.52.0"
+    "lodash-es": "^4.17.21",
+    "phaser": "^3.55.2"
   },
   "resolutions": {
     "node-forge": "0.10.0"
   },
   "devDependencies": {
-    "parcel-bundler": "^1.12.4"
+    "@parcel/config-default": "^2.0.1",
+    "@parcel/resolver-glob": "^2.0.1",
+    "@parcel/transformer-raw": "^2.0.1",
+    "parcel": "^2.0.0"
   }
 }

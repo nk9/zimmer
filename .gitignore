@@ -7,4 +7,4 @@ npm-debug.log
 
 # Parcel related files
 dist/
-.cache/
+.parcel-cache
