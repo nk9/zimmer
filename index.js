@@ -24,6 +24,9 @@ import Plants_Leaves from './scenes/Plants_Leaves';
 import Plants_Flowers from './scenes/Plants_Flowers';
 import Plants_Mushrooms from './scenes/Plants_Mushrooms';
 
+// Time
+import Time_Sundial from './scenes/Time_Sundial';
+
 
 const config = {
 	type: Phaser.AUTO,
@@ -58,6 +61,9 @@ const config = {
 			Plants_Leaves,
 			Plants_Flowers,
 			Plants_Mushrooms,
+
+			// Time
+			Time_Sundial,
 			],
 	// plugins: {
 	// 	global: [{

@@ -2,7 +2,8 @@ import { Scene } from 'phaser';
 import { INIT, MAIN_HALL, CREDITS,
         NUMBERS_FIRST, NUMBERS_SECOND, NUMBERS_10, NUMBERS_9, NUMBERS_BOSS,
         ANIMALS_OCEAN,ANIMALS_CAVE, ANIMALS_FOREST,
-        PLANTS_FLOWERS, PLANTS_LEAVES, PLANTS_MUSHROOMS } from '../constants/scenes';
+        PLANTS_FLOWERS, PLANTS_LEAVES, PLANTS_MUSHROOMS,
+        TIME_SUNDIAL } from '../constants/scenes';
 import { UNLOCKED_SCENES, COLLECTED_GEMS, FLAVOR_NAME } from '../constants/storage';
 
 
@@ -90,6 +91,7 @@ export default class Init extends Scene {
                 NUMBERS_FIRST,
                 ANIMALS_OCEAN,
                 PLANTS_FLOWERS,
+                TIME_SUNDIAL,
                 ]);
         }
 

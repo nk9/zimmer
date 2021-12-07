@@ -128,6 +128,12 @@
           "button_title": "..."
         }
       },
+      "clock": {
+        "enabled": true,
+        "scale": 1,
+        "x": 600,
+        "y": 300
+      },
       "doorblock": {
         "enabled": true,
         "scale": 1,
@@ -1056,6 +1062,13 @@
           "button_title": "..."
         }
       }
+    }
+  }
+,
+  "Time_Sundial": {
+    "clocks": {
+    },
+    "items": {
     }
   }
 }

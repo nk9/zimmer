@@ -2,7 +2,8 @@ import Base_Scene, { SceneProgress, Layers } from './Base_Scene';
 import { MAIN_HALL, CREDITS,
 		 NUMBERS_10, NUMBERS_9, NUMBERS_FIRST, NUMBERS_SECOND,
 		 ANIMALS_OCEAN, ANIMALS_CAVE, ANIMALS_FOREST,
-		 PLANTS_LEAVES, PLANTS_FLOWERS, PLANTS_MUSHROOMS } from '../constants/scenes';
+		 PLANTS_LEAVES, PLANTS_FLOWERS, PLANTS_MUSHROOMS,
+		 TIME_SUNDIAL } from '../constants/scenes';
 import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
 import { UNLOCKED_SCENES, COLLECTED_GEMS } from '../constants/storage';
 
@@ -167,6 +168,7 @@ export default class Main_Hall extends Base_Scene {
 		
 		switch(item.name) {
 			case 'cat':			this.clickedCat(item); break;
+			case 'clock':		this.clickedClock(item); break;
 			case 'box':			this.clickedBox(item); break;
 			case 'grate':		this.clickedGrate(item); break;
 			case 'doorblock':	this.clickedDoor(item); break;
@@ -204,6 +206,10 @@ export default class Main_Hall extends Base_Scene {
 		this.sound.play('meow');
 		this.cat_big.visible = true;
 		this.runAlert(CAT_ALERT);
+	}
+
+	clickedClock(item) {
+		this.doSceneTransition(TIME_SUNDIAL);
 	}
 
 	clickedGrate(item) {

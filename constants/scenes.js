@@ -19,3 +19,6 @@ export const ANIMALS_FOREST = 'Animals_Forest';
 export const PLANTS_FLOWERS = 'Plants_Flowers';
 export const PLANTS_LEAVES = 'Plants_Leaves';
 export const PLANTS_MUSHROOMS = 'Plants_Mushrooms';
+
+// Time
+export const TIME_SUNDIAL = 'Time_Sundial';
