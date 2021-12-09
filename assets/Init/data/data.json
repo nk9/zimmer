@@ -415,7 +415,7 @@
         "targetX": 1100,
         "targetY": 120,
         "success": true,
-        "fact": "Bats have such good hearing they can hear a moth flapping its wings. I hope we are too loud for this one!"
+        "fact": "Bats have such good hearing they can hear a moth flapping its wings. I hope we aren't too loud for this one!"
       },
       "owl": {
         "scale": 0.6,

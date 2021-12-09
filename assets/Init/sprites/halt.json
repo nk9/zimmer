@@ -1,0 +1,115 @@
+{
+	"frames": {
+		"halt_grumpy.png": {
+			"frame": {
+				"x": 1,
+				"y": 1,
+				"w": 260,
+				"h": 260
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 260,
+				"h": 260
+			},
+			"sourceSize": {
+				"w": 260,
+				"h": 260
+			}
+		},
+		"halt_neutral.png": {
+			"frame": {
+				"x": 263,
+				"y": 1,
+				"w": 260,
+				"h": 260
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 260,
+				"h": 260
+			},
+			"sourceSize": {
+				"w": 260,
+				"h": 260
+			}
+		},
+		"halt_surprised.png": {
+			"frame": {
+				"x": 1,
+				"y": 263,
+				"w": 260,
+				"h": 260
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 260,
+				"h": 260
+			},
+			"sourceSize": {
+				"w": 260,
+				"h": 260
+			}
+		},
+		"halt_tired.png": {
+			"frame": {
+				"x": 263,
+				"y": 263,
+				"w": 260,
+				"h": 260
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 260,
+				"h": 260
+			},
+			"sourceSize": {
+				"w": 260,
+				"h": 260
+			}
+		},
+		"halt_uncertain.png": {
+			"frame": {
+				"x": 525,
+				"y": 1,
+				"w": 260,
+				"h": 260
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 260,
+				"h": 260
+			},
+			"sourceSize": {
+				"w": 260,
+				"h": 260
+			}
+		}
+	},
+	"meta": {
+		"app": "http://www.codeandweb.com/texturepacker",
+		"version": "1.0",
+		"image": "spritesheet.png",
+		"format": "RGBA8888",
+		"size": {
+			"w": 786,
+			"h": 524
+		},
+		"scale": "1"
+	}
+}
