@@ -54,7 +54,7 @@ export default class Main_Hall extends Base_Scene {
 		super.create();
 
 		// Debug or full main hall experience
-		let debug = false;
+		let debug = true;
 
 		if (debug) {
 			this.createBareBones();

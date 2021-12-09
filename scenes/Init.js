@@ -4,8 +4,9 @@ import { INIT, MAIN_HALL, CREDITS,
         ANIMALS_OCEAN,ANIMALS_CAVE, ANIMALS_FOREST,
         PLANTS_FLOWERS, PLANTS_LEAVES, PLANTS_MUSHROOMS,
         TIME_SUNDIAL } from '../constants/scenes';
-import { UNLOCKED_SCENES, COLLECTED_GEMS, FLAVOR_NAME } from '../constants/storage';
+import { UNLOCKED_SCENES, COLLECTED_GEMS, FLAVOR_NAME, FLAVOR_BDAY } from '../constants/storage';
 
+import moment from 'moment';
 
 import assets from '../assets/**/*.*';
 import swirlsJpg from '../assets/Init/swirls/*.jpg';
@@ -118,6 +119,26 @@ export default class Init extends Scene {
         } else if (flavor_name === undefined) {
             storage.set(FLAVOR_NAME, 'Bryson');
         }
+
+        var flavor_bday = storage.get(FLAVOR_BDAY);
+        let date_format = "YYYY-MM-DD";
+
+        // Set default birthdate to Christmas 2010
+        if (!flavor_bday) {
+            flavor_bday = '2010-12-25';
+        }
+
+        if (params.has('birthday')) {
+            var bday_str = params.get('birthday');
+            bday_str = bday_str.replace(/(\r\n|\n|\r)/gm, "").substr(0,10).trim(); // Make sure it's not too long, and no newlines
+            let bday = moment(bday_str, date_format);
+
+            if (bday.isValid()) {
+                flavor_bday = bday.format(date_format);
+            }
+        }
+
+        storage.set(FLAVOR_BDAY, flavor_bday);
     }
 
     createProgressBar() {

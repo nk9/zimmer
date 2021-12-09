@@ -36,13 +36,20 @@ export default class Time_Sundial extends Time_Base {
 // 		this.load.audio('cave', this.assets.cave.mp3);
 // 		this.load.audio('steps_cave', this.assets.steps_cave.mp3);
 // 		this.load.audio('kratts_christmas', this.assets.kratts_christmas.mp3);
+
+		this.clocks_data = this.stored_data.clocks;
+
+        // Clocks
+		let keys = Object.keys(this.clocks_data);
+		for (const key of keys) {
+	        this.loadOutlineImage(key);
+		}
 	}
 
 	create() {
 		super.create();
 
 		this.createClocks();
-		this.clocks = [];
 	}
 
 	createBackground() {
@@ -95,6 +102,20 @@ export default class Time_Sundial extends Time_Base {
 
 	createClocks() {
 		console.log("create clocks")
+
+		for (const key in this.clocks_data) {
+			const cd = this.clocks_data[key];
+
+			let clock = new OutlineImage(this, key, cd.success, cd.targetX, cd.targetY, cd.scale);
+			clock.on('drop', this.scanAnimal);
+			clock.on('pointerdown', this.pointerDownClock.bind(this, clock));
+
+			if (cd.success) {
+				this.success_clocks.push(clock);
+			}
+
+			this.clocks.push(clock);
+		}
 	}
 
 // 	clickKratts() {

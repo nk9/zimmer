@@ -115,6 +115,16 @@ Assets listed roughly in order of first appearance.
 |🔈| [Wild Kratts Christmas](assets/Animals/Animals_Cave/kratts_christmas.mp3) | Wild Kratts | [YouTube](https://youtu.be/FgRNRm7jOxQ?t=1182) |
 
 
+## Time Sundial
+|   | Work | Artist | Source |
+|---|------|--------|--------|
+|🖼️| Hand Pedestal | printable_models | [Free3D](https://free3d.com/3d-model/displaypedestalsopenfingers-v1--411000.html) |
+<!-- |🖼️| [Travel by time tunnel](assets/Init/swirls/navy_swirl.jpg) | skorzewiak | [123rf](https://www.123rf.com/stock-photo/portal.html?sti=nv7nx7pij2fzsfiht5%7C&mediapopup=114002518) |
+|🔈| [Footsteps, two people walking in mud](assets/Animals/Animals_Cave/steps_cave.mp3) | BBC | [BBC Sound Effects](https://sound-effects.bbcrewind.co.uk/search?q=07041185) |
+|🔈| [Wild Kratts Christmas](assets/Animals/Animals_Cave/kratts_christmas.mp3) | Wild Kratts | [YouTube](https://youtu.be/FgRNRm7jOxQ?t=1182) |
+ -->
+
+
 ## Credits
 |   | Work | Artist | Source |
 |---|------|--------|--------|

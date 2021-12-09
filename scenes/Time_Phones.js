@@ -1,9 +1,10 @@
 import { SceneProgress, Layers } from './Base_Scene';
 import { MAIN_HALL, TIME_PHONES } from '../constants/scenes';
 import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
-import { FLAVOR_NAME } from '../constants/storage';
+import { FLAVOR_NAME, FLAVOR_BDAY } from '../constants/storage';
 
 import OutlineImage from '../components/outline_image';
+import moment from 'moment';
 
 import Time_Base, { SelectionMode } from './Time_Base';
 
@@ -94,7 +95,13 @@ export default class Time_Phones extends Time_Base {
 // 	}
 
 	createClocks() {
-		console.log("create clocks")
+		let bday_str = this.game.config.storage.get(FLAVOR_BDAY);
+
+		let bday = moment.utc(bday_str, 'YYYY-MM-DD')
+		let today = moment.utc()
+		let diff = today.diff(bday, 'days') + 1;
+
+		console.log(`day diff=${diff}`)
 	}
 
 // 	clickKratts() {

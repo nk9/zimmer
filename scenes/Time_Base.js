@@ -45,6 +45,8 @@ export default class Time_Base extends Base_Scene {
 	create() {
 		super.create();
 
+		this.clocks = [];
+
 		this.createBackground();
 		this.swirl.visible = false;
 		// this.background_sound.play();
