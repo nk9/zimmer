@@ -26,6 +26,7 @@ import Plants_Mushrooms from './scenes/Plants_Mushrooms';
 
 // Time
 import Time_Sundial from './scenes/Time_Sundial';
+import Time_Phones from './scenes/Time_Phones';
 
 
 const config = {
@@ -64,6 +65,7 @@ const config = {
 
 			// Time
 			Time_Sundial,
+			Time_Phones,
 			],
 	// plugins: {
 	// 	global: [{

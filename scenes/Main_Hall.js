@@ -324,6 +324,9 @@ export default class Main_Hall extends Base_Scene {
 		this.addButton(450, 100, 'Plants Flowers', PLANTS_FLOWERS);
 		this.addButton(450, 120, 'Plants Leaves', PLANTS_LEAVES);
 		this.addButton(450, 140, 'Plants Mushrooms', PLANTS_MUSHROOMS);
+
+		this.addButton(650, 100, 'Time Sundial', TIME_SUNDIAL);
+		this.addButton(650, 120, 'Time Phones', TIME_PHONES);
 	}
 
 	addButton(x, y, title, key) {
