@@ -131,8 +131,8 @@
       "clock": {
         "enabled": true,
         "scale": 1,
-        "x": 600,
-        "y": 300
+        "x": 963,
+        "y": 220
       },
       "doorblock": {
         "enabled": true,
