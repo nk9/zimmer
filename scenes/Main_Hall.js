@@ -3,7 +3,7 @@ import { MAIN_HALL, CREDITS,
 		 NUMBERS_10, NUMBERS_9, NUMBERS_FIRST, NUMBERS_SECOND,
 		 ANIMALS_OCEAN, ANIMALS_CAVE, ANIMALS_FOREST,
 		 PLANTS_LEAVES, PLANTS_FLOWERS, PLANTS_MUSHROOMS,
-		 TIME_SUNDIAL } from '../constants/scenes';
+		 TIME_SUNDIAL, TIME_PHONES } from '../constants/scenes';
 import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
 import { UNLOCKED_SCENES, COLLECTED_GEMS } from '../constants/storage';
 
@@ -53,12 +53,18 @@ export default class Main_Hall extends Base_Scene {
 	create() {
 		super.create();
 
-		// this.createBareBones();
-		this.createBackground();
-		this.createItems();
-		this.createMap();
-		this.createGemBoard();
-		this.createSceneElements();
+		// Debug or full main hall experience
+		let debug = false;
+
+		if (debug) {
+			this.createBareBones();
+		} else {
+			this.createBackground();
+			this.createItems();
+			this.createMap();
+			this.createGemBoard();
+			this.createSceneElements();
+		}
 
 		this.home.visible = false;
 	}
@@ -314,7 +320,6 @@ export default class Main_Hall extends Base_Scene {
 		this.addButton(100, 120, 'Lego Second', NUMBERS_SECOND);
 		this.addButton(100, 140, 'Lego 10', NUMBERS_10);
 		this.addButton(100, 160, 'Lego 9', NUMBERS_9);
-		this.addButton(100, 180, 'Lego Boss', NUMBERS_BOSS);
 
 
 		this.addButton(250, 100, 'Animals Ocean', ANIMALS_OCEAN);
