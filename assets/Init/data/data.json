@@ -1067,6 +1067,16 @@
 ,
   "Time_Sundial": {
     "clocks": {
+      "clock1": {
+        "scale": 1,
+        "x": 500,
+        "y": 330
+      },
+      "clock2": {
+        "scale": 1,
+        "x": 700,
+        "y": 430
+      }
     },
     "items": {
     }
