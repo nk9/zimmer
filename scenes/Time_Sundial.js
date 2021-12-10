@@ -3,7 +3,7 @@ import { MAIN_HALL, TIME_SUNDIAL } from '../constants/scenes';
 import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
 import { FLAVOR_NAME } from '../constants/storage';
 
-import OutlineImage from '../components/outline_image';
+import StoredOutlineImage from '../components/outline_image';
 
 import Time_Base, { SelectionMode } from './Time_Base';
 
@@ -106,13 +106,13 @@ export default class Time_Sundial extends Time_Base {
 		for (const key in this.clocks_data) {
 			const cd = this.clocks_data[key];
 
-			let clock = new OutlineImage(this, key, cd.success, cd.targetX, cd.targetY, cd.scale);
-			clock.on('drop', this.scanAnimal);
+			let clock = new StoredOutlineImage(this, key, cd);
+			// clock.on('drop', this.scanAnimal);
 			clock.on('pointerdown', this.pointerDownClock.bind(this, clock));
 
-			if (cd.success) {
-				this.success_clocks.push(clock);
-			}
+			// if (cd.success) {
+			// 	this.success_clocks.push(clock);
+			// }
 
 			this.clocks.push(clock);
 		}
