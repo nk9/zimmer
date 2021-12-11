@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "start": "parcel index.html",
-    "clean": "rm -v dist/*",
+    "clean": "rm -rfv dist/* .parcel-cache",
     "build": "parcel build index.html --public-url ./"
   },
   "keywords": [],
