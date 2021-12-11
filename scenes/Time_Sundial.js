@@ -29,7 +29,7 @@ export default class Time_Sundial extends Time_Base {
 
 		// Images
 		this.load.image('clock_field', this.assets.background.jpg);
-		this.load.video('sundial', this.assets.sundial.mp4);
+		this.load.video('sundial', this.assets.sundial.webm);
 // 		this.load.image('cave_door_open', this.assets.cave_door_open.png);
 // 		this.load.image('cave_party', this.assets.kratts_christmas.png);
 // 
@@ -64,12 +64,10 @@ export default class Time_Sundial extends Time_Base {
 	}
 
 	createCallToAction() {
-		this.video = this.add.video(500, 500, 'sundial');
-		this.video.setScale(.5);
+		this.video = this.add.video(GAME_WIDTH, GAME_HEIGHT, 'sundial');
 		this.video.setVisible(false);
-		this.video.setOrigin(1, 1);
-		this.video.x = GAME_WIDTH;
-		this.video.y = GAME_HEIGHT;
+		this.video.setOrigin(1, 0); // Off-screen to start with
+		// this.video.setAlpha();
 
 		this.video.setInteractive({useHandCursor: true})
 			.on('pointerup', pointer => { this.clickedVideo() });
@@ -109,13 +107,39 @@ export default class Time_Sundial extends Time_Base {
 	}
 
 	clickCallToAction() {
-		// this.runAlert(INTRO1_ALERT);
 		if (this.video.visible) {
-			this.video.setVisible(false);
-			this.video.stop();
+			this.setItemsInput(false);
+			this.video.input.enabled = false;
+
+			this.tweens.add({
+				targets: this.video,
+				duration: 1000,
+				ease: 'Sine',
+				y: `+=${this.video.height}`,
+				onComplete: () => {
+					this.setItemsInput(true);
+					this.video.stop();
+					this.video.setVisible(false);
+				},
+				onCompleteScope: this
+			});
+
 		} else {
+			this.setItemsInput(false);
 			this.video.setVisible(true);
 			this.video.play(true); // Loop video playback
+
+			this.tweens.add({
+				targets: this.video,
+				duration: 1000,
+				ease: 'Sine',
+				y: `-=${this.video.height}`,
+				onComplete: () => {
+					this.setItemsInput(true);
+					this.video.input.enabled = true;
+				},
+				onCompleteScope: this
+			});
 		}
 		
 

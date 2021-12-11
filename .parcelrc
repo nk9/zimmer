@@ -2,6 +2,6 @@
   "extends": "@parcel/config-default",
   "resolvers": ["@parcel/resolver-glob", "..."],
   "transformers": {
-    "*.{png,jpg,mp3,mp4,ttf}": ["@parcel/transformer-raw"]
+    "*.{png,jpg,mp3,webm,mp4,ttf}": ["@parcel/transformer-raw"]
   }
 }

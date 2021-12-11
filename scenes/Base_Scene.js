@@ -170,6 +170,12 @@ export default class Base_Scene extends Scene {
         return images;
     }
 
+    setItemsInput(handleInput) {
+        for (const i of this.items) {
+            i.input.enabled = handleInput;
+        }
+    }
+
     outlineImage(key, image_data) {
         return new PointerOutlineImage(this, key, image_data);
     }
