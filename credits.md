@@ -118,11 +118,17 @@ Assets listed roughly in order of first appearance.
 ## Time Sundial
 |   | Work | Artist | Source |
 |---|------|--------|--------|
-|🖼️| Hand Pedestal | printable_models | [Free3D](https://free3d.com/3d-model/displaypedestalsopenfingers-v1--411000.html) |
-<!-- |🖼️| [Travel by time tunnel](assets/Init/swirls/navy_swirl.jpg) | skorzewiak | [123rf](https://www.123rf.com/stock-photo/portal.html?sti=nv7nx7pij2fzsfiht5%7C&mediapopup=114002518) |
-|🔈| [Footsteps, two people walking in mud](assets/Animals/Animals_Cave/steps_cave.mp3) | BBC | [BBC Sound Effects](https://sound-effects.bbcrewind.co.uk/search?q=07041185) |
+|🖼️| [Surreal Landscape with Clocks](assets/Time/Time_Sundial/background.jpg) | ValentinaPhotos | [Creative Market](https://images.creativemarket.com/0.1.0/ps/3795923/1332/1214/m1/fpnw/wm0/surreallandscapeofclocksxcm-.jpg?1514913041&s=8dadebd0e3e18849ab4f5a2c9de7a5ff) |
+|🫖| Hand Pedestal | printable_models | [Free3D](https://free3d.com/3d-model/displaypedestalsopenfingers-v1--411000.html) |
+|🫖| [Sundial](assets/Time/Time_Sundial/sundial.mp4) | fabiovalle3D | [TurboSquid](https://www.turbosquid.com/3d-models/3d-sundial-sun-model-1148444) |
+<!-- |🔈| [Footsteps, two people walking in mud](assets/Animals/Animals_Cave/steps_cave.mp3) | BBC | [BBC Sound Effects](https://sound-effects.bbcrewind.co.uk/search?q=07041185) |
 |🔈| [Wild Kratts Christmas](assets/Animals/Animals_Cave/kratts_christmas.mp3) | Wild Kratts | [YouTube](https://youtu.be/FgRNRm7jOxQ?t=1182) |
  -->
+
+## Time Phones
+|   | Work | Artist | Source |
+|---|------|--------|--------|
+|🖼️| [Melting Clocks after Dalí](assets/Time/Time_Phones/background.jpg) | ??? | [Ms. Dodge](https://gmhsart.weebly.com/surrealism.html) |
 
 
 ## Credits
