@@ -61,46 +61,18 @@ export default class Time_Sundial extends Time_Base {
 
 		this.background_closed = this.add.image(0, 0, 'clock_field');
 		this.background_closed.setOrigin(0, 0);
-
-// 		this.background_open = this.add.image(0, 0, 'cave_door_open');
-// 		this.background_open.setOrigin(0, 0);
-// 
-// 		this.background_closed = this.add.image(0, 0, 'cave_door_closed');
-// 		this.background_closed.setOrigin(0, 0);
-
-		// this.background_sound = this.sound.add('cave', {volume: .4, loop: true});
 	}
 
 	createCallToAction() {
 		this.video = this.add.video(500, 500, 'sundial');
 		this.video.setScale(.5);
-// 		this.sound.play('steps_cave');
-// 
-// 		this.kratts = this.add.sprite(0-300, GAME_HEIGHT, 'kratts', 'scared');
-// 		this.kratts.setOrigin(1, 1);
-// 		this.kratts.setTint(0xaaaaaa);
-// 		// this.kratts.scale = .5;
-// 
-// 		this.kratts.setInteractive({useHandCursor: true})
-// 			.on('pointerover', () => { this.kratts.clearTint() })
-// 			.on('pointerout', () => {
-// 				if (this.kratts.input.enabled) {
-// 					this.kratts.setTint(0xaaaaaa);
-// 				}
-// 			})
-// 			.on('pointerup', pointer => { this.clickKratts() });
-// 
-// 		var tweens = [];
-// 
-// 		tweens.push({
-// 			targets: this.kratts,
-// 			x: this.kratts.width,
-// 			ease: 'Sine.easeOut',
-// 			duration: 2500,
-// 			delay: 1000
-// 		});
-// 
-// 	    var timeline = this.tweens.timeline({ tweens: tweens });
+		this.video.setVisible(false);
+		this.video.setOrigin(1, 1);
+		this.video.x = GAME_WIDTH;
+		this.video.y = GAME_HEIGHT;
+
+		this.video.setInteractive({useHandCursor: true})
+			.on('pointerup', pointer => { this.clickedVideo() });
 	}
 
 	createClocks() {
@@ -121,13 +93,33 @@ export default class Time_Sundial extends Time_Base {
 		}
 	}
 
-// 	clickKratts() {
-// 		this.runAlert(INTRO1_ALERT);
-// 	}
-// 
-// 	clickCallToAction() {
-// 		this.runAlert(INTRO1_ALERT);
-// 	}
+	clickedItem(clicked_object) {
+		switch(clicked_object.name) {
+			case 'pedestal': this.clickCallToAction(); break;
+		}
+	}
+
+	clickedVideo() {
+		if (this.video.isPlaying()) {
+			this.video.stop();
+			console.log("progress: ", this.video.getProgress());
+		} else {
+			this.video.play(true); // Loop video playback
+		}
+	}
+
+	clickCallToAction() {
+		// this.runAlert(INTRO1_ALERT);
+		if (this.video.visible) {
+			this.video.setVisible(false);
+			this.video.stop();
+		} else {
+			this.video.setVisible(true);
+			this.video.play(true); // Loop video playback
+		}
+		
+
+	}
 
 	createAlerts() {
 		let name = this.game.config.storage.get(FLAVOR_NAME);

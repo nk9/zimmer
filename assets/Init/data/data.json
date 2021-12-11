@@ -1070,22 +1070,26 @@
       "clock1": {
         "scale": 1,
         "x": 345,
-        "y": 237
+        "y": 237,
+        "progress": 0.70
       },
       "clock2": {
         "scale": 1,
         "x": 635,
-        "y": 145
+        "y": 145,
+        "progress": 0.90
       },
       "clock3": {
         "scale": 1,
         "x": 856,
-        "y": 280
+        "y": 280,
+        "progress": 0.50
       },
       "clock4": {
         "scale": 1,
         "x": 1093,
-        "y": 282
+        "y": 282,
+        "progress": 0.80
       }
     },
     "items": {
