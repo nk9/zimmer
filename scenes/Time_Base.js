@@ -49,7 +49,7 @@ export default class Time_Base extends Base_Scene {
 
 		this.createBackground();
 		this.swirl.visible = false;
-		// this.background_sound.play();
+		this.background_sound.play();
 
 		this.createItems();
 		// this.createTools();

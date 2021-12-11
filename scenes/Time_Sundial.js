@@ -16,7 +16,6 @@ let FAIL_ALERT = 'FAIL_ALERT';
 
 export default class Time_Sundial extends Time_Base {
 	constructor() {
-		console.log("T_S constructor");
 		super(TIME_SUNDIAL);
 
 		// initialize variables
@@ -25,7 +24,6 @@ export default class Time_Sundial extends Time_Base {
 
 	preload() {
 		super.preload();
-		console.log("Time_Sundial preload");
 
 		// Images
 		this.load.image('clock_field', this.assets.background.jpg);
@@ -33,8 +31,8 @@ export default class Time_Sundial extends Time_Base {
 // 		this.load.image('cave_door_open', this.assets.cave_door_open.png);
 // 		this.load.image('cave_party', this.assets.kratts_christmas.png);
 // 
-// 		// Audio
-// 		this.load.audio('cave', this.assets.cave.mp3);
+ 		// Audio
+ 		this.load.audio('background_sundial', this.assets.sundial_foley.mp3);
 // 		this.load.audio('steps_cave', this.assets.steps_cave.mp3);
 // 		this.load.audio('kratts_christmas', this.assets.kratts_christmas.mp3);
 
@@ -61,6 +59,8 @@ export default class Time_Sundial extends Time_Base {
 
 		this.background_closed = this.add.image(0, 0, 'clock_field');
 		this.background_closed.setOrigin(0, 0);
+
+		this.background_sound = this.sound.add('background_sundial', {volume: .4, loop: true});
 	}
 
 	createCallToAction() {
@@ -74,8 +74,6 @@ export default class Time_Sundial extends Time_Base {
 	}
 
 	createClocks() {
-		console.log("create clocks")
-
 		for (const key in this.clocks_data) {
 			const cd = this.clocks_data[key];
 
