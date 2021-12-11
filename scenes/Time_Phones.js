@@ -29,7 +29,7 @@ export default class Time_Phones extends Time_Base {
 		console.log("Time_Sundial preload");
 
 		// Images
-		this.load.image('background', this.assets.background.jpg);
+		this.load.image('dali', this.assets.background.jpg);
 // 		this.load.image('cave_door_open', this.assets.cave_door_open.png);
 // 		this.load.image('cave_party', this.assets.kratts_christmas.png);
 // 
@@ -52,7 +52,7 @@ export default class Time_Phones extends Time_Base {
 
 		this.swirl = this.add.image(690, 300, 'navy_swirl');
 
-		this.background_closed = this.add.image(0, 0, 'background');
+		this.background_closed = this.add.image(0, 0, 'dali');
 		this.background_closed.setOrigin(0, 0);
 
 // 		this.background_open = this.add.image(0, 0, 'cave_door_open');
@@ -64,7 +64,7 @@ export default class Time_Phones extends Time_Base {
 		// this.background_sound = this.sound.add('cave', {volume: .4, loop: true});
 	}
 
-// 	createCallToAction() {
+	createCallToAction() {
 // 		this.sound.play('steps_cave');
 // 
 // 		this.kratts = this.add.sprite(0-300, GAME_HEIGHT, 'kratts', 'scared');
@@ -92,7 +92,7 @@ export default class Time_Phones extends Time_Base {
 // 		});
 // 
 // 	    var timeline = this.tweens.timeline({ tweens: tweens });
-// 	}
+	}
 
 	createClocks() {
 		let bday_str = this.game.config.storage.get(FLAVOR_BDAY);

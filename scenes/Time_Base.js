@@ -53,7 +53,7 @@ export default class Time_Base extends Base_Scene {
 
 		this.createItems();
 		// this.createTools();
-		// this.createCallToAction();
+		this.createCallToAction();
 		this.createClocks();
 
 		this.portal_sound = this.sound.add('portal');

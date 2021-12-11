@@ -28,7 +28,8 @@ export default class Time_Sundial extends Time_Base {
 		console.log("Time_Sundial preload");
 
 		// Images
-		this.load.image('background', this.assets.background.jpg);
+		this.load.image('clock_field', this.assets.background.jpg);
+		this.load.video('sundial', this.assets.sundial.mp4);
 // 		this.load.image('cave_door_open', this.assets.cave_door_open.png);
 // 		this.load.image('cave_party', this.assets.kratts_christmas.png);
 // 
@@ -58,7 +59,7 @@ export default class Time_Sundial extends Time_Base {
 
 		this.swirl = this.add.image(690, 300, 'navy_swirl');
 
-		this.background_closed = this.add.image(0, 0, 'background');
+		this.background_closed = this.add.image(0, 0, 'clock_field');
 		this.background_closed.setOrigin(0, 0);
 
 // 		this.background_open = this.add.image(0, 0, 'cave_door_open');
@@ -70,7 +71,9 @@ export default class Time_Sundial extends Time_Base {
 		// this.background_sound = this.sound.add('cave', {volume: .4, loop: true});
 	}
 
-// 	createCallToAction() {
+	createCallToAction() {
+		this.video = this.add.video(500, 500, 'sundial');
+		this.video.setScale(.5);
 // 		this.sound.play('steps_cave');
 // 
 // 		this.kratts = this.add.sprite(0-300, GAME_HEIGHT, 'kratts', 'scared');
@@ -98,7 +101,7 @@ export default class Time_Sundial extends Time_Base {
 // 		});
 // 
 // 	    var timeline = this.tweens.timeline({ tweens: tweens });
-// 	}
+	}
 
 	createClocks() {
 		console.log("create clocks")
