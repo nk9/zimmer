@@ -1101,7 +1101,54 @@
     }
   },
   "Time_Phones": {
+    "screens": {
+      "screen1": {
+        "scale": 1,
+        "x": 70,
+        "y": 600
+      },
+      "screen2": {
+        "scale": 1,
+        "x": 200,
+        "y": 200
+      },
+      "screen3": {
+        "scale": 1,
+        "x": 600,
+        "y": 500
+      }
+    },
     "items": {
+      "button1": {
+        "scale": 1,
+        "x": 337,
+        "y": 524
+      },
+      "button2": {
+        "scale": 1,
+        "x": 447,
+        "y": 260
+      },
+      "button3": {
+        "scale": 1,
+        "x": 699,
+        "y": 451
+      },
+      "call1": {
+        "scale": 1,
+        "x": 298,
+        "y": 532
+      },
+      "call2": {
+        "scale": 1,
+        "x": 401,
+        "y": 223
+      },
+      "call3": {
+        "scale": 1,
+        "x": 636,
+        "y": 436
+      }
     }
   }
 }
