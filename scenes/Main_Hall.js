@@ -3,7 +3,7 @@ import { MAIN_HALL, CREDITS,
 		 NUMBERS_10, NUMBERS_9, NUMBERS_FIRST, NUMBERS_SECOND,
 		 ANIMALS_OCEAN, ANIMALS_CAVE, ANIMALS_FOREST,
 		 PLANTS_LEAVES, PLANTS_FLOWERS, PLANTS_MUSHROOMS,
-		 TIME_SUNDIAL, TIME_PHONES } from '../constants/scenes';
+		 TIME_SUNDIAL, TIME_PHONES, TIME_BEDROOM } from '../constants/scenes';
 import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
 import { UNLOCKED_SCENES, COLLECTED_GEMS } from '../constants/storage';
 
@@ -332,6 +332,7 @@ export default class Main_Hall extends Base_Scene {
 
 		this.addButton(650, 100, 'Time Sundial', TIME_SUNDIAL);
 		this.addButton(650, 120, 'Time Phones', TIME_PHONES);
+		this.addButton(650, 140, 'Time Bedroom', TIME_BEDROOM);
 	}
 
 	addButton(x, y, title, key) {

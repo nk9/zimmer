@@ -15,7 +15,6 @@ export const SelectionMode = {
 
 export default class Time_Base extends Base_Scene {
 	constructor(key) {
-		console.log("T_B constructor");
 		super(key);
 
 		// Subclasses need to set these

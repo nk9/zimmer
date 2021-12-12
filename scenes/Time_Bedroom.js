@@ -1,5 +1,5 @@
 import { SceneProgress, Layers } from './Base_Scene';
-import { MAIN_HALL, TIME_PHONES } from '../constants/scenes';
+import { MAIN_HALL, TIME_BEDROOM } from '../constants/scenes';
 import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
 import { FLAVOR_NAME, FLAVOR_BDAY } from '../constants/storage';
 
@@ -15,9 +15,9 @@ let INTRO4_ALERT = 'INTRO4_ALERT';
 let SUCCESS_ALERT = 'SUCCESS_ALERT';
 let FAIL_ALERT = 'FAIL_ALERT';
 
-export default class Time_Phones extends Time_Base {
+export default class Time_Bedroom extends Time_Base {
 	constructor() {
-		super(TIME_PHONES);
+		super(TIME_BEDROOM);
 
 		// initialize variables
 		this.scan_limit = 5;
@@ -27,15 +27,15 @@ export default class Time_Phones extends Time_Base {
 		super.preload();
 
 		// Images
-		this.load.image('dali', this.assets.background.jpg);
+		this.load.image('van_gogh', this.assets.background.jpg);
 
-		let keys = Object.keys(this.stored_data.screens);
-		for (const key of keys) {
-	        this.load.image(key, this.assets[key].png)
-		}
+		// let keys = Object.keys(this.stored_data.screens);
+		// for (const key of keys) {
+	 //        this.load.image(key, this.assets[key].png)
+		// }
  
  		// Audio
- 		this.load.audio('background_phones', this.assets.phonesFoley.mp3);
+ 		// this.load.audio('background_phones', this.assets.phonesFoley.mp3);
 	}
 
 	create() {
@@ -51,10 +51,10 @@ export default class Time_Phones extends Time_Base {
 
 		this.swirl = this.add.image(690, 300, 'navy_swirl');
 
-		this.background_closed = this.add.image(0, 0, 'dali');
+		this.background_closed = this.add.image(0, 0, 'van_gogh');
 		this.background_closed.setOrigin(0, 0);
 
-		this.background_sound = this.sound.add('background_phones', {volume: .4, loop: true});
+		// this.background_sound = this.sound.add('background_phones', {volume: .4, loop: true});
 
 		this.createBlackScreens();
 	}

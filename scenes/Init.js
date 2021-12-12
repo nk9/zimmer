@@ -3,7 +3,7 @@ import { INIT, MAIN_HALL, CREDITS,
         NUMBERS_FIRST, NUMBERS_SECOND, NUMBERS_10, NUMBERS_9, NUMBERS_BOSS,
         ANIMALS_OCEAN,ANIMALS_CAVE, ANIMALS_FOREST,
         PLANTS_FLOWERS, PLANTS_LEAVES, PLANTS_MUSHROOMS,
-        TIME_SUNDIAL } from '../constants/scenes';
+        TIME_SUNDIAL, TIME_PHONES, TIME_BEDROOM } from '../constants/scenes';
 import { UNLOCKED_SCENES, COLLECTED_GEMS, FLAVOR_NAME, FLAVOR_BDAY } from '../constants/storage';
 
 import moment from 'moment';
