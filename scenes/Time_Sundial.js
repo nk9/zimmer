@@ -48,7 +48,7 @@ export default class Time_Sundial extends Time_Base {
 	create() {
 		super.create();
 
-		this.createClocks();
+		this.setClocksInput(false); // Start with the clocks not being clickable
 	}
 
 	createBackground() {
@@ -67,7 +67,6 @@ export default class Time_Sundial extends Time_Base {
 		this.video = this.add.video(GAME_WIDTH, GAME_HEIGHT, 'sundial');
 		this.video.setVisible(false);
 		this.video.setOrigin(1, 0); // Off-screen to start with
-		// this.video.setAlpha();
 
 		this.video.setInteractive({useHandCursor: true})
 			.on('pointerup', pointer => { this.clickedVideo() });
@@ -78,12 +77,7 @@ export default class Time_Sundial extends Time_Base {
 			const cd = this.clocks_data[key];
 
 			let clock = new OutlineTimeClock(this, key, cd);
-			// clock.on('drop', this.scanAnimal);
-			clock.on('pointerdown', this.pointerDownClock.bind(this, clock));
-
-			// if (cd.success) {
-			// 	this.success_clocks.push(clock);
-			// }
+			clock.on('pointerup', this.clickedClock.bind(this, clock));
 
 			this.clocks.push(clock);
 		}
@@ -95,12 +89,28 @@ export default class Time_Sundial extends Time_Base {
 		}
 	}
 
+	clickedClock(clock) {
+		let diff = Math.abs(clock.progress - this.video.getProgress());
+
+		if (diff <= .02) {
+			console.log(`got it: ${diff}`);
+	        clock.input.enabled = false;
+			this.success_clocks.push(clock);
+	        this.sound.playAudioSprite('chimes', "tada");
+		} else {
+			let clock_num = clock.name.substring(5);
+			this.sound.playAudioSprite('chimes', clock_num);
+		}
+	}
+
 	clickedVideo() {
 		if (this.video.isPlaying()) {
 			this.video.stop();
+			this.setClocksInput(true);
 			console.log("progress: ", this.video.getProgress());
 		} else {
 			this.video.play(true); // Loop video playback
+			this.setClocksInput(false);
 		}
 	}
 
@@ -118,6 +128,7 @@ export default class Time_Sundial extends Time_Base {
 					this.setItemsInput(true);
 					this.video.stop();
 					this.video.setVisible(false);
+					this.setClocksInput(false);
 				},
 				onCompleteScope: this
 			});

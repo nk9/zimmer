@@ -39,6 +39,7 @@ export default class Init extends Scene {
         this.load.atlas('vangelis_boss', sprites.vangelis_boss.png, sprites.vangelis_boss.json);
         this.load.atlas('weapons', sprites.weapons.png, sprites.weapons.json);
         this.load.audioSprite('fireworks', sprites.fireworks.json, sprites.fireworks.mp3);
+        this.load.audioSprite('chimes', sprites.chimes.json, sprites.chimes.mp3);
 
         // Particles
         this.load.image('spark', particles.blue);

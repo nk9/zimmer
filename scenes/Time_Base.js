@@ -100,8 +100,12 @@ export default class Time_Base extends Base_Scene {
 	}
 
 	setClocksInput(handleInput) {
-		for (const a of this.clocks) {
-			a.input.enabled = handleInput;
+		for (const c of this.clocks) {
+			// Leave success clocks out of the input toggling; they're always off
+			if (!this.success_clocks.includes(c)) {
+				console.log(`set clock input to ${handleInput} for ${c.name}`);
+				c.input.enabled = handleInput;
+			}
 		}
 	}
 
