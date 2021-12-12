@@ -30,6 +30,11 @@ export default class Time_Phones extends Time_Base {
 		this.load.image('dali', this.assets.background.jpg);
 // 		this.load.image('cave_door_open', this.assets.cave_door_open.png);
 // 		this.load.image('cave_party', this.assets.kratts_christmas.png);
+
+		let keys = Object.keys(this.stored_data.screens);
+		for (const key of keys) {
+	        this.load.image(key, this.assets[key].png)
+		}
  
  		// Audio
  		this.load.audio('background_phones', this.assets.phonesFoley.mp3);
@@ -38,8 +43,10 @@ export default class Time_Phones extends Time_Base {
 	create() {
 		super.create();
 
-		this.createClocks();
 		this.clocks = [];
+		this.black_screens = [];
+
+		this.createBlackScreens();
 	}
 
 	createBackground() {
@@ -98,6 +105,15 @@ export default class Time_Phones extends Time_Base {
 		let diff = today.diff(bday, 'days') + 1;
 
 		console.log(`day diff=${diff}`)
+	}
+
+	createBlackScreens() {
+		let keys = Object.keys(this.stored_data.screens);
+		for (const key of keys) {
+			let screen_dict = this.stored_data.screens[key];
+	        let screen = this.add.image(screen_dict.x, screen_dict.y, key);
+	        this.black_screens.push(screen);
+		}
 	}
 
 // 	clickKratts() {
