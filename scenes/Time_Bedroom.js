@@ -68,12 +68,10 @@ export default class Time_Bedroom extends Time_Base {
         this.timeText = this.add.text(GAME_WIDTH/2, GAME_HEIGHT/2, "3:45", timeStyle);
         this.timeText.setOrigin(0.5, 0.5);
 
-        this.clock_big = this.add.image(400, 300, 'clock_big');
+        this.clock_big = this.add.image(400, 200, 'clock_big');
         this.clock_big.setOrigin(0.5, 0.5);
-	    this.clockface = new Clockface(this, 200, 150, 180, 0);
+	    this.clockface = new Clockface(this, 200, 100, 120, 0);
 	    this.clockface.visible = true;
-	    // this.clockface.drawTime(12, 0);
-	    console.log(this.clockface.time)
 	}
 
 	createClocks() {
@@ -85,14 +83,6 @@ export default class Time_Bedroom extends Time_Base {
 
 		console.log(`day diff=${diff}`)
 	}
-
-// 	clickKratts() {
-// 		this.runAlert(INTRO1_ALERT);
-// 	}
-// 
-// 	clickCallToAction() {
-// 		this.runAlert(INTRO1_ALERT);
-// 	}
 
 	clickedItem(clicked_object) {
 		switch(clicked_object.name) {
@@ -115,7 +105,7 @@ export default class Time_Bedroom extends Time_Base {
 	clickTimer1Hour() {
 	    this.tweens.add({
 	    	targets: [this.clockface],
-	    	duration: 2000,
+	    	duration: 1200,
 	    	props: {
 	    		time: '+=60'
 	    	}

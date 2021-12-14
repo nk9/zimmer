@@ -25,7 +25,6 @@ export default class Clockface extends Phaser.GameObjects.Graphics {
     }
 
     set time(newTime) {
-        console.log(newTime);
         let h = Math.round(newTime/60);
         let m = newTime - (h*60);
         this.drawTime(h, m);
