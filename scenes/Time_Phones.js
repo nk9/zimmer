@@ -42,7 +42,6 @@ export default class Time_Phones extends Time_Base {
 		super.create();
 
 		this.clocks = [];
-		this.black_screens = [];
 	}
 
 	createBackground() {
@@ -56,6 +55,7 @@ export default class Time_Phones extends Time_Base {
 
 		this.background_sound = this.sound.add('background_phones', {volume: .4, loop: true});
 
+		this.black_screens = [];
 		this.createBlackScreens();
 	}
 
