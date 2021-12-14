@@ -4,6 +4,7 @@ import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
 import { FLAVOR_NAME, FLAVOR_BDAY } from '../constants/storage';
 
 import OutlineImage from '../components/outline_image';
+import Clockface from '../components/clockface';
 import moment from 'moment';
 
 import Time_Base, { SelectionMode } from './Time_Base';
@@ -66,6 +67,9 @@ export default class Time_Bedroom extends Time_Base {
         this.timeText = this.add.text(GAME_WIDTH/2, GAME_HEIGHT/2, "3:45", timeStyle);
         this.timeText.setOrigin(0.5, 0.5);
 
+	    this.clockface = new Clockface(this, 120, 120, 200);
+	    this.clockface.visible = true;
+	    this.clockface.drawTime(3, 45);
 	}
 
 	createClocks() {
@@ -88,37 +92,13 @@ export default class Time_Bedroom extends Time_Base {
 
 	clickedItem(clicked_object) {
 		switch(clicked_object.name) {
-			case 'button1': this.clickHomeButton1(); break;
-			case 'button2': this.clickHomeButton2(); break;
-			case 'button3': this.clickHomeButton3(); break;
-			case 'call1': this.clickCallButton1(); break;
-			case 'call2': this.clickCallButton2(); break;
-			case 'call3': this.clickCallButton3(); break;
+			// case 'button1': this.clickHomeButton1(); break;
+			// case 'button2': this.clickHomeButton2(); break;
+			// case 'button3': this.clickHomeButton3(); break;
+			// case 'call1': this.clickCallButton1(); break;
+			// case 'call2': this.clickCallButton2(); break;
+			// case 'call3': this.clickCallButton3(); break;
 		}
-	}
-
-	clickHomeButton1() {
-		console.log("Home Button 1");
-	}
-
-	clickHomeButton2() {
-		console.log("Home Button 2");
-	}
-
-	clickHomeButton3() {
-		console.log("Home Button 3");
-	}
-
-	clickCallButton1() {
-		console.log("Call Button 1");
-	}
-
-	clickCallButton2() {
-		console.log("Call Button 2");
-	}
-
-	clickCallButton3() {
-		console.log("Call Button 3");
 	}
 
 	createAlerts() {
