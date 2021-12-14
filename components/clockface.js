@@ -1,4 +1,5 @@
 // Adaped from https://phaser.io/examples/v3/view/time/clock
+import { hmFromMinutes } from '../utilities/time_utils'
 
 export default class Clockface extends Phaser.GameObjects.Graphics {
     _time;
@@ -25,25 +26,23 @@ export default class Clockface extends Phaser.GameObjects.Graphics {
     }
 
     set time(newTime) {
-        let h = Math.round(newTime/60);
-        let m = newTime - (h*60);
-        this.drawTime(h, m);
+        let tweleveHrTime = newTime % (60*12);
+        this.drawTime(tweleveHrTime);
 
-        this._time = newTime;
+        this._time = tweleveHrTime;
     }
 
-    drawTime(hour, min) {
+    drawTime(newTime) {
         this.clear();
 
-    	var hmdeg = (360/12) * (min/60);
-    	var hdeg = (360/12) * (hour%12); // Degrees represented exclusively by the hours
-    	var mdeg = (360/60) * min;
+        let {h, m} = hmFromMinutes(newTime);
+
+        let hdeg = 360 * (newTime/(60*12));
+    	var mdeg = 360 * m/60;
 
         // 0 degrees is 3 o'clock, so we have to back up to 12.
-    	let hhand = hmdeg + hdeg - 90;
+    	let hhand = hdeg - 90;
     	let mhand = mdeg - 90;
-
-        console.log(hour, min);
 
     	let mhand_size = this.radius * 0.95;
     	Phaser.Geom.Line.SetToAngle(this.mline, this.x, this.y, Phaser.Math.DegToRad(mhand), mhand_size);

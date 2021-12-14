@@ -6,6 +6,7 @@ import { FLAVOR_NAME, FLAVOR_BDAY } from '../constants/storage';
 import OutlineImage from '../components/outline_image';
 import Clockface from '../components/clockface';
 import moment from 'moment';
+import { formatMinutes } from '../utilities/time_utils'
 
 import Time_Base, { SelectionMode } from './Time_Base';
 
@@ -30,11 +31,7 @@ export default class Time_Bedroom extends Time_Base {
 		// Images
 		this.load.image('van_gogh', this.assets.background.jpg);
 		this.load.image('clock_big', this.assets.wallclockBig.png);
-
-		// let keys = Object.keys(this.stored_data.screens);
-		// for (const key of keys) {
-	 //        this.load.image(key, this.assets[key].png)
-		// }
+		this.load.image('clock_digital', this.assets.clockDigital.png);
  
  		// Audio
  		this.load.audio('background_phones', this.assets.phonesFoley.mp3);
@@ -59,34 +56,39 @@ export default class Time_Bedroom extends Time_Base {
 	}
 
 	createCallToAction() {
+
+	}
+
+	getRandomTime() {
+		return Math.floor(Math.random() * 12*60);
+	}
+
+	createClocks() {
+        this.clock_big = this.add.image(400, 200, 'clock_big');
+        this.clock_big.setOrigin(0.5, 0.5);
+	    this.clock_big.alpha = 0;
+	    this.clockface = new Clockface(this, 200, 100, 120, 0);
+	    this.clockface.visible = true;
+	    this.clockface.alpha = 0;
+
+	    this.targetTime = this.getRandomTime(true);
+	    console.log(this.targetTime);
+	    this.clock_digital = this.add.image(800, 450, 'clock_digital');
+	    let bounds = this.clock_digital.getBounds();
+
         let timeStyle = {
-            fontSize: '100px',
+            fontSize: '60px',
             fontFamily: 'digital7',
             align: "center",
             fill: '#f00'
         };
-        this.timeText = this.add.text(GAME_WIDTH/2, GAME_HEIGHT/2, "3:45", timeStyle);
-        this.timeText.setOrigin(0.5, 0.5);
-
-        this.clock_big = this.add.image(400, 200, 'clock_big');
-        this.clock_big.setOrigin(0.5, 0.5);
-	    this.clockface = new Clockface(this, 200, 100, 120, 0);
-	    this.clockface.visible = true;
-	}
-
-	createClocks() {
-		let bday_str = this.game.config.storage.get(FLAVOR_BDAY);
-
-		let bday = moment.utc(bday_str, 'YYYY-MM-DD')
-		let today = moment.utc()
-		let diff = today.diff(bday, 'days') + 1;
-
-		console.log(`day diff=${diff}`)
+        this.timeText = this.add.text(bounds.x + 50, bounds.y + 20, formatMinutes(this.targetTime), timeStyle);
+        this.timeText.setOrigin(0, 0);
 	}
 
 	clickedItem(clicked_object) {
 		switch(clicked_object.name) {
-
+			case 'wallclock':  this.clickWallClock(); break;
 			case 'timer1hour': this.clickTimer1Hour(); break;
 			case 'timer15min': this.clickTimer15Min(); break;
 			case 'timer1min':  this.clickTimer1Min(); break;
@@ -102,13 +104,21 @@ export default class Time_Bedroom extends Time_Base {
 		return alerts;
 	}
 
+	clickWallClock() {
+		this.tweens.add({
+			targets: [this.clock_big, this.clockface],
+			duration: 1200,
+			alpha: 1
+		})
+	}
+
 	clickTimer1Hour() {
 	    this.tweens.add({
 	    	targets: [this.clockface],
 	    	duration: 1200,
 	    	props: {
 	    		time: '+=60'
-	    	}
+	    	},
 	    })
 	}
 
@@ -130,6 +140,12 @@ export default class Time_Bedroom extends Time_Base {
 	    		time: '+=1'
 	    	}
 	    })
+	}
+
+	checkSuccess() {
+		if (this.clockface.time == this.targetTime) {
+			console.log("success");
+		}
 	}
 
 // 	intro1AlertClicked() {
