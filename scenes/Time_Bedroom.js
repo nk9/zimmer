@@ -29,6 +29,7 @@ export default class Time_Bedroom extends Time_Base {
 
 		// Images
 		this.load.image('van_gogh', this.assets.background.jpg);
+		this.load.image('clock_big', this.assets.wallclockBig.png);
 
 		// let keys = Object.keys(this.stored_data.screens);
 		// for (const key of keys) {
@@ -67,9 +68,11 @@ export default class Time_Bedroom extends Time_Base {
         this.timeText = this.add.text(GAME_WIDTH/2, GAME_HEIGHT/2, "3:45", timeStyle);
         this.timeText.setOrigin(0.5, 0.5);
 
-	    this.clockface = new Clockface(this, 120, 120, 200);
+        this.clock_big = this.add.image(400, 300, 'clock_big');
+        this.clock_big.setOrigin(0.5, 0.5);
+	    this.clockface = new Clockface(this, 200, 150, 180);
 	    this.clockface.visible = true;
-	    this.clockface.drawTime(6, 23);
+	    this.clockface.drawTime(12, 0);
 	}
 
 	createClocks() {

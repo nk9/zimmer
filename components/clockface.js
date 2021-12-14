@@ -8,12 +8,11 @@ export default class Clockface extends Phaser.GameObjects.Graphics {
     // _radi:   the fadius of the meter
     constructor(_scene, _x, _y, _radi) {
         super(_scene, { x: _x, y: _y });
-        // this.alpha = 1;
         this.radius = _radi;
         this.setActive(true);
 
-        this.hline = new Phaser.Geom.Line();
         this.mline = new Phaser.Geom.Line();
+        this.hline = new Phaser.Geom.Line();
         _scene.add.existing(this);
     }
 
@@ -22,26 +21,16 @@ export default class Clockface extends Phaser.GameObjects.Graphics {
     	var hdeg = (360/12) * (hour%12); // Degrees represented exclusively by the hours
     	var mdeg = (360/60) * min;
 
+        // 0 degrees is 3 o'clock, so we have to back up to 12.
     	let hhand = hmdeg + hdeg - 90;
     	let mhand = mdeg - 90;
 
-        this.lineStyle(4, 0xffffff, 1);
-    	this.strokeCircle(this.x, this.y, this.radius);
-
-    	let hhand_size = this.radius * 0.8;
-    	Phaser.Geom.Line.SetToAngle(this.hline, this.x, this.y, Phaser.Math.DegToRad(hhand), hhand_size);
-       	this.lineStyle(10, 0xffffff).strokeLineShape(this.hline);
-
     	let mhand_size = this.radius * 0.95;
     	Phaser.Geom.Line.SetToAngle(this.mline, this.x, this.y, Phaser.Math.DegToRad(mhand), mhand_size);
-       	this.lineStyle(10, 0xffffff).strokeLineShape(this.mline);
-    }
+       	this.lineStyle(6, 0x666666).strokeLineShape(this.mline);
 
-    twelvePoint() {
-    	return new Phaser.Geom.Point(this.x, this.y - this.radius);
-    }
-
-    centerPoint() {
-    	return new Phaser.Geom.Point(this.x, this.y)
+        let hhand_size = this.radius * 0.7;
+        Phaser.Geom.Line.SetToAngle(this.hline, this.x, this.y, Phaser.Math.DegToRad(hhand), hhand_size);
+        this.lineStyle(10, 0x555555).strokeLineShape(this.hline);
     }
 }
