@@ -6,6 +6,11 @@ export function hmFromMinutes(min) {
 }
 
 export function formatMinutes(min) {
-	let {h, m} = hmFromMinutes(min);
+	var {h, m} = hmFromMinutes(min);
+
+	if (h == 0) {
+		h = 12;
+	}
+
 	return `${h}:${m.toString().padStart(2, '0')}`;
 }

@@ -71,23 +71,23 @@ export default class Time_Bedroom extends Time_Base {
 	    this.clockface.visible = true;
 	    this.clockface.alpha = 0;
 
-	    this.targetTime = this.getRandomTime(true);
-	    console.log(this.targetTime);
-	    this.clock_digital = this.add.image(800, 450, 'clock_digital');
+	    this.targetTime = this.getRandomTime();
+	    this.clock_digital = this.add.image(800, 470, 'clock_digital');
 	    let bounds = this.clock_digital.getBounds();
 
         let timeStyle = {
-            fontSize: '60px',
+            fontSize: '40px',
             fontFamily: 'digital7',
             align: "center",
             fill: '#f00'
         };
-        this.timeText = this.add.text(bounds.x + 50, bounds.y + 20, formatMinutes(this.targetTime), timeStyle);
-        this.timeText.setOrigin(0, 0);
+        this.timeText = this.add.text(bounds.centerX, bounds.centerY, formatMinutes(this.targetTime), timeStyle);
+        this.timeText.setOrigin(0.5, 0.5);
 	}
 
 	clickedItem(clicked_object) {
 		switch(clicked_object.name) {
+			case 'puff':       this.clickPuff(); break;
 			case 'wallclock':  this.clickWallClock(); break;
 			case 'timer1hour': this.clickTimer1Hour(); break;
 			case 'timer15min': this.clickTimer15Min(); break;
@@ -140,6 +140,11 @@ export default class Time_Bedroom extends Time_Base {
 	    		time: '+=1'
 	    	}
 	    })
+	}
+
+	clickPuff() {
+		// this.targetTime = this.getRandomTime();
+		// this.timeText.text = formatMinutes(this.targetTime);
 	}
 
 	checkSuccess() {
