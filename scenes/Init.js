@@ -64,6 +64,7 @@ export default class Init extends Scene {
 
         // Fonts
         this.loadFont('ninjago', assets.Init.fonts.Ninjago.ttf);
+        this.loadFont('digital7', assets.Init.fonts.digital7.ttf);
 
         this.load.on('progress', this.onLoadProgress, this);
         this.load.on('complete', this.onLoadComplete, this);

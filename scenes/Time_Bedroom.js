@@ -57,33 +57,15 @@ export default class Time_Bedroom extends Time_Base {
 	}
 
 	createCallToAction() {
-// 		this.sound.play('steps_cave');
-// 
-// 		this.kratts = this.add.sprite(0-300, GAME_HEIGHT, 'kratts', 'scared');
-// 		this.kratts.setOrigin(1, 1);
-// 		this.kratts.setTint(0xaaaaaa);
-// 		// this.kratts.scale = .5;
-// 
-// 		this.kratts.setInteractive({useHandCursor: true})
-// 			.on('pointerover', () => { this.kratts.clearTint() })
-// 			.on('pointerout', () => {
-// 				if (this.kratts.input.enabled) {
-// 					this.kratts.setTint(0xaaaaaa);
-// 				}
-// 			})
-// 			.on('pointerup', pointer => { this.clickKratts() });
-// 
-// 		var tweens = [];
-// 
-// 		tweens.push({
-// 			targets: this.kratts,
-// 			x: this.kratts.width,
-// 			ease: 'Sine.easeOut',
-// 			duration: 2500,
-// 			delay: 1000
-// 		});
-// 
-// 	    var timeline = this.tweens.timeline({ tweens: tweens });
+        let timeStyle = {
+            fontSize: '100px',
+            fontFamily: 'digital7',
+            align: "center",
+            fill: '#f00'
+        };
+        this.timeText = this.add.text(GAME_WIDTH/2, GAME_HEIGHT/2, "3:45", timeStyle);
+        this.timeText.setOrigin(0.5, 0.5);
+
 	}
 
 	createClocks() {

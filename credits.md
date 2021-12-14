@@ -155,6 +155,13 @@ Assets listed roughly in order of first appearance.
 
 
 
+## Time Bedroom
+|   | Work | Artist | Source |
+|---|------|--------|--------|
+|🖼️| [Melting Clocks after Dalí](assets/Time/Time_Phones/background.jpg) | ??? | [Ms. Dodge](https://gmhsart.weebly.com/surrealism.html) |
+|🔠| [Digital 7](assets/Init/fonts/digital7.ttf) | Style-7 | [dafont.com](https://www.dafont.com/digital-7.font) |
+
+
 ## Credits
 |   | Work | Artist | Source |
 |---|------|--------|--------|
