@@ -70,9 +70,10 @@ export default class Time_Bedroom extends Time_Base {
 
         this.clock_big = this.add.image(400, 300, 'clock_big');
         this.clock_big.setOrigin(0.5, 0.5);
-	    this.clockface = new Clockface(this, 200, 150, 180);
+	    this.clockface = new Clockface(this, 200, 150, 180, 0);
 	    this.clockface.visible = true;
-	    this.clockface.drawTime(12, 0);
+	    // this.clockface.drawTime(12, 0);
+	    console.log(this.clockface.time)
 	}
 
 	createClocks() {
@@ -95,12 +96,10 @@ export default class Time_Bedroom extends Time_Base {
 
 	clickedItem(clicked_object) {
 		switch(clicked_object.name) {
-			// case 'button1': this.clickHomeButton1(); break;
-			// case 'button2': this.clickHomeButton2(); break;
-			// case 'button3': this.clickHomeButton3(); break;
-			// case 'call1': this.clickCallButton1(); break;
-			// case 'call2': this.clickCallButton2(); break;
-			// case 'call3': this.clickCallButton3(); break;
+
+			case 'timer1hour': this.clickTimer1Hour(); break;
+			case 'timer15min': this.clickTimer15Min(); break;
+			case 'timer1min':  this.clickTimer1Min(); break;
 		}
 	}
 
@@ -111,6 +110,36 @@ export default class Time_Bedroom extends Time_Base {
 		};
 
 		return alerts;
+	}
+
+	clickTimer1Hour() {
+	    this.tweens.add({
+	    	targets: [this.clockface],
+	    	duration: 2000,
+	    	props: {
+	    		time: '+=60'
+	    	}
+	    })
+	}
+
+	clickTimer15Min() {
+	    this.tweens.add({
+	    	targets: [this.clockface],
+	    	duration: 500,
+	    	props: {
+	    		time: '+=15'
+	    	}
+	    })
+	}
+
+	clickTimer1Min() {
+	    this.tweens.add({
+	    	targets: [this.clockface],
+	    	duration: 100,
+	    	props: {
+	    		time: '+=1'
+	    	}
+	    })
 	}
 
 // 	intro1AlertClicked() {
