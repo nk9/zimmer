@@ -1104,18 +1104,18 @@
     "screens": {
       "screen_left": {
         "scale": 1,
-        "x": 70,
-        "y": 600
+        "x": 213,
+        "y": 463
       },
       "screen_top": {
         "scale": 1,
-        "x": 200,
-        "y": 200
+        "x": 434,
+        "y": 190
       },
       "screen_right": {
         "scale": 1,
-        "x": 600,
-        "y": 500
+        "x": 620,
+        "y": 422
       }
     },
     "items": {
