@@ -1102,17 +1102,17 @@
   },
   "Time_Phones": {
     "screens": {
-      "screen1": {
+      "screen_left": {
         "scale": 1,
         "x": 70,
         "y": 600
       },
-      "screen2": {
+      "screen_top": {
         "scale": 1,
         "x": 200,
         "y": 200
       },
-      "screen3": {
+      "screen_right": {
         "scale": 1,
         "x": 600,
         "y": 500
@@ -1153,6 +1153,26 @@
   },
   "Time_Bedroom": {
     "items": {
+      "wallclock": {
+        "scale": 1,
+        "x": 400,
+        "y": 200
+      },
+      "timer1hour": {
+        "scale": 1,
+        "x": 840,
+        "y": 285
+      },
+      "timer15min": {
+        "scale": 1,
+        "x": 89,
+        "y": 620
+      },
+      "timer1min": {
+        "scale": 1,
+        "x": 355,
+        "y": 358
+      }
     }
   }
 }
