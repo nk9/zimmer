@@ -63,46 +63,10 @@ export default class Time_Base extends Base_Scene {
 		this.swirl.rotation += 0.01;
 	}
 
-// 	createAnimals() {
-// 		for (const key in this.animals_data) {
-// 			const ad = this.animals_data[key];
-// 
-// 			let animal = new XrayAnimal(this, key, ad.success, ad.targetX, ad.targetY, ad.scale);
-// 			animal.on('drop', this.scanAnimal);
-// 			animal.on('pointerdown', this.pointerDownAnimal.bind(this, animal));
-// 
-// 			if (ad.success) {
-// 				this.success_animals.push(animal);
-// 			}
-// 
-// 			this.animals.push(animal);
-// 		}
-// 	}
-
-	pointerDownClock(pointer_down_clock) {
-		console.log("pointer_down_clock");
-// 		if (this.selectionMode == SelectionMode.RAYGUN) {
-// 			this.sound.play('xray');
-// 
-// 			this.clickedXrayAnimal(pointer_down_animal);
-// 		} else if (this.selectionMode == SelectionMode.GRABBER) {
-// 			this.sound.play('grab');
-// 		}
-
-		// for (const a of this.animals) {
-		// 	if (a == pointer_down_animal) {
-		// 		a.setDepth(Layers.DRAGGING);
-		// 	} else {
-		// 		a.setDepth(Layers.OVER_POUCH);
-		// 	}
-		// }
-	}
-
 	setClocksInput(handleInput) {
 		for (const c of this.clocks) {
 			// Leave success clocks out of the input toggling; they're always off
 			if (!this.success_clocks.includes(c)) {
-				console.log(`set clock input to ${handleInput} for ${c.name}`);
 				c.input.enabled = handleInput;
 			}
 		}

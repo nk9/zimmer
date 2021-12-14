@@ -38,11 +38,9 @@ export default class Time_Phones extends Time_Base {
  		this.load.audio('background_phones', this.assets.phonesFoley.mp3);
 	}
 
-	create() {
-		super.create();
-
-		this.clocks = [];
-	}
+	// create() {
+	// 	super.create();
+	// }
 
 	createBackground() {
 		let center_x = GAME_WIDTH/2,
