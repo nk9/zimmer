@@ -121,14 +121,38 @@ Assets listed roughly in order of first appearance.
 |🖼️| [Surreal Landscape with Clocks](assets/Time/Time_Sundial/background.jpg) | ValentinaPhotos | [Creative Market](https://images.creativemarket.com/0.1.0/ps/3795923/1332/1214/m1/fpnw/wm0/surreallandscapeofclocksxcm-.jpg?1514913041&s=8dadebd0e3e18849ab4f5a2c9de7a5ff) |
 |🫖| Hand Pedestal | printable_models | [Free3D](https://free3d.com/3d-model/displaypedestalsopenfingers-v1--411000.html) |
 |🫖| [Sundial](assets/Time/Time_Sundial/sundial.mp4) | fabiovalle3D | [TurboSquid](https://www.turbosquid.com/3d-models/3d-sundial-sun-model-1148444) |
+|🔈| [clock-ding-dong-bright] | jacobsteel | [FreeSound.org](https://freesound.org/) |
+|🔈| [coocoo-clock-chime] | photogtony | [FreeSound.org](https://freesound.org/) |
+|🔈| [large-doorbell] | gregswinford | [FreeSound.org](https://freesound.org/) |
+|🔈| [dong] | fratz | [FreeSound.org](https://freesound.org/) |
+|🔈| [bell] | aiwha | [FreeSound.org](https://freesound.org/) |
+|🔈| [dong-1] | daphne-in-wonderland | [FreeSound.org](https://freesound.org/) |
+|🔈| [notification-dong] | mrmarvell0us | [FreeSound.org](https://freesound.org/) |
+|🔈| [wind-in-the-trees-with-birds | highpeakemma | [FreeSound.org](https://freesound.org/) |
+|🔈| [wall-clock-ticking | straget | [FreeSound.org](https://freesound.org/) |
+|🔈| [old-clock-ticking | giddster | [FreeSound.org](https://freesound.org/) |
 <!-- |🔈| [Footsteps, two people walking in mud](assets/Animals/Animals_Cave/steps_cave.mp3) | BBC | [BBC Sound Effects](https://sound-effects.bbcrewind.co.uk/search?q=07041185) |
-|🔈| [Wild Kratts Christmas](assets/Animals/Animals_Cave/kratts_christmas.mp3) | Wild Kratts | [YouTube](https://youtu.be/FgRNRm7jOxQ?t=1182) |
+|🔈| [Wild Kratts Christmas](assets/Animals/Animals_Cave/kratts_christmas.mp3) | Wild Kratts | [YouTube](https://youtu.be/FgRNRm7jOxQ?t=1182) | 
  -->
 
 ## Time Phones
 |   | Work | Artist | Source |
 |---|------|--------|--------|
 |🖼️| [Melting Clocks after Dalí](assets/Time/Time_Phones/background.jpg) | ??? | [Ms. Dodge](https://gmhsart.weebly.com/surrealism.html) |
+|🔈| [wall-clock-ticking | straget | [FreeSound.org](https://freesound.org/) |
+|🔈| [old-clock-ticking | giddster | [FreeSound.org](https://freesound.org/) |
+|🔈| [clock-ding-dong-bright] | jacobsteel | [FreeSound.org](https://freesound.org/) |
+|🔈| [coocoo-clock-chime] | photogtony | [FreeSound.org](https://freesound.org/) |
+|🔈| [seaside-soft-waves] | anraana | [FreeSound.org](https://freesound.org/) |
+
+
+
+## Time Bedroom
+|   | Work | Artist | Source |
+|---|------|--------|--------|
+|🖼️| [terrier](assets\Time\Time_Bedroom\terrier.png) | ??? | [pngFind](https://www.pngfind.com/mpng/Toxihm_west-highland-white-terrier-vector-png-transparent-png/) |
+|🖼️| [background](assets\Time\Time_Bedroom\background.png) | ??? | [ericajordan](https://www.ericajordan.online/symbolicself-portraits/surreal-rooms-in-photoshop-inspired-by-rene-magritte) |
+
 
 
 ## Credits
