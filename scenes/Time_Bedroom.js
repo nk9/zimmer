@@ -69,7 +69,7 @@ export default class Time_Bedroom extends Time_Base {
 
 	    this.clockface = new Clockface(this, 120, 120, 200);
 	    this.clockface.visible = true;
-	    this.clockface.drawTime(3, 45);
+	    this.clockface.drawTime(6, 23);
 	}
 
 	createClocks() {
