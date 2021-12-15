@@ -34,7 +34,7 @@ export default class Time_Bedroom extends Time_Base {
 		this.load.image('clock_digital', this.assets.clockDigital.png);
  
  		// Audio
- 		this.load.audio('background_phones', this.assets.phonesFoley.mp3);
+ 		this.load.audio('background_phones', this.assets.bedroomFoley.mp3);
 	}
 
 	create() {
