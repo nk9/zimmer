@@ -160,7 +160,7 @@ export default class Base_Scene extends Scene {
                     let image = this.outlineImage(key, image_data);
                     image.input.enabled = input_enabled;
 
-                    image.on('pointerdown', callback.bind(this, image));
+                    image.on('pointerup', callback.bind(this, image));
                     
                     images.push(image);
                 }
