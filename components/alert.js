@@ -5,7 +5,7 @@ export default class Alert extends Scene {
 		let data = this.scene.settings.data;
 
 		// Interpret newlines
-		data.content = data.content.replace('\\n', '\n');
+		data.content = data.content.replace(/\\n/g, '\n');
 
 		const screenCenterX = this.cameras.main.worldView.x + this.cameras.main.width / 2;
 		const screenCenterY = this.cameras.main.worldView.y + this.cameras.main.height / 2;
