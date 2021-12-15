@@ -6,6 +6,7 @@ import { FLAVOR_NAME, FLAVOR_BDAY } from '../constants/storage';
 import OutlineImage from '../components/outline_image';
 import moment from 'moment';
 
+import Lockscreen from '../components/lockscreen';
 import Time_Base, { SelectionMode } from './Time_Base';
 
 let INTRO1_ALERT = 'INTRO1_ALERT';
@@ -14,6 +15,8 @@ let INTRO3_ALERT = 'INTRO3_ALERT';
 let INTRO4_ALERT = 'INTRO4_ALERT';
 let SUCCESS_ALERT = 'SUCCESS_ALERT';
 let FAIL_ALERT = 'FAIL_ALERT';
+
+let PHONE1_LOCK = 'PHONE1_LOCK';
 
 export default class Time_Phones extends Time_Base {
 	constructor() {
@@ -38,9 +41,11 @@ export default class Time_Phones extends Time_Base {
  		this.load.audio('background_phones', this.assets.phonesFoley.mp3);
 	}
 
-	// create() {
-	// 	super.create();
-	// }
+	create() {
+		super.create();
+
+		this.createLockscreens();
+	}
 
 	createBackground() {
 		let center_x = GAME_WIDTH/2,
@@ -133,7 +138,8 @@ export default class Time_Phones extends Time_Base {
 
 	clickHomeButton1() {
 		console.log("Home Button 1");
-		this.unlockPhone(1)
+		// this.unlockPhone(1)
+		this.runLockscreen(PHONE1_LOCK);
 	}
 
 	clickHomeButton2() {
@@ -181,11 +187,52 @@ export default class Time_Phones extends Time_Base {
 		}
 	}
 
-// 	intro1AlertClicked() {
-// 		this.kratts.setFrame('determined');
-// 		this.stopAlert(INTRO1_ALERT);
-// 		this.runAlert(INTRO2_ALERT);
-// 	}
+	createLockscreens() {
+		let lockscreen_alerts = {
+			[PHONE1_LOCK]: {
+				title: "How many days ago were you born?",
+				content: "Count all days, even partial ones.",
+				buttonText: "Cancel",
+				buttonAction: this.lockscreen1ButtonClicked,
+				context: this
+			}
+		}
+
+        this.lockscreen_keys = [];
+
+        for (const [key, data] of Object.entries(lockscreen_alerts)) {
+            this.lockscreen_keys.push(key);
+            this.scene.add(key, new Lockscreen(key), false, data)
+        }
+
+        // Dispose of alerts on shutdown to clear namespace
+        this.events.once('shutdown', () => {
+            for (const key of this.lockscreen_keys) {
+                this.scene.remove(key);
+            }
+            this.input.setDefaultCursor('default');
+        });
+	}
+
+    // Disable the main scene's input while the alert scene is showing
+    runLockscreen(scene_key, info=null) {
+        console.log(`runLockscreen: ${scene_key}`);
+        this.input.enabled = false;
+        this.scene.run(scene_key, info);
+    }
+
+    stopLockscreen(scene_key) {
+        console.log(`stopLockscreen: ${scene_key}`);
+        this.scene.stop(scene_key);
+        this.input.enabled = true;
+    }
+
+
+	lockscreen1ButtonClicked() {
+		// this.kratts.setFrame('determined');
+		this.stopLockscreen(PHONE1_LOCK);
+	}
+
 // 	intro2AlertClicked() {
 // 		this.kratts.setFrame('normal');
 // 		this.stopAlert(INTRO2_ALERT);
