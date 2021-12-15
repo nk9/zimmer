@@ -1,5 +1,6 @@
 import moment from 'moment';
 import log from 'loglevel';
+import { random } from 'lodash-es';
 
 import { SceneProgress, Layers } from './Base_Scene';
 import { MAIN_HALL, TIME_PHONES } from '../constants/scenes';
@@ -186,36 +187,34 @@ export default class Time_Phones extends Time_Base {
 	}
 
 	createLockscreens() {
-		let bday_str = this.game.config.storage.get(FLAVOR_BDAY);
-
-		let bday = moment.utc(bday_str, 'YYYY-MM-DD')
-		let today = moment.utc()
-		let diff = today.diff(bday, 'days') + 1;
+		let bday_diff = this.calculateAnswerLockscreen1();
+		let friday_count = this.calculateAnswerLockscreen2();
+		let answer3 = this.calculateAnswerLockscreen3();
 
 		let lockscreen_alerts = {
 			[PHONE1_LOCK]: {
 				title: "How many days ago were you born?",
 				content: "Count all days, even partial ones. Don't forget leap years!",
 				buttonText: "Cancel",
-				answer: diff.toString(),
+				answer: bday_diff.toString(),
 				phoneNum: 1,
 				buttonAction: this.lockscreen1ButtonClicked,
 				context: this
 			},
 			[PHONE2_LOCK]: {
-				title: "How many minutes in a week?",
-				content: "",
+				title: "How many Fridays are there",
+				content: "in the current year?",
 				buttonText: "Cancel",
-				answer: `${7*24*60}`,
+				answer: `${friday_count}`,
 				phoneNum: 2,
 				buttonAction: this.lockscreen2ButtonClicked,
 				context: this
 			},
 			[PHONE3_LOCK]: {
-				title: "How many seconds between these?",
-				content: "Enter the number of seconds between 10:12:00 PM and 1:30:00 AM the next day.",
+				title: "Enter the number of minutes",
+				content: `between ${answer3.t1} and ${answer3.t2} PM.`,
 				buttonText: "Cancel",
-				answer: "11880",
+				answer: `${answer3.minuteDiff}`,
 				phoneNum: 3,
 				buttonAction: this.lockscreen3ButtonClicked,
 				context: this
@@ -238,6 +237,46 @@ export default class Time_Phones extends Time_Base {
             }
             this.input.setDefaultCursor('default');
         });
+	}
+
+	calculateAnswerLockscreen1() {
+		// Calculate birthday diff
+		let bday_str = this.game.config.storage.get(FLAVOR_BDAY);
+
+		let bday = moment.utc(bday_str, 'YYYY-MM-DD')
+		let today = moment.utc()
+		return today.diff(bday, 'days') + 1;
+	}
+
+	calculateAnswerLockscreen2() {
+		// Count Fridays in the current year
+		// Adapted from https://stackoverflow.com/a/41194523
+		var start = moment().startOf('year'),
+	    	end   = moment().endOf('year'),
+	    	target_day   = 5; // Friday
+
+		var result = [];
+		var current = start.clone();
+
+		// Move to the first target day, if we aren't already there
+		if (current.day() != target_day) {
+			current.day(target_day);
+		}
+		result.push(current); // Add the first target day to the result list
+
+		// Step through the year, week by week, adding target days as we go
+		while (current.day(7 + target_day).isSameOrBefore(end)) {
+		  result.push(current.clone());
+		}
+
+		return result.length;
+	}
+
+	calculateAnswerLockscreen3() {
+		// Randomize and caclulate time difference
+		let t1 = random(1,6);
+		let t2 = random(7,11);
+		return {t1: t1, t2: t2, minuteDiff: (t2 - t1) * 60};
 	}
 
     // Disable the main scene's input while the alert scene is showing

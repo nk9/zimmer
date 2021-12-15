@@ -42,8 +42,9 @@ export default class Lockscreen extends Scene {
 		title.setOrigin(0.5, 0);
 
 		let titleBottomLeft = title.getBottomLeft();
-		content.x = inset.x;
+		content.x = GAME_WIDTH/2;
 		content.y = titleBottomLeft.y+20;
+		content.setOrigin(0.5, 0);
 
 		this.buttonRect = this.add.rectangle(inset.right, inset.bottom, 150, 36, 0x000000, .5);
 		this.buttonRect.setStrokeStyle(2, 0xffffff);
