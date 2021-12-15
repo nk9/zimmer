@@ -173,6 +173,8 @@ export default class Lockscreen extends Scene {
 		if (this.enteredText == data.answer) {
 			log.debug('CORRECT');
 			data.context.lockscreenSuccess(this.scene.key, data.phoneNum);
+		} else {
+			data.context.lockscreenFailure(this.scene.key);
 		}
 	}
 }

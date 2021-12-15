@@ -246,6 +246,11 @@ export default class Time_Phones extends Time_Base {
 		this.unlockPhone(phoneNum);
 	}
 
+	lockscreenFailure(key) {
+		log.debug(`Failed at ${key}, dismiss scene`)
+		this.stopLockscreen(key);
+	}
+
 // 	intro2AlertClicked() {
 // 		this.kratts.setFrame('normal');
 // 		this.stopAlert(INTRO2_ALERT);
