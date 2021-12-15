@@ -137,7 +137,7 @@ export default class Time_Phones extends Time_Base {
 
 	clickHomeButton3() {
 		log.debug("Home Button 3");
-		this.unlockPhone(3)
+		this.runLockscreen(PHONE3_LOCK);
 	}
 
 	unlockPhone(phoneNum) {
@@ -192,8 +192,6 @@ export default class Time_Phones extends Time_Base {
 		let today = moment.utc()
 		let diff = today.diff(bday, 'days') + 1;
 
-		log.debug(`day diff=${diff}`)
-
 		let lockscreen_alerts = {
 			[PHONE1_LOCK]: {
 				title: "How many days ago were you born?",
@@ -213,7 +211,18 @@ export default class Time_Phones extends Time_Base {
 				buttonAction: this.lockscreen2ButtonClicked,
 				context: this
 			},
+			[PHONE3_LOCK]: {
+				title: "How many seconds between these?",
+				content: "Enter the number of seconds between 10:12:00 PM and 1:30:00 AM the next day.",
+				buttonText: "Cancel",
+				answer: "11880",
+				phoneNum: 3,
+				buttonAction: this.lockscreen3ButtonClicked,
+				context: this
+			},
 		}
+
+		log.debug(lockscreen_alerts);
 
         this.lockscreen_keys = [];
 
@@ -236,6 +245,7 @@ export default class Time_Phones extends Time_Base {
         log.debug(`runLockscreen: ${scene_key}`);
         this.input.enabled = false;
         this.scene.run(scene_key, info);
+		event.stopPropagation(); // Doesn't work?? Probably a Phaser bug.
     }
 
     stopLockscreen(scene_key) {
@@ -250,6 +260,10 @@ export default class Time_Phones extends Time_Base {
 
 	lockscreen2ButtonClicked() {
 		this.stopLockscreen(PHONE2_LOCK);
+	}
+
+	lockscreen3ButtonClicked() {
+		this.stopLockscreen(PHONE3_LOCK);
 	}
 
 	lockscreenSuccess(key, phoneNum) {
