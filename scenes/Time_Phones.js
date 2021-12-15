@@ -18,6 +18,8 @@ let SUCCESS_ALERT = 'SUCCESS_ALERT';
 let FAIL_ALERT = 'FAIL_ALERT';
 
 let PHONE1_LOCK = 'PHONE1_LOCK';
+let PHONE2_LOCK = 'PHONE2_LOCK';
+let PHONE3_LOCK = 'PHONE3_LOCK';
 
 export default class Time_Phones extends Time_Base {
 	constructor() {
@@ -125,13 +127,12 @@ export default class Time_Phones extends Time_Base {
 
 	clickHomeButton1() {
 		log.debug("Home Button 1");
-		// this.unlockPhone(1)
 		this.runLockscreen(PHONE1_LOCK);
 	}
 
 	clickHomeButton2() {
 		log.debug("Home Button 2");
-		this.unlockPhone(2)
+		this.runLockscreen(PHONE2_LOCK);
 	}
 
 	clickHomeButton3() {
@@ -202,7 +203,16 @@ export default class Time_Phones extends Time_Base {
 				phoneNum: 1,
 				buttonAction: this.lockscreen1ButtonClicked,
 				context: this
-			}
+			},
+			[PHONE2_LOCK]: {
+				title: "How many minutes in a week?",
+				content: "",
+				buttonText: "Cancel",
+				answer: `${7*24*60}`,
+				phoneNum: 2,
+				buttonAction: this.lockscreen2ButtonClicked,
+				context: this
+			},
 		}
 
         this.lockscreen_keys = [];
@@ -235,8 +245,11 @@ export default class Time_Phones extends Time_Base {
     }
 
 	lockscreen1ButtonClicked() {
-		// this.kratts.setFrame('determined');
 		this.stopLockscreen(PHONE1_LOCK);
+	}
+
+	lockscreen2ButtonClicked() {
+		this.stopLockscreen(PHONE2_LOCK);
 	}
 
 	lockscreenSuccess(key, phoneNum) {

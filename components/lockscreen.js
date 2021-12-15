@@ -174,7 +174,16 @@ export default class Lockscreen extends Scene {
 			log.debug('CORRECT');
 			data.context.lockscreenSuccess(this.scene.key, data.phoneNum);
 		} else {
-			data.context.lockscreenFailure(this.scene.key);
+			this.tweens.add({
+				targets: [this.entryField],
+				duration: 100,
+				loop: 2,
+				x: '+=15',
+				yoyo: true,
+				onComplete: () => { data.context.lockscreenFailure(this.scene.key); },
+				onCompleteScope: this
+			})
+			
 		}
 	}
 }
