@@ -58,6 +58,12 @@ export default class Time_Phones extends Time_Base {
 	}
 
 	createCallToAction() {
+		for (const item of this.items) {
+			if (item.name.startsWith('call')) {
+				item.visible = false;
+			}
+		}
+
 // 		this.sound.play('steps_cave');
 // 
 // 		this.kratts = this.add.sprite(0-300, GAME_HEIGHT, 'kratts', 'scared');
@@ -127,14 +133,22 @@ export default class Time_Phones extends Time_Base {
 
 	clickHomeButton1() {
 		console.log("Home Button 1");
+		this.unlockPhone(1)
 	}
 
 	clickHomeButton2() {
 		console.log("Home Button 2");
+		this.unlockPhone(2)
 	}
 
 	clickHomeButton3() {
 		console.log("Home Button 3");
+		this.unlockPhone(3)
+	}
+
+	unlockPhone(phoneNum) {
+		this.black_screens[phoneNum-1].visible = false;
+		this.showCallButton(phoneNum)
 	}
 
 	clickCallButton1() {
@@ -156,6 +170,15 @@ export default class Time_Phones extends Time_Base {
 		};
 
 		return alerts;
+	}
+
+	showCallButton(phoneNum) {
+		for (const i of this.items) {
+			if (i.name == `call${phoneNum}`) {
+				i.visible = true;
+				break;
+			}
+		}
 	}
 
 // 	intro1AlertClicked() {
