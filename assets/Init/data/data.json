@@ -1181,22 +1181,42 @@
       "ball": {
         "scale": 1,
         "x": 175,
-        "y": 665
+        "y": 665,
+        "alert": {
+          "title": "Ball",
+          "content": "Fetch!",
+          "button_title": "..."
+        }
       },
       "puff": {
         "scale": 1,
         "x": 823,
-        "y": 398
+        "y": 398,
+        "alert": {
+          "title": "Cushion",
+          "content": "Oooh, soft.",
+          "button_title": "..."
+        }
       },
       "flowers": {
         "scale": 1,
         "x": 300,
-        "y": 353
+        "y": 353,
+        "alert": {
+          "title": "Flowers",
+          "content": "These smell nice.",
+          "button_title": "..."
+        }        
       },
       "book": {
         "scale": 1,
         "x": 640,
-        "y": 479
+        "y": 479,
+        "alert": {
+          "title": "A book",
+          "content": "Sixty seconds make a minute: \\n How much good can I do in it? \\n Sixty minutes make and hour,- \\n All the good that's in my power. \\n Twenty hours and four, a day,- \\n Time for work, and sleep, and play. \\n Days, three hundred sixty-five \\n Make a year for me to strive \\n Eight good things for me to do, \\n That I wise may grow and true.",
+          "button_title": "..."
+        }
       }
     }
   }

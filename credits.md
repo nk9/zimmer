@@ -152,7 +152,11 @@ Assets listed roughly in order of first appearance.
 |---|------|--------|--------|
 |🖼️| [terrier](assets\Time\Time_Bedroom\terrier.png) | ??? | [pngFind](https://www.pngfind.com/mpng/Toxihm_west-highland-white-terrier-vector-png-transparent-png/) |
 |🖼️| [background](assets\Time\Time_Bedroom\background.png) | ??? | [ericajordan](https://www.ericajordan.online/symbolicself-portraits/surreal-rooms-in-photoshop-inspired-by-rene-magritte) |
-
+|🔈| [wall-clock-ticking | straget | [FreeSound.org](https://freesound.org/) |
+|🔈| [old-clock-ticking | giddster | [FreeSound.org](https://freesound.org/) |
+|🔈| [clock-ding-dong-bright] | jacobsteel | [FreeSound.org](https://freesound.org/) |
+|🔈| [coocoo-clock-chime] | photogtony | [FreeSound.org](https://freesound.org/) |
+|🔈| [jazz-the-dog-howl-bark] | delphidebrain | [FreeSound.org](https://freesound.org/) |
 
 
 ## Time Bedroom
