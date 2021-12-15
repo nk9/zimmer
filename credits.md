@@ -127,13 +127,10 @@ Assets listed roughly in order of first appearance.
 |🔈| [dong] | fratz | [FreeSound.org](https://freesound.org/) |
 |🔈| [bell] | aiwha | [FreeSound.org](https://freesound.org/) |
 |🔈| [dong-1] | daphne-in-wonderland | [FreeSound.org](https://freesound.org/) |
-|🔈| [notification-dong] | mrmarvell0us | [FreeSound.org](https://freesound.org/) |
-|🔈| [wind-in-the-trees-with-birds | highpeakemma | [FreeSound.org](https://freesound.org/) |
+|🔈| [notification-dong] | mrmarvell0us | [FreeSound.org](https://freesound.org/people/MrMarvell0us/sounds/575650/) |
+|🔈| [wind-in-the-trees-with-birds | highpeakemma | [FreeSound.org](https://freesound.org/people/HighPeakEmma/sounds/538197/) |
 |🔈| [wall-clock-ticking | straget | [FreeSound.org](https://freesound.org/) |
 |🔈| [old-clock-ticking | giddster | [FreeSound.org](https://freesound.org/) |
-<!-- |🔈| [Footsteps, two people walking in mud](assets/Animals/Animals_Cave/steps_cave.mp3) | BBC | [BBC Sound Effects](https://sound-effects.bbcrewind.co.uk/search?q=07041185) |
-|🔈| [Wild Kratts Christmas](assets/Animals/Animals_Cave/kratts_christmas.mp3) | Wild Kratts | [YouTube](https://youtu.be/FgRNRm7jOxQ?t=1182) | 
- -->
 
 ## Time Phones
 |   | Work | Artist | Source |
