@@ -41,6 +41,7 @@ export default class Time_Bedroom extends Time_Base {
 		super.create();
 
 		this.clocks = [];
+		this.setTimersInput(false);
 	}
 
 	createBackground() {
@@ -108,7 +109,9 @@ export default class Time_Bedroom extends Time_Base {
 		this.tweens.add({
 			targets: [this.clock_big, this.clockface],
 			duration: 1200,
-			alpha: 1
+			alpha: 1,
+			onComplete: () => { this.setTimersInput(true) },
+			onCompleteScope: this
 		})
 	}
 
@@ -150,6 +153,16 @@ export default class Time_Bedroom extends Time_Base {
 	checkSuccess() {
 		if (this.clockface.time == this.targetTime) {
 			console.log("success");
+		}
+	}
+
+	setTimersInput(inputEnabled) {
+		for (var i = 0; i < this.items.length; i++) {
+			let item = this.items[i];
+
+			if (item.name.startsWith('timer')) {
+				item.input.enabled = inputEnabled;
+			}
 		}
 	}
 
