@@ -28,13 +28,9 @@ export default class Time_Sundial extends Time_Base {
 		// Images
 		this.load.image('clock_field', this.assets.background.jpg);
 		this.load.video('sundial', this.assets.sundial.webm);
-// 		this.load.image('cave_door_open', this.assets.cave_door_open.png);
-// 		this.load.image('cave_party', this.assets.kratts_christmas.png);
-// 
+
  		// Audio
  		this.load.audio('background_sundial', this.assets.sundial_foley.mp3);
-// 		this.load.audio('steps_cave', this.assets.steps_cave.mp3);
-// 		this.load.audio('kratts_christmas', this.assets.kratts_christmas.mp3);
 
 		this.clocks_data = this.stored_data.clocks;
 

@@ -1,3 +1,5 @@
+import log from 'loglevel';
+
 import { SceneProgress, Layers } from './Base_Scene';
 import { MAIN_HALL, TIME_BEDROOM } from '../constants/scenes';
 import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
@@ -5,7 +7,6 @@ import { FLAVOR_NAME, FLAVOR_BDAY } from '../constants/storage';
 
 import OutlineImage from '../components/outline_image';
 import Clockface from '../components/clockface';
-import moment from 'moment';
 import { formatMinutes } from '../utilities/time_utils'
 
 import Time_Base, { SelectionMode } from './Time_Base';
@@ -87,6 +88,8 @@ export default class Time_Bedroom extends Time_Base {
 	}
 
 	clickedItem(clicked_object) {
+		log.debug(`clicked '${clicked_object.name}'`);
+
 		switch(clicked_object.name) {
 			case 'puff':       this.clickPuff(); break;
 			case 'wallclock':  this.clickWallClock(); break;
@@ -146,8 +149,7 @@ export default class Time_Bedroom extends Time_Base {
 	}
 
 	clickPuff() {
-		// this.targetTime = this.getRandomTime();
-		// this.timeText.text = formatMinutes(this.targetTime);
+		log.debug("puff clicked");
 	}
 
 	checkSuccess() {

@@ -208,7 +208,6 @@ export default class Base_Scene extends Scene {
 
     handleGenericItemClicked(item) {
         if (item.info.hasOwnProperty('alert')) {
-            // console.log(item.info.alert);
             let alert_data = item.info.alert;
             let data = {
                 title: alert_data.title,
@@ -220,7 +219,9 @@ export default class Base_Scene extends Scene {
 
             this.scene.add(ITEM_ALERT, new Alert(ITEM_ALERT), false, data);
             this.runAlert(ITEM_ALERT);
-        } else {
+        }
+
+        if (typeof this.clickedItem === 'function') {
             this.clickedItem(item);
         }
     }
