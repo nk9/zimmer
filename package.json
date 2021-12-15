@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "lodash-es": "^4.17.21",
+    "loglevel": "^1.8.0",
     "moment": "^2.29.1",
     "phaser": "^3.55.2"
   },

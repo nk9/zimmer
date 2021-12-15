@@ -7,6 +7,7 @@ import { INIT, MAIN_HALL, CREDITS,
 import { UNLOCKED_SCENES, COLLECTED_GEMS, FLAVOR_NAME, FLAVOR_BDAY } from '../constants/storage';
 
 import moment from 'moment';
+import log from 'loglevel';
 
 import assets from '../assets/**/*.*';
 import swirlsJpg from '../assets/Init/swirls/*.jpg';
@@ -20,6 +21,7 @@ export default class Init extends Scene {
         this.progressBar = null;
         this.progressCompleteRect = null;
         this.progressRect = null;
+        this.setupLogging();
     }
 
     preload() {
@@ -170,5 +172,9 @@ export default class Init extends Scene {
             .fillRectShape(this.progressCompleteRect)
             .fillStyle(color)
             .fillRectShape(this.progressRect);
+    }
+
+    setupLogging() {
+        log.setLevel('debug'); // Should be "silent" in production
     }
 }

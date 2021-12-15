@@ -1,11 +1,12 @@
+import moment from 'moment';
+import log from 'loglevel';
+
 import { SceneProgress, Layers } from './Base_Scene';
 import { MAIN_HALL, TIME_PHONES } from '../constants/scenes';
 import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
 import { FLAVOR_NAME, FLAVOR_BDAY } from '../constants/storage';
 
 import OutlineImage from '../components/outline_image';
-import moment from 'moment';
-
 import Lockscreen from '../components/lockscreen';
 import Time_Base, { SelectionMode } from './Time_Base';
 
@@ -45,6 +46,7 @@ export default class Time_Phones extends Time_Base {
 		super.create();
 
 		this.createLockscreens();
+		this.success_lockscreens = [];
 	}
 
 	createBackground() {
@@ -99,13 +101,6 @@ export default class Time_Phones extends Time_Base {
 	}
 
 	createClocks() {
-		let bday_str = this.game.config.storage.get(FLAVOR_BDAY);
-
-		let bday = moment.utc(bday_str, 'YYYY-MM-DD')
-		let today = moment.utc()
-		let diff = today.diff(bday, 'days') + 1;
-
-		console.log(`day diff=${diff}`)
 	}
 
 	createBlackScreens() {
@@ -116,14 +111,6 @@ export default class Time_Phones extends Time_Base {
 	        this.black_screens.push(screen);
 		}
 	}
-
-// 	clickKratts() {
-// 		this.runAlert(INTRO1_ALERT);
-// 	}
-// 
-// 	clickCallToAction() {
-// 		this.runAlert(INTRO1_ALERT);
-// 	}
 
 	clickedItem(clicked_object) {
 		switch(clicked_object.name) {
@@ -137,36 +124,37 @@ export default class Time_Phones extends Time_Base {
 	}
 
 	clickHomeButton1() {
-		console.log("Home Button 1");
+		log.debug("Home Button 1");
 		// this.unlockPhone(1)
 		this.runLockscreen(PHONE1_LOCK);
 	}
 
 	clickHomeButton2() {
-		console.log("Home Button 2");
+		log.debug("Home Button 2");
 		this.unlockPhone(2)
 	}
 
 	clickHomeButton3() {
-		console.log("Home Button 3");
+		log.debug("Home Button 3");
 		this.unlockPhone(3)
 	}
 
 	unlockPhone(phoneNum) {
 		this.black_screens[phoneNum-1].visible = false;
 		this.showCallButton(phoneNum)
+		this.disableHomeButton(phoneNum)
 	}
 
 	clickCallButton1() {
-		console.log("Call Button 1");
+		log.debug("Call Button 1");
 	}
 
 	clickCallButton2() {
-		console.log("Call Button 2");
+		log.debug("Call Button 2");
 	}
 
 	clickCallButton3() {
-		console.log("Call Button 3");
+		log.debug("Call Button 3");
 	}
 
 	createAlerts() {
@@ -187,12 +175,31 @@ export default class Time_Phones extends Time_Base {
 		}
 	}
 
+	disableHomeButton(phoneNum) {
+		for (const i of this.items) {
+			if (i.name == `button${phoneNum}`) {
+				i.input.enabled = false;
+				break;
+			}
+		}
+	}
+
 	createLockscreens() {
+		let bday_str = this.game.config.storage.get(FLAVOR_BDAY);
+
+		let bday = moment.utc(bday_str, 'YYYY-MM-DD')
+		let today = moment.utc()
+		let diff = today.diff(bday, 'days') + 1;
+
+		log.debug(`day diff=${diff}`)
+
 		let lockscreen_alerts = {
 			[PHONE1_LOCK]: {
 				title: "How many days ago were you born?",
-				content: "Count all days, even partial ones.",
+				content: "Count all days, even partial ones. Don't forget leap years!",
 				buttonText: "Cancel",
+				answer: diff.toString(),
+				phoneNum: 1,
 				buttonAction: this.lockscreen1ButtonClicked,
 				context: this
 			}
@@ -216,21 +223,27 @@ export default class Time_Phones extends Time_Base {
 
     // Disable the main scene's input while the alert scene is showing
     runLockscreen(scene_key, info=null) {
-        console.log(`runLockscreen: ${scene_key}`);
+        log.debug(`runLockscreen: ${scene_key}`);
         this.input.enabled = false;
         this.scene.run(scene_key, info);
     }
 
     stopLockscreen(scene_key) {
-        console.log(`stopLockscreen: ${scene_key}`);
+        log.debug(`stopLockscreen: ${scene_key}`);
         this.scene.stop(scene_key);
         this.input.enabled = true;
     }
 
-
 	lockscreen1ButtonClicked() {
 		// this.kratts.setFrame('determined');
 		this.stopLockscreen(PHONE1_LOCK);
+	}
+
+	lockscreenSuccess(key, phoneNum) {
+		log.debug(`Finished ${key}`)
+		this.stopLockscreen(key);
+		this.success_lockscreens.push(key);
+		this.unlockPhone(phoneNum);
 	}
 
 // 	intro2AlertClicked() {

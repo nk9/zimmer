@@ -26,7 +26,6 @@ export default class Time_Base extends Base_Scene {
 	}
 
 	init() {
-		console.log("T_B init");
 		this.selectionMode = SelectionMode.NONE;
 
 		this.success_clocks = [];
