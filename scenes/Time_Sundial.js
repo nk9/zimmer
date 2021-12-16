@@ -11,9 +11,6 @@ import OutlineImage from '../components/outline_image';
 import Time_Base, { SelectionMode } from './Time_Base';
 
 let INTRO1_ALERT = 'INTRO1_ALERT';
-let INTRO2_ALERT = 'INTRO2_ALERT';
-let INTRO3_ALERT = 'INTRO3_ALERT';
-let INTRO4_ALERT = 'INTRO4_ALERT';
 let SUCCESS_ALERT = 'SUCCESS_ALERT';
 let FAIL_ALERT = 'FAIL_ALERT';
 
@@ -136,8 +133,7 @@ export default class Time_Sundial extends Time_Base {
 	        clock.markSolved();
 
 	        if (this.success_clocks.length == this.clocks.length) {
-	        	this.grandfather_sound.play();
-    			this.time.delayedCall(5000, this.startTornado, [], this);
+	        	this.allClocksMatched();
 	        } else {
 		        this.sound.playAudioSprite('chimes', "tada");
 	        }
@@ -207,10 +203,17 @@ export default class Time_Sundial extends Time_Base {
 
 		let alerts = {
 			[INTRO1_ALERT]: {
-				title: "I've been walking for ages!",
+				title: "I’ve been walking for ages!",
 				content: "There’s a path here, but no matter how far I walk I don’t seem to be able to get anywhere. I think I’m missing something to do with these clocks.",
-				buttonText: "I'll have a look",
+				buttonText: "I’ll have a look",
 				buttonAction: this.intro1AlertClicked,
+				context: this
+			},
+			[SUCCESS_ALERT]: {
+				title: "Wow, what a racket!",
+				content: "That didn’t happen before. Let’s see if we can get somewhere now.",
+				buttonText: "Let’s go!",
+				buttonAction: this.successAlertClicked,
 				context: this
 			},
 		};
@@ -225,12 +228,51 @@ export default class Time_Sundial extends Time_Base {
 		this.tweens.add({
 			delay: 500,
 			targets: this.halt,
-			y: GAME_HEIGHT+350,
+			x: 0,
 			ease: 'Sine',
 			duration: 1500,
 			onComplete: () => { this.items_dict['pedestal'].input.enabled = true; },
 			onCompleteScope: this
 		});
+	}
+
+	allClocksMatched() {
+    	this.grandfather_sound.play();
+
+		this.halt.input.enabled = false;
+		this.tweens.add({
+			targets: this.halt,
+			x: this.halt.width,
+			ease: 'Sine.easeOut',
+			duration: 1000,
+			delay: 1500,
+			onComplete: () => { this.runAlert(SUCCESS_ALERT); },
+			onCompleteScope: this
+		});
+	}
+
+	successAlertClicked() {
+		log.debug("successAlertClicked")
+		this.stopAlert(SUCCESS_ALERT);
+
+		var tweens = [];
+
+		tweens.push({
+			targets: this.halt,
+			x: 0,
+			ease: 'Sine.easeOut',
+			duration: 1000
+		},{
+			targets: this.video,
+			y: GAME_HEIGHT,
+			ease: 'Sine.easeOut',
+			duration: 1000,
+			offset: 0
+		});
+
+	    var timeline = this.tweens.timeline({ tweens: tweens });
+
+		this.startTornado();
 	}
 
 	startTornado() {
@@ -337,28 +379,6 @@ export default class Time_Sundial extends Time_Base {
 	doSuccessTransition() {
 	}
 
-
-	successAlertClicked() {
-// 		this.kratts_christmas.play();
-// 		this.stopAlert(SUCCESS_ALERT);
-// 		this.party.visible = true;
-// 		this.overlay.visible = true;
-// 
-// 	    var timeline = this.tweens.timeline({
-// 	    	tweens: [{
-// 				targets: this.party,
-// 				scale: 1,
-// 				angle: 0,
-// 				duration: 12000,
-// 			},{
-// 	    		targets: this.overlay,
-// 	    		alpha: 1,
-// 	    		duration: 2500,
-// 	    	}]
-// 	    });
-// 
-// 	    this.time.delayedCall(14500, this.startNextScene, [], this);
-	}
 
 	fail() {
 		this.runAlert(FAIL_ALERT);
