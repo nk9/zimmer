@@ -1,5 +1,5 @@
 export function hmFromMinutes(min) {
-	let h = Math.round(min/60);
+	let h = Math.floor(min/60);
 	let m = min % 60;
 
     return {h: h, m: m}
