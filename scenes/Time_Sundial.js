@@ -1,9 +1,12 @@
+import log from 'loglevel';
+
 import { SceneProgress, Layers } from './Base_Scene';
 import { MAIN_HALL, TIME_SUNDIAL } from '../constants/scenes';
 import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
 import { FLAVOR_NAME } from '../constants/storage';
 
 import OutlineTimeClock from '../components/outline_time_clock';
+import OutlineImage from '../components/outline_image';
 
 import Time_Base, { SelectionMode } from './Time_Base';
 
@@ -28,9 +31,12 @@ export default class Time_Sundial extends Time_Base {
 		// Images
 		this.load.image('clock_field', this.assets.background.jpg);
 		this.load.video('sundial', this.assets.sundial.webm);
+	    this.loadOutlineImage('house');
 
  		// Audio
  		this.load.audio('background_sundial', this.assets.sundial_foley.mp3);
+ 		this.load.audio('grandfather', this.assets.grandfatherclock.mp3);
+ 		this.load.audio('tornado', this.assets.tornado.mp3);
 
 		this.clocks_data = this.stored_data.clocks;
 
@@ -47,6 +53,9 @@ export default class Time_Sundial extends Time_Base {
 
 		this.setClocksInput(false); // Start with the clocks not being clickable
 		this.createSundial();
+
+		// Useful for testing the tornado without completing the level
+		// this.startTornado();
 	}
 
 	createBackground() {
@@ -59,11 +68,13 @@ export default class Time_Sundial extends Time_Base {
 		this.background_closed.setOrigin(0, 0);
 
 		this.background_sound = this.sound.add('background_sundial', {volume: .4, loop: true});
+		this.grandfather_sound = this.sound.add('grandfather', {volume: .4});
+		this.tornado_sound = this.sound.add('tornado', {volume: .6});
 	}
 
 	createCallToAction() {
 		this.items_dict['pedestal'].input.enabled = false;
-		
+
 		this.halt = this.add.sprite(0-300, GAME_HEIGHT, 'halt', 'grumpy');
 		this.halt.setOrigin(1, 1);
 		this.halt.setTint(0xaaaaaa);
@@ -119,11 +130,17 @@ export default class Time_Sundial extends Time_Base {
 		let diff = Math.abs(clock.progress - this.video.getProgress());
 
 		if (diff <= .02) {
-			console.log(`got it: ${diff}`);
+			log.debug(`got it: ${diff}`);
 	        clock.input.enabled = false;
 			this.success_clocks.push(clock);
-	        this.sound.playAudioSprite('chimes', "tada");
 	        clock.markSolved();
+
+	        if (this.success_clocks.length == this.clocks.length) {
+	        	this.grandfather_sound.play();
+    			this.time.delayedCall(5000, this.startTornado, [], this);
+	        } else {
+		        this.sound.playAudioSprite('chimes', "tada");
+	        }
 		} else {
 			let clock_num = clock.name.substring(5);
 			this.sound.playAudioSprite('chimes', clock_num);
@@ -134,7 +151,7 @@ export default class Time_Sundial extends Time_Base {
 		if (this.video.isPlaying()) {
 			this.video.stop();
 			this.setClocksInput(true);
-			console.log("progress: ", this.video.getProgress());
+			log.debug("progress: ", this.video.getProgress());
 		} else {
 			this.video.play(true); // Loop video playback
 			this.setClocksInput(false);
@@ -215,6 +232,51 @@ export default class Time_Sundial extends Time_Base {
 			onCompleteScope: this
 		});
 	}
+
+	startTornado() {
+		this.tornado_sound.play();
+
+		let bounds = new Phaser.Geom.Rectangle(250, 300, 175, 200);
+	    let particle = this.add.particles('smoke');
+
+	    this.emitter = particle.createEmitter({
+	        blendMode: 'SOFT_LIGHT',
+	        scale: { start: 0.2, end: 0.5 },
+	        speed: { min: -100, max: 100 },
+	        quantity: 5,
+	        emitZone: {
+		        source: new Phaser.Geom.Triangle(bounds.left, bounds.top, bounds.right, bounds.top, bounds.centerX, bounds.bottom),
+		        type: 'random',
+		        quantity: 35
+	        },
+	        lifespan: 300
+	    });
+
+		var path = new Phaser.Curves.Path(this.cache.json.get('house_path'));
+
+		// Add to show the path the house will take
+	    // var graphics = this.add.graphics().lineStyle(1, 0x2d2d2d, 1);
+	    // path.draw(graphics);
+
+	    this.follower = this.add.follower(path, 0, 0, 'house');
+		this.follower.startFollow({
+			duration: 7000,
+			positionOnPath: true,
+			ease: 'Linear',
+	        rotateToPath: true,
+		});
+
+		this.time.delayedCall(7000, this.stopTornado, [], this);
+	}
+
+	stopTornado() {
+		this.emitter.stop();
+		this.follower.visible = false;
+		let bounds = this.follower.getBounds();
+		this.house = new OutlineImage(this, 'house', bounds.centerX, bounds.centerY);
+		this.house.input.cursor = 'pointer';
+	}
+
 // 	intro2AlertClicked() {
 // 		this.kratts.setFrame('normal');
 // 		this.stopAlert(INTRO2_ALERT);

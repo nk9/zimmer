@@ -64,6 +64,7 @@ export default class Init extends Scene {
 
         // JSON data
         this.load.json('data', assets.Init.data.data.json);
+        this.load.json('house_path', assets.Init.data.house_path.json);
 
         // Fonts
         this.loadFont('ninjago', assets.Init.fonts.Ninjago.ttf);
