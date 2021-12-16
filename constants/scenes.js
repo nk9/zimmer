@@ -21,6 +21,6 @@ export const PLANTS_LEAVES = 'Plants_Leaves';
 export const PLANTS_MUSHROOMS = 'Plants_Mushrooms';
 
 // Time
-export const TIME_SUNDIAL = 'Time_Sundial';
 export const TIME_PHONES = 'Time_Phones';
+export const TIME_SUNDIAL = 'Time_Sundial';
 export const TIME_BEDROOM = 'Time_Bedroom';

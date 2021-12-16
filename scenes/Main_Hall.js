@@ -3,7 +3,7 @@ import { MAIN_HALL, CREDITS,
 		 NUMBERS_10, NUMBERS_9, NUMBERS_FIRST, NUMBERS_SECOND,
 		 ANIMALS_OCEAN, ANIMALS_CAVE, ANIMALS_FOREST,
 		 PLANTS_LEAVES, PLANTS_FLOWERS, PLANTS_MUSHROOMS,
-		 TIME_SUNDIAL, TIME_PHONES, TIME_BEDROOM } from '../constants/scenes';
+		 TIME_PHONES, TIME_SUNDIAL, TIME_BEDROOM } from '../constants/scenes';
 import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
 import { UNLOCKED_SCENES, COLLECTED_GEMS } from '../constants/storage';
 
@@ -215,7 +215,7 @@ export default class Main_Hall extends Base_Scene {
 	}
 
 	clickedClock(item) {
-		this.doSceneTransition(TIME_SUNDIAL);
+		this.doSceneTransition(TIME_PHONES);
 	}
 
 	clickedGrate(item) {
@@ -321,7 +321,6 @@ export default class Main_Hall extends Base_Scene {
 		this.addButton(100, 140, 'Lego 10', NUMBERS_10);
 		this.addButton(100, 160, 'Lego 9', NUMBERS_9);
 
-
 		this.addButton(250, 100, 'Animals Ocean', ANIMALS_OCEAN);
 		this.addButton(250, 120, 'Animals Forest', ANIMALS_FOREST);
 		this.addButton(250, 140, 'Animals Cave', ANIMALS_CAVE);
@@ -330,8 +329,8 @@ export default class Main_Hall extends Base_Scene {
 		this.addButton(450, 120, 'Plants Leaves', PLANTS_LEAVES);
 		this.addButton(450, 140, 'Plants Mushrooms', PLANTS_MUSHROOMS);
 
-		this.addButton(650, 100, 'Time Sundial', TIME_SUNDIAL);
-		this.addButton(650, 120, 'Time Phones', TIME_PHONES);
+		this.addButton(650, 100, 'Time Phones',  TIME_PHONES);
+		this.addButton(650, 120, 'Time Sundial', TIME_SUNDIAL);
 		this.addButton(650, 140, 'Time Bedroom', TIME_BEDROOM);
 	}
 

@@ -3,7 +3,7 @@ import log from 'loglevel';
 import { random } from 'lodash-es';
 
 import { SceneProgress, Layers } from './Base_Scene';
-import { MAIN_HALL, TIME_PHONES } from '../constants/scenes';
+import { MAIN_HALL, TIME_PHONES, TIME_SUNDIAL } from '../constants/scenes';
 import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
 import { FLAVOR_NAME, FLAVOR_BDAY } from '../constants/storage';
 
@@ -29,6 +29,10 @@ export default class Time_Phones extends Time_Base {
 		// initialize variables
 		this.scan_limit = 5;
 	}
+
+    nextSceneKey() {
+        return TIME_SUNDIAL;
+    }
 
 	preload() {
 		super.preload();

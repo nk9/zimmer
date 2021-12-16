@@ -103,40 +103,27 @@ export default class Time_Base extends Base_Scene {
 		this.swirl.visible = true;
 		this.overlay.visible = true;
 
-	    // var timeline = this.tweens.timeline({
-	    // 	tweens: [{
-	    // 		targets: this.background_closed,
-	    // 		duration: 2000,
-	    // 		alpha: 0,
-	    // 	},{
-	    // 		targets: this.overlay,
-	    // 		duration: 2500,
-	    // 		alpha: 1,
-	    // 		offset: 7000
-	    // 	}]
-	    // });
+	    this.tweens.timeline({
+	    	tweens: [{
+	    		targets: this.background_closed,
+	    		duration: 2000,
+	    		alpha: 0,
+	    	},{
+	    		targets: this.overlay,
+	    		duration: 2500,
+	    		alpha: 1,
+	    		offset: 7000
+	    	}]
+	    });
 
 	    this.time.delayedCall(9500, this.startNextScene, [], this);
 	}
 
 	beginFailureTransition() {
 		this.setClocksInput(false);
-// 		this.factText.visible = false;
-// 		this.disperseAnimals();
-// 
-// 		if (typeof(this.resetCallToActionTween) === 'function') {
-// 			tweens.push(this.resetCallToActionTween());
-// 		}
-// 
-// 	    var timeline = this.tweens.timeline({
-// 	    	tweens: tweens,
-// 	    	onComplete: this.finishFailureTransition,
-// 	    	onCompleteScope: this
-// 	    });
 	}
 
 	finishFailureTransition() {
-		// this.resetAnimals(this.animals);
 		this.setClocksInput(true);
 	}
 }

@@ -1,7 +1,7 @@
 import log from 'loglevel';
 
 import { SceneProgress, Layers } from './Base_Scene';
-import { MAIN_HALL, TIME_SUNDIAL } from '../constants/scenes';
+import { MAIN_HALL, TIME_SUNDIAL, TIME_BEDROOM } from '../constants/scenes';
 import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
 import { FLAVOR_NAME } from '../constants/storage';
 
@@ -21,6 +21,10 @@ export default class Time_Sundial extends Time_Base {
 		// initialize variables
 		this.scan_limit = 5;
 	}
+
+    nextSceneKey() {
+        return TIME_BEDROOM;
+    }
 
 	preload() {
 		super.preload();
@@ -59,7 +63,7 @@ export default class Time_Sundial extends Time_Base {
 		let center_x = GAME_WIDTH/2,
 			center_y = GAME_HEIGHT/2;
 
-		this.swirl = this.add.image(690, 300, 'navy_swirl');
+		this.swirl = this.add.image(690, 300, 'blue_swirl');
 
 		this.background_closed = this.add.image(0, 0, 'clock_field');
 		this.background_closed.setOrigin(0, 0);
@@ -234,6 +238,7 @@ export default class Time_Sundial extends Time_Base {
 			onComplete: () => { this.items_dict['pedestal'].input.enabled = true; },
 			onCompleteScope: this
 		});
+		this.allClocksMatched();
 	}
 
 	allClocksMatched() {
@@ -316,69 +321,14 @@ export default class Time_Sundial extends Time_Base {
 		this.follower.visible = false;
 		let bounds = this.follower.getBounds();
 		this.house = new OutlineImage(this, 'house', bounds.centerX, bounds.centerY);
-		this.house.input.cursor = 'pointer';
+		// this.house.input.cursor = 'pointer';
+		// this.house.input.on('pointerup', )
+		this.house.setInteractive({useHandCursor: true})
+			.on('pointerup', pointer => { this.beginSuccessTransition() });
 	}
-
-// 	intro2AlertClicked() {
-// 		this.kratts.setFrame('normal');
-// 		this.stopAlert(INTRO2_ALERT);
-// 		this.runAlert(INTRO3_ALERT);
-// 	}
-// 	intro3AlertClicked() {
-// 		this.kratts.setFrame('normal');
-// 		this.stopAlert(INTRO3_ALERT);
-// 		this.runAlert(INTRO4_ALERT);
-// 	}
-// 	intro4AlertClicked() {
-// 		this.kratts.setFrame('thumbs');
-// 		this.stopAlert(INTRO4_ALERT);
-// 
-// 		if (!this.animals_have_entered) {
-// 			var tweens = [];
-// 
-// 			// Animate in animals
-// 			for (const animal of this.animals) {
-// 				tweens.push({
-// 					targets: animal,
-// 					x: animal.targetX,
-// 					y: animal.targetY,
-// 					ease: 'Sine.easeOut',
-// 					duration: 2000,
-// 					offset: 0 // All at once
-// 				})
-// 			}
-// 
-// 			tweens.push({
-// 				targets: this.kratts,
-// 				y: GAME_HEIGHT+350,
-// 				ease: 'Sine',
-// 				duration: 2000,
-// 				offset: 0
-// 			});
-// 
-// 	    	this.tweens.timeline({ tweens: tweens });
-// 
-// 			// Animate in tools
-// 			this.revealTools();
-// 
-// 			this.animals_have_entered = true;
-// 		}
-// 	}
 
 	willBeginSuccessTransition() {
-		// this.tweens.add({
-		// 	targets: this.kratts,
-		// 	y: GAME_HEIGHT,
-		// 	ease: 'Sine',
-		// 	duration: 2000,
-		// 	onComplete: () => {this.runAlert(SUCCESS_ALERT);},
-		// 	onCompleteScope: this
-		// });
 	}
-
-	doSuccessTransition() {
-	}
-
 
 	fail() {
 		this.runAlert(FAIL_ALERT);
