@@ -1200,13 +1200,14 @@
       },
       "flowers": {
         "scale": 1,
+        "gem": "yellow",
         "x": 300,
         "y": 353,
         "alert": {
-          "title": "Flowers",
-          "content": "These smell nice.",
-          "button_title": "..."
-        }        
+          "title": "These smell nice",
+          "content": "And I think I see something sparkling inside!",
+          "button_title": "Pick it up"
+        }
       },
       "book": {
         "scale": 1,
