@@ -62,6 +62,8 @@ export default class Time_Sundial extends Time_Base {
 	}
 
 	createCallToAction() {
+		this.items_dict['pedestal'].input.enabled = false;
+		
 		this.halt = this.add.sprite(0-300, GAME_HEIGHT, 'halt', 'grumpy');
 		this.halt.setOrigin(1, 1);
 		this.halt.setTint(0xaaaaaa);
@@ -209,7 +211,8 @@ export default class Time_Sundial extends Time_Base {
 			y: GAME_HEIGHT+350,
 			ease: 'Sine',
 			duration: 1500,
-			onComplete: () => { this.pedestal}
+			onComplete: () => { this.items_dict['pedestal'].input.enabled = true; },
+			onCompleteScope: this
 		});
 	}
 // 	intro2AlertClicked() {
