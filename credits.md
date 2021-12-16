@@ -131,6 +131,7 @@ Assets listed roughly in order of first appearance.
 |🔈| [wind-in-the-trees-with-birds | highpeakemma | [FreeSound.org](https://freesound.org/people/HighPeakEmma/sounds/538197/) |
 |🔈| [wall-clock-ticking | straget | [FreeSound.org](https://freesound.org/) |
 |🔈| [old-clock-ticking | giddster | [FreeSound.org](https://freesound.org/) |
+|🔈| [seaside-soft-waves] | InspectorJ | [FreeSound.org](https://freesound.org/) |
 
 ## Time Phones
 |   | Work | Artist | Source |
@@ -140,7 +141,8 @@ Assets listed roughly in order of first appearance.
 |🔈| [old-clock-ticking | giddster | [FreeSound.org](https://freesound.org/) |
 |🔈| [clock-ding-dong-bright] | jacobsteel | [FreeSound.org](https://freesound.org/) |
 |🔈| [coocoo-clock-chime] | photogtony | [FreeSound.org](https://freesound.org/) |
-|🔈| [seaside-soft-waves] | anraana | [FreeSound.org](https://freesound.org/) |
+|🔈| [Wind, Synthesized] | anraana | [FreeSound.org](https://freesound.org/) |
+
 
 
 
