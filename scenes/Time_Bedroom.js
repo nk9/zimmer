@@ -171,12 +171,10 @@ export default class Time_Bedroom extends Time_Base {
 	}
 
 	setTimersInput(inputEnabled) {
-		for (var i = 0; i < this.items.length; i++) {
-			let item = this.items[i];
+		let timers = this.items.filter(i => i.name.startsWith("timer"));
 
-			if (item.name.startsWith('timer')) {
-				item.input.enabled = inputEnabled;
-			}
+		for (const timer of timers) {
+			item.input.enabled = inputEnabled;
 		}
 	}
 

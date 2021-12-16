@@ -46,6 +46,7 @@ export default class Time_Sundial extends Time_Base {
 		super.create();
 
 		this.setClocksInput(false); // Start with the clocks not being clickable
+		this.createSundial();
 	}
 
 	createBackground() {
@@ -61,12 +62,30 @@ export default class Time_Sundial extends Time_Base {
 	}
 
 	createCallToAction() {
-		this.video = this.add.video(GAME_WIDTH, GAME_HEIGHT, 'sundial');
-		this.video.setVisible(false);
-		this.video.setOrigin(1, 0); // Off-screen to start with
+		this.halt = this.add.sprite(0-300, GAME_HEIGHT, 'halt', 'grumpy');
+		this.halt.setOrigin(1, 1);
+		this.halt.setTint(0xaaaaaa);
 
-		this.video.setInteractive({useHandCursor: true})
-			.on('pointerup', pointer => { this.clickedVideo() });
+		this.halt.setInteractive({useHandCursor: true})
+			.on('pointerover', () => { this.halt.clearTint() })
+			.on('pointerout', () => {
+				if (this.halt.input.enabled) {
+					this.halt.setTint(0xaaaaaa);
+				}
+			})
+			.on('pointerup', pointer => { this.clickedHalt() });
+
+		var tweens = [];
+
+		tweens.push({
+			targets: this.halt,
+			x: this.halt.width,
+			ease: 'Sine.easeOut',
+			duration: 2500,
+			delay: 1000
+		});
+
+	    var timeline = this.tweens.timeline({ tweens: tweens });
 	}
 
 	createClocks() {
@@ -78,6 +97,14 @@ export default class Time_Sundial extends Time_Base {
 
 			this.clocks.push(clock);
 		}
+	}
+
+	createSundial() {
+		this.video = this.add.video(GAME_WIDTH, GAME_HEIGHT, 'sundial');
+		this.video.setVisible(false);
+		this.video.setOrigin(1, 0); // Off-screen to start with
+		this.video.setInteractive({useHandCursor: true})
+			.on('pointerup', pointer => { this.clickedVideo() });
 	}
 
 	clickedItem(clicked_object) {
@@ -152,20 +179,39 @@ export default class Time_Sundial extends Time_Base {
 
 	}
 
+	clickedHalt() {
+		this.runAlert(INTRO1_ALERT);
+	}
+
 	createAlerts() {
 		let name = this.game.config.storage.get(FLAVOR_NAME);
 
 		let alerts = {
+			[INTRO1_ALERT]: {
+				title: "I've been walking for ages!",
+				content: "There’s a path here, but no matter how far I walk I don’t seem to be able to get anywhere. I think I’m missing something to do with these clocks.",
+				buttonText: "I'll have a look",
+				buttonAction: this.intro1AlertClicked,
+				context: this
+			},
 		};
 
 		return alerts;
 	}
 
-// 	intro1AlertClicked() {
-// 		this.kratts.setFrame('determined');
-// 		this.stopAlert(INTRO1_ALERT);
-// 		this.runAlert(INTRO2_ALERT);
-// 	}
+	intro1AlertClicked() {
+		this.halt.setFrame('neutral');
+		this.stopAlert(INTRO1_ALERT);
+
+		this.tweens.add({
+			delay: 500,
+			targets: this.halt,
+			y: GAME_HEIGHT+350,
+			ease: 'Sine',
+			duration: 1500,
+			onComplete: () => { this.pedestal}
+		});
+	}
 // 	intro2AlertClicked() {
 // 		this.kratts.setFrame('normal');
 // 		this.stopAlert(INTRO2_ALERT);

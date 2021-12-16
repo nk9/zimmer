@@ -119,8 +119,12 @@ export default class Base_Scene extends Scene {
         return {}
     }
 
+    get items() {
+        return Object.values(this.items_dict);
+    }
+
     createItems() {
-        this.items = this.addImagesFromStoredData('items', this.handleGenericItemClicked);
+        this.items_dict = this.addImagesFromStoredData('items', this.handleGenericItemClicked);
     }
 
     createOverlay() {
@@ -142,7 +146,7 @@ export default class Base_Scene extends Scene {
     }
 
     addImagesFromStoredData(data_name, callback) {
-        var images = [];
+        var images = {};
 
         for (const [key, image_data] of Object.entries(this.stored_data[data_name])) {
             var input_enabled = true;
@@ -162,7 +166,7 @@ export default class Base_Scene extends Scene {
 
                     image.on('pointerup', callback.bind(this, image));
                     
-                    images.push(image);
+                    images[key] = image;
                 }
             }
         }

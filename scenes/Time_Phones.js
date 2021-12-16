@@ -169,21 +169,13 @@ export default class Time_Phones extends Time_Base {
 	}
 
 	showCallButton(phoneNum) {
-		for (const i of this.items) {
-			if (i.name == `call${phoneNum}`) {
-				i.visible = true;
-				break;
-			}
-		}
+		let button = this.items_dict[`call${phoneNum}`]
+		button.visible = true;
 	}
 
 	disableHomeButton(phoneNum) {
-		for (const i of this.items) {
-			if (i.name == `button${phoneNum}`) {
-				i.input.enabled = false;
-				break;
-			}
-		}
+		let button = this.items_dict[`button${phoneNum}`]
+		button.input.enabled = false;
 	}
 
 	createLockscreens() {
