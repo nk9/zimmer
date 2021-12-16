@@ -1,6 +1,6 @@
 {
 	"frames": {
-		"halt_grumpy.png": {
+		"grumpy": {
 			"frame": {
 				"x": 1,
 				"y": 1,
@@ -20,7 +20,7 @@
 				"h": 260
 			}
 		},
-		"halt_neutral.png": {
+		"neutral": {
 			"frame": {
 				"x": 263,
 				"y": 1,
@@ -40,7 +40,7 @@
 				"h": 260
 			}
 		},
-		"halt_surprised.png": {
+		"surprised": {
 			"frame": {
 				"x": 1,
 				"y": 263,
@@ -60,7 +60,7 @@
 				"h": 260
 			}
 		},
-		"halt_tired.png": {
+		"tired": {
 			"frame": {
 				"x": 263,
 				"y": 263,
@@ -80,7 +80,7 @@
 				"h": 260
 			}
 		},
-		"halt_uncertain.png": {
+		"uncertain": {
 			"frame": {
 				"x": 525,
 				"y": 1,

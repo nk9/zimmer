@@ -36,6 +36,7 @@ export default class Init extends Scene {
         this.load.atlas('yellow-bricks', sprites.yellow_bricks.png, sprites.yellow_bricks.json);
         this.load.atlas('link', sprites.link.png, sprites.link.json);
         this.load.atlas('kratts', sprites.kratts.png, sprites.kratts.json);
+        this.load.atlas('halt', sprites.halt.png, sprites.halt.json);
         this.load.audioSprite('hmm', sprites.hmm.json, sprites.hmm.mp3);
         this.load.atlas('gems', sprites.gems.png, sprites.gems.json);
         this.load.atlas('vangelis_boss', sprites.vangelis_boss.png, sprites.vangelis_boss.json);
