@@ -85,6 +85,8 @@ export default class Time_Bedroom extends Time_Base {
         };
         this.timeText = this.add.text(bounds.centerX, bounds.centerY, formatMinutes(this.targetTime), timeStyle);
         this.timeText.setOrigin(0.5, 0.5);
+
+        this.tween_queue = [];
 	}
 
 	clickedItem(clicked_object) {
@@ -119,33 +121,43 @@ export default class Time_Bedroom extends Time_Base {
 	}
 
 	clickTimer1Hour() {
-	    this.tweens.add({
-	    	targets: [this.clockhands],
-	    	duration: 1200,
-	    	props: {
-	    		time: '+=60'
-	    	},
-	    })
+		this.enqueueTween(1200, 60)
 	}
 
 	clickTimer15Min() {
-	    this.tweens.add({
-	    	targets: [this.clockhands],
-	    	duration: 500,
-	    	props: {
-	    		time: '+=15'
-	    	}
-	    })
+		this.enqueueTween(500, 15)
 	}
 
 	clickTimer1Min() {
-	    this.tweens.add({
+		this.enqueueTween(100, 1)
+	}
+
+	enqueueTween(duration, time) {
+		let new_tween = this.tweens.add({
 	    	targets: [this.clockhands],
-	    	duration: 100,
+	    	duration: duration,
 	    	props: {
-	    		time: '+=1'
-	    	}
-	    })
+	    		time: `+=${time}`
+	    	},
+			onComplete: () => { this.finishTween() },
+			paused: true,
+		})
+		this.tween_queue.push(new_tween);
+
+		if (!this.tween_queue[0].isPlaying()) {
+			this.tween_queue[0].play();
+		}
+	}
+
+	finishTween(tween) {
+		// Remove first tween from array.
+		if (this.tween_queue.length > 0) {
+			this.tween_queue.shift();
+		}
+
+		if (this.tween_queue.length > 0) {
+			this.tween_queue[0].play();
+		}
 	}
 
 	clickPuff() {
