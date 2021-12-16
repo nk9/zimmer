@@ -1,15 +1,15 @@
 // Adaped from https://phaser.io/examples/v3/view/time/clock
 import { hmFromMinutes } from '../utilities/time_utils'
 
-export default class Clockface extends Phaser.GameObjects.Graphics {
+export default class Clockhands extends Phaser.GameObjects.Graphics {
     _time;
 
-    // _scene:  the scene you want to display the clock in
+    // scene:  the scene you want to display the clock in
     // x, y:    the position to display the clock
     // radius:  the radius of the clock
     // time:    the initial time, in minutes where 0 is 00:00 and 01:30 is 90.
-    constructor(_scene, x, y, radius, time) {
-        super(_scene, { x: x, y: y });
+    constructor(scene, x, y, radius, time) {
+        super(scene, { x: x, y: y });
         this.radius = radius;
         this.setActive(true);
 
@@ -18,7 +18,7 @@ export default class Clockface extends Phaser.GameObjects.Graphics {
 
         this.time = time;
 
-        _scene.add.existing(this);
+        scene.add.existing(this);
     }
 
     get time() {

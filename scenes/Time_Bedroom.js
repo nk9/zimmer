@@ -6,7 +6,7 @@ import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
 import { FLAVOR_NAME, FLAVOR_BDAY } from '../constants/storage';
 
 import OutlineImage from '../components/outline_image';
-import Clockface from '../components/clockface';
+import Clockhands from '../components/clockhands';
 import { formatMinutes } from '../utilities/time_utils'
 
 import Time_Base, { SelectionMode } from './Time_Base';
@@ -69,9 +69,9 @@ export default class Time_Bedroom extends Time_Base {
         this.clock_big = this.add.image(400, 200, 'clock_big');
         this.clock_big.setOrigin(0.5, 0.5);
 	    this.clock_big.alpha = 0;
-	    this.clockface = new Clockface(this, 200, 100, 120, 0);
-	    this.clockface.visible = true;
-	    this.clockface.alpha = 0;
+	    this.clockhands = new Clockhands(this, 200, 100, 120, 0);
+	    this.clockhands.visible = true;
+	    this.clockhands.alpha = 0;
 
 	    this.targetTime = this.getRandomTime();
 	    this.clock_digital = this.add.image(800, 470, 'clock_digital');
@@ -110,7 +110,7 @@ export default class Time_Bedroom extends Time_Base {
 
 	clickWallClock() {
 		this.tweens.add({
-			targets: [this.clock_big, this.clockface],
+			targets: [this.clock_big, this.clockhands],
 			duration: 1200,
 			alpha: 1,
 			onComplete: () => { this.setTimersInput(true) },
@@ -120,7 +120,7 @@ export default class Time_Bedroom extends Time_Base {
 
 	clickTimer1Hour() {
 	    this.tweens.add({
-	    	targets: [this.clockface],
+	    	targets: [this.clockhands],
 	    	duration: 1200,
 	    	props: {
 	    		time: '+=60'
@@ -130,7 +130,7 @@ export default class Time_Bedroom extends Time_Base {
 
 	clickTimer15Min() {
 	    this.tweens.add({
-	    	targets: [this.clockface],
+	    	targets: [this.clockhands],
 	    	duration: 500,
 	    	props: {
 	    		time: '+=15'
@@ -140,7 +140,7 @@ export default class Time_Bedroom extends Time_Base {
 
 	clickTimer1Min() {
 	    this.tweens.add({
-	    	targets: [this.clockface],
+	    	targets: [this.clockhands],
 	    	duration: 100,
 	    	props: {
 	    		time: '+=1'
@@ -153,7 +153,7 @@ export default class Time_Bedroom extends Time_Base {
 	}
 
 	checkSuccess() {
-		if (this.clockface.time == this.targetTime) {
+		if (this.clockhands.time == this.targetTime) {
 			console.log("success");
 		}
 	}
