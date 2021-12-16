@@ -40,7 +40,7 @@ export default class Time_Bedroom extends Time_Base {
 		super.create();
 
 		this.clocks = [];
-		this.setTimersInput(false);
+		this.setItemsInput(false);
 		this.dogIntroAlertShown = false;
 	}
 
@@ -57,7 +57,30 @@ export default class Time_Bedroom extends Time_Base {
 	}
 
 	createCallToAction() {
+		this.halt = this.add.sprite(0-300, GAME_HEIGHT, 'halt', 'surprised');
+		this.halt.setOrigin(1, 1);
+		this.halt.setTint(0xaaaaaa);
 
+		this.halt.setInteractive({useHandCursor: true})
+			.on('pointerover', () => { this.halt.clearTint() })
+			.on('pointerout', () => {
+				if (this.halt.input.enabled) {
+					this.halt.setTint(0xaaaaaa);
+				}
+			})
+			.on('pointerup', pointer => { this.clickedHalt() });
+
+		var tweens = [];
+
+		tweens.push({
+			targets: this.halt,
+			x: this.halt.width,
+			ease: 'Sine.easeOut',
+			duration: 2500,
+			delay: 1000
+		});
+
+	    var timeline = this.tweens.timeline({ tweens: tweens });
 	}
 
 	getRandomTime() {
@@ -107,8 +130,8 @@ export default class Time_Bedroom extends Time_Base {
 
 		let alerts = {
 			[INTRO1_ALERT]: {
-				title: "What a crazy place!",
-				content: "Strange place for a path to lead. I don’t remember going through any doors. How did we end up inside? And how do we get out?",
+				title: "LOOK at that CEILING!",
+				content: "This place is wild. Strange place for a path to lead, don’t you think? I don’t remember going through any doors. How did we end up inside? And how do we get out?",
 				buttonText: "Let’s ask",
 				buttonAction: this.intro1AlertClicked,
 				context: this
@@ -122,7 +145,7 @@ export default class Time_Bedroom extends Time_Base {
 			},
 			[DOG_SUCCESS_ALERT]: {
 				title: "Hey, you fixed the clocks!",
-				content: "Oh, you're my favorite! Thankyouthankyouthankyou! That alarm means it’s time for\n**Munch, munch**\nHuh?\n*Munch*\nYeah, you can leave that way.",
+				content: "Oh, you're my favorite! Thankyouthankyouthankyou! That alarm means it’s time for\n**Munch, munch**\nHuh?\n*Munch*\nYeah, you can leave through the window.",
 				buttonText: "OK, enjoy dinner",
 				buttonAction: this.dogSuccessAlertClicked,
 				context: this
@@ -193,6 +216,10 @@ export default class Time_Bedroom extends Time_Base {
 		log.debug("puff clicked");
 	}
 
+	clickedHalt() {
+		this.runAlert(INTRO1_ALERT);
+	}
+
 	clickDog() {
 		if (this.clockhands.time == this.targetTime) {
 			this.dogIntroAlertShown = true;
@@ -214,7 +241,21 @@ export default class Time_Bedroom extends Time_Base {
 	}
 
 	intro1AlertClicked() {
+		this.halt.setFrame('neutral');
 		this.stopAlert(INTRO1_ALERT);
+
+		this.tweens.add({
+			delay: 500,
+			targets: this.halt,
+			x: 0,
+			ease: 'Sine',
+			duration: 1500,
+			onComplete: () => {
+				this.setItemsInput(true);
+				this.setTimersInput(false); // Timers are items, so have to be set separately
+			},
+			onCompleteScope: this
+		});
 	}
 
 	dogAlertClicked() {
@@ -228,51 +269,6 @@ export default class Time_Bedroom extends Time_Base {
 	dogFailureAlertClicked() {
 		this.stopAlert(DOG_FAILURE_ALERT);
 	}
-// 	intro2AlertClicked() {
-// 		this.kratts.setFrame('normal');
-// 		this.stopAlert(INTRO2_ALERT);
-// 		this.runAlert(INTRO3_ALERT);
-// 	}
-// 	intro3AlertClicked() {
-// 		this.kratts.setFrame('normal');
-// 		this.stopAlert(INTRO3_ALERT);
-// 		this.runAlert(INTRO4_ALERT);
-// 	}
-// 	intro4AlertClicked() {
-// 		this.kratts.setFrame('thumbs');
-// 		this.stopAlert(INTRO4_ALERT);
-// 
-// 		if (!this.animals_have_entered) {
-// 			var tweens = [];
-// 
-// 			// Animate in animals
-// 			for (const animal of this.animals) {
-// 				tweens.push({
-// 					targets: animal,
-// 					x: animal.targetX,
-// 					y: animal.targetY,
-// 					ease: 'Sine.easeOut',
-// 					duration: 2000,
-// 					offset: 0 // All at once
-// 				})
-// 			}
-// 
-// 			tweens.push({
-// 				targets: this.kratts,
-// 				y: GAME_HEIGHT+350,
-// 				ease: 'Sine',
-// 				duration: 2000,
-// 				offset: 0
-// 			});
-// 
-// 	    	this.tweens.timeline({ tweens: tweens });
-// 
-// 			// Animate in tools
-// 			this.revealTools();
-// 
-// 			this.animals_have_entered = true;
-// 		}
-// 	}
 
 	willBeginSuccessTransition() {
 		// this.tweens.add({

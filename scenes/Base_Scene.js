@@ -176,7 +176,12 @@ export default class Base_Scene extends Scene {
 
     setItemsInput(handleInput) {
         for (const i of this.items) {
-            i.input.enabled = handleInput;
+            if (this.gem.visible && i.info.hasOwnProperty('gem')) {
+                // Never enable input on the gem property if the gem has already been collected
+                i.input.enabled = false;
+            } else {
+                i.input.enabled = handleInput;
+            }
         }
     }
 
