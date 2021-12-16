@@ -37,7 +37,8 @@ export default class Time_Sundial extends Time_Base {
         // Clocks
 		let keys = Object.keys(this.clocks_data);
 		for (const key of keys) {
-	        this.loadOutlineImage(key);
+		    this.loadOutlineImage(key);
+	        this.load.image(key+"_solved", this.assets[key+"_solved"].png);	    
 		}
 	}
 
@@ -93,6 +94,7 @@ export default class Time_Sundial extends Time_Base {
 	        clock.input.enabled = false;
 			this.success_clocks.push(clock);
 	        this.sound.playAudioSprite('chimes', "tada");
+	        clock.markSolved();
 		} else {
 			let clock_num = clock.name.substring(5);
 			this.sound.playAudioSprite('chimes', clock_num);
