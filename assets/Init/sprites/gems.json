@@ -1,6 +1,6 @@
 {
 	"frames": {
-		"diamond.png": {
+		"diamond": {
 			"frame": {
 				"x": 1,
 				"y": 1,
@@ -20,7 +20,7 @@
 				"h": 250
 			}
 		},
-		"diamond_thumb.png": {
+		"diamond_thumb": {
 			"frame": {
 				"x": 253,
 				"y": 1,
@@ -40,7 +40,7 @@
 				"h": 30
 			}
 		},
-		"emerald.png": {
+		"emerald": {
 			"frame": {
 				"x": 253,
 				"y": 33,
@@ -60,7 +60,7 @@
 				"h": 250
 			}
 		},
-		"emerald_thumb.png": {
+		"emerald_thumb": {
 			"frame": {
 				"x": 285,
 				"y": 1,
@@ -80,7 +80,7 @@
 				"h": 30
 			}
 		},
-		"saphire.png": {
+		"sapphire": {
 			"frame": {
 				"x": 505,
 				"y": 1,
@@ -100,7 +100,7 @@
 				"h": 250
 			}
 		},
-		"saphire_thumb.png": {
+		"sapphire_thumb": {
 			"frame": {
 				"x": 317,
 				"y": 1,
@@ -120,7 +120,7 @@
 				"h": 30
 			}
 		},
-		"yellow.png": {
+		"yellow": {
 			"frame": {
 				"x": 1,
 				"y": 253,
@@ -140,7 +140,7 @@
 				"h": 250
 			}
 		},
-		"yellow_thumb.png": {
+		"yellow_thumb": {
 			"frame": {
 				"x": 349,
 				"y": 1,
@@ -164,7 +164,7 @@
 	"meta": {
 		"app": "http://www.codeandweb.com/texturepacker",
 		"version": "1.0",
-		"image": "spritesheet.png",
+		"image": "gems.png",
 		"format": "RGBA8888",
 		"size": {
 			"w": 756,

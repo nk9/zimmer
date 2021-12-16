@@ -72,39 +72,11 @@ export default class Time_Phones extends Time_Base {
 	}
 
 	createCallToAction() {
-		for (const item of this.items) {
-			if (item.name.startsWith('call')) {
-				item.visible = false;
-			}
-		}
+		let callButtons = this.items.filter(i => i.name.startsWith("call"));
 
-// 		this.sound.play('steps_cave');
-// 
-// 		this.kratts = this.add.sprite(0-300, GAME_HEIGHT, 'kratts', 'scared');
-// 		this.kratts.setOrigin(1, 1);
-// 		this.kratts.setTint(0xaaaaaa);
-// 		// this.kratts.scale = .5;
-// 
-// 		this.kratts.setInteractive({useHandCursor: true})
-// 			.on('pointerover', () => { this.kratts.clearTint() })
-// 			.on('pointerout', () => {
-// 				if (this.kratts.input.enabled) {
-// 					this.kratts.setTint(0xaaaaaa);
-// 				}
-// 			})
-// 			.on('pointerup', pointer => { this.clickKratts() });
-// 
-// 		var tweens = [];
-// 
-// 		tweens.push({
-// 			targets: this.kratts,
-// 			x: this.kratts.width,
-// 			ease: 'Sine.easeOut',
-// 			duration: 2500,
-// 			delay: 1000
-// 		});
-// 
-// 	    var timeline = this.tweens.timeline({ tweens: tweens });
+		for (const button of callButtons) {
+			button.visible = false;
+		}
 	}
 
 	createClocks() {
