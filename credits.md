@@ -119,6 +119,7 @@ Assets listed roughly in order of first appearance.
 |   | Work | Artist | Source |
 |---|------|--------|--------|
 |🖼️| [Surreal Landscape with Clocks](assets/Time/Time_Sundial/background.jpg) | ValentinaPhotos | [Creative Market](https://images.creativemarket.com/0.1.0/ps/3795923/1332/1214/m1/fpnw/wm0/surreallandscapeofclocksxcm-.jpg?1514913041&s=8dadebd0e3e18849ab4f5a2c9de7a5ff) |
+|🖼️| [tornado] | greglowman | [imgur](https://imgur.com/gallery/1sZbD45) |
 |🫖| Hand Pedestal | printable_models | [Free3D](https://free3d.com/3d-model/displaypedestalsopenfingers-v1--411000.html) |
 |🫖| [Sundial](assets/Time/Time_Sundial/sundial.mp4) | fabiovalle3D | [TurboSquid](https://www.turbosquid.com/3d-models/3d-sundial-sun-model-1148444) |
 |🔈| [clock-ding-dong-bright] | jacobsteel | [FreeSound.org](https://freesound.org/) |
