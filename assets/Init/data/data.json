@@ -45,6 +45,21 @@
         "gem": "emerald",
         "x": -44,
         "y": 127
+      },
+      "Time_Bedroom": {
+        "gem": "yellow",
+        "x": 0,
+        "y": -45
+      },
+      "Time_Sundial": {
+        "gem": "yellow",
+        "x": 43,
+        "y": 25
+      },
+      "Time_Phones": {
+        "gem": "yellow",
+        "x": -44,
+        "y": 24
       }
     },
     "map": {

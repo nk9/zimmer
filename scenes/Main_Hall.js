@@ -136,6 +136,8 @@ export default class Main_Hall extends Base_Scene {
 
 		for (const [scene_key, gem_data] of Object.entries(this.stored_data.gems)) {
 			if (this.collected_gems.includes(scene_key)) {
+			//Show all gems
+			// if (1){
 				let gd = gem_data;
 
 				let sprite = this.add.sprite(gd.x, gd.y, 'gems', gd.gem+'_thumb');
