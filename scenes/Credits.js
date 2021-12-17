@@ -76,7 +76,6 @@ export default class Credits extends Scene {
         let bounds = this.creditsTextLeft.getBounds();
         this.costume_box = this.add.image(GAME_WIDTH/2, bounds.bottom+200, 'costume_box');
         this.costume_box.setOrigin(0.5, 0);
-        this.costume_box.visible = true;
     }
 
     createExplosions() {
@@ -144,8 +143,7 @@ export default class Credits extends Scene {
         let creditsBounds = this.costume_box.getBounds();
 
         if ((this.cameras.main.scrollY + GAME_HEIGHT/2) < creditsBounds.centerY) {
-            // this.cameras.main.scrollY += .5;
-            this.cameras.main.scrollY += 20;
+            this.cameras.main.scrollY += 1;
         } else {
             if (!this.endReached) {
                 this.endReached = true;
