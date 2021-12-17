@@ -1,6 +1,6 @@
 import moment from 'moment';
 import log from 'loglevel';
-import { random } from 'lodash-es';
+import { random, range, sample, sampleSize } from 'lodash-es';
 
 import { SceneProgress, Layers } from './Base_Scene';
 import { MAIN_HALL, TIME_PHONES, TIME_SUNDIAL } from '../constants/scenes';
@@ -11,12 +11,10 @@ import OutlineImage from '../components/outline_image';
 import Lockscreen from '../components/lockscreen';
 import Time_Base, { SelectionMode } from './Time_Base';
 
-let INTRO1_ALERT = 'INTRO1_ALERT';
-let INTRO2_ALERT = 'INTRO2_ALERT';
-let INTRO3_ALERT = 'INTRO3_ALERT';
-let INTRO4_ALERT = 'INTRO4_ALERT';
-let SUCCESS_ALERT = 'SUCCESS_ALERT';
-let FAIL_ALERT = 'FAIL_ALERT';
+let CALL1_ALERT = 'CALL1_ALERT';
+let CALL2_ALERT = 'CALL2_ALERT';
+let CALL3_ALERT = 'CALL3_ALERT';
+let HALT_ALERT = 'HALT_ALERT';
 
 let PHONE1_LOCK = 'PHONE1_LOCK';
 let PHONE2_LOCK = 'PHONE2_LOCK';
@@ -77,6 +75,32 @@ export default class Time_Phones extends Time_Base {
 		for (const button of callButtons) {
 			button.visible = false;
 		}
+
+
+		this.halt = this.add.sprite(0-300, GAME_HEIGHT, 'halt', 'uncertain');
+		this.halt.setOrigin(1, 1);
+		this.halt.setTint(0xaaaaaa);
+
+		this.halt.setInteractive({useHandCursor: true})
+			.on('pointerover', () => { this.halt.clearTint() })
+			.on('pointerout', () => {
+				if (this.halt.input.enabled) {
+					this.halt.setTint(0xaaaaaa);
+				}
+			})
+			.on('pointerup', pointer => { this.clickedHalt() });
+
+		// var tweens = [];
+
+		// tweens.push({
+		// 	targets: this.halt,
+		// 	x: this.halt.width,
+		// 	ease: 'Sine.easeOut',
+		// 	duration: 2500,
+		// 	delay: 1000
+		// });
+
+	 //    var timeline = this.tweens.timeline({ tweens: tweens });
 	}
 
 	createClocks() {
@@ -96,9 +120,9 @@ export default class Time_Phones extends Time_Base {
 			case 'button1': this.clickHomeButton1(); break;
 			case 'button2': this.clickHomeButton2(); break;
 			case 'button3': this.clickHomeButton3(); break;
-			case 'call1': this.clickCallButton1(); break;
-			case 'call2': this.clickCallButton2(); break;
-			case 'call3': this.clickCallButton3(); break;
+			case 'call1': this.clickCallButton(); break;
+			case 'call2': this.clickCallButton(); break;
+			case 'call3': this.clickCallButton(); break;
 		}
 	}
 
@@ -123,25 +147,88 @@ export default class Time_Phones extends Time_Base {
 		this.disableHomeButton(phoneNum)
 	}
 
-	clickCallButton1() {
-		log.debug("Call Button 1");
-	}
-
-	clickCallButton2() {
-		log.debug("Call Button 2");
-	}
-
-	clickCallButton3() {
-		log.debug("Call Button 3");
+	clickCallButton() {
+		let alert_key = `CALL${this.success_lockscreens.length}_ALERT`;
+		this.runAlert(alert_key);
 	}
 
 	createAlerts() {
 		let name = this.game.config.storage.get(FLAVOR_NAME);
+		let title = "Hello? Who is this?"
+		let content = "You fell through time too? Hang on, I'll be right there."
 
 		let alerts = {
+			[CALL1_ALERT]: {
+				title: this.fuzzed(.66, title),
+				content: this.fuzzed(.66, content),
+				buttonText: "Hang up",
+				buttonAction: this.alert1ButtonClicked,
+				context: this
+			},
+			[CALL2_ALERT]: {
+				title: this.fuzzed(.30, title),
+				content: this.fuzzed(.50, content),
+				buttonText: "Hang up",
+				buttonAction: this.alert2ButtonClicked,
+				context: this
+			},
+			[CALL3_ALERT]: {
+				title: title,
+				content: content,
+				buttonText: "Who?",
+				buttonAction: this.alert3ButtonClicked,
+				context: this
+			},
+			[HALT_ALERT]: {
+				title: "Halt! Who are you?",
+				content: "Hmm, well we can get out of this together. I think I’ve found the right path. Follow me.",
+				buttonText: "Right behind ya",
+				buttonAction: this.haltAlertButtonClicked,
+				context: this
+			},
 		};
 
 		return alerts;
+	}
+
+	fuzzed(percent, string) {
+		var letters = string.split("");
+		let indexes = sampleSize(range(string.length), Math.floor(string.length * percent))
+		let fuzz = [".", "%", "@", "^", "_", "⸘", "℥", "✳︎", "⧻"]
+
+		for (const i of indexes) {
+			letters[i] = sample(fuzz)
+		}
+
+		return letters.join("")
+	}
+
+	alert1ButtonClicked() {
+		this.stopAlert(CALL1_ALERT);
+	}
+
+	alert2ButtonClicked() {
+		this.stopAlert(CALL2_ALERT);
+	}
+
+	alert3ButtonClicked() {
+		this.stopAlert(CALL3_ALERT);
+
+		this.tweens.add({
+			delay: 500,
+			targets: this.halt,
+			x: this.halt.width,
+			ease: 'Sine',
+			duration: 1500,
+		});
+	}
+
+	clickedHalt() {
+		this.runAlert(HALT_ALERT);
+	}
+
+	haltAlertButtonClicked() {
+		this.stopAlert(HALT_ALERT);
 	}
 
 	showCallButton(phoneNum) {
@@ -242,7 +329,7 @@ export default class Time_Phones extends Time_Base {
 
 	calculateAnswerLockscreen3() {
 		// Randomize and caclulate time difference
-		let t1 = random(1,6);
+		let t1 = random(1,5);
 		let t2 = random(7,11);
 		return {t1: t1, t2: t2, minuteDiff: (t2 - t1) * 60};
 	}
@@ -284,52 +371,6 @@ export default class Time_Phones extends Time_Base {
 		log.debug(`Failed at ${key}, dismiss scene`)
 		this.stopLockscreen(key);
 	}
-
-// 	intro2AlertClicked() {
-// 		this.kratts.setFrame('normal');
-// 		this.stopAlert(INTRO2_ALERT);
-// 		this.runAlert(INTRO3_ALERT);
-// 	}
-// 	intro3AlertClicked() {
-// 		this.kratts.setFrame('normal');
-// 		this.stopAlert(INTRO3_ALERT);
-// 		this.runAlert(INTRO4_ALERT);
-// 	}
-// 	intro4AlertClicked() {
-// 		this.kratts.setFrame('thumbs');
-// 		this.stopAlert(INTRO4_ALERT);
-// 
-// 		if (!this.animals_have_entered) {
-// 			var tweens = [];
-// 
-// 			// Animate in animals
-// 			for (const animal of this.animals) {
-// 				tweens.push({
-// 					targets: animal,
-// 					x: animal.targetX,
-// 					y: animal.targetY,
-// 					ease: 'Sine.easeOut',
-// 					duration: 2000,
-// 					offset: 0 // All at once
-// 				})
-// 			}
-// 
-// 			tweens.push({
-// 				targets: this.kratts,
-// 				y: GAME_HEIGHT+350,
-// 				ease: 'Sine',
-// 				duration: 2000,
-// 				offset: 0
-// 			});
-// 
-// 	    	this.tweens.timeline({ tweens: tweens });
-// 
-// 			// Animate in tools
-// 			this.revealTools();
-// 
-// 			this.animals_have_entered = true;
-// 		}
-// 	}
 
 	willBeginSuccessTransition() {
 		// this.tweens.add({

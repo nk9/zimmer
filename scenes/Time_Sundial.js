@@ -76,7 +76,7 @@ export default class Time_Sundial extends Time_Base {
 	createCallToAction() {
 		this.items_dict['pedestal'].input.enabled = false;
 
-		this.halt = this.add.sprite(0-300, GAME_HEIGHT, 'halt', 'grumpy');
+		this.halt = this.add.sprite(0-300, GAME_HEIGHT, 'halt', 'tired');
 		this.halt.setOrigin(1, 1);
 		this.halt.setTint(0xaaaaaa);
 
