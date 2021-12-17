@@ -240,6 +240,7 @@ export default class Time_Sundial extends Time_Base {
 
 	allClocksMatched() {
     	this.grandfather_sound.play();
+		this.items_dict['pedestal'].input.enabled = false;
 
 		this.halt.input.enabled = false;
 		this.tweens.add({
@@ -321,11 +322,7 @@ export default class Time_Sundial extends Time_Base {
 		// this.house.input.cursor = 'pointer';
 		// this.house.input.on('pointerup', )
 		this.house.setInteractive({useHandCursor: true})
-			.on('pointerup', pointer => { this.succeed() });
-	}
-
-	willBeginSuccessTransition() {
-	}
+			.on('pointerup', () => {this.succeed() }); }
 
 	fail() {
 		this.runAlert(FAIL_ALERT);

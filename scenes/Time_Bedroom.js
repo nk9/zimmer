@@ -49,7 +49,6 @@ export default class Time_Bedroom extends Time_Base {
 		this.dogIntroAlertShown = false;
 
 		this.createSceneElements();
-		this.createDoorZone();
 	}
 
 	createBackground() {
@@ -123,7 +122,7 @@ export default class Time_Bedroom extends Time_Base {
 			.on('pointerup', pointer => {
 				this.clickDoorZone()
 			});
-		this.input.enableDebug(this.door_zone, 0xff0000);
+		// this.input.enableDebug(this.door_zone, 0xff0000);
 	}
 
 	clickDoorZone() {
