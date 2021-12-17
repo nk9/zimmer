@@ -242,16 +242,16 @@ export default class Time_Phones extends Time_Base {
 	}
 
 	createLockscreens() {
-		let bday_diff = this.calculateAnswerLockscreen1();
+		let answer1 = this.calculateAnswerLockscreen1();
 		let answer2 = this.calculateAnswerLockscreen2();
 		let answer3 = this.calculateAnswerLockscreen3();
 
 		let lockscreen_alerts = {
 			[PHONE1_LOCK]: {
-				title: "How many days ago were you born?",
-				content: "Count all days, even partial ones. Don't forget leap years!",
+				title: `How many days ago was ${answer1.target}?`,
+				content: `Example: ${answer1.example} was 31 days ago. Don't forget leap years!`,
 				buttonText: "Cancel",
-				answer: bday_diff.toString(),
+				answer: answer1.answer,
 				phoneNum: 1,
 				buttonAction: this.lockscreen1ButtonClicked,
 				context: this
@@ -300,7 +300,11 @@ export default class Time_Phones extends Time_Base {
 
 		let bday = moment.utc(bday_str, 'YYYY-MM-DD')
 		let today = moment.utc()
-		return today.diff(bday, 'days') + 1;
+		return {
+			target: bday.format('ll'),
+			answer: today.diff(bday, 'days').toString(),
+			example: moment().subtract(31, 'd').format('ll')
+		};
 	}
 
 	calculateAnswerLockscreen2() {
