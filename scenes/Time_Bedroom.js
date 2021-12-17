@@ -31,7 +31,8 @@ export default class Time_Bedroom extends Time_Base {
 		this.load.image('van_gogh', this.assets.background.jpg);
 		this.load.image('clock_big', this.assets.wallclockBig.png);
 		this.load.image('clock_digital', this.assets.clockDigital.png);
- 
+ 		this.load.image('dog_big', this.assets.terrier_portrait.png);
+
  		// Audio
  		this.load.audio('background_phones', this.assets.bedroomFoley.mp3);
 	}
@@ -42,6 +43,8 @@ export default class Time_Bedroom extends Time_Base {
 		this.clocks = [];
 		this.setItemsInput(false);
 		this.dogIntroAlertShown = false;
+
+		this.createSceneElements();
 	}
 
 	createBackground() {
@@ -81,6 +84,12 @@ export default class Time_Bedroom extends Time_Base {
 		});
 
 	    var timeline = this.tweens.timeline({ tweens: tweens });
+	}
+
+	createSceneElements() {
+		this.dog_big = this.add.image(0, GAME_HEIGHT, 'dog_big');
+		this.dog_big.setOrigin(0, 1);
+		this.dog_big.visible = false;
 	}
 
 	getRandomTime() {
@@ -230,6 +239,7 @@ export default class Time_Bedroom extends Time_Base {
 		} else {
 			this.runAlert(DOG_FAILURE_ALERT)
 		}
+		this.dog_big.visible = true;
 	}
 
 	setTimersInput(inputEnabled) {
@@ -260,14 +270,17 @@ export default class Time_Bedroom extends Time_Base {
 
 	dogAlertClicked() {
 		this.stopAlert(DOG_ALERT);
+		this.dog_big.visible = false;
 	}
 
 	dogSuccessAlertClicked() {
 		this.stopAlert(DOG_SUCCESS_ALERT);
+		this.dog_big.visible = false;
 	}
 
 	dogFailureAlertClicked() {
 		this.stopAlert(DOG_FAILURE_ALERT);
+		this.dog_big.visible = false;
 	}
 
 	willBeginSuccessTransition() {
@@ -283,7 +296,6 @@ export default class Time_Bedroom extends Time_Base {
 
 	doSuccessTransition() {
 	}
-
 
 	successAlertClicked() {
 // 		this.kratts_christmas.play();
