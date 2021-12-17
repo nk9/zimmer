@@ -14,8 +14,6 @@ const CAT_RETURN_ALERT = "CAT_RETURN_ALERT";
 const GRATE_ALERT = "GRATE_ALERT";
 const DOOR_BLOCKED_ALERT = "DOOR_BLOCKED_ALERT";
 
-const TOTAL_GEMS = 9;
-
 export default class Main_Hall extends Base_Scene {
 	constructor() {
         super(MAIN_HALL);
@@ -63,6 +61,7 @@ export default class Main_Hall extends Base_Scene {
 		this.createSceneElements();
 
 		this.home.visible = false;
+        this.total_gem_count = Object.keys(this.stored_data.gems).length;
 	}
 
 	createAlerts() {
@@ -232,7 +231,7 @@ export default class Main_Hall extends Base_Scene {
 	}
 
 	clickedDoor(item) {
-		if (this.collected_gems.length < TOTAL_GEMS) {
+		if (this.collected_gems.length < this.total_gem_count) {
 			this.runAlert(DOOR_BLOCKED_ALERT);
 		} else {
 			this.loadCredits();
