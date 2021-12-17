@@ -15,6 +15,7 @@ let INTRO1_ALERT = 'INTRO1_ALERT';
 let DOG_ALERT = 'DOG_ALERT';
 let DOG_SUCCESS_ALERT = 'DOG_SUCCESS_ALERT';
 let DOG_FAILURE_ALERT = 'DOG_FAILURE_ALERT';
+let DOOR_ALERT = 'DOOR_ALERT';
 
 export default class Time_Bedroom extends Time_Base {
 	constructor() {
@@ -92,6 +93,38 @@ export default class Time_Bedroom extends Time_Base {
 		this.dog_big.visible = false;
 	}
 
+	createDoorZone() {
+		let rect = {x: 1100, y: 290, width: 20, height: 30};
+
+		this.door_rect = this.add.rectangle(rect.x, rect.y, rect.width, rect.height, 0x000000, 0.1)
+			.setOrigin(0, 0);
+		this.door_rect.visible = false;
+
+		this.door_zone = this.make.zone(rect)
+			.setOrigin(0,0)
+			.setInteractive({useHandCursor: true})
+			.on('pointerover', () => { this.door_rect.visible = true; })
+			.on('pointerout', () => { this.door_rect.visible = false; })
+			.on('pointerup', pointer => {
+				this.clickDoorZone()
+			});
+		this.input.enableDebug(this.door_zone, 0xff0000);
+	}
+
+	clickDoorZone() {
+		this.door_rect.destroy();
+		this.door_zone.destroy();
+		this.runAlert(DOOR_ALERT);
+		
+		this.tweens.add({
+			targets: this.halt,
+			x: this.halt.width,
+			ease: 'Sine.easeOut',
+			duration: 1500
+		});
+	}
+
+
 	getRandomTime() {
 		return Math.floor(Math.random() * 12*60);
 	}
@@ -147,23 +180,30 @@ export default class Time_Bedroom extends Time_Base {
 			},
 			[DOG_ALERT]: {
 				title: "OMGOMGOMG PPL!!!",
-				content: "Is it time for food???? The clocks in here say different times so I don’t know when I get to eat. I’m hungry!\nSQUIRREL\n\nDid you know that I’m hungry?\nHi! Hello! LOOK AT ME!! Can we go play fetch? Is it time for food?",
+				content: "Hi, I’m Rover. Is it time for food???? The clocks in here say different times so I don’t know when I get to eat. I’m hungry! **SQUIRREL** Did you know that I’m hungry? Hi! Hello! LOOK AT ME!! Can we go play fetch? Is it time for food?",
 				buttonText: "Uh, let me check",
 				buttonAction: this.dogAlertClicked,
 				context: this
 			},
 			[DOG_SUCCESS_ALERT]: {
 				title: "Hey, you fixed the clocks!",
-				content: "Oh, you're my favorite! Thankyouthankyouthankyou! That alarm means it’s time for\n**Munch, munch**\nHuh?\n*Munch*\nYeah, you can leave through the window.",
+				content: "Oh, you're my favorite! Thankyouthankyouthankyou! That alarm means it’s time for **Munch, munch** Huh? *Munch* Yeah, you can leave through the door.",
 				buttonText: "OK, enjoy dinner",
 				buttonAction: this.dogSuccessAlertClicked,
 				context: this
 			},
 			[DOG_FAILURE_ALERT]: {
-				title: "Wait, so what time is dinner?",
-				content: "Cuz I'm hungry, you see. Or we could play fetch? Fetch is good, but I **LOVE** food.\nMmmmm, kibble…\nHey, have you fixed those clocks yet?",
+				title: "Wait, what time is dinner?",
+				content: "Cuz I'm hungry, you see. Or we could play fetch? Fetch is good, but I **LOVE** food. Mmmmm, Fancy Feast is my favorite… Hey, have you fixed those clocks yet?",
 				buttonText: "Working on it!",
 				buttonAction: this.dogFailureAlertClicked,
+				context: this
+			},
+			[DOOR_ALERT]: {
+				title: "You found the door!",
+				content: "Good work, I would never have noticed that. Now let’s get out of here!",
+				buttonText: "Thanks!",
+				buttonAction: this.doorAlertClicked,
 				context: this
 			},
 		};
@@ -276,11 +316,16 @@ export default class Time_Bedroom extends Time_Base {
 	dogSuccessAlertClicked() {
 		this.stopAlert(DOG_SUCCESS_ALERT);
 		this.dog_big.visible = false;
+		this.createDoorZone();
 	}
 
 	dogFailureAlertClicked() {
 		this.stopAlert(DOG_FAILURE_ALERT);
 		this.dog_big.visible = false;
+	}
+
+	doorAlertClicked() {
+		this.stopAlert(DOOR_ALERT);
 	}
 
 	willBeginSuccessTransition() {
