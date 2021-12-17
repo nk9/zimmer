@@ -9,7 +9,8 @@ import { MAIN_HALL, CREDITS,
 import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
 import { UNLOCKED_SCENES, COLLECTED_GEMS } from '../constants/storage';
 
-const CAT_ALERT = "CAT-ALERT";
+const CAT_ALERT = "CAT_ALERT";
+const CAT_RETURN_ALERT = "CAT_RETURN_ALERT";
 const GRATE_ALERT = "GRATE_ALERT";
 const DOOR_BLOCKED_ALERT = "DOOR_BLOCKED_ALERT";
 
@@ -71,6 +72,13 @@ export default class Main_Hall extends Base_Scene {
 				content: "Oh, you startled me! Have you looked in all the boxes yet?",
 				buttonText: "Sorry!",
 				buttonAction: this.clickCatAlert,
+				context: this
+			},
+			[CAT_RETURN_ALERT]: {
+				title: "Why, hello again",
+				content: "I haven't seen you in awhile! A few things have changed since you’ve been gone, have a look around. And if you find Rover, tell him to keep his paws off my Fancy Feast!!",
+				buttonText: "Will do",
+				buttonAction: this.clickCatReturnAlert,
 				context: this
 			},
 			[GRATE_ALERT]: {
@@ -208,7 +216,7 @@ export default class Main_Hall extends Base_Scene {
 	clickedCat(item) {
 		this.sound.play('meow');
 		this.cat_big.visible = true;
-		this.runAlert(CAT_ALERT);
+		this.runAlert(CAT_RETURN_ALERT); // TODO: change back after reveal
 	}
 
 	clickedClock(item) {
@@ -233,6 +241,11 @@ export default class Main_Hall extends Base_Scene {
 
 	clickCatAlert() {
 		this.stopAlert(CAT_ALERT);
+		this.cat_big.visible = false;
+	}
+
+	clickCatReturnAlert() {
+		this.stopAlert(CAT_RETURN_ALERT);
 		this.cat_big.visible = false;
 	}
 
