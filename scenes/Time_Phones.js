@@ -58,8 +58,6 @@ export default class Time_Phones extends Time_Base {
 		let center_x = GAME_WIDTH/2,
 			center_y = GAME_HEIGHT/2;
 
-		this.swirl = this.add.image(690, 300, 'navy_swirl');
-
 		this.background_closed = this.add.image(0, 0, 'dali');
 		this.background_closed.setOrigin(0, 0);
 
@@ -230,7 +228,7 @@ export default class Time_Phones extends Time_Base {
 	haltAlertButtonClicked() {
 		this.stopAlert(HALT_ALERT);
 
-		this.beginSuccessTransition();
+		this.succeed();
 	}
 
 	showCallButton(phoneNum) {

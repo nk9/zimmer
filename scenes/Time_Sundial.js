@@ -63,8 +63,6 @@ export default class Time_Sundial extends Time_Base {
 		let center_x = GAME_WIDTH/2,
 			center_y = GAME_HEIGHT/2;
 
-		this.swirl = this.add.image(690, 300, 'blue_swirl');
-
 		this.background_closed = this.add.image(0, 0, 'clock_field');
 		this.background_closed.setOrigin(0, 0);
 
@@ -323,7 +321,7 @@ export default class Time_Sundial extends Time_Base {
 		// this.house.input.cursor = 'pointer';
 		// this.house.input.on('pointerup', )
 		this.house.setInteractive({useHandCursor: true})
-			.on('pointerup', pointer => { this.beginSuccessTransition() });
+			.on('pointerup', pointer => { this.succeed() });
 	}
 
 	willBeginSuccessTransition() {

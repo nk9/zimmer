@@ -46,20 +46,13 @@ export default class Time_Base extends Base_Scene {
 		this.clocks = [];
 
 		this.createBackground();
-		this.swirl.visible = false;
 		this.background_sound.play();
 
 		this.createItems();
-		// this.createTools();
 		this.createCallToAction();
 		this.createClocks();
 
 		this.portal_sound = this.sound.add('portal');
-	}
-
-	update() {
-		// Swirl rotates visibly on success
-		this.swirl.rotation += 0.01;
 	}
 
 	setClocksInput(handleInput) {

@@ -36,6 +36,9 @@ export default class Time_Bedroom extends Time_Base {
 
  		// Audio
  		this.load.audio('background_phones', this.assets.bedroomFoley.mp3);
+
+ 		// Video
+ 		this.load.video('wormhole', this.assets.wormhole.mp4);
 	}
 
 	create() {
@@ -46,18 +49,30 @@ export default class Time_Bedroom extends Time_Base {
 		this.dogIntroAlertShown = false;
 
 		this.createSceneElements();
+		this.createDoorZone();
 	}
 
 	createBackground() {
-		let center_x = GAME_WIDTH/2,
-			center_y = GAME_HEIGHT/2;
-
-		this.swirl = this.add.image(690, 300, 'navy_swirl');
-
 		this.background_closed = this.add.image(0, 0, 'van_gogh');
 		this.background_closed.setOrigin(0, 0);
 
 		this.background_sound = this.sound.add('background_phones', {volume: .4, loop: true});
+
+		this.createWormhole();
+	}
+
+	createWormhole() {
+        this.transitionFade = this.add.rectangle(0, 0, GAME_WIDTH, GAME_HEIGHT, 0x000000);
+        this.transitionFade.setOrigin(0, 0);
+        this.transitionFade.setDepth(Layers.TRANSITION);
+        this.transitionFade.alpha = 0;
+        this.transitionFade.visible = false;
+
+		this.wormhole = this.add.video(GAME_WIDTH/2, GAME_HEIGHT/2, 'wormhole');
+		this.wormhole.setOrigin(0.5, 0.5);
+        this.wormhole.setDepth(Layers.TRANSITION);
+        this.wormhole.alpha = 0;
+        this.wormhole.visible = false;
 	}
 
 	createCallToAction() {
@@ -326,50 +341,33 @@ export default class Time_Bedroom extends Time_Base {
 
 	doorAlertClicked() {
 		this.stopAlert(DOOR_ALERT);
+		this.succeed();
 	}
 
 	willBeginSuccessTransition() {
-		// this.tweens.add({
-		// 	targets: this.kratts,
-		// 	y: GAME_HEIGHT,
-		// 	ease: 'Sine',
-		// 	duration: 2000,
-		// 	onComplete: () => {this.runAlert(SUCCESS_ALERT);},
-		// 	onCompleteScope: this
-		// });
+		this.wormhole.play(true);
+		super.willBeginSuccessTransition();
 	}
 
 	doSuccessTransition() {
-	}
+		this.portal_sound.play();
+		this.overlay.visible = true;
+		this.wormhole.visible = true;
+		this.transitionFade.visible = true;
 
-	successAlertClicked() {
-// 		this.kratts_christmas.play();
-// 		this.stopAlert(SUCCESS_ALERT);
-// 		this.party.visible = true;
-// 		this.overlay.visible = true;
-// 
-// 	    var timeline = this.tweens.timeline({
-// 	    	tweens: [{
-// 				targets: this.party,
-// 				scale: 1,
-// 				angle: 0,
-// 				duration: 12000,
-// 			},{
-// 	    		targets: this.overlay,
-// 	    		alpha: 1,
-// 	    		duration: 2500,
-// 	    	}]
-// 	    });
-// 
-// 	    this.time.delayedCall(14500, this.startNextScene, [], this);
-	}
+	    this.tweens.timeline({
+	    	tweens: [{
+	    		targets: [this.transitionFade, this.wormhole],
+	    		duration: 2000,
+	    		alpha: 1
+	    	},{
+	    		targets: this.overlay,
+	    		duration: 3000,
+	    		alpha: 1,
+	    		delay: 3000
+	    	}]
+	    });
 
-	fail() {
-		this.runAlert(FAIL_ALERT);
-	}
-
-	failAlertClicked() {
-		this.stopAlert(FAIL_ALERT);
-		this.beginFailureTransition();
+	    this.time.delayedCall(7000, this.startNextScene, [], this);
 	}
 }
