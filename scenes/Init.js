@@ -1,5 +1,5 @@
 import { Scene } from 'phaser';
-import { INIT, MAIN_HALL, CREDITS,
+import { INIT, MAIN_HALL, SCENE_DIRECTORY, CREDITS,
         NUMBERS_FIRST, NUMBERS_SECOND, NUMBERS_10, NUMBERS_9, NUMBERS_BOSS,
         ANIMALS_OCEAN,ANIMALS_CAVE, ANIMALS_FOREST,
         PLANTS_FLOWERS, PLANTS_LEAVES, PLANTS_MUSHROOMS,
@@ -160,7 +160,15 @@ export default class Init extends Scene {
     }
 
     onLoadComplete(loader) {
-        this.scene.start(MAIN_HALL);
+        // Set default name, or override if a new one is provided in the query string
+        const params = new URLSearchParams(window.location.search)
+
+        if (params.has('debug')) {
+            this.scene.start(SCENE_DIRECTORY);
+        } else {
+            this.scene.start(MAIN_HALL);
+        }
+
         this.scene.shutdown();
     }
 

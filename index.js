@@ -5,6 +5,7 @@ import JSONStorage from './components/json_storage';
 import Init from './scenes/Init';
 import Main_Hall from './scenes/Main_Hall';
 import Credits from './scenes/Credits';
+import Scene_Directory from './scenes/Scene_Directory';
 
 // Numbers
 import Numbers_First from './scenes/Numbers_First';
@@ -45,7 +46,11 @@ const config = {
 	// 	width: GAME_WIDTH,
 	// 	height: GAME_HEIGHT
 	// },
-	scene: [Init, Main_Hall, Credits,
+	scene: [Init, Credits,
+
+			// Starting points
+			Main_Hall,
+			Scene_Directory,
 
 			// Numbers
 			Numbers_First,

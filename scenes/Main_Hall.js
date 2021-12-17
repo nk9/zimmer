@@ -1,3 +1,5 @@
+import log from 'loglevel';
+
 import Base_Scene, { SceneProgress, Layers } from './Base_Scene';
 import { MAIN_HALL, CREDITS,
 		 NUMBERS_10, NUMBERS_9, NUMBERS_FIRST, NUMBERS_SECOND,
@@ -19,7 +21,7 @@ export default class Main_Hall extends Base_Scene {
 	}
 
 	init() {
-		this.levels = [];
+		this.levels = {};
 	}
 
 	storeLastScene() {
@@ -53,18 +55,11 @@ export default class Main_Hall extends Base_Scene {
 	create() {
 		super.create();
 
-		// Debug or full main hall experience
-		let debug = true;
-
-		if (debug) {
-			this.createBareBones();
-		} else {
-			this.createBackground();
-			this.createItems();
-			this.createMap();
-			this.createGemBoard();
-			this.createSceneElements();
-		}
+		this.createBackground();
+		this.createItems();
+		this.createMap();
+		this.createGemBoard();
+		this.createSceneElements();
 
 		this.home.visible = false;
 	}
@@ -113,7 +108,7 @@ export default class Main_Hall extends Base_Scene {
 		// Exclude levels that aren't unlocked
 		let unlocked_scenes = this.fetch(UNLOCKED_SCENES);
 
-		for (const level of this.levels) {
+		for (const level of Object.values(this.levels)) {
 			if (!unlocked_scenes.includes(level.info.level_key)) {
 				level.visible = false;
 			}
@@ -128,7 +123,7 @@ export default class Main_Hall extends Base_Scene {
 		// this.map_container.setInteractive();
 		// this.input.enableDebug(this.map_container);
 
-		this.map_container.add([this.map, ...this.levels, close]);
+		this.map_container.add([this.map, ...Object.values(this.levels), close]);
 		this.map_container.visible = false;
 	}
 
@@ -165,12 +160,12 @@ export default class Main_Hall extends Base_Scene {
 	}
 
 	clickedLevel(level) {
-		console.log(`clicked ${level.info.level_key}`);
+		log.debug(`clicked ${level.info.level_key}`);
 		this.doSceneTransition(level.info.level_key);
 	}
 
 	clickedItem(item) {
-		console.log(`clicked ${item.name}`);
+		log.debug(`clicked ${item.name}`);
 		
 		switch(item.name) {
 			case 'cat':			this.clickedCat(item); break;
@@ -260,12 +255,12 @@ export default class Main_Hall extends Base_Scene {
 	}
 
 	loadCredits() {
-		console.log("load credits");
+		log.debug("load credits");
 		this.doSceneTransition(CREDITS);
 	}
 
 	setLevelsInput(handleInput) {
-		for (const l of this.levels) {
+		for (const l of Object.values(this.levels)) {
 			l.input.enabled = handleInput;
 		}
 	}
@@ -309,34 +304,5 @@ export default class Main_Hall extends Base_Scene {
 	startScene(key) {
 		this.scene.start(key);
 		this.scene.shutdown();
-	}
-
-	////
-	// Bare bones version
-	////
-
-	createBareBones() {
-		this.addButton(100, 100, 'Lego First', NUMBERS_FIRST);
-		this.addButton(100, 120, 'Lego Second', NUMBERS_SECOND);
-		this.addButton(100, 140, 'Lego 10', NUMBERS_10);
-		this.addButton(100, 160, 'Lego 9', NUMBERS_9);
-
-		this.addButton(250, 100, 'Animals Ocean', ANIMALS_OCEAN);
-		this.addButton(250, 120, 'Animals Forest', ANIMALS_FOREST);
-		this.addButton(250, 140, 'Animals Cave', ANIMALS_CAVE);
-
-		this.addButton(450, 100, 'Plants Flowers', PLANTS_FLOWERS);
-		this.addButton(450, 120, 'Plants Leaves', PLANTS_LEAVES);
-		this.addButton(450, 140, 'Plants Mushrooms', PLANTS_MUSHROOMS);
-
-		this.addButton(650, 100, 'Time Phones',  TIME_PHONES);
-		this.addButton(650, 120, 'Time Sundial', TIME_SUNDIAL);
-		this.addButton(650, 140, 'Time Bedroom', TIME_BEDROOM);
-	}
-
-	addButton(x, y, title, key) {
-		this.add.text(x, y, title)
-			.setInteractive({useHandCursor: true})
-			.on('pointerup', pointer => { this.startScene(key) });
 	}
 }

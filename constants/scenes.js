@@ -1,6 +1,7 @@
 export const INIT = 'Init';
 
 export const MAIN_HALL = 'Main_Hall';
+export const SCENE_DIRECTORY = 'Scene_Directory';
 export const CREDITS = 'Credits';
 
 // Numbers
