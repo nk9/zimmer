@@ -1101,6 +1101,37 @@
         "scale": 0.7,
         "x": 525,
         "y": 500
+      },
+      "flower": {
+        "scale": 1,
+        "x": 134,
+        "y": 183,
+        "alert": {
+          "title": "Hmmm...",
+          "content": "Nice decoration! I wonder what kind of flower this is.",
+          "button_title": "..."
+        }
+      },
+      "bauble": {
+        "scale": 1,
+        "x": 628,
+        "y": 30,
+        "gem": "yellow",
+        "alert": {
+          "title": "Hmmm...",
+          "content": "Something shiny on top of there.",
+          "button_title": "..."
+        }
+      },
+      "crown": {
+        "scale": 1,
+        "x": 1092,
+        "y": 191,
+        "alert": {
+          "title": "Hmmm...",
+          "content": "Looks like little crowns!",
+          "button_title": "..."
+        }
       }
     }
   },
@@ -1152,6 +1183,47 @@
         "scale": 1,
         "x": 636,
         "y": 436
+      },
+      "apple": {
+        "scale": 1,
+        "x": 95,
+        "y": 546,
+        "alert": {
+          "title": "Hmmm...",
+          "content": "Nice decoration! I wonder what kind of flower this is.",
+          "button_title": "..."
+        }
+      },
+      "compass": {
+        "scale": 1,
+        "x": 1100,
+        "y": 600,
+        "alert": {
+          "title": "Hmmm...",
+          "content": "I wonder what this is for?",
+          "button_title": "..."
+        }
+      },
+      "shell": {
+        "scale": 1,
+        "x": 992,
+        "y": 191,
+        "alert": {
+          "title": "Wow!",
+          "content": "What a huge shell!",
+          "button_title": "..."
+        }
+      },
+      "treehollow": {
+        "scale": 1,
+        "x": 139,
+        "y": 70,
+        "gem": "yellow",
+        "alert": {
+          "title": "Hmmm...",
+          "content": "Something shiny on top of there.",
+          "button_title": "..."
+        }
       }
     }
   },
