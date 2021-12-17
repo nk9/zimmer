@@ -100,23 +100,19 @@ export default class Time_Base extends Base_Scene {
 
 	doSuccessTransition() {
 		this.portal_sound.play();
-		this.swirl.visible = true;
 		this.overlay.visible = true;
 
 	    this.tweens.timeline({
-	    	tweens: [{
-	    		targets: this.background_closed,
-	    		duration: 2000,
-	    		alpha: 0,
-	    	},{
+	    	tweens: [
+	    	{
 	    		targets: this.overlay,
-	    		duration: 2500,
+	    		duration: 3000,
 	    		alpha: 1,
-	    		offset: 7000
+	    		delay: 3000
 	    	}]
 	    });
 
-	    this.time.delayedCall(9500, this.startNextScene, [], this);
+	    this.time.delayedCall(7000, this.startNextScene, [], this);
 	}
 
 	beginFailureTransition() {

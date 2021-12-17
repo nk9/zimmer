@@ -229,6 +229,8 @@ export default class Time_Phones extends Time_Base {
 
 	haltAlertButtonClicked() {
 		this.stopAlert(HALT_ALERT);
+
+		this.beginSuccessTransition();
 	}
 
 	showCallButton(phoneNum) {
@@ -243,7 +245,7 @@ export default class Time_Phones extends Time_Base {
 
 	createLockscreens() {
 		let bday_diff = this.calculateAnswerLockscreen1();
-		let friday_count = this.calculateAnswerLockscreen2();
+		let answer2 = this.calculateAnswerLockscreen2();
 		let answer3 = this.calculateAnswerLockscreen3();
 
 		let lockscreen_alerts = {
@@ -257,10 +259,10 @@ export default class Time_Phones extends Time_Base {
 				context: this
 			},
 			[PHONE2_LOCK]: {
-				title: "How many Fridays are there",
-				content: "in the current year?",
+				title: `How many Fridays are there in ${answer2.year}?`,
+				content: "TGIF!",
 				buttonText: "Cancel",
-				answer: `${friday_count}`,
+				answer: `${answer2.count}`,
 				phoneNum: 2,
 				buttonAction: this.lockscreen2ButtonClicked,
 				context: this
@@ -324,7 +326,7 @@ export default class Time_Phones extends Time_Base {
 		  result.push(current.clone());
 		}
 
-		return result.length;
+		return {year: start.year(), count: result.length};
 	}
 
 	calculateAnswerLockscreen3() {
@@ -370,43 +372,6 @@ export default class Time_Phones extends Time_Base {
 	lockscreenFailure(key) {
 		log.debug(`Failed at ${key}, dismiss scene`)
 		this.stopLockscreen(key);
-	}
-
-	willBeginSuccessTransition() {
-		// this.tweens.add({
-		// 	targets: this.kratts,
-		// 	y: GAME_HEIGHT,
-		// 	ease: 'Sine',
-		// 	duration: 2000,
-		// 	onComplete: () => {this.runAlert(SUCCESS_ALERT);},
-		// 	onCompleteScope: this
-		// });
-	}
-
-	doSuccessTransition() {
-	}
-
-
-	successAlertClicked() {
-// 		this.kratts_christmas.play();
-// 		this.stopAlert(SUCCESS_ALERT);
-// 		this.party.visible = true;
-// 		this.overlay.visible = true;
-// 
-// 	    var timeline = this.tweens.timeline({
-// 	    	tweens: [{
-// 				targets: this.party,
-// 				scale: 1,
-// 				angle: 0,
-// 				duration: 12000,
-// 			},{
-// 	    		targets: this.overlay,
-// 	    		alpha: 1,
-// 	    		duration: 2500,
-// 	    	}]
-// 	    });
-// 
-// 	    this.time.delayedCall(14500, this.startNextScene, [], this);
 	}
 
 	fail() {

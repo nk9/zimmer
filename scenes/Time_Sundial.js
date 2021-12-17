@@ -238,7 +238,6 @@ export default class Time_Sundial extends Time_Base {
 			onComplete: () => { this.items_dict['pedestal'].input.enabled = true; },
 			onCompleteScope: this
 		});
-		this.allClocksMatched();
 	}
 
 	allClocksMatched() {
