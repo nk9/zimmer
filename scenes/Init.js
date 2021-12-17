@@ -21,7 +21,6 @@ export default class Init extends Scene {
         this.progressBar = null;
         this.progressCompleteRect = null;
         this.progressRect = null;
-        this.setupLogging();
     }
 
     preload() {
@@ -165,8 +164,10 @@ export default class Init extends Scene {
 
         if (params.has('debug')) {
             this.scene.start(SCENE_DIRECTORY);
+            log.setLevel('debug');
         } else {
             this.scene.start(MAIN_HALL);
+            log.setLevel('silent');
         }
 
         this.scene.shutdown();
@@ -182,9 +183,5 @@ export default class Init extends Scene {
             .fillRectShape(this.progressCompleteRect)
             .fillStyle(color)
             .fillRectShape(this.progressRect);
-    }
-
-    setupLogging() {
-        log.setLevel('debug'); // Should be "silent" in production
     }
 }
