@@ -1,10 +1,13 @@
 import { Scene } from 'phaser';
-import { INIT, MAIN_HALL, CREDITS,
+import { INIT, MAIN_HALL, SCENE_DIRECTORY, CREDITS,
         NUMBERS_FIRST, NUMBERS_SECOND, NUMBERS_10, NUMBERS_9, NUMBERS_BOSS,
         ANIMALS_OCEAN,ANIMALS_CAVE, ANIMALS_FOREST,
-        PLANTS_FLOWERS, PLANTS_LEAVES, PLANTS_MUSHROOMS } from '../constants/scenes';
-import { UNLOCKED_SCENES, COLLECTED_GEMS, FLAVOR_NAME } from '../constants/storage';
+        PLANTS_FLOWERS, PLANTS_LEAVES, PLANTS_MUSHROOMS,
+        TIME_SUNDIAL, TIME_PHONES, TIME_BEDROOM } from '../constants/scenes';
+import { UNLOCKED_SCENES, COLLECTED_GEMS, FLAVOR_NAME, FLAVOR_BDAY } from '../constants/storage';
 
+import moment from 'moment';
+import log from 'loglevel';
 
 import assets from '../assets/**/*.*';
 import swirlsJpg from '../assets/Init/swirls/*.jpg';
@@ -32,11 +35,13 @@ export default class Init extends Scene {
         this.load.atlas('yellow-bricks', sprites.yellow_bricks.png, sprites.yellow_bricks.json);
         this.load.atlas('link', sprites.link.png, sprites.link.json);
         this.load.atlas('kratts', sprites.kratts.png, sprites.kratts.json);
+        this.load.atlas('halt', sprites.halt.png, sprites.halt.json);
         this.load.audioSprite('hmm', sprites.hmm.json, sprites.hmm.mp3);
         this.load.atlas('gems', sprites.gems.png, sprites.gems.json);
         this.load.atlas('vangelis_boss', sprites.vangelis_boss.png, sprites.vangelis_boss.json);
         this.load.atlas('weapons', sprites.weapons.png, sprites.weapons.json);
         this.load.audioSprite('fireworks', sprites.fireworks.json, sprites.fireworks.mp3);
+        this.load.audioSprite('chimes', sprites.chimes.json, sprites.chimes.mp3);
 
         // Particles
         this.load.image('spark', particles.blue);
@@ -58,9 +63,11 @@ export default class Init extends Scene {
 
         // JSON data
         this.load.json('data', assets.Init.data.data.json);
+        this.load.json('house_path', assets.Init.data.house_path.json);
 
         // Fonts
         this.loadFont('ninjago', assets.Init.fonts.Ninjago.ttf);
+        this.loadFont('digital7', assets.Init.fonts.digital7.ttf);
 
         this.load.on('progress', this.onLoadProgress, this);
         this.load.on('complete', this.onLoadComplete, this);
@@ -90,6 +97,7 @@ export default class Init extends Scene {
                 NUMBERS_FIRST,
                 ANIMALS_OCEAN,
                 PLANTS_FLOWERS,
+                TIME_SUNDIAL,
                 ]);
         }
 
@@ -116,6 +124,26 @@ export default class Init extends Scene {
         } else if (flavor_name === undefined) {
             storage.set(FLAVOR_NAME, 'Bryson');
         }
+
+        var flavor_bday = storage.get(FLAVOR_BDAY);
+        let date_format = "YYYY-MM-DD";
+
+        // Set default birthdate to Christmas 2010
+        if (!flavor_bday) {
+            flavor_bday = '2010-12-25';
+        }
+
+        if (params.has('birthday')) {
+            var bday_str = params.get('birthday');
+            bday_str = bday_str.replace(/(\r\n|\n|\r)/gm, "").substr(0,10).trim(); // Make sure it's not too long, and no newlines
+            let bday = moment(bday_str, date_format);
+
+            if (bday.isValid()) {
+                flavor_bday = bday.format(date_format);
+            }
+        }
+
+        storage.set(FLAVOR_BDAY, flavor_bday);
     }
 
     createProgressBar() {
@@ -131,7 +159,17 @@ export default class Init extends Scene {
     }
 
     onLoadComplete(loader) {
-        this.scene.start(MAIN_HALL);
+        // Set default name, or override if a new one is provided in the query string
+        const params = new URLSearchParams(window.location.search)
+
+        if (params.has('debug')) {
+            this.scene.start(SCENE_DIRECTORY);
+            log.setLevel('debug');
+        } else {
+            this.scene.start(MAIN_HALL);
+            log.setLevel('silent');
+        }
+
         this.scene.shutdown();
     }
 

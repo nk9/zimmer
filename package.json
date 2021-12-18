@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "start": "parcel index.html",
-    "clean": "rm -v dist/*",
+    "clean": "rm -rfv dist/* .parcel-cache",
     "build": "parcel build index.html --public-url ./"
   },
   "keywords": [],
@@ -12,6 +12,8 @@
   "license": "ISC",
   "dependencies": {
     "lodash-es": "^4.17.21",
+    "loglevel": "^1.8.0",
+    "moment": "^2.29.1",
     "phaser": "^3.55.2"
   },
   "resolutions": {

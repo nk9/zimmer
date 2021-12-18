@@ -1,6 +1,7 @@
 export const INIT = 'Init';
 
 export const MAIN_HALL = 'Main_Hall';
+export const SCENE_DIRECTORY = 'Scene_Directory';
 export const CREDITS = 'Credits';
 
 // Numbers
@@ -19,3 +20,8 @@ export const ANIMALS_FOREST = 'Animals_Forest';
 export const PLANTS_FLOWERS = 'Plants_Flowers';
 export const PLANTS_LEAVES = 'Plants_Leaves';
 export const PLANTS_MUSHROOMS = 'Plants_Mushrooms';
+
+// Time
+export const TIME_PHONES = 'Time_Phones';
+export const TIME_SUNDIAL = 'Time_Sundial';
+export const TIME_BEDROOM = 'Time_Bedroom';

@@ -1,0 +1,42 @@
+{
+  "resources": [
+    "chimes.mp3"
+  ],
+  "spritemap": {
+    "1": {
+      "id": "grandfather",
+      "start": 0,
+      "end": 2.0,
+      "length": 2.0,
+      "loop": false
+    },
+    "2": {
+      "id": "bong",
+      "start": 2.0,
+      "end": 4.0,
+      "length": 2.0,
+      "loop": false
+    },
+    "3": {
+      "id": "chime",
+      "start": 4.0,
+      "end": 6.0,
+      "length": 2.0,
+      "loop": false
+    },
+    "4": {
+      "id": "eastern",
+      "start": 6.0,
+      "end": 8.0,
+      "length": 2.0,
+      "loop": false
+    },
+    "tada": {
+      "id": "tada",
+      "start": 8.0,
+      "end": 10.0,
+      "length": 2.0,
+      "loop": false
+    }
+  }
+}

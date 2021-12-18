@@ -1,16 +1,18 @@
+import log from 'loglevel';
+
 import Base_Scene, { SceneProgress, Layers } from './Base_Scene';
 import { MAIN_HALL, CREDITS,
 		 NUMBERS_10, NUMBERS_9, NUMBERS_FIRST, NUMBERS_SECOND,
 		 ANIMALS_OCEAN, ANIMALS_CAVE, ANIMALS_FOREST,
-		 PLANTS_LEAVES, PLANTS_FLOWERS, PLANTS_MUSHROOMS } from '../constants/scenes';
+		 PLANTS_LEAVES, PLANTS_FLOWERS, PLANTS_MUSHROOMS,
+		 TIME_PHONES, TIME_SUNDIAL, TIME_BEDROOM } from '../constants/scenes';
 import { GAME_WIDTH, GAME_HEIGHT } from '../constants/config';
 import { UNLOCKED_SCENES, COLLECTED_GEMS } from '../constants/storage';
 
-const CAT_ALERT = "CAT-ALERT";
+const CAT_ALERT = "CAT_ALERT";
+const CAT_RETURN_ALERT = "CAT_RETURN_ALERT";
 const GRATE_ALERT = "GRATE_ALERT";
 const DOOR_BLOCKED_ALERT = "DOOR_BLOCKED_ALERT";
-
-const TOTAL_GEMS = 9;
 
 export default class Main_Hall extends Base_Scene {
 	constructor() {
@@ -18,7 +20,7 @@ export default class Main_Hall extends Base_Scene {
 	}
 
 	init() {
-		this.levels = [];
+		this.levels = {};
 	}
 
 	storeLastScene() {
@@ -52,7 +54,6 @@ export default class Main_Hall extends Base_Scene {
 	create() {
 		super.create();
 
-		// this.createBareBones();
 		this.createBackground();
 		this.createItems();
 		this.createMap();
@@ -60,6 +61,7 @@ export default class Main_Hall extends Base_Scene {
 		this.createSceneElements();
 
 		this.home.visible = false;
+        this.total_gem_count = Object.keys(this.stored_data.gems).length;
 	}
 
 	createAlerts() {
@@ -69,6 +71,13 @@ export default class Main_Hall extends Base_Scene {
 				content: "Oh, you startled me! Have you looked in all the boxes yet?",
 				buttonText: "Sorry!",
 				buttonAction: this.clickCatAlert,
+				context: this
+			},
+			[CAT_RETURN_ALERT]: {
+				title: "Why, hello again",
+				content: "I haven't seen you in awhile! A few things have changed since you’ve been gone, have a look around. And if you find Rover, tell him to keep his paws off my Fancy Feast!!",
+				buttonText: "Will do",
+				buttonAction: this.clickCatReturnAlert,
 				context: this
 			},
 			[GRATE_ALERT]: {
@@ -106,7 +115,7 @@ export default class Main_Hall extends Base_Scene {
 		// Exclude levels that aren't unlocked
 		let unlocked_scenes = this.fetch(UNLOCKED_SCENES);
 
-		for (const level of this.levels) {
+		for (const level of Object.values(this.levels)) {
 			if (!unlocked_scenes.includes(level.info.level_key)) {
 				level.visible = false;
 			}
@@ -121,7 +130,7 @@ export default class Main_Hall extends Base_Scene {
 		// this.map_container.setInteractive();
 		// this.input.enableDebug(this.map_container);
 
-		this.map_container.add([this.map, ...this.levels, close]);
+		this.map_container.add([this.map, ...Object.values(this.levels), close]);
 		this.map_container.visible = false;
 	}
 
@@ -134,6 +143,8 @@ export default class Main_Hall extends Base_Scene {
 
 		for (const [scene_key, gem_data] of Object.entries(this.stored_data.gems)) {
 			if (this.collected_gems.includes(scene_key)) {
+			//Show all gems
+			// if (1){
 				let gd = gem_data;
 
 				let sprite = this.add.sprite(gd.x, gd.y, 'gems', gd.gem+'_thumb');
@@ -158,15 +169,16 @@ export default class Main_Hall extends Base_Scene {
 	}
 
 	clickedLevel(level) {
-		console.log(`clicked ${level.info.level_key}`);
+		log.debug(`clicked ${level.info.level_key}`);
 		this.doSceneTransition(level.info.level_key);
 	}
 
 	clickedItem(item) {
-		console.log(`clicked ${item.name}`);
+		log.debug(`clicked ${item.name}`);
 		
 		switch(item.name) {
 			case 'cat':			this.clickedCat(item); break;
+			case 'clock':		this.clickedClock(item); break;
 			case 'box':			this.clickedBox(item); break;
 			case 'grate':		this.clickedGrate(item); break;
 			case 'doorblock':	this.clickedDoor(item); break;
@@ -203,7 +215,11 @@ export default class Main_Hall extends Base_Scene {
 	clickedCat(item) {
 		this.sound.play('meow');
 		this.cat_big.visible = true;
-		this.runAlert(CAT_ALERT);
+		this.runAlert(CAT_RETURN_ALERT); // TODO: change back after reveal
+	}
+
+	clickedClock(item) {
+		this.doSceneTransition(TIME_PHONES);
 	}
 
 	clickedGrate(item) {
@@ -215,7 +231,7 @@ export default class Main_Hall extends Base_Scene {
 	}
 
 	clickedDoor(item) {
-		if (this.collected_gems.length < TOTAL_GEMS) {
+		if (this.collected_gems.length < this.total_gem_count) {
 			this.runAlert(DOOR_BLOCKED_ALERT);
 		} else {
 			this.loadCredits();
@@ -224,6 +240,11 @@ export default class Main_Hall extends Base_Scene {
 
 	clickCatAlert() {
 		this.stopAlert(CAT_ALERT);
+		this.cat_big.visible = false;
+	}
+
+	clickCatReturnAlert() {
+		this.stopAlert(CAT_RETURN_ALERT);
 		this.cat_big.visible = false;
 	}
 
@@ -248,12 +269,12 @@ export default class Main_Hall extends Base_Scene {
 	}
 
 	loadCredits() {
-		console.log("load credits");
+		log.debug("load credits");
 		this.doSceneTransition(CREDITS);
 	}
 
 	setLevelsInput(handleInput) {
-		for (const l of this.levels) {
+		for (const l of Object.values(this.levels)) {
 			l.input.enabled = handleInput;
 		}
 	}
@@ -297,32 +318,5 @@ export default class Main_Hall extends Base_Scene {
 	startScene(key) {
 		this.scene.start(key);
 		this.scene.shutdown();
-	}
-
-	////
-	// Bare bones version
-	////
-
-	createBareBones() {
-		this.addButton(100, 100, 'Lego First', NUMBERS_FIRST);
-		this.addButton(100, 120, 'Lego Second', NUMBERS_SECOND);
-		this.addButton(100, 140, 'Lego 10', NUMBERS_10);
-		this.addButton(100, 160, 'Lego 9', NUMBERS_9);
-		this.addButton(100, 180, 'Lego Boss', NUMBERS_BOSS);
-
-
-		this.addButton(250, 100, 'Animals Ocean', ANIMALS_OCEAN);
-		this.addButton(250, 120, 'Animals Forest', ANIMALS_FOREST);
-		this.addButton(250, 140, 'Animals Cave', ANIMALS_CAVE);
-
-		this.addButton(450, 100, 'Plants Flowers', PLANTS_FLOWERS);
-		this.addButton(450, 120, 'Plants Leaves', PLANTS_LEAVES);
-		this.addButton(450, 140, 'Plants Mushrooms', PLANTS_MUSHROOMS);
-	}
-
-	addButton(x, y, title, key) {
-		this.add.text(x, y, title)
-			.setInteractive({useHandCursor: true})
-			.on('pointerup', pointer => { this.startScene(key) });
 	}
 }

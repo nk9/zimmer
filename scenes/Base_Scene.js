@@ -119,8 +119,12 @@ export default class Base_Scene extends Scene {
         return {}
     }
 
+    get items() {
+        return Object.values(this.items_dict);
+    }
+
     createItems() {
-        this.items = this.addImagesFromStoredData('items', this.handleGenericItemClicked);
+        this.items_dict = this.addImagesFromStoredData('items', this.handleGenericItemClicked);
     }
 
     createOverlay() {
@@ -142,7 +146,7 @@ export default class Base_Scene extends Scene {
     }
 
     addImagesFromStoredData(data_name, callback) {
-        var images = [];
+        var images = {};
 
         for (const [key, image_data] of Object.entries(this.stored_data[data_name])) {
             var input_enabled = true;
@@ -160,14 +164,25 @@ export default class Base_Scene extends Scene {
                     let image = this.outlineImage(key, image_data);
                     image.input.enabled = input_enabled;
 
-                    image.on('pointerdown', callback.bind(this, image));
+                    image.on('pointerup', callback.bind(this, image));
                     
-                    images.push(image);
+                    images[key] = image;
                 }
             }
         }
 
         return images;
+    }
+
+    setItemsInput(handleInput) {
+        for (const i of this.items) {
+            if (this.gem.visible && i.info.hasOwnProperty('gem')) {
+                // Never enable input on the gem property if the gem has already been collected
+                i.input.enabled = false;
+            } else {
+                i.input.enabled = handleInput;
+            }
+        }
     }
 
     outlineImage(key, image_data) {
@@ -202,7 +217,6 @@ export default class Base_Scene extends Scene {
 
     handleGenericItemClicked(item) {
         if (item.info.hasOwnProperty('alert')) {
-            // console.log(item.info.alert);
             let alert_data = item.info.alert;
             let data = {
                 title: alert_data.title,
@@ -214,7 +228,9 @@ export default class Base_Scene extends Scene {
 
             this.scene.add(ITEM_ALERT, new Alert(ITEM_ALERT), false, data);
             this.runAlert(ITEM_ALERT);
-        } else {
+        }
+
+        if (typeof this.clickedItem === 'function') {
             this.clickedItem(item);
         }
     }

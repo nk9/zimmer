@@ -1,3 +1,4 @@
+import log from 'loglevel';
 import { random } from 'lodash-es';
 import { Scene } from 'phaser';
 
@@ -14,6 +15,8 @@ export default class Credits extends Scene {
 
     preload() {
         this.load.audio('ending', assets.ending.mp3);
+        this.load.image('costume_box', assets.costumeBox.jpg);
+
         this.load.json('credits', assets.credits.json);
     }
 
@@ -21,6 +24,8 @@ export default class Credits extends Scene {
         this.createAudio();
         this.createScrollingText();
         this.createExplosions();
+
+        this.endReached = false;
     }
 
     createAudio() {
@@ -67,6 +72,10 @@ export default class Credits extends Scene {
         this.creditsTextLeft.setOrigin(0, 0);
         this.creditsTextRight = this.add.text(GAME_WIDTH/2, GAME_HEIGHT, right, contentStyle);
         this.creditsTextRight.setOrigin(0, 0);
+
+        let bounds = this.creditsTextLeft.getBounds();
+        this.costume_box = this.add.image(GAME_WIDTH/2, bounds.bottom+200, 'costume_box');
+        this.costume_box.setOrigin(0.5, 0);
     }
 
     createExplosions() {
@@ -89,23 +98,39 @@ export default class Credits extends Scene {
         }
 
         this.input.on('pointerdown', (pointer) => {
-            const bound = this.doFirework.bind(this, pointer);
+            const bound = this.clickForFirework.bind(this, pointer);
             bound();
         });
     }
 
-    doFirework(pointer) {
+    clickForFirework(pointer) {
+        let scrollY = this.cameras.main.scrollY;
+        let point = new Phaser.Geom.Point(pointer.x, pointer.y + scrollY);
+        this.doFirework(point);
+    }
+
+    doFirework(point) {
         let hmm_num = random(0, 5);
         this.sound.playAudioSprite('fireworks', `${hmm_num}`);
 
         for (const emitter of this.emitters) {
-            let scrollY = this.cameras.main.scrollY;
-            emitter.setPosition(pointer.x,
-                                scrollY + pointer.y);
+            emitter.setPosition(point.x, point.y);
             emitter.start();
         }
 
         this.time.delayedCall(130, this.stopFirework, [], this);
+    }
+
+    costumeBoxExplosion() {
+        let bounds = this.costume_box.getBounds();
+        var particles = this.add.particles('flares');
+
+        particles.createEmitter({
+            frame: ['blue', 'yellow', 'red', 'green'],
+            lifespan: 1000,
+            scale: { start: 0.4, end: 0 },
+            emitZone: { type: 'edge', source: bounds, quantity: 70 }
+        });
     }
 
     stopFirework() {
@@ -115,10 +140,15 @@ export default class Credits extends Scene {
     }
 
     update (time, delta) {
-        let creditsBounds = this.creditsTextRight.getBounds();
+        let creditsBounds = this.costume_box.getBounds();
 
-        if (this.cameras.main.scrollY < creditsBounds.bottom) {
-            this.cameras.main.scrollY += .5;
+        if ((this.cameras.main.scrollY + GAME_HEIGHT/2) < creditsBounds.centerY) {
+            this.cameras.main.scrollY += 1;
+        } else {
+            if (!this.endReached) {
+                this.endReached = true;
+                this.costumeBoxExplosion();
+            }
         }
     }
 }

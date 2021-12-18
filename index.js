@@ -5,6 +5,7 @@ import JSONStorage from './components/json_storage';
 import Init from './scenes/Init';
 import Main_Hall from './scenes/Main_Hall';
 import Credits from './scenes/Credits';
+import Scene_Directory from './scenes/Scene_Directory';
 
 // Numbers
 import Numbers_First from './scenes/Numbers_First';
@@ -24,6 +25,11 @@ import Plants_Leaves from './scenes/Plants_Leaves';
 import Plants_Flowers from './scenes/Plants_Flowers';
 import Plants_Mushrooms from './scenes/Plants_Mushrooms';
 
+// Time
+import Time_Phones from './scenes/Time_Phones';
+import Time_Sundial from './scenes/Time_Sundial';
+import Time_Bedroom from './scenes/Time_Bedroom';
+
 
 const config = {
 	type: Phaser.AUTO,
@@ -40,7 +46,11 @@ const config = {
 	// 	width: GAME_WIDTH,
 	// 	height: GAME_HEIGHT
 	// },
-	scene: [Init, Main_Hall, Credits,
+	scene: [Init, Credits,
+
+			// Starting points
+			Main_Hall,
+			Scene_Directory,
 
 			// Numbers
 			Numbers_First,
@@ -58,6 +68,11 @@ const config = {
 			Plants_Leaves,
 			Plants_Flowers,
 			Plants_Mushrooms,
+
+			// Time
+			Time_Phones,
+			Time_Sundial,
+			Time_Bedroom,
 			],
 	// plugins: {
 	// 	global: [{
