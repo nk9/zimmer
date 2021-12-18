@@ -201,7 +201,7 @@ export default class Time_Bedroom extends Time_Base {
 			},
 			[DOG_SUCCESS_ALERT]: {
 				title: "Hey, you fixed the clocks!",
-				content: "Oh, you're my favorite! Thankyouthankyouthankyou! That alarm means it’s time for **Munch, munch** Huh? *Munch* Yeah, you can leave through the door.",
+				content: "Oh, you're my favorite! Thankyouthankyouthankyou! This means it’s time for **Munch, munch** Huh? *Munch* Yeah, you can leave through one of the windows.",
 				buttonText: "OK, enjoy dinner",
 				buttonAction: this.dogSuccessAlertClicked,
 				context: this
