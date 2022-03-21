@@ -9,7 +9,7 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "lodash-es": "^4.17.21",
     "loglevel": "^1.8.0",
