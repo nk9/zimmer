@@ -275,7 +275,7 @@ export default class Plants_Mushrooms extends Plants_Base {
 			[SUCCESS_ALERT]: {
 				title: "Great work!",
 				content: `This looks delicious! Now let’s get to that party.`,
-				buttonText: "Let's go!",
+				buttonText: "Let’s go!",
 				buttonAction: this.doSuccessTransition,
 				context: this
 			},
